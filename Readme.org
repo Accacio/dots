@@ -1,0 +1,2 @@
+* Mydots
+Repository for my "." files (.bash, .config and etc)
