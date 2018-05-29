@@ -1,0 +1,11 @@
+bind "1" only
+bind "2" split
+bind "3" split -v
+bind "0" remove
+bind 'o' focus
+bind 'b' windowlist -b
+bindkey "^A^[OC" next
+bindkey "^A^[OD" prev
+bind "^f" screen
+bind "^c" quit
+startup_message off
