@@ -139,3 +139,16 @@ color_my_prompt
 # Install Ruby Gems to ~/gems
 export GEM_HOME=$HOME/gems
 export PATH=$HOME/gems/bin:$PATH
+
+# git configs
+git config --global user.email "raccacio@poli.ufrj.br"
+git config --global user.name "Accacio"
+
+alias emc="emacsclient -c"
+
+export ALTERNATE_EDITOR=""
+# $EDITOR should open in terminal
+export EDITOR="emacsclient -t"
+# $VISUAL opens in GUI with non-daemon as alternate
+export VISUAL="emacsclient -c -a emacs"
+
