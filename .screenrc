@@ -8,4 +8,5 @@ bindkey "^A^[OC" next
 bindkey "^A^[OD" prev
 bind "^f" screen
 bind "^c" quit
+mousetrack on
 startup_message off
