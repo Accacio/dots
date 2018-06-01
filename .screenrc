@@ -1,3 +1,4 @@
+escape ^Xx
 bind "1" only
 bind "2" split
 bind "3" split -v
