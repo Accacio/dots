@@ -155,3 +155,4 @@ export VISUAL="emacsclient -c -a emacs"
 # To encrypt
 # openssl aes-256-cbc -e -in file_to_encrypt -out encrypted_file
 alias myproxy='PW=`openssl aes-256-cbc -d -in ~/.pw`; PROXY="http://$PW@$proxyip"; export http_proxy=$PROXY; export https_proxy=$PROXY; export ftp_proxy=$PROXY; git config --global --replace-all http.proxy http://$PW@$proxyip'
+alias cls="printf '\ec'"
