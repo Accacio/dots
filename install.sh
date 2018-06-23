@@ -1,0 +1,2 @@
+stow bash/
+stow tmux/

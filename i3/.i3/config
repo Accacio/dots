@@ -152,14 +152,15 @@ bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-    status_command i3status
-    tray_output primary
-    position top
+# bar {
+    # status_command i3status
+    # tray_output primary
+    # position top
 
-}
-
+# }
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec "xrandr -o inverted"
+exec --no-startup-id "xrandr --output HDMI1 --auto --left-of eDP1"
 exec variety
 exec emacs
 exec --no-startup-id dropbox start
@@ -179,9 +180,26 @@ mode "apps"
 {
 	bindsym $mod+p exec "xclip -selection c -o | xargs -0 mpv --geometry=25%-20+20";mode default
 	bindsym Escape mode "default"
+	bindsym $mod+Enter mode "default"
 	bindsym $mod+v exec "vivaldi"; mode "default"
+	bindsym $mod+e exec "nautilus --no-desktop"; mode "default"
 	
 }
 bindsym $mod+c mode "apps"
-exec "setxkbmap -option caps:ctrl_modifier"
+exec setxkbmap -option ctrl:nocaps
 exec "nm-applet"
+
+
+bindsym $mod+Control+Right workspace next
+bindsym $mod+Control+Left workspace prev
+bindsym $mod+Shift+Control+Right move workspace next;workspace next
+bindsym $mod+Shift+Control+Left  move workspace prev;workspace prev
+
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -c 1 set 'Speaker' 10+ #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -c 1 set 'Speaker' 10- #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id amixer -D pulse sset Master toggle -q # mute sound
+bindsym XF86Calculator exec --no-startup-id galculator
+bindsym XF86Mail exec --no-startup-id thunderbird
+# bindsym XF86AudioPlay exec --no-startup-id rhythmbox
+bindsym XF86HomePage exec --no-startup-id vivaldi
+exec compton

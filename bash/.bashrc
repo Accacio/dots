@@ -4,3 +4,6 @@
 . ~/.bashrc.d/prompt.bash
 . ~/.bashrc.d/variables.bash
 
+# case $- in *i*)
+    # [ -z "$TMUX" ] && exec tmux
+# esac
