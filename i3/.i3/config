@@ -10,7 +10,7 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
-
+set $alt Mod1
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:monospace 8
@@ -33,7 +33,7 @@ floating_modifier $mod
 bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+XF86AudioPrev kill
 
 # start dmenu (a program launcher)
 # bindsym $mod+d exec dmenu_run
@@ -87,7 +87,7 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-bindsym $mod+a focus parent
+# bindsym $mod+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -104,7 +104,7 @@ bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
-# move focused container to workspace0
+# move focused container to workspace0 and change to respective workspace
 bindsym $mod+Shift+1 move container to workspace 1; workspace 1
 bindsym $mod+Shift+2 move container to workspace 2; workspace 2
 bindsym $mod+Shift+3 move container to workspace 3; workspace 3
@@ -159,13 +159,20 @@ bindsym $mod+r mode "resize"
 
 # }
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec "xrandr -o inverted"
+
 exec --no-startup-id "xrandr --output HDMI1 --auto --left-of eDP1"
+
 exec variety
-exec emacs
 exec --no-startup-id dropbox start
+exec --no-startup-id "~/dots/autorotation.sh"
+exec emacs
+exec gnome-terminal
+
+
+
+
 # gaps
- for_window [class="^.*"] border pixel 5
+for_window [class="^.*"] border pixel 5
 
 gaps outer 0
 gaps inner 10
@@ -189,11 +196,10 @@ bindsym $mod+c mode "apps"
 exec setxkbmap -option ctrl:nocaps
 exec "nm-applet"
 
-
-bindsym $mod+Control+Right workspace next
-bindsym $mod+Control+Left workspace prev
-bindsym $mod+Shift+Control+Right move workspace next;workspace next
-bindsym $mod+Shift+Control+Left  move workspace prev;workspace prev
+bindsym $mod+Control+l workspace next
+bindsym $mod+Control+j workspace prev
+bindsym $mod+Shift+Control+l move workspace next;workspace next
+bindsym $mod+Shift+Control+j  move workspace prev;workspace prev
 
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -c 1 set 'Speaker' 10+ #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -c 1 set 'Speaker' 10- #decrease sound volume
@@ -203,3 +209,10 @@ bindsym XF86Mail exec --no-startup-id thunderbird
 # bindsym XF86AudioPlay exec --no-startup-id rhythmbox
 bindsym XF86HomePage exec --no-startup-id vivaldi
 exec compton
+
+# Mouse configs
+exec xinput set-prop 15 'Synaptics Scrolling Distance' -20 -20
+exec xinput set-prop 15 'Synaptics Two-Finger Scrolling' 1 1
+
+# Wacom configs
+exec xinput set-prop 'Wacom Intuos PT S 2 Finger touch' 'Wacom Touch Gesture Parameters' 1, 10, 10
