@@ -77,7 +77,7 @@ bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+# bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
@@ -152,13 +152,13 @@ bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-# bar {
-    # status_command i3status
-    # tray_output primary
-    # position top
+bar {
+    status_command i3status
+    tray_output primary
+    position top
 
-# }
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+}
+# exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 exec --no-startup-id "xrandr --output HDMI1 --auto --left-of eDP1"
 
@@ -167,17 +167,25 @@ exec --no-startup-id dropbox start
 exec --no-startup-id "~/dots/autorotation.sh"
 exec emacs
 exec gnome-terminal
+exec /opt/google/chrome/google-chrome --app=https://web.whatsapp.com/
 
+assign [class="Emacs"] 1
+assign [class="Gnome-terminal"] 2
+assign [class="Vivaldi-stable"] 3
+for_window [class="Google-chrome"] move scratchpad
+assign [class="Nautilus"] 5
 
+bindsym $mod+w scratchpad show
+default_floating_border pixel 0
 
-
+for_window [class="mpv"] sticky enable
 # gaps
 for_window [class="^.*"] border pixel 5
 
-gaps outer 0
-gaps inner 10
-smart_gaps on
-smart_borders on
+# gaps outer 0
+# gaps inner 10
+# smart_gaps on
+# smart_borders on
 
 # nautilus
 # bindsym $mod+x exec "nautilus --no-desktop"
@@ -185,7 +193,7 @@ for_window [class="mpv"] floating enable
 
 mode "apps"
 {
-	bindsym $mod+p exec "xclip -selection c -o | xargs -0 mpv --geometry=25%-20+20";mode default
+	bindsym $mod+p exec "~/dots/see_on_mpv.sh";mode default
 	bindsym Escape mode "default"
 	bindsym $mod+Enter mode "default"
 	bindsym $mod+v exec "vivaldi"; mode "default"
@@ -201,8 +209,8 @@ bindsym $mod+Control+j workspace prev
 bindsym $mod+Shift+Control+l move workspace next;workspace next
 bindsym $mod+Shift+Control+j  move workspace prev;workspace prev
 
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -c 1 set 'Speaker' 10+ #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -c 1 set 'Speaker' 10- #decrease sound volume
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -c 1 set 'Master' 10+ #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -c 1 set 'Master' 10- #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id amixer -D pulse sset Master toggle -q # mute sound
 bindsym XF86Calculator exec --no-startup-id galculator
 bindsym XF86Mail exec --no-startup-id thunderbird

@@ -7,6 +7,8 @@
 # This script should be added to startup applications for the user
 
 # Clear sensor.log so it doesn't get too long over time
+
+touch /tmp/sensor.log
 > /tmp/sensor.log
 
 # Launch monitor-sensor and store the output in a variable that can be parsed by the rest of the script
@@ -15,7 +17,7 @@ monitor-sensor >> /tmp/sensor.log 2>&1 &
 # Parse output or monitor sensor to get the new orientation whenever the log file is updated
 # Possibles are: normal, bottom-up, right-up, left-up
 # Light data will be ignored
-while inotifywait -e modify sensor.log; do
+while inotifywait -e modify /tmp/sensor.log; do
 # Read the last line that was added to the file and get the orientation
 ORIENTATION=$(tail -n 10 /tmp/sensor.log | grep 'orientation' |tail -n 1| grep -oE '[^ ]+$')
 
