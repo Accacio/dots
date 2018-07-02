@@ -154,9 +154,9 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 # bar {
-#     status_command i3status
-#     tray_output primary
-#     position top
+    # status_command i3status
+    # tray_output primary
+    # position top
 
 # }
 exec_always xfce4-panel
@@ -164,7 +164,7 @@ exec_always xfce4-power-manager
 bindsym $mod+x exec "killall ulauncher ; ulauncher"
  # exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
-exec --no-startup-id "xrandr --output HDMI1 --auto --left-of eDP1"
+exec_always --no-startup-id "xrandr --output HDMI1 --auto --right-of eDP1"
 
 exec variety
 exec --no-startup-id dropbox start
@@ -178,12 +178,13 @@ assign [class="Gnome-terminal"] 2
 assign [class="Vivaldi-stable"] 3
 for_window [instance="web.whatsapp.com" class="Google-chrome"] move scratchpad
 assign [class="Nautilus"] 5
+assign [class="Thunderbird"] 4
 
 bindsym $mod+w scratchpad show
 
 # windows 
 for_window [class="^.*"] border pixel 0
-for_window [class="Gnome-terminal"] border pixel 2
+for_window [class="Gnome-terminal"] border pixel 0
 for_window [class="mpv"] sticky enable
 for_window [class="mpv"] border pixel 0
 for_window [class="Ulauncher"] border pixel 0
@@ -225,8 +226,8 @@ bindsym XF86HomePage exec --no-startup-id vivaldi
 exec compton
 
 # Mouse configs
-exec xinput set-prop 15 'Synaptics Scrolling Distance' -20 -20
-exec xinput set-prop 15 'Synaptics Two-Finger Scrolling' 1 1
+exec xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Scrolling Distance' -20 -20
+exec xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Two-Finger Scrolling' 1 1
 
 # Wacom configs
 exec xinput set-prop 'Wacom Intuos PT S 2 Finger touch' 'Wacom Touch Gesture Parameters' 1, 10, 10
