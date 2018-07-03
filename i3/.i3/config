@@ -161,7 +161,7 @@ bindsym $mod+r mode "resize"
 # }
 exec_always xfce4-panel
 exec_always xfce4-power-manager
-bindsym $mod+x exec "killall ulauncher ; ulauncher"
+bindsym $mod+x exec "xfce4-popup-whiskermenu"
  # exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 exec_always --no-startup-id "xrandr --output HDMI1 --auto --right-of eDP1"
@@ -170,11 +170,11 @@ exec variety
 exec --no-startup-id dropbox start
 exec --no-startup-id "~/dots/autorotation.sh"
 exec emacs
-exec gnome-terminal
+exec i3-sensible-terminal
 exec /opt/google/chrome/google-chrome --app=https://web.whatsapp.com/
 
 assign [class="Emacs"] 1
-assign [class="Gnome-terminal"] 2
+assign [class="X-terminal-emulator"] 2
 assign [class="Vivaldi-stable"] 3
 for_window [instance="web.whatsapp.com" class="Google-chrome"] move scratchpad
 assign [class="Nautilus"] 5
@@ -189,7 +189,7 @@ for_window [class="mpv"] sticky enable
 for_window [class="mpv"] border pixel 0
 for_window [class="Ulauncher"] border pixel 0
 for_window [urgent="latest"] border pixel 1
-default_floating_border pixel 0
+# default_floating_border pixel 0
 
 # gaps outer 0
 # gaps inner 10
@@ -228,6 +228,8 @@ exec compton
 # Mouse configs
 exec xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Scrolling Distance' -20 -20
 exec xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Two-Finger Scrolling' 1 1
-
+exec xinput set-prop 'SynPS/2 Synaptics TouchPad' 'Synaptics Scrolling Distance' -200 -20
 # Wacom configs
 exec xinput set-prop 'Wacom Intuos PT S 2 Finger touch' 'Wacom Touch Gesture Parameters' 1, 10, 10
+exec_always feh --bg-fill /usr/share/backgrounds/Backyard_Mushrooms_by_Kurt_Zitzelman.jpg
+exec xfce4-panel -r
