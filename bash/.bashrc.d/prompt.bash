@@ -41,17 +41,29 @@ xterm*|rxvt*)
     ;;
 esac
 
+function get_divider {
+    if [ "$(echo $(hostname))" == "going-mobile" ]
+    then echo 'is'
+    else echo 'is at'
+    fi
+}
 
 function color_my_prompt {
     local __time_and_date='[\d - \t]'
-    local __user_and_host='\[\033[01;32m\]\u'
+    local __user='\[\033[01;32m\]\u'
+    local __divider=$(
+	if [ "$(echo $(hostname))" == "going-mobile" ]
+	then echo 'is'
+	else echo 'is at'
+	fi)
+    local __host='\h'
     local __cur_location="\[\033[01;34m\]\w"
     local __git_branch_color="\[\033[31m\]"
     local __prompt_tail='\[\033[31m\]⇝'
-    local git='$(__git_ps1)' 
+    local __git='$(__git_ps1)'
 
     local __last_color="\[\033[00m\]"
-    PS1="\n$__user_and_host$__last_color⭍ $__cur_location$__last_color⭍$__git_branch_color$git\n$__prompt_tail $__last_color"
+    PS1="\n$__user $__divider $__host$__last_color ⭍ $__cur_location$__last_color⭍$__git_branch_color$__git\n$__prompt_tail $__last_color"
 }
 
 color_my_prompt

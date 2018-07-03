@@ -175,6 +175,7 @@ exec /opt/google/chrome/google-chrome --app=https://web.whatsapp.com/
 
 assign [class="Emacs"] 1
 assign [class="X-terminal-emulator"] 2
+assign [class="Gnome-terminal"] 2
 assign [class="Vivaldi-stable"] 3
 for_window [instance="web.whatsapp.com" class="Google-chrome"] move scratchpad
 assign [class="Nautilus"] 5
@@ -197,6 +198,10 @@ for_window [urgent="latest"] border pixel 1
 # smart_borders on
 
 for_window [class="mpv"] floating enable
+for_window [instance="Msgcompose"] move scratchpad
+# for_window [instance="Msgcompose"] resize set 640 640
+
+
 
 mode "apps"
 {
