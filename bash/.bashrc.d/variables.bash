@@ -4,8 +4,13 @@ export EDITOR='emacsclient -c'
 export GEM_HOME=$HOME/gems
 export PATH=$HOME/gems/bin:$PATH
 
+# Install Cuda
+export PATH=/usr/local/cuda-9.2/bin:$PATH 
+export LD_LIBRARY_PATH=/usr/local/cuda-9.2/lib64:$LD_LIBRARY_PATH
 
-
+#
+# Editors
+#
 export ALTERNATE_EDITOR=""
 # $EDITOR should open in terminal
 export EDITOR="emacsclient -t"
