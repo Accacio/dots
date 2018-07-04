@@ -166,6 +166,9 @@ bindsym $mod+x exec "xfce4-popup-whiskermenu"
 
 exec_always --no-startup-id "xrandr --output HDMI1 --auto --right-of eDP1"
 
+
+# Criar menu rápido para dois+ monitores
+# xrandr --output HDMI1 --mode 1920x1080i --pos 1366x0 --rotate normal --output VIRTUAL1 --off --output eDP1 --primary --mode 1366x768 --pos 0x0 --rotate inverted
 exec variety
 exec --no-startup-id dropbox start
 exec --no-startup-id "~/dots/autorotation.sh"
