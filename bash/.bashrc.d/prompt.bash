@@ -51,7 +51,7 @@ function color_my_prompt {
     local git='$(__git_ps1)' 
 
     local __last_color="\[\033[00m\]"
-    PS1="\n$__user_and_host$__last_color⭍ $__cur_location$__last_color⭍$__git_branch_color$git\n$__prompt_tail $__last_color"
+    PS1="\n$__user_and_host$__last_color ↯ $__cur_location$__last_color↯ $__git_branch_color$git\n$__prompt_tail $__last_color"
 }
 
 color_my_prompt

@@ -15,6 +15,7 @@ alias emc="emacsclient -c"
 
 # To encrypt
 # openssl aes-256-cbc -e -in file_to_encrypt -out encrypted_file
+. ~/.proxy_address
 alias myproxy='PW=`openssl aes-256-cbc -d -in ~/.pw`; PROXY="http://$PW@$proxyip"; export http_proxy=$PROXY; export https_proxy=$PROXY; export ftp_proxy=$PROXY; git config --global --replace-all http.proxy http://$PW@$proxyip'
 alias cls="printf '\ec'"
 # some more ls aliases
@@ -23,6 +24,7 @@ alias la='ls -A'
 alias l='ls -CF'
 alias gitgui='git gui &'
 alias clc='clear'
+alias cls="printf '\ec'"
 alias u='xrandr -o normal'
 alias d='xrandr -o inverted'
 alias lsip='ifconfig | grep "inet addr"'

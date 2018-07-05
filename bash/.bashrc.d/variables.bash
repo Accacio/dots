@@ -4,7 +4,8 @@ export EDITOR='emacsclient -c'
 export GEM_HOME=$HOME/gems
 export PATH=$HOME/gems/bin:$PATH
 
-
+git config --global user.email "raccacio@poli.ufrj.br"
+git config --global user.name "Accacio"
 
 export ALTERNATE_EDITOR=""
 # $EDITOR should open in terminal
@@ -12,6 +13,10 @@ export EDITOR="emacsclient -t"
 # $VISUAL opens in GUI with non-daemon as alternate
 export VISUAL="emacsclient -c -a emacs"
 
+# ROS
+source /opt/ros/indigo/setup.bash
+source /opt/ros/indigo/setup.bash
+source /home/fady/catkin_ws/devel/setup.bash
 
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
