@@ -179,6 +179,9 @@ bindsym Super_R exec "xfce4-popup-whiskermenu"
 
 # exec_always --no-startup-id "xrandr --output HDMI1 --auto --right-of eDP1"
 
+
+# Criar menu rápido para dois+ monitores
+# xrandr --output HDMI1 --mode 1920x1080i --pos 1366x0 --rotate normal --output VIRTUAL1 --off --output eDP1 --primary --mode 1366x768 --pos 0x0 --rotate inverted
 exec variety
 exec --no-startup-id dropbox start
 exec --no-startup-id "~/dots/autorotation.sh"
@@ -188,6 +191,7 @@ exec /opt/google/chrome/google-chrome --app=https://web.whatsapp.com/
 
 assign [class="Emacs"] 1
 assign [class="X-terminal-emulator"] 2
+assign [class="Gnome-terminal"] 2
 assign [class="Vivaldi-stable"] 3
 for_window [instance="web.whatsapp.com" class="Google-chrome"] move scratchpad
 assign [class="Nautilus"] 5
@@ -195,7 +199,9 @@ assign [class="Thunderbird"] 4
 
 bindsym $mod+w scratchpad show
 
+
 # windows
+
 for_window [class="^.*"] border pixel 2
 for_window [class="Gnome-terminal"] border pixel 0
 for_window [class="mpv"] sticky enable
@@ -210,6 +216,10 @@ for_window [urgent="latest"] border pixel 1
 # smart_borders on
 
 for_window [class="mpv"] floating enable
+for_window [instance="Msgcompose"] move scratchpad
+# for_window [instance="Msgcompose"] resize set 640 640
+
+
 
 mode "apps"
 {
@@ -228,6 +238,7 @@ bindsym $mod+Control+j workspace prev
 bindsym $mod+Shift+Control+l move workspace next;workspace next
 bindsym $mod+Shift+Control+j  move workspace prev;workspace prev
 
+bindsym Print exec "gnome-screenshot -i"
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -c 1 set 'Master' 10+ #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -c 1 set 'Master' 10- #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id amixer -D pulse sset Master toggle -q # mute sound
