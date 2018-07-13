@@ -174,6 +174,7 @@ bar {
 exec_always xfce4-panel
 exec_always xfce4-power-manager
 bindsym $mod+x exec "xfce4-popup-whiskermenu"
+bindsym Super_R exec "xfce4-popup-whiskermenu"
  # exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # exec_always --no-startup-id "xrandr --output HDMI1 --auto --right-of eDP1"
@@ -234,6 +235,8 @@ bindsym XF86Calculator exec --no-startup-id galculator
 bindsym XF86Mail exec --no-startup-id thunderbird
 # bindsym XF86AudioPlay exec --no-startup-id rhythmbox
 bindsym XF86HomePage exec --no-startup-id vivaldi
+bindsym XF86PowerOff exec i3lock -i /home/accacio/Dropbox/wallpapers/lock.png -n -d -I 1
+
 exec compton
 
 # Mouse configs
