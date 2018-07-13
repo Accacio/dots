@@ -78,7 +78,7 @@ bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
-# bindsym $mod+w layout tabbed
+bindsym $mod+t layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
@@ -224,6 +224,7 @@ bindsym $mod+Control+j workspace prev
 bindsym $mod+Shift+Control+l move workspace next;workspace next
 bindsym $mod+Shift+Control+j  move workspace prev;workspace prev
 
+bindsym Print exec "gnome-screenshot -i"
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -c 1 set 'Master' 10+ #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -c 1 set 'Master' 10- #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id amixer -D pulse sset Master toggle -q # mute sound
@@ -240,4 +241,3 @@ exec xinput set-prop 'SynPS/2 Synaptics TouchPad' 'Synaptics Scrolling Distance'
 # Wacom configs
 exec xinput set-prop 'Wacom Intuos PT S 2 Finger touch' 'Wacom Touch Gesture Parameters' 1, 10, 10
 exec_always feh --bg-fill /usr/share/backgrounds/Backyard_Mushrooms_by_Kurt_Zitzelman.jpg
-exec xfce4-panel -r
