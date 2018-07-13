@@ -74,7 +74,7 @@ bindsym $mod+h split h
 bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen 
+bindsym $mod+f fullscreen
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
@@ -216,7 +216,6 @@ mode "apps"
         bindsym $mod+Enter mode "default"
         bindsym $mod+v exec "vivaldi"; mode "default"
         bindsym $mod+e exec "nautilus --no-desktop"; mode "default"
-
 }
 bindsym $mod+c mode "apps"
 exec setxkbmap -option caps:ctrl_modifier
