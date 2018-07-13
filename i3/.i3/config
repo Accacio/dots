@@ -211,7 +211,7 @@ for_window [class="mpv"] floating enable
 
 mode "apps"
 {
-        bindsym $mod+p exec "~/dots/see_on_mpv.sh";mode "default"
+        bindsym $mod+p exec "~/dots/scripts/see_on_mpv.sh";mode "default"
         bindsym Escape mode "default"
         bindsym $mod+Enter mode "default"
         bindsym $mod+v exec "vivaldi"; mode "default"
