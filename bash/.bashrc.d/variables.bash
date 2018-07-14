@@ -24,9 +24,12 @@ export EDITOR="emacsclient -t"
 export VISUAL="emacsclient -c -a emacs"
 
 # ROS
-source /opt/ros/indigo/setup.bash
-source /opt/ros/indigo/setup.bash
-source /home/fady/catkin_ws/devel/setup.bash
+if [ -f /opt/ros/indigo/setup.bash ]; then
+      . /opt/ros/indigo/setup.bash
+fi
+if [ -f /home/fady/catkin_ws/devel/setup.bash ]; then
+      . /home/fady/catkin_ws/devel/setup.bash
+fi
 
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'

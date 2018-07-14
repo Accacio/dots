@@ -154,9 +154,9 @@ bindsym $mod+r mode "resize"
 
 mode "multi-monitor" {
 
-     bindsym l exec "xrandr --output DisplayPort-1 --mode 1920x1080 --pos 1920x0 --rotate normal --output DisplayPort-0 --off --output eDP --mode 1920x1080 --pos 0x312 --rotate normal --output DisplayPort-2 --off --output DisplayPort-3 --off;~/dots/scripts/dualscreen_right.sh;feh --bg-fill /usr/share/backgrounds/Backyard_Mushrooms_by_Kurt_Zitzelman.jpg";mode "default"
-     bindsym j exec "xrandr --output DisplayPort-1 --mode 1920x1080 --pos 0x0 --rotate normal --output DisplayPort-0 --off --output eDP --mode 1920x1080 --pos 1920x336 --rotate normal --output DisplayPort-2 --off --output DisplayPort-3 --off;~/dots/scripts/dualscreen_left.sh;feh --bg-fill /usr/share/backgrounds/Backyard_Mushrooms_by_Kurt_Zitzelman.jpg";mode "default"
-     bindsym k exec "xrandr --output DisplayPort-1 --off --output DisplayPort-0 --off --output eDP --mode 1920x1080 --pos 0x0 --rotate normal --output DisplayPort-2 --off --output DisplayPort-3 --off;feh --bg-fill /usr/share/backgrounds/Backyard_Mushrooms_by_Kurt_Zitzelman.jpg";mode "default"
+     bindsym l exec "xrandr --output $(xrandr|grep connected|awk '{print $1}'|head -n 2|tail -n 1) --auto --right-of eDP1;~/dots/scripts/dualscreen_right.sh;feh --bg-fill /usr/share/backgrounds/Backyard_Mushrooms_by_Kurt_Zitzelman.jpg";mode "default"
+     bindsym j exec "xrandr --output $(xrandr|grep connected|awk '{print $1}'|head -n 2|tail -n 1) --auto --left-of eDP1;~/dots/scripts/dualscreen_left.sh;feh --bg-fill /usr/share/backgrounds/Backyard_Mushrooms_by_Kurt_Zitzelman.jpg";mode "default"
+     bindsym k exec "xrandr --output $(xrandr|grep connected|awk '{print $1}'|head -n 2|tail -n 1) --off;feh --bg-fill /usr/share/backgrounds/Backyard_Mushrooms_by_Kurt_Zitzelman.jpg";mode "default"
      bindsym Return mode "default"
      bindsym Escape mode "default"
 }
@@ -184,7 +184,7 @@ bindsym Super_R exec "xfce4-popup-whiskermenu"
 # xrandr --output HDMI1 --mode 1920x1080i --pos 1366x0 --rotate normal --output VIRTUAL1 --off --output eDP1 --primary --mode 1366x768 --pos 0x0 --rotate inverted
 exec variety
 exec --no-startup-id dropbox start
-exec --no-startup-id "~/dots/autorotation.sh"
+exec --no-startup-id "~/dots/scripts/autorotation.sh"
 exec emacs
 exec i3-sensible-terminal
 exec /opt/google/chrome/google-chrome --app=https://web.whatsapp.com/
