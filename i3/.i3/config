@@ -32,6 +32,7 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
+bindsym $alt+Ctrl+t exec i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+q kill
@@ -168,7 +169,7 @@ bindsym $mod+p mode "multi-monitor"
 # finds out, if available)
 bar {
     status_command i3status
-    tray_output primary
+    tray_output none
     position bottom
 }
 exec_always xfce4-panel
@@ -220,7 +221,7 @@ mode "apps"
 }
 bindsym $mod+c mode "apps"
 exec setxkbmap -option caps:ctrl_modifier
-exec "nm-applet"
+exec-always "nm-applet"
 
 bindsym $mod+Control+l workspace next
 bindsym $mod+Control+j workspace prev
@@ -234,6 +235,7 @@ bindsym XF86Calculator exec --no-startup-id galculator
 bindsym XF86Mail exec --no-startup-id thunderbird
 # bindsym XF86AudioPlay exec --no-startup-id rhythmbox
 bindsym XF86HomePage exec --no-startup-id vivaldi
+bindsym XF86Display mode "multi-monitor"
 exec compton
 
 # Mouse configs
@@ -243,3 +245,8 @@ exec xinput set-prop 'SynPS/2 Synaptics TouchPad' 'Synaptics Scrolling Distance'
 # Wacom configs
 exec xinput set-prop 'Wacom Intuos PT S 2 Finger touch' 'Wacom Touch Gesture Parameters' 1, 10, 10
 exec_always feh --bg-fill /usr/share/backgrounds/Backyard_Mushrooms_by_Kurt_Zitzelman.jpg
+
+bindcode --release 105 exec "~/dots/scripts/find_mouse.sh"
+# Screen brightness controls
+bindsym XF86MonBrightnessUp exec 'sudo bash -c "echo 100 > /sys/class/backlight/*/brightness"' # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
