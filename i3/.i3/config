@@ -155,8 +155,8 @@ bindsym $mod+r mode "resize"
 
 mode "multi-monitor" {
 
-     bindsym l exec "xrandr --output DisplayPort-1 --mode 1920x1080 --pos 1920x0 --rotate normal --output DisplayPort-0 --off --output eDP --mode 1920x1080 --pos 0x312 --rotate normal --output DisplayPort-2 --off --output DisplayPort-3 --off;~/dots/scripts/dualscreen_right.sh;feh --bg-fill /usr/share/backgrounds/Backyard_Mushrooms_by_Kurt_Zitzelman.jpg";mode "default"
-     bindsym j exec "xrandr --output DisplayPort-1 --mode 1920x1080 --pos 0x0 --rotate normal --output DisplayPort-0 --off --output eDP --mode 1920x1080 --pos 1920x336 --rotate normal --output DisplayPort-2 --off --output DisplayPort-3 --off;~/dots/scripts/dualscreen_left.sh;feh --bg-fill /usr/share/backgrounds/Backyard_Mushrooms_by_Kurt_Zitzelman.jpg";mode "default"
+     bindsym l exec "xrandr --output DisplayPort-1 --mode 1920x1080 --pos 1920x0 --rotate normal --output DisplayPort-0 --off --output eDP --mode 1920x1080 --pos 0x312 --rotate normal --output DisplayPort-2 --off --output DisplayPort-3 --off;~/dots/scripts/dualScreenRight;feh --bg-fill /usr/share/backgrounds/Backyard_Mushrooms_by_Kurt_Zitzelman.jpg";mode "default"
+     bindsym j exec "xrandr --output DisplayPort-1 --mode 1920x1080 --pos 0x0 --rotate normal --output DisplayPort-0 --off --output eDP --mode 1920x1080 --pos 1920x336 --rotate normal --output DisplayPort-2 --off --output DisplayPort-3 --off;~/dots/scripts/dualScreenLeft;feh --bg-fill /usr/share/backgrounds/Backyard_Mushrooms_by_Kurt_Zitzelman.jpg";mode "default"
      bindsym k exec "xrandr --output DisplayPort-1 --off --output DisplayPort-0 --off --output eDP --mode 1920x1080 --pos 0x0 --rotate normal --output DisplayPort-2 --off --output DisplayPort-3 --off;feh --bg-fill /usr/share/backgrounds/Backyard_Mushrooms_by_Kurt_Zitzelman.jpg";mode "default"
      bindsym Return mode "default"
      bindsym Escape mode "default"
@@ -224,15 +224,24 @@ for_window [instance="Msgcompose"] move scratchpad
 
 mode "apps"
 {
-        bindsym $mod+p exec "~/dots/scripts/see_on_mpv.sh";mode "default"
+        bindsym $mod+p exec "~/dots/scripts/seeOnMpv";mode "default"
         bindsym Escape mode "default"
         bindsym $mod+Enter mode "default"
         bindsym $mod+v exec "vivaldi"; mode "default"
         bindsym $mod+e exec "nautilus --no-desktop"; mode "default"
 }
+
+
+mode "modifier"
+{
+	bindsym s exec move scratchpad
+	bindsym Escape mode "default"
+	
+}
+bindsym $mod+m mode "modifier"
 bindsym $mod+c mode "apps"
 exec setxkbmap -option caps:ctrl_modifier
-exec-always "nm-applet"
+exec "nm-applet &"
 
 bindsym $mod+Control+l workspace next
 bindsym $mod+Control+j workspace prev
@@ -262,7 +271,7 @@ exec xinput set-prop 'SynPS/2 Synaptics TouchPad' 'Synaptics Scrolling Distance'
 exec xinput set-prop 'Wacom Intuos PT S 2 Finger touch' 'Wacom Touch Gesture Parameters' 1, 10, 10
 exec_always feh --bg-fill /usr/share/backgrounds/Backyard_Mushrooms_by_Kurt_Zitzelman.jpg
 
-bindcode --release 105 exec "~/dots/scripts/find_mouse.sh"
+bindcode --release 105 exec "~/dots/scripts/findMouse"
 # Screen brightness controls
 bindsym XF86MonBrightnessUp exec 'sudo bash -c "echo 100 > /sys/class/backlight/*/brightness"' # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
