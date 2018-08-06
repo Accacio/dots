@@ -1,5 +1,7 @@
 #!/bin/bash
 
+$(xrandr| awk '/ connected|+/ {printf "%s ",$1}'|awk '{print "xrandr --output " $3 " --mode " $4 " --pos 1920x0 --output " $1 " --mode " $2 " --pos 0x0"}')
+
 i3-msg "workspace 10, move workspace to output eDP"
 i3-msg "workspace 9, move workspace to output eDP"
 i3-msg "workspace 8, move workspace to output eDP"
@@ -13,5 +15,5 @@ i3-msg "workspace 4, move workspace to output DisplayPort-1"
 i3-msg "workspace 3, move workspace to output DisplayPort-1"
 i3-msg "workspace 2, move workspace to output DisplayPort-1"
 i3-msg "workspace 1, move workspace to output DisplayPort-1"
-
+feh --bg-fill /usr/share/backgrounds/Backyard_Mushrooms_by_Kurt_Zitzelman.jpg
 
