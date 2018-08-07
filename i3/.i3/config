@@ -175,7 +175,8 @@ bar {
 }
 exec_always xfce4-panel
 exec_always xfce4-power-manager
-bindsym $mod+x exec "xfce4-popup-whiskermenu"
+# bindsym $mod+x exec "xfce4-popup-whiskermenu"
+bindsym $mod+x exec "i3-dmenu-desktop"
 bindsym Super_R exec "xfce4-popup-whiskermenu"
  # exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 

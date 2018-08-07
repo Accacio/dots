@@ -1,0 +1,19 @@
+
+** ifconfig up ; iw scan iw connect for wifi
+** stow
+** alsa-base alsa-tools pulse audio
+   sudo adduser yourusername audio    
+** xdotool
+** xinput
+** xserver-xorg-input-synaptics
+** rhythmbox
+** mpv
+** gnome-terminal
+** gnome-screenshot
+** lightdm unity-greeter
+** ubuntu-restricted-extras
+** change /etc/systemd/systemd.conf
+** feh
+** compton
+** Change Emacs.desktop
+Exec=/usr/bin/emacsclient -c
