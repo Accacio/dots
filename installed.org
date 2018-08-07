@@ -4,7 +4,10 @@
 ** alsa-base alsa-tools pulse audio
    sudo adduser yourusername audio    
 ** xdotool
+** xclip
 ** xinput
+** libnotify-bin
+** p7zip-full
 ** xserver-xorg-input-synaptics
 ** rhythmbox
 ** mpv

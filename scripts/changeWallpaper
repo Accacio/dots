@@ -1,0 +1,12 @@
+#!/bin/bash
+
+[ -f "~/wallpapers/lastWallpaper" ] || touch ~/wallpapers/lastWallpaper
+if [ "$(wc -l < ~/wallpapers/lastWallpaper)" -eq 0 ]
+then
+    ls -d  ~/wallpapers/*.* > ~/wallpapers/lastWallpaper
+fi
+# colocar gifs
+feh --bg-fill "$(head -n 1 ~/wallpapers/lastWallpaper)"
+sed -i '1d' lastWallpaper
+
+
