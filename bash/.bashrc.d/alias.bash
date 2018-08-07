@@ -38,4 +38,9 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 
 alias gcd='cd ~/git/ && cd'
-complete -W "$(find ~/git/ -maxdepth 1 -type d -exec basename {} \;)" gcd
+
+# funcion _git_complete {
+#     COMP
+# }
+
+complete -W "$(find ~/git/ -maxdepth 1 -type d -exec basename {} \;|tail -n +2)" gcd
