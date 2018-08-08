@@ -188,7 +188,7 @@ bindsym Super_R exec "xfce4-popup-whiskermenu"
 # xrandr --output HDMI1 --mode 1920x1080i --pos 1366x0 --rotate normal --output VIRTUAL1 --off --output eDP1 --primary --mode 1366x768 --pos 0x0 --rotate inverted
 exec variety
 exec --no-startup-id dropbox start
-exec --no-startup-id "~/dots/scripts/autorotation.sh"
+exec --no-startup-id "~/dots/scripts/autoRotation"
 exec "emacs --daemon"
 exec "emacsclient -c"
 exec i3-sensible-terminal
@@ -262,7 +262,7 @@ bindsym XF86HomePage exec --no-startup-id vivaldi
 
 bindsym XF86Display mode "multi-monitor"
 
-bindsym XF86PowerOff exec i3lock -i /home/accacio/Dropbox/wallpapers/lock.png -n -d -I 1
+bindsym XF86PowerOff exec i3lock -i /home/accacio/wallpapers/lock -n -d -I 1
 
 exec compton
 
@@ -272,7 +272,7 @@ exec xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Two-Finger Scrol
 exec xinput set-prop 'SynPS/2 Synaptics TouchPad' 'Synaptics Scrolling Distance' -200 -20
 # Wacom configs
 exec xinput set-prop 'Wacom Intuos PT S 2 Finger touch' 'Wacom Touch Gesture Parameters' 1, 10, 10
-exec_always feh --bg-fill /usr/share/backgrounds/Backyard_Mushrooms_by_Kurt_Zitzelman.jpg
+exec_always "~/dots/scripts/changeWallpaper"
 
 bindcode --release 105 exec "~/dots/scripts/findMouse"
 # Screen brightness controls

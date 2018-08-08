@@ -1,12 +1,48 @@
 #!/bin/bash
 
-[ -f "~/wallpapers/lastWallpaper" ] || touch ~/wallpapers/lastWallpaper
-if [ "$(wc -l < ~/wallpapers/lastWallpaper)" -eq 0 ]
-then
-    ls -d  ~/wallpapers/*.* > ~/wallpapers/lastWallpaper
+int_handler()
+{
+    killall -s 5 gifWallpaper 
+    exit 1
+}
+trap 'int_handler' INT
+
+
+
+if [ $# -eq 0 ]
+  then
+      [ -f "~/wallpapers/lastWallpaper" ] || touch ~/wallpapers/lastWallpaper
+      if [ "$(wc -l < ~/wallpapers/lastWallpaper)" -eq 0 ]
+      then
+	  ls -d  ~/wallpapers/*.* > ~/wallpapers/lastWallpaper
+      fi
+      # colocar gifs
+      currentWallpaper=$(head -n 1 ~/wallpapers/lastWallpaper)
+      if [[ $currentWallpaper  == *.gif ]]
+      then
+	  gifWallpaper $currentWallpaper & sleep 10; kill -s 5 $!
+      else
+      feh --bg-fill "$(head -n 1 ~/wallpapers/lastWallpaper)"
+      fi
+      sed -i '1d' ~/wallpapers/lastWallpaper
+else
+    if [ -f "$1" ]
+    then
+
+    
+	if [[ $1  == *.gif ]]
+	then
+	    gifWallpaper $1 & sleep 10; kill -s 5 $!
+	else
+	    feh --bg-fill $1
+	fi
+    else
+	echo "Error: File Not Found"
+	exit 1
+    fi
 fi
-# colocar gifs
-feh --bg-fill "$(head -n 1 ~/wallpapers/lastWallpaper)"
-sed -i '1d' lastWallpaper
+
+
+
 
 

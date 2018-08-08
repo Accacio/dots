@@ -7,6 +7,7 @@
 ** xclip
 ** xinput
 ** libnotify-bin
+** inotify-tools
 ** p7zip-full
 ** xserver-xorg-input-synaptics
 ** rhythmbox
@@ -20,3 +21,4 @@
 ** compton
 ** Change Emacs.desktop
 Exec=/usr/bin/emacsclient -c
+** imagemagick
