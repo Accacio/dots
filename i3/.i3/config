@@ -154,9 +154,11 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 mode "multi-monitor" {
+
      bindsym l exec "~/dots/scripts/dualScreenRight";mode "default"
      bindsym j exec "~/dots/scripts/dualScreenLeft";mode "default"
      bindsym k exec "xrandr -x --output eDP --mode 1920x1080 --pos 0x0;feh --bg-fill /usr/share/backgrounds/Backyard_Mushrooms_by_Kurt_Zitzelman.jpg";mode "default"
+
      bindsym Return mode "default"
      bindsym Escape mode "default"
 }
