@@ -9,6 +9,7 @@ then
 
     /usr/bin/notify-send -t 10000 "Battery Low ($batLevel %), plug in A.C. Adapter"
 fi
-
+echo $batLevel
+echo $batState
 
 
