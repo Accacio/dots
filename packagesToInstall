@@ -1,0 +1,28 @@
+
+** alsa-base alsa-tools pulseaudio
+** compton
+** dialog
+** emacs
+** feh
+** gnome-screenshot
+** gnome-terminal
+** i3
+** imagemagick
+** inotify-tools
+** jekyll
+** libnotify-bin
+** lightdm unity-greeter
+** mpv
+** neomutt
+** offlineimap
+** p7zip-full
+** rhythmbox
+** stow
+** texlive-full
+** ubuntu-restricted-extras
+** xclip
+** xdotool
+** xinput
+** xserver-xorg-input-kbd
+** xserver-xorg-input-synaptics
+

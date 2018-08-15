@@ -276,5 +276,5 @@ exec_always "~/dots/scripts/changeWallpaper"
 
 bindcode --release 105 exec "~/dots/scripts/findMouse"
 # Screen brightness controls
-bindsym XF86MonBrightnessUp exec 'sudo bash -c "echo 100 > /sys/class/backlight/*/brightness"' # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+bindsym XF86MonBrightnessUP exec xbacklight + 20 # decrease screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight - 20 # decrease screen brightness

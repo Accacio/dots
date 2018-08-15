@@ -1,0 +1,1 @@
+sudo apt-get install $(awk 'BEGIN { ORS=" " }; {print $2}' ~/dots/packagesToInstall.org)
