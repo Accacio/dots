@@ -1,24 +1,30 @@
 
-** ifconfig up ; iw scan iw connect for wifi
-** stow
-** alsa-base alsa-tools pulse audio
-   sudo adduser yourusername audio    
-** xdotool
-** xclip
-** xinput
-** libnotify-bin
-** inotify-tools
-** p7zip-full
-** xserver-xorg-input-synaptics
-** rhythmbox
-** mpv
-** gnome-terminal
-** gnome-screenshot
-** lightdm unity-greeter
-** ubuntu-restricted-extras
+
+** alsa-base alsa-tools pulseaudio
 ** change /etc/systemd/systemd.conf
-** feh
 ** compton
-** Change Emacs.desktop
-Exec=/usr/bin/emacsclient -c
+** dialog
+** emacs
+** feh
+** gnome-screenshot
+** gnome-terminal
+** i3
 ** imagemagick
+** inotify-tools
+** jekyll
+** libnotify-bin
+** lightdm unity-greeter
+** mpv
+** neomutt
+** offlineimap
+** p7zip-full
+** rhythmbox
+** stow
+** texlive-full
+** ubuntu-restricted-extras
+** xclip
+** xdotool
+** xinput
+** xserver-xorg-input-kbd
+** xserver-xorg-input-synaptics
+

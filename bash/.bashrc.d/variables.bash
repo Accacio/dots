@@ -23,7 +23,7 @@ export PATH="/home/accacio/dots/scripts:$PATH"
 
 export ALTERNATE_EDITOR=""
 # $EDITOR should open in terminal
-export EDITOR="emacsclient -t"
+export EDITOR="emacsclient -c"
 # $VISUAL opens in GUI with non-daemon as alternate
 export VISUAL="emacsclient -c -a emacs"
 

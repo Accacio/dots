@@ -157,8 +157,8 @@ bindsym $mod+r mode "resize"
 
 mode "multi-monitor" {
 
-     bindsym l exec "xrandr --output DisplayPort-1 --mode 1920x1080 --pos 1920x0 --rotate normal --output DisplayPort-0 --off --output eDP --mode 1920x1080 --pos 0x312 --rotate normal --output DisplayPort-2 --off --output DisplayPort-3 --off;~/dots/scripts/dualScreenRight;feh --bg-fill /usr/share/backgrounds/Backyard_Mushrooms_by_Kurt_Zitzelman.jpg";mode "default"
-     bindsym j exec "xrandr --output DisplayPort-1 --mode 1920x1080 --pos 0x0 --rotate normal --output DisplayPort-0 --off --output eDP --mode 1920x1080 --pos 1920x336 --rotate normal --output DisplayPort-2 --off --output DisplayPort-3 --off;~/dots/scripts/dualScreenLeft;feh --bg-fill /usr/share/backgrounds/Backyard_Mushrooms_by_Kurt_Zitzelman.jpg";mode "default"
+     bindsym l exec "~/dots/scripts/dualScreenRight;feh --bg-fill /usr/share/backgrounds/Backyard_Mushrooms_by_Kurt_Zitzelman.jpg";mode "default"
+     bindsym j exec "~/dots/scripts/dualScreenLeft;feh --bg-fill /usr/share/backgrounds/Backyard_Mushrooms_by_Kurt_Zitzelman.jpg";mode "default"
      bindsym k exec "xrandr --output DisplayPort-1 --off --output DisplayPort-0 --off --output eDP --mode 1920x1080 --pos 0x0 --rotate normal --output DisplayPort-2 --off --output DisplayPort-3 --off;feh --bg-fill /usr/share/backgrounds/Backyard_Mushrooms_by_Kurt_Zitzelman.jpg";mode "default"
      bindsym Return mode "default"
      bindsym Escape mode "default"
