@@ -24,9 +24,14 @@ ORIENTATION=$(tail -n 10 /tmp/sensor.log | grep 'orientation' |tail -n 1| grep -
 # Set the actions to be taken for each possible orientation
 case "$ORIENTATION" in
 normal)
-xrandr --output eDP-1 --rotate normal;;
+    xrandr --output eDP-1 --rotate normal
+xinput set-prop "ELAN Touchscreen" --type=float "Coordinate Transformation Matrix" 0.415703 0 0 0 0.711111 0 0 0 1;;
+
 bottom-up)
-xrandr --output eDP-1 --rotate inverted;;
+    xrandr --output eDP-1 --rotate inverted
+xinput set-prop "ELAN Touchscreen" --type=float "Coordinate Transformation Matrix" -0.415703 0 1 0 -0.711111 1 0 0 1
+xinput map-to-output "ELAN Touchscreen" eDP-1;;
+
 right-up)
 xrandr --output eDP-1 --rotate right;;
 left-up)
