@@ -18,23 +18,22 @@ monitor-sensor >> /tmp/sensor.log 2>&1 &
 # Possibles are: normal, bottom-up, right-up, left-up
 # Light data will be ignored
 while inotifywait -e modify /tmp/sensor.log; do
-# Read the last line that was added to the file and get the orientation
-ORIENTATION=$(tail -n 10 /tmp/sensor.log | grep 'orientation' |tail -n 1| grep -oE '[^ ]+$')
+    # Read the last line that was added to the file and get the orientation
+    ORIENTATION=$(tail -n 10 /tmp/sensor.log | grep 'orientation' |tail -n 1| grep -oE '[^ ]+$')
 
-# Set the actions to be taken for each possible orientation
-case "$ORIENTATION" in
-normal)
-    xrandr --output eDP-1 --rotate normal
-xinput set-prop "ELAN Touchscreen" --type=float "Coordinate Transformation Matrix" 0.415703 0 0 0 0.711111 0 0 0 1;;
-
-bottom-up)
-    xrandr --output eDP-1 --rotate inverted
-xinput set-prop "ELAN Touchscreen" --type=float "Coordinate Transformation Matrix" -0.415703 0 1 0 -0.711111 1 0 0 1
-xinput map-to-output "ELAN Touchscreen" eDP-1;;
-
-right-up)
-xrandr --output eDP-1 --rotate right;;
-left-up)
-xrandr --output eDP-1 --rotate left;;
-esac
+    # Set the actions to be taken for each possible orientation
+    case "$ORIENTATION" in
+	normal)
+	    xrandr --output eDP-1 --rotate normal
+	    xinput map-to-output "ELAN Touchscreen" eDP-1;;
+	bottom-up)
+	    xrandr --output eDP-1 --rotate inverted
+	    xinput map-to-output "ELAN Touchscreen" eDP-1;;
+	right-up)
+	    xrandr --output eDP-1 --rotate right
+	    xinput map-to-output "ELAN Touchscreen" eDP-1;;
+	left-up)
+	    xrandr --output eDP-1 --rotate left
+	    xinput map-to-output "ELAN Touchscreen" eDP-1;;
+    esac
 done

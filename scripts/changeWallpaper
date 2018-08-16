@@ -1,5 +1,5 @@
 #!/bin/bash
-
+export DISPLAY=:0.0
 int_handler()
 {
     killall -s 5 gifWallpaper 

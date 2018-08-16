@@ -1,4 +1,3 @@
-
 ** alsa-base alsa-tools pulseaudio
 ** compton
 ** dialog
@@ -15,6 +14,7 @@
 ** mpv
 ** neomutt
 ** offlineimap
+** okular
 ** p7zip-full
 ** rhythmbox
 ** stow
@@ -25,4 +25,3 @@
 ** xinput
 ** xserver-xorg-input-kbd
 ** xserver-xorg-input-synaptics
-

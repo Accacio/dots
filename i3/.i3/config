@@ -157,9 +157,9 @@ bindsym $mod+r mode "resize"
 
 mode "multi-monitor" {
 
-     bindsym l exec "~/dots/scripts/dualScreenRight;feh --bg-fill /usr/share/backgrounds/Backyard_Mushrooms_by_Kurt_Zitzelman.jpg";mode "default"
-     bindsym j exec "~/dots/scripts/dualScreenLeft;feh --bg-fill /usr/share/backgrounds/Backyard_Mushrooms_by_Kurt_Zitzelman.jpg";mode "default"
-     bindsym k exec "xrandr --output DisplayPort-1 --off --output DisplayPort-0 --off --output eDP --mode 1920x1080 --pos 0x0 --rotate normal --output DisplayPort-2 --off --output DisplayPort-3 --off;feh --bg-fill /usr/share/backgrounds/Backyard_Mushrooms_by_Kurt_Zitzelman.jpg";mode "default"
+     bindsym l exec "~/dots/scripts/dualScreenRight;~/dots/scripts/changeWallpaper";mode "default"
+     bindsym j exec "~/dots/scripts/dualScreenLeft;~/dots/scripts/changeWallpaper";mode "default"
+     bindsym k exec "~/dots/scripts/oneScreen;~/dots/scripts/changeWallpaper";mode "default"
      bindsym Return mode "default"
      bindsym Escape mode "default"
 }
@@ -187,7 +187,7 @@ bindsym Super_R exec "xfce4-popup-whiskermenu"
 # Criar menu rápido para dois+ monitores
 # xrandr --output HDMI1 --mode 1920x1080i --pos 1366x0 --rotate normal --output VIRTUAL1 --off --output eDP1 --primary --mode 1366x768 --pos 0x0 --rotate inverted
 exec variety
-exec --no-startup-id dropbox start
+exec --no-startup-id "~/dots/scripts/dropbox start"
 exec --no-startup-id "~/dots/scripts/autoRotation"
 exec "emacs --daemon"
 exec "emacsclient -c"

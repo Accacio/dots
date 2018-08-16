@@ -28,3 +28,4 @@
 ** xserver-xorg-input-kbd
 ** xserver-xorg-input-synaptics
 
+ln -s ~/Dropbox/wallpapers/ ~/wallpapers
