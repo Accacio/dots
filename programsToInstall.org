@@ -17,6 +17,7 @@
 ** okular
 ** p7zip-full
 ** rhythmbox
+** solaar
 ** stow
 ** texlive-full
 ** ubuntu-restricted-extras

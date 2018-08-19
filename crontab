@@ -7,6 +7,6 @@
 # │ │ │ │ │
 # │ │ │ │ │
 # * * * * *  command to execute
-* * * * * /home/accacio/bin/changeWallpaper
-* * * * * /home/accacio/bin/batteryNotify
+*/5 * * * * /home/accacio/bin/changeWallpaper
+*/5 * * * * /home/accacio/bin/batteryNotify
 
