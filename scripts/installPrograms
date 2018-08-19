@@ -1,1 +1,7 @@
 sudo apt-get install $(awk 'BEGIN { ORS=" " }; {print $2}' ~/dots/programsToInstall.org)
+
+
+
+sudo add-apt-repository ppa:kelleyk/emacs
+sudo apt update
+sudo apt install emacs26
