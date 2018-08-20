@@ -1,12 +1,12 @@
 ** alsa-base
 ** alsa-tools
-** pulseaudio
 ** arandr
 ** aspell-fr
 ** aspell-pt-br
 ** compton
 ** dia
 ** dialog
+** dspdfviewer
 ** feh
 ** gnome-screenshot
 ** gnome-terminal
@@ -26,11 +26,13 @@
 ** okular
 ** p7zip-full
 ** pavucontrol
+** pulseaudio
 ** ranger
 ** rhythmbox
 ** silversearcher-ag
 ** solaar
 ** stow
+** surf
 ** texlive-full
 ** ubuntu-restricted-extras
 ** xclip

@@ -190,13 +190,13 @@ exec --no-startup-id "~/dots/scripts/autoRotation"
 exec "emacs --daemon"
 
 exec i3-sensible-terminal
-exec /opt/google/chrome/google-chrome --app=https://web.whatsapp.com/
+exec surf web.whatsapp.com
 
-assign [class="Emacs"] 1
+# assign [class="Emacs"] 1
 assign [class="X-terminal-emulator"] 2
 assign [class="Gnome-terminal"] 2
 assign [class="Vivaldi-stable"] 3
-for_window [instance="web.whatsapp.com" class="Google-chrome"] move scratchpad
+for_window [title=".*whatsapp.*"] move scratchpad
 assign [class="Nautilus"] 5
 assign [class="Thunderbird"] 4
 
@@ -218,8 +218,8 @@ for_window [urgent="latest"] border pixel 1
 # smart_borders on
 
 for_window [class="mpv"] floating enable
-for_window [instance="Msgcompose"] move scratchpad
-for_window [instance="neomutt"] move scratchpad
+for_window [instance="Msgcompose"] floating enable
+for_window [title="neomutt"] floating enable
 # for_window [instance="Msgcompose"] resize set 640 640
 
 
@@ -241,8 +241,9 @@ mode "modifier"
 }
 bindsym $mod+m mode "modifier"
 bindsym $mod+c mode "apps"
-exec setxkbmap -option caps:ctrl_modifier
-exec setxkbmap -option ctrl:nocaps
+exec_always setxkbmap -option caps:ctrl_modifier
+exec_always setxkbmap -option ctrl:nocaps
+exec_always setxkbmap -option compose:menu
 exec "nm-applet &"
 exec "solaar &"
 
@@ -269,17 +270,43 @@ exec compton
 # Mouse configs
 
 bindsym mouse10 exec "~/dots/scripts/findMouse"
-bindsym button10 move right
 
 
-exec xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Scrolling Distance' -20 -20
-exec xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Two-Finger Scrolling' 1 1
-exec xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Edge Scrolling' 298 0 0 0
+
+exec_always xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Scrolling Distance' -20 -20
+exec_always xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Two-Finger Scrolling' 1 1
+exec_always xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Edge Scrolling'  0 0 0
 
 exec xinput set-prop 'SynPS/2 Synaptics TouchPad' 'Synaptics Scrolling Distance' -200 -20
 # Wacom configs
 exec xinput set-prop 'Wacom Intuos PT S 2 Finger touch' 'Wacom Touch Gesture Parameters' 1, 10, 10
 exec_always "~/dots/scripts/changeWallpaper"
+
+bindsym  --whole-window button10 [class="Vivaldi-stable"] mode "Mouse10"; [class="Vivaldi-stable"] exec "sleep 0.5;xdotool key Escape"
+bindsym  --whole-window button11 [class="Vivaldi-stable"] mode "Mouse11";exec "sleep 0.5;xdotool key Escape"
+
+mode "Mouse10"
+{
+	bindsym Escape mode "default"
+	bindsym --whole-window button10 mode "default"
+	bindsym  --whole-window button6 [class="Vivaldi-stable"]  exec "xdotool key alt+Left;xdotool keyup alt;xdotool keyup Left"
+	bindsym  --whole-window button7 [class="Vivaldi-stable"]  exec "xdotool key alt+Right;xdotool keyup alt;xdotool keyup Right"
+
+}
+
+mode "Mouse11"
+{
+	bindsym Escape mode "default"
+	bindsym --whole-window button11 [class="Vivaldi-stable"] mode "default"
+	bindsym  --whole-window button6 [class="Vivaldi-stable"]  exec "xdotool key ctrl+shift+t;xdotool keyup ctrl; xdotool keyup shift;xdotool keyup t"
+	bindsym  --whole-window button7 [class="Vivaldi-stable"]  exec "xdotool key ctrl+t;xdotool keyup ctrl;xdotool pukeyup t"
+}
+
+
+
+
+# bindsym  --whole-window button6 [class="Vivaldi-stable"]  exec "xdotool key ctrl+shift+Tab;xdotool keyup ctrl;xdotool keyup shift;xdotool keyup Tab"
+# bindsym  --whole-window button7 [class="Vivaldi-stable"]  exec "xdotool key --clearmodifiers ctrl+Tab;xdotool keyup ctrl;xdotool keyup shift"
 
 bindcode --release 105 exec "~/dots/scripts/findMouse"
 # Screen brightness controls
