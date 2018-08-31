@@ -1,0 +1,24 @@
+#!/bin/bash
+export DISPLAY=:0.0
+exec 3>&1;
+mode=$(gdialog --title "Multi-monitor" --menu "Multi-monitor" 15 55 5\
+	       o "One Screen"\
+	       l "Second screen on the Left" \
+	       r "Second screen on the Right" \
+	       \
+	       2>&1 1>&3)
+# mode=$(echo -e "One Screen\nLeft\nRight"|dmenu -sb seagreen -i -p "Multi-monitor")
+case $mode in
+    o)
+	notify-send "Monitor Scheme changed" "One screen"
+	. ~/dots/scripts/oneScreen;~/dots/scripts/changeWallpaper
+	;;
+    l)
+	notify-send "Monitor Scheme changed" "Second screen on the Left"
+	. ~/dots/scripts/dualScreenLeft;~/dots/scripts/changeWallpaper
+	;;
+    r)
+	notify-send "Monitor Scheme changed" "Second screen on the Right"
+	. ~/dots/scripts/dualScreenRight;~/dots/scripts/changeWallpaper
+	;;
+esac
