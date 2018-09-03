@@ -3,6 +3,8 @@
 ** arandr
 ** aspell-fr
 ** aspell-pt-br
+** clang
+** cmake
 ** compton
 ** dia
 ** dialog
@@ -15,6 +17,7 @@
 ** inotify-tools
 ** ispell
 ** jekyll
+** libclang-dev
 ** libnotify-bin
 ** libreoffice-calc
 ** lightdm unity-greeter
