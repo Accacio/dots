@@ -41,5 +41,6 @@
 ** xclip
 ** xdotool
 ** xinput
+** xournal
 ** xserver-xorg-input-kbd
 ** xserver-xorg-input-synaptics

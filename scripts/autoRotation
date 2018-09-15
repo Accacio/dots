@@ -24,16 +24,16 @@ while inotifywait -e modify /tmp/sensor.log; do
     # Set the actions to be taken for each possible orientation
     case "$ORIENTATION" in
 	normal)
-	    xrandr --output eDP-1 --rotate normal
-	    xinput map-to-output "ELAN Touchscreen" eDP-1;;
+	    xrandr --output eDP1 --rotate normal
+	    xinput map-to-output "ELAN Touchscreen" eDP1;;
 	bottom-up)
-	    xrandr --output eDP-1 --rotate inverted
-	    xinput map-to-output "ELAN Touchscreen" eDP-1;;
+	    xrandr --output eDP1 --rotate inverted
+	    xinput map-to-output "ELAN Touchscreen" eDP1;;
 	right-up)
-	    xrandr --output eDP-1 --rotate right
-	    xinput map-to-output "ELAN Touchscreen" eDP-1;;
+	    xrandr --output eDP1 --rotate right
+	    xinput map-to-output "ELAN Touchscreen" eDP1;;
 	left-up)
-	    xrandr --output eDP-1 --rotate left
-	    xinput map-to-output "ELAN Touchscreen" eDP-1;;
+	    xrandr --output eDP1 --rotate left
+	    xinput map-to-output "ELAN Touchscreen" eDP1;;
     esac
 done

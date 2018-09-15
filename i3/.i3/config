@@ -235,6 +235,7 @@ mode "apps"
         bindsym e exec "nautilus --no-desktop"; mode "default"
 	bindsym m exec "gnome-terminal -e  'bash -lc neomutt'"; mode "default"
 	bindsym n exec "gnome-terminal -e  'bash -lc newsboat'"; mode "default"
+	bindsym r exec "gnome-terminal -e  'bash -lc ranger'"; mode "default"
 }
 
 
@@ -318,6 +319,10 @@ mode "Mouse11"
 # bindsym  --whole-window button7 [class="Vivaldi-stable"]  exec "xdotool key --clearmodifiers ctrl+Tab;xdotool keyup ctrl;xdotool keyup shift"
 
 bindcode --release 105 exec "~/dots/scripts/findMouse"
+
 # Screen brightness controls
 bindsym XF86MonBrightnessUP exec xbacklight + 20 # decrease screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight - 20 # decrease screen brightness
+bindsym $mod+shift+h exec "feh ~/dots/keyboard-layout.jpg"
+
+for_window [title="keyboard-layout"] floating enable; resize shrink width 10000px; resize grow width 800px; resize shrink height 10000px; resize grow height 200px;
