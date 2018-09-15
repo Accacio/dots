@@ -243,7 +243,7 @@ mode "turnoff"
 {
 	bindsym s exec "shutdown now"
 	bindsym Escape mode "default"
-	bindsym l exec "xset dpms 1 0 0;i3lock -i /home/accacio/wallpapers/lock.png -n -c 000000;xset dpms 0 0 0";mode "default"
+	bindsym l exec "xset dpms 1 0 0;i3lock -i /home/accacio/wallpapers/lock -n -c 000000;xset dpms 0 0 0";mode "default"
 }
 bindsym $mod+Shift+e mode "turnoff"
 bindsym $mod+o mode "apps"

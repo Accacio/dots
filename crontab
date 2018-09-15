@@ -7,6 +7,7 @@
 # │ │ │ │ │
 # │ │ │ │ │
 # * * * * *  command to execute
-*/5 * * * * /home/accacio/bin/changeWallpaper
-*/5 * * * * /home/accacio/bin/batteryNotify
+*/5 * * * * /home/accacio/dots/scripts/changeWallpaper
+*/5 * * * * /home/accacio/dots/scripts/batteryNotify
+0 0 */4 * * rm -rd /home/accacio/Downloads/lixo/*
 
