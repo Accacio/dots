@@ -1,0 +1,15 @@
+#!/bin/bash
+export DISPLAY=:0.0
+exec 3>&1;
+mode=$(echo -e "Lock\nShutdown\nLogoff"|dmenu -sb seagreen -i -p "Power Menu")
+case $mode in
+    Lock)
+	xset dpms 1 0 0;i3lock -i /home/accacio/wallpapers/lock -n -c 000000;xset dpms 0 0 0
+	;;
+    Shutdown)
+	shutdown now
+	;;
+    Logoff)
+	i3-msg exit
+	;;
+esac

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+pactl list short sink-inputs|while read stream; do
+    streamId=$(echo $stream|cut '-d ' -f1)
+    echo "moving stream $streamId"
+    newSink=$((($(echo $stream|cut '-d ' -f2)+1)%2 ))
+    echo "$newSink"
+    pactl move-sink-input "$streamId" "$newSink"
+done

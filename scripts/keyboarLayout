@@ -1,0 +1,12 @@
+#!/bin/bash
+export DISPLAY=:0.0
+exec 3>&1;
+mode=$(echo -e "Brasil\nFrance"|dmenu -sb seagreen -i -p "Keyboard Layout")
+case $mode in
+    Brasil)
+	setxkbmap br
+	;;
+    France)
+	setxkbmap fr
+	;;
+esac
