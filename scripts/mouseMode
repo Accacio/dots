@@ -1,6 +1,6 @@
 #!/bin/bash
 i3-msg mode "mouse$1"; 
-while [ "$(xinput --query-state "Logitech Wireless Mouse M560"|grep $1|cut -f 2)" == "button[$1]=down" ]
+while [ "$(xinput --query-state "Logitech Wireless Mouse M560"|grep "button\[$1\]"|cut -f 2)" == "button[$1]=down" ]
 do 
 :
 done 

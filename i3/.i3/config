@@ -36,7 +36,7 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $alt+Ctrl+t exec st
 
 # kill focused window
-bindsym $mod+q kill
+bindsym $mod+F4 kill
 
 # Modes
 
@@ -273,7 +273,7 @@ bindsym --whole-window button7 exec "xdotool key ctrl+Tab"
 mode "mouse10"
 {
 	bindsym Escape mode "default"
-	bindsym --whole-window button6 exec "xdotool key ctrl+shift+t";mode "default"
+	bindsym  --whole-window button6 exec "xdotool key ctrl+shift+t";mode "default"
 	bindsym --whole-window button7 exec "xdotool key ctrl+t";mode "default"
 }
 mode "mouse11"
