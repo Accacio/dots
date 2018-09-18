@@ -1,13 +1,15 @@
 # http://i3wm.org/docs/userguide.html for a complete reference!
 
-# reload the configuration file
-bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+
 
 set $mod Mod4
 set $alt Mod1
 focus_follows_mouse yes
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -231,13 +233,13 @@ exec_always setxkbmap -option compose:menu
 bindsym Print exec "gnome-screenshot -i"
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $(pactl list short sink-inputs|head -n 1|cut -f2) +$((65535*5/100 ))
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume $(pactl list short sink-inputs|head -n 1|cut -f2) -$((65535*5/100 ))
-bindsym XF86AudioMute exec --no-startup-id amixer -D pulse sset Master toggle -q # mute sound
+bindsym XF86AudioMute exec pactl set-sink-mute $(pactl list short sink-inputs|head -n 1|cut -f2) toggle  # mute sound
 bindsym XF86Calculator exec --no-startup-id galculator
 bindsym $mod+F1 exec "~/dots/scripts/changeSoundOutput"
 
 # Screen brightness controls
-bindsym XF86MonBrightnessUP exec xbacklight + 20 # decrease screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight - 20 # decrease screen brightness
+# bindsym XF86MonBrightnessUP exec xbacklight + 20 # decrease screen brightness
+# bindsym XF86MonBrightnessDown exec xbacklight - 20 # decrease screen brightness
 
 # bindsym XF86Mail exec --no-startup-id thunderbird
 bindsym XF86Mail exec "gnome-terminal -e  'bash -lc neomutt'"
@@ -245,7 +247,7 @@ bindsym XF86HomePage exec --no-startup-id vivaldi
 bindcode --release 105 exec "~/dots/scripts/findMouse"
 bindsym $mod+shift+h exec "feh ~/dots/layouts/keyboard-layout.jpg"
 bindsym $mod+shift+t exec "feh ~/Dropbox/produtividade/horario/horario-2018_2.jpg"
-bindsym $mod+shift+o exec "~/dots/scripts/rhythmboxChangeMusic"
+bindsym $mod+shift+m exec "~/dots/scripts/rhythmboxChangeMusic"
 
 exec compton
 exec "nm-applet &"
@@ -260,6 +262,26 @@ exec_always xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Scrolling
 exec_always xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Two-Finger Scrolling' 1 1
 exec_always xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Edge Scrolling'  0 0 0
 exec_always xinput set-prop 'SynPS/2 Synaptics TouchPad' 'Synaptics Scrolling Distance' -200 -20
+
+# Modifiers
+bindsym --whole-window button10 exec "~/dots/scripts/mouseMode 10"
+bindsym --whole-window button11 exec "~/dots/scripts/mouseMode 11"
+
+bindsym --whole-window button6 exec "xdotool key ctrl+shift+Tab"
+bindsym --whole-window button7 exec "xdotool key ctrl+Tab"
+
+mode "mouse10"
+{
+	bindsym Escape mode "default"
+	bindsym --whole-window button6 exec "xdotool key ctrl+shift+t";mode "default"
+	bindsym --whole-window button7 exec "xdotool key ctrl+t";mode "default"
+}
+mode "mouse11"
+{
+	bindsym Escape mode "default"
+	bindsym --whole-window button6 exec "xdotool key alt+Left";mode "default"
+	bindsym --whole-window button7 exec "xdotool key alt+Right";mode "default"
+}
 
 # Wacom configs
 exec_always xinput set-prop 'Wacom Intuos PT S 2 Finger touch' 'Wacom Touch Gesture Parameters' 1, 10, 10
