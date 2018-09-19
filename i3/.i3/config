@@ -196,7 +196,7 @@ bar {
 # exec_always xfce4-panel
 # exec_always xfce4-power-manager
 # bindsym $mod+x exec "xfce4-popup-whiskermenu"
-bindsym $mod+x exec "i3-dmenu-desktop"
+bindsym $mod+x exec i3-dmenu-desktop --dmenu="dmenu -b -i"
 # bindsym Super_R exec "xfce4-popup-whiskermenu"
  # exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
@@ -283,6 +283,8 @@ mode "mouse11"
 	bindsym --whole-window button7 exec "xdotool key alt+Right";mode "default"
 }
 
+bindsym --whole-window Ctrl+$alt+button4 exec pactl set-sink-volume $(pactl list short sink-inputs|head -n 1|cut -f2) +$((65535*5/100 ))
+bindsym --whole-window Ctrl+$alt+button5 exec pactl set-sink-volume $(pactl list short sink-inputs|head -n 1|cut -f2) -$((65535*5/100 ))
 # Wacom configs
 exec_always xinput set-prop 'Wacom Intuos PT S 2 Finger touch' 'Wacom Touch Gesture Parameters' 1, 10, 10
 exec_always "~/dots/scripts/changeWallpaper"

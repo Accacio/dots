@@ -11,21 +11,28 @@ trap 'int_handler' INT
 
 if [ $# -eq 0 ]
   then
-      [ -f "~/wallpapers/lastWallpaper" ] || touch ~/wallpapers/lastWallpaper
-      if [ "$(wc -l < ~/wallpapers/lastWallpaper)" -eq 0 ]
+      [ -f "~/wallpapers/listWallpaper" ] || touch ~/wallpapers/listWallpaper
+      if [ "$(wc -l < ~/wallpapers/listWallpaper)" -eq 0 ]
       then
-	  ls -d  ~/wallpapers/*.* > ~/wallpapers/lastWallpaper
+	  ls -d  ~/wallpapers/*.* > ~/wallpapers/listWallpaper
       fi
-      # colocar gifs
-      currentWallpaper=$(head -n 1 ~/wallpapers/lastWallpaper)
+      currentWallpaper=$(head -n 1 ~/wallpapers/listWallpaper)
       if [[ $currentWallpaper  == *.gif ]]
       then
 	  gifWallpaper $currentWallpaper & sleep 10; kill -s 5 $!
       else
-      feh --bg-fill "$(head -n 1 ~/wallpapers/lastWallpaper)"
+      feh --bg-fill "$(head -n 1 ~/wallpapers/listWallpaper)"
       fi
-      sed -i '1d' ~/wallpapers/lastWallpaper
+      echo $currentWallpaper>~/wallpapers/currentWallpaper
+      sed -i '1d' ~/wallpapers/listWallpaper
 else
+    if [ "$1" == "-1"  ]
+    then
+	echo $(head -n 1 ~/wallpapers/currentWallpaper)
+	changeWallpaper $(head -n 1 ~/wallpapers/currentWallpaper)
+	exit 0
+    fi
+
     if [ -f "$1" ]
     then
 
