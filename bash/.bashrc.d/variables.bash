@@ -3,7 +3,7 @@ export EDITOR='emacsclient -c'
 # Install Ruby Gems to ~/gems
 export GEM_HOME=$HOME/gems
 export PATH=$HOME/gems/bin:$PATH
-
+export PRINTER=HP_LaserJet_Pro_MFP_M127fn
 
 git config --global user.email "raccacio@poli.ufrj.br"
 git config --global user.name "Accacio"

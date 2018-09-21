@@ -23,8 +23,10 @@ fi
 alias myproxy='PW=`openssl aes-256-cbc -d -in ~/.pw`; PROXY="http://$PW@$proxyip"; export http_proxy=$PROXY; export https_proxy=$PROXY; export ftp_proxy=$PROXY; git config --global --replace-all http.proxy http://$PW@$proxyip'
 alias cls="printf '\ec'"
 alias l='ls -CF'
+alias l.="ls -d .??*"
 alias ll='ls -lF'
-alias lla='ls -alF'
+alias ll.="ls -ld .??*"
+alias lla='ls -AlF'
 alias la='ls -A'
 alias gitgui='git gui &'
 alias clc='clear'

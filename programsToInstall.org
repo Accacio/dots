@@ -1,3 +1,4 @@
+** texlive-full
 ** alsa-base
 ** alsa-tools
 ** arandr
@@ -11,8 +12,8 @@
 ** dspdfviewer
 ** feh
 ** gnome-screenshot
-** gnome-terminal
 ** i3
+** i3blocks
 ** imagemagick
 ** inotify-tools
 ** ispell
@@ -21,7 +22,10 @@
 ** libnotify-bin
 ** libreoffice-calc
 ** lightdm unity-greeter
+** mpc
+** mpd
 ** mpv
+** ncmpcpp
 ** neomutt
 ** newsboat
 ** obs-studio
@@ -36,7 +40,7 @@
 ** solaar
 ** stow
 ** surf
-** texlive-full
+
 ** ubuntu-restricted-extras
 ** xclip
 ** xdotool
