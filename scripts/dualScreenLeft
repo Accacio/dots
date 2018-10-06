@@ -13,7 +13,7 @@ externX=$4
 externY=$4
 sub(/x.*/,"",externX)
 sub(/.*x/,"",externY)
-print "xrandr --output " internName " --mode " internResol " --pos " externX "x0 --output " externName " --mode " externResol " --pos 0x0"}')
+print "xrandr --output " internName " --mode " internResol " --pos " externX "x0 --output " externName " --primary --mode " externResol " --pos 0x0"}')
 
 intern=$(xrandr|grep connected|awk '{print $1}'|head -n 1|tail -n 1)
 i3-msg "workspace 10, move workspace to output $intern"

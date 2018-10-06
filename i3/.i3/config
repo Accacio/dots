@@ -172,16 +172,16 @@ bindsym $mod+Ctrl+l workspace next;exec "xdotool mousemove --window $(xdotool ge
 bindsym $mod+Ctrl+j workspace prev;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
 
 # move focused container to workspace0 and change to respective workspace
-bindsym $mod+Ctrl+Shift+1 move container to workspace 1; workspace 1;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
-bindsym $mod+Ctrl+Shift+2 move container to workspace 2; workspace 2;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
-bindsym $mod+Ctrl+Shift+3 move container to workspace 3; workspace 3;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
-bindsym $mod+Ctrl+Shift+4 move container to workspace 4; workspace 4;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
-bindsym $mod+Ctrl+Shift+5 move container to workspace 5; workspace 5;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
-bindsym $mod+Ctrl+Shift+6 move container to workspace 6; workspace 6;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
-bindsym $mod+Ctrl+Shift+7 move container to workspace 7; workspace 7;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
-bindsym $mod+Ctrl+Shift+8 move container to workspace 8; workspace 8;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
-bindsym $mod+Ctrl+Shift+9 move container to workspace 9; workspace 9;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
-bindsym $mod+Ctrl+Shift+0 move container to workspace 10; workspace 10;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Shift+1 move container to workspace 1; workspace 1;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Shift+2 move container to workspace 2; workspace 2;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Shift+3 move container to workspace 3; workspace 3;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Shift+4 move container to workspace 4; workspace 4;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Shift+5 move container to workspace 5; workspace 5;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Shift+6 move container to workspace 6; workspace 6;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Shift+7 move container to workspace 7; workspace 7;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Shift+8 move container to workspace 8; workspace 8;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Shift+9 move container to workspace 9; workspace 9;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Shift+0 move container to workspace 10; workspace 10;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
 
 bindsym $mod+Shift+Ctrl+l move workspace next;workspace next;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
 bindsym $mod+Shift+Ctrl+j  move workspace prev;workspace prev;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
@@ -240,9 +240,9 @@ bindsym Print exec "gnome-screenshot -i"
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $(pactl list short sink-inputs|head -n 1|cut -f2) +$((65535*5/100 ))
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume $(pactl list short sink-inputs|head -n 1|cut -f2) -$((65535*5/100 ))
 bindsym XF86AudioMute exec pactl set-sink-mute $(pactl list short sink-inputs|head -n 1|cut -f2) toggle  # mute sound
-bindsym XF86AudioPlay exec mpc toggle
-bindsym XF86AudioPrev exec mpc prev
-bindsym XF86AudioNext exec mpc next
+bindsym XF86AudioPlay exec mpc toggle;exec pkill -SIGRTMIN+11 i3blocks
+bindsym XF86AudioPrev exec mpc prev;exec pkill -SIGRTMIN+11 i3blocks
+bindsym XF86AudioNext exec mpc next;exec pkill -SIGRTMIN+11 i3blocks
 bindsym XF86Calculator exec --no-startup-id galculator
 bindsym $mod+F1 exec "~/dots/scripts/changeSoundOutput"
 
