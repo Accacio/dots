@@ -237,21 +237,22 @@ exec_always setxkbmap -option compose:menu
 
 
 bindsym Print exec "gnome-screenshot -i"
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $(pactl list short sink-inputs|head -n 1|cut -f2) +$((65535*5/100 ))
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume $(pactl list short sink-inputs|head -n 1|cut -f2) -$((65535*5/100 ))
-bindsym XF86AudioMute exec pactl set-sink-mute $(pactl list short sink-inputs|head -n 1|cut -f2) toggle  # mute sound
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $(pactl list short sink-inputs|head -n 1|cut -f2) +$((65535*5/100 ));exec pkill -SIGRTMIN+10 i3blocks
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume $(pactl list short sink-inputs|head -n 1|cut -f2) -$((65535*5/100 ));exec pkill -SIGRTMIN+10 i3blocks
+bindsym XF86AudioMute exec pactl set-sink-mute $(pactl list short sink-inputs|head -n 1|cut -f2) toggle;exec pkill -SIGRTMIN+10 i3blocks
 bindsym XF86AudioPlay exec mpc toggle;exec pkill -SIGRTMIN+11 i3blocks
 bindsym XF86AudioPrev exec mpc prev;exec pkill -SIGRTMIN+11 i3blocks
 bindsym XF86AudioNext exec mpc next;exec pkill -SIGRTMIN+11 i3blocks
 bindsym XF86Calculator exec --no-startup-id galculator
 bindsym $mod+F1 exec "~/dots/scripts/changeSoundOutput"
+# ;exec pkill -SIGRTMIN+10 i3blocks
 
 # Screen brightness controls
 # bindsym XF86MonBrightnessUP exec xbacklight + 20 # decrease screen brightness
 # bindsym XF86MonBrightnessDown exec xbacklight - 20 # decrease screen brightness
 
 # bindsym XF86Mail exec --no-startup-id thunderbird
-bindsym XF86Mail exec "gnome-terminal -e  'bash -lc neomutt'"
+bindsym XF86Mail exec "i3-sensible-terminal -e  bash -l -c neomutt"; mode "default";exec "kill $(pidof feh)"
 bindsym XF86HomePage exec --no-startup-id vivaldi
 bindcode --release 105 exec "~/dots/scripts/findMouse"
 bindsym $mod+shift+h exec "feh ~/dots/layouts/keyboard-layout.jpg"
@@ -294,8 +295,14 @@ mode "mouse11"
 }
 
 
-bindsym --whole-window Ctrl+$alt+button4 exec pactl set-sink-volume $(pactl list short sink-inputs|head -n 1|cut -f2) +$((65535*5/100 ))
-bindsym --whole-window Ctrl+$alt+button5 exec pactl set-sink-volume $(pactl list short sink-inputs|head -n 1|cut -f2) -$((65535*5/100 ))
+bindsym --whole-window Ctrl+$alt+button4 exec pactl set-sink-volume $(pactl list short sink-inputs|head -n 1|cut -f2) +$((65535*5/100 ));exec pkill -SIGRTMIN+10 i3blocks
+bindsym --whole-window Ctrl+$alt+button5 exec pactl set-sink-volume $(pactl list short sink-inputs|head -n 1|cut -f2) -$((65535*5/100 ));exec pkill -SIGRTMIN+10 i3blocks
 # Wacom configs
 exec_always xinput set-prop 'Wacom Intuos PT S 2 Finger touch' 'Wacom Touch Gesture Parameters' 1, 10, 10
+exec_always xinput map-to-output 'Wacom Intuos PT S 2 Pen stylus' HDMI1
+# xsetwacom set "Wacom Intuos PT S 2 Pen stylus" MapToOutput eDP1
+# xsetwacom set "Wacom Intuos PT S 2 Pen stylus" MapToOutput HDMI1
+
+
 exec_always "~/dots/scripts/changeWallpaper"
+

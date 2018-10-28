@@ -22,3 +22,7 @@ case $status  in
 	echo "#999999"
 	;;
 esac
+
+case $BLOCK_BUTTON in
+    1) i3-sensible-terminal -e ncmpcpp;;
+esac

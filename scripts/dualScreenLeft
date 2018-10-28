@@ -1,19 +1,42 @@
 #!/bin/bash
 
-$(xrandr| awk '/ connected|+/ {printf "%s ",$1}'|awk '{
-internName=$1
-internResol=$2
-internX=$2
-internY=$2
-sub(/x.*/,"",internX)
-sub(/.*x/,"",internY)
-externName=$3
-externResol=$4
-externX=$4
-externY=$4
-sub(/x.*/,"",externX)
-sub(/.*x/,"",externY)
-print "xrandr --output " internName " --mode " internResol " --pos " externX "x0 --output " externName " --primary --mode " externResol " --pos 0x0"}')
+
+if [ $# -eq 0 ]
+  then
+      $(xrandr| awk '/ connected|+/ {printf "%s ",$1}'|awk '{
+      internName=$1
+      internResol=$2
+      internX=$2
+      internY=$2
+      sub(/x.*/,"",internX)
+      sub(/.*x/,"",internY)
+      externName=$3
+      externResol=$4
+      externX=$4
+      externY=$4
+      sub(/x.*/,"",externX)
+      sub(/.*x/,"",externY)
+      print "xrandr --output " internName " --mode " internResol " --pos " externX "x0 --output " externName " --primary --mode " externResol " --pos 0x0"}')
+else
+    xrandr --newmode "1720x1440"  209.75  1720 1848 2032 2344  1440 1443 1453 1493 -hsync +vsync
+    xrandr --addmode HDMI1 "1720x1440"
+    resolution=$1
+    $(xrandr| awk '/ connected|+/ {printf "%s ",$1}'|awk -v resolution="$resolution" '{
+      internName=$1
+      internResol=$2
+      internX=$2
+      internY=$2
+      sub(/x.*/,"",internX)
+      sub(/.*x/,"",internY)
+      externName=$3
+      externResol=resolution
+      externX=resolution
+      externY=resolution
+      sub(/x.*/,"",externX)
+      sub(/.*x/,"",externY)
+      print "xrandr --output " internName " --mode " internResol " --pos " externX "x0 --output " externName " --primary --mode " externResol " --pos 0x0"}')
+
+fi
 
 intern=$(xrandr|grep connected|awk '{print $1}'|head -n 1|tail -n 1)
 i3-msg "workspace 10, move workspace to output $intern"
@@ -29,5 +52,3 @@ i3-msg "workspace 4, move workspace to output $extern"
 i3-msg "workspace 3, move workspace to output $extern"
 i3-msg "workspace 2, move workspace to output $extern"
 i3-msg "workspace 1, move workspace to output $extern"
-
-

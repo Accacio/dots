@@ -1,0 +1,7 @@
+#!/bin/bash
+
+case $BLOCK_BUTTON in
+    1) i3-sensible-terminal -e calcurse;;
+esac
+
+date '+%Y-%m-%d %H:%M:%S'

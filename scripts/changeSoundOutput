@@ -4,5 +4,7 @@ pactl list short sink-inputs|while read stream; do
     streamId=$(echo $stream|cut '-d ' -f1)
     echo "moving stream $streamId"
     echo "$newSink"
+    pacmd set-default-sink "$newSink"
     pactl move-sink-input "$streamId" "$newSink"
 done
+pkill -SIGRTMIN+10 i3blocks 
