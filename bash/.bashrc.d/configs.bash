@@ -37,9 +37,5 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# git configs
-git config --global user.email "raccacio@poli.ufrj.br"
-git config --global user.name "Accacio"
-
 shopt -s cdspell
 shopt -s autocd
