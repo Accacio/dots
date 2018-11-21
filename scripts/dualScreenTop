@@ -16,7 +16,10 @@ if [ $# -eq 0 ]
       externY=$4
       sub(/x.*/,"",externX)
       sub(/.*x/,"",externY)
-      print "xrandr --output " internName " --mode " internResol " --pos " externX "x0 --output " externName " --primary --mode " externResol " --pos 0x0"}')
+      print "xrandr --output " internName " --mode " internResol " --pos " (externX-internX)/2 "x" externY " --output " externName " --primary --mode " externResol " --pos 0x0"}'
+)
+
+
 else
     xrandr --newmode "1720x1440"  209.75  1720 1848 2032 2344  1440 1443 1453 1493 -hsync +vsync
     xrandr --addmode HDMI1 "1720x1440"
