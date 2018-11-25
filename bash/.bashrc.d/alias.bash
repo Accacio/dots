@@ -39,9 +39,17 @@ alias ....='cd ../..'
 alias bcd="cd -"
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-alias gcd='cd ~/git/ && cd'
 . ~/dots/scripts/createShortcuts
 
+
+function gcd {
+    if [ $# -eq 0 ]
+    then
+	cd ~/git/
+    else
+	cd ~/git/ && cd $1
+    fi
+}
 
 function _git_complete {
     COMPREPLY=($(compgen -W "$(ls ~/git/)" "${COMP_WORDS[COMP_CWORD]}"))
