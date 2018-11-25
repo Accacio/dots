@@ -8,6 +8,7 @@ mode=$(echo -e "Lock\nShutdown\nLogoff"|dmenu -b -sb  seagreen -i -p "Power Menu
 case $mode in
     Lock)
 	convert $wallpaper -resize $(xrandr | grep primary -A 1|tail -n 1|awk '{print $1}') \
+		-size $(xrandr | grep primary -A 1|tail -n 1|awk '{print $1}') xc:black +swap  -gravity center -composite\
 		~/wallpapers/lock.png;mv ~/wallpapers/lock.png ~/wallpapers/lock;xset dpms 1 0 0;i3lock -i /home/accacio/wallpapers/lock -n -c 000000;xset dpms 0 0 0
 	;;
     Shutdown)

@@ -70,12 +70,13 @@ mode "apps"
 {
         bindsym p exec "~/dots/scripts/seeOnMpv";mode "default";exec "kill $(pidof feh)"
         bindsym v exec "vivaldi"; mode "default";exec "kill $(pidof feh)"
-	# bindsym y exec "rhythmbox"; mode "default"
-	bindsym y exec "i3-sensible-terminal -e  ncmpcpp"; mode "default";exec "kill $(pidof feh)"
+        bindsym a exec "i3-sensible-terminal -e  calcurse"; mode "default";exec "kill $(pidof feh)"
+	bindsym c exec "i3-sensible-terminal -e  ncmpcpp"; mode "default";exec "kill $(pidof feh)"
 	bindsym m exec "i3-sensible-terminal -c neomutt -e  bash -l -c neomutt"; mode "default";exec "kill $(pidof feh)"
 	bindsym n exec "i3-sensible-terminal -e  newsboat"; mode "default";exec "kill $(pidof feh)"
 	bindsym r exec "i3-sensible-terminal -e  ranger"; mode "default";exec "kill $(pidof feh)"
-	# bindsym e exec "nautilus --no-desktop"; mode "default"
+	bindsym e exec "emacsclient -c"; mode "default";exec "kill $(pidof feh)"
+	bindsym z exec "zathura"; mode "default";exec "kill $(pidof feh)"
 
         bindsym Escape mode "default";exec "kill $(pidof feh)"
 	bindsym Control+g mode "default";exec "kill $(pidof feh)"
@@ -322,6 +323,7 @@ exec "emacs --daemon"
 exec i3-sensible-terminal
 exec surf web.whatsapp.com
 exec mpd
+exec ~/dots/scripts/dualScreenTop
 
 # Mouse configs
 exec_always xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Scrolling Distance' -20 -20
