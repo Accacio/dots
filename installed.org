@@ -1,11 +1,11 @@
 
-
 ** alsa-base alsa-tools pulseaudio
 ** change /etc/systemd/systemd.conf
 ** compton
 ** dialog
 ** emacs
 ** feh
+** fzy
 ** gnome-screenshot
 ** gnome-terminal
 ** i3
@@ -19,6 +19,7 @@
 ** offlineimap
 ** p7zip-full
 ** rhythmbox
+** sct
 ** stow
 ** texlive-full
 ** ubuntu-restricted-extras
@@ -27,5 +28,4 @@
 ** xinput
 ** xserver-xorg-input-kbd
 ** xserver-xorg-input-synaptics
-
 ln -s ~/Dropbox/wallpapers/ ~/wallpapers

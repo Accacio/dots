@@ -1,0 +1,35 @@
+#!/bin/bash
+export DISPLAY=:0.0
+
+TEMPMAX=6500
+TEMPDEFAULT=6500
+TEMPMIN=4000
+STEPS=5
+
+((TEMPSTEP=(TEMPDEFAULT - TEMPMIN)/STEPS))
+echo $TEMPSTEP
+[ -f "~/.colorTemp" ]  && echo $TEMPDEFAULT > ~/.colorTemp
+Temp=$(cat ~/.colorTemp)
+if [ $# -eq 0 ]
+then
+    echo $Temp
+    (( Temp= Temp - TEMPSTEP ))
+    if [ "$Temp" -le "$TEMPMIN" ]
+    then
+	Temp=$TEMPMIN
+    fi
+    sct $Temp
+    echo $Temp > ~/.colorTemp
+    echo $Temp
+else
+    case $1 in
+	-d)
+	    echo $TEMPDEFAULT > ~/.colorTemp
+	    sct $TEMPDEFAULT
+	    ;;
+	*)
+	    sct  $1
+	    echo $1 > ~/.colorTemp
+	    ;;
+    esac
+fi

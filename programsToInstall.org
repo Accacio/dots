@@ -1,4 +1,3 @@
-** texlive-full
 ** alsa-base
 ** alsa-tools
 ** arandr
@@ -11,6 +10,7 @@
 ** dialog
 ** dspdfviewer
 ** feh
+** fzy
 ** gnome-screenshot
 ** i3
 ** i3blocks
@@ -36,11 +36,12 @@
 ** pulseaudio
 ** ranger
 ** rhythmbox
+** sct
 ** silversearcher-ag
 ** solaar
 ** stow
 ** surf
-
+** texlive-full
 ** ubuntu-restricted-extras
 ** xclip
 ** xdotool
