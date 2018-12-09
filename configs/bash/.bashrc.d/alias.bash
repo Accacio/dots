@@ -11,7 +11,9 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+alias emacsd="emacs -daemon"
 alias emc="emacsclient -c"
+alias emct="emacsclient -t"
 
 # To encrypt
 # openssl aes-256-cbc -e -in file_to_encrypt -out encrypted_file
@@ -22,12 +24,12 @@ fi
 
 alias myproxy='PW=`openssl aes-256-cbc -d -in ~/.pw`; PROXY="http://$PW@$proxyip"; export http_proxy=$PROXY; export https_proxy=$PROXY; export ftp_proxy=$PROXY; git config --global --replace-all http.proxy http://$PW@$proxyip'
 alias cls="printf '\ec'"
-alias l='ls -CF'
-alias l.="ls -d .??*"
-alias ll='ls -lF'
-alias ll.="ls -ld .??*"
-alias lla='ls -AlF'
-alias la='ls -A'
+alias l='ls -CFbh'
+alias l.="ls -dbh .??*"
+alias ll='ls -lFbh'
+alias ll.="ls -ldbh .??*"
+alias lla='ls -AlFbh'
+alias la='ls -Abh'
 alias gitgui='git gui &'
 alias clc='clear'
 # alias u='xrandr -o normal'
@@ -52,7 +54,8 @@ function gcd {
 }
 
 function _git_complete {
-    COMPREPLY=($(compgen -W "$(ls ~/git/)" "${COMP_WORDS[COMP_CWORD]}"))
+    # ls ~/git/|xargs -n1|fzy
+    COMPREPLY=($(ls ~/git/|xargs -n1|fzy))
     return 0
 }
 
