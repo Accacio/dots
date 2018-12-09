@@ -2,6 +2,12 @@
 
 all_name='[ALL]'
 mode=library
+d_songs() {
+    local artist="$1"
+    local album="$2"
+    local songs
+
+}
 
 d_artist() {
     mpc list artist | sort -f | dmenu -p Artist "${dmenu_args[@]}"
@@ -42,6 +48,7 @@ for arg do
     case "$arg" in
         -l) mode=library ;;
         -p) mode=playlist ;;
+	-a) mode=album;;
     esac
 
     let i++
@@ -64,6 +71,14 @@ case "$mode" in
 
         mpc play >/dev/null 2>&1
     ;;
+    album)
+	album=$(mpc list album | sort -f | dmenu -p Album "${dmenu_args[@]}")
+        [[ $album ]] || exit 2
+
+	mpc clear 
+	mpc find album "$album"|sort|mpc add
+        mpc play >/dev/null 2>&1
+	;;
     playlist)
         mpc play "$(d_playlist)"
     ;;

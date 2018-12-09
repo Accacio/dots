@@ -299,6 +299,13 @@ bindsym XF86AudioMute exec pactl set-sink-mute $(pactl list short sink-inputs|he
 bindsym XF86AudioPlay exec mpc toggle;exec pkill -SIGRTMIN+11 i3blocks
 bindsym XF86AudioPrev exec mpc prev;exec pkill -SIGRTMIN+11 i3blocks
 bindsym XF86AudioNext exec mpc next;exec pkill -SIGRTMIN+11 i3blocks
+
+bindsym $mod+F10 exec mpc toggle;exec pkill -SIGRTMIN+11 i3blocks
+bindsym $mod+F9 exec mpc prev;exec pkill -SIGRTMIN+11 i3blocks
+bindsym $mod+F11 exec mpc stop;exec pkill -SIGRTMIN+11 i3blocks
+bindsym $mod+F12 exec mpc next;exec pkill -SIGRTMIN+11 i3blocks
+
+
 bindsym XF86Calculator exec --no-startup-id galculator
 bindsym $mod+F1 exec "~/dots/scripts/changeSoundOutput"
 # ;exec pkill -SIGRTMIN+10 i3blocks
@@ -313,7 +320,13 @@ bindsym XF86HomePage exec --no-startup-id vivaldi
 bindcode --release 105 exec "~/dots/scripts/findMouse"
 bindsym $mod+shift+h exec "feh ~/dots/layouts/keyboard-layout.jpg"
 bindsym $mod+shift+t exec "feh ~/Dropbox/produtividade/horario/horario-2018_2.jpg"
-bindsym $mod+shift+m exec "~/dots/scripts/mpdmenu :: -sb  seagreen -b -i"
+bindsym $mod+shift+m mode "music"
+
+mode "music" {
+     bindsym Escape mode "default"
+     bindsym a exec "~/dots/scripts/mpdmenu -a :: -sb  seagreen -b -i";mode "default"
+     bindsym m exec "~/dots/scripts/mpdmenu :: -sb  seagreen -b -i";mode "default"
+}
 
 exec compton
 exec "nm-applet &"
