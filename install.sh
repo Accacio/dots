@@ -9,5 +9,8 @@ stow -v -d configs/ -t ~/ \
      ncmpcpp/  \
      xournal/
 
+# install custom .desktop files
+stow -v -d configs/ -t ~/.local/share/applications/ applications/
+
 
 # inside .config

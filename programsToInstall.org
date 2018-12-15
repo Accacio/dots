@@ -8,6 +8,7 @@
 ** compton
 ** dia
 ** dialog
+** dmenu
 ** dspdfviewer
 ** feh
 ** fzy
@@ -21,7 +22,10 @@
 ** libclang-dev
 ** libnotify-bin
 ** libreoffice-calc
-** lightdm unity-greeter
+** libx11-dev
+** libxft-dev
+** lightdm
+** make
 ** mpc
 ** mpd
 ** mpv
@@ -43,9 +47,12 @@
 ** surf
 ** texlive-full
 ** ubuntu-restricted-extras
+** unity-greeter
 ** xclip
 ** xdotool
 ** xinput
 ** xournal
+** xserver-xorg-input-all
 ** xserver-xorg-input-kbd
 ** xserver-xorg-input-synaptics
+** zenity

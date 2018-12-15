@@ -1,7 +1,41 @@
-sudo apt-get install  --no-install-recommends $(awk 'BEGIN { ORS=" " }; {print $2}' ~/dots/programsToInstall.org)
-sudo apt-get remove xterm
+#!/bin/bash
+
+if [ $# -eq 0 ]
+then
+    listProgramsFromOrg=$(awk 'BEGIN { ORS=" " }; {print "TRUE " $2}' \
+			      ~/dots/programsToInstall.org)
+else
+    case "$1" in
+	--minimum|-m)
+	    listProgramsFromOrg=$(awk 'BEGIN { ORS=" " }; {print "FALSE " $2}' \
+				      ~/dots/programsToInstall.org)
+	    ;;
+    esac
+fi
+
+[[ $listProgramsFromOrg ]] || exit 1
+
+listPrograms=$(zenity  --list  --text "Programs to install" \
+		       --height 500 --checklist  --column "Pick" \
+		       --column "programs" $(echo $listProgramsFromOrg) \
+		       --separator=" "); echo $listPrograms
+
+[[ $listPrograms ]] || exit 1
+
+sudo apt-get install  --no-install-recommends $(echo $listPrograms)
+sudo apt-get remove xterm gnome-terminal
+
+# install st from github for
+[ -d ~/git/] || mkdir ~/git/
+cd ~/git/
+[ -d ~/git/st/] || git clone http://github.com/Accacio/st
+cd st
+make
+sudo make install
 
 
 sudo add-apt-repository ppa:kelleyk/emacs
-sudo apt update
-sudo apt install emacs26
+sudo apt-get update
+sudo apt-get install emacs26
+
+
