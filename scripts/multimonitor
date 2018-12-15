@@ -28,7 +28,7 @@ case $mode in
 	. ~/dots/scripts/dualScreenLeft 1720x1440  ;~/dots/scripts/changeWallpaper -1
 	;;
     t)
-	notify-send "Monitor Scheme changed" "One screen"
+	notify-send "Monitor Scheme changed" "Second screen on Top"
 	. ~/dots/scripts/dualScreenTop;~/dots/scripts/changeWallpaper -1
 	;;
 esac

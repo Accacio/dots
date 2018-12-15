@@ -7,6 +7,7 @@ stow -v -d configs/ -t ~/ \
      calcurse/ \
      mpd/      \
      ncmpcpp/  \
+     xinitrc/  \
      xournal/
 
 # install custom .desktop files

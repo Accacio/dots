@@ -16,7 +16,10 @@ if [ $# -eq 0 ]
       externY=$4
       sub(/x.*/,"",externX)
       sub(/.*x/,"",externY)
-      print "xrandr --output " internName " --mode " internResol " --pos " (externX-internX)/2 "x" externY " --output " externName " --primary --mode " externResol " --pos 0x0"}'
+      print "xrandr --output " internName " --mode " internResol " --pos " \
+(externX-internX)/2 "x" externY " --rotate inverted --output " externName " --primary --mode " \
+externResol " --pos 0x0 --rotate normal"}'
+
 )
 
 
