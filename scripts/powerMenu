@@ -4,17 +4,28 @@ wallpaper=~/wallpapers/20170216_171846.jpg
 # wallpaper=$(cat ~/wallpapers/currentWallpaper) #Current wallpaperjj
 
 exec 3>&1;
-mode=$(echo -e "Lock\nShutdown\nLogoff"|dmenu -b -sb  seagreen -i -p "Power Menu")
+mode=$(echo -e "Lock\nLoki\nShutdown\nLogoff\nRestart"|dmenu -b -sb  seagreen -i -p "Power Menu")
 case $mode in
     Lock)
 	convert $wallpaper -resize $(xrandr | grep primary -A 1|tail -n 1|awk '{print $1}') \
 		-size $(xrandr | grep primary -A 1|tail -n 1|awk '{print $1}') xc:black +swap  -gravity center -composite\
 		~/wallpapers/lock.png;mv ~/wallpapers/lock.png ~/wallpapers/lock;xset dpms 1 0 0;i3lock -i /home/accacio/wallpapers/lock -n -c 000000;xset dpms 0 0 0
 	;;
+    Loki)
+	TMPBG=/tmp/screen.png
+	RES=$(xrandr | grep 'current' | sed -E 's/.*current\s([0-9]+)\sx\s([0-9]+).*/\1x\2/')
+	
+	ffmpeg -f x11grab -video_size $RES -y -i $DISPLAY -vframes 1 $TMPBG -loglevel quiet
+	i3lock -i $TMPBG -u
+	rm $TMPBG
+	;;    
     Shutdown)
 	shutdown now
 	;;
     Logoff)
 	i3-msg exit
+	;;
+    Restart)
+	shutdown -r now
 	;;
 esac
