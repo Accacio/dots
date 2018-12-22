@@ -1,13 +1,25 @@
 #!/bin/bash
 
+
+sudo apt install dialog
+
 if [ $# -eq 0 ]
 then
     listProgramsFromOrg=$(awk 'BEGIN { ORS=" " }; {print "TRUE " $2}' \
 			      ~/dots/programsToInstall.org)
 else
     case "$1" in
+
+	--minimumt|-mt)
+	    listProgramsFromOrg=$(awk 'BEGIN { ORS=" " }; {print $2 " " $2 " off"}' \
+				      ~/dots/programsToInstall.org)
+	    ;;
 	--minimum|-m)
 	    listProgramsFromOrg=$(awk 'BEGIN { ORS=" " }; {print "FALSE " $2}' \
+				      ~/dots/programsToInstall.org)
+	    ;;
+	-t)
+	    listProgramsFromOrg=$(awk 'BEGIN { ORS=" " }; {print $2 " " $2 " on" }' \
 				      ~/dots/programsToInstall.org)
 	    ;;
     esac
@@ -15,10 +27,33 @@ fi
 
 [[ $listProgramsFromOrg ]] || exit 1
 
-listPrograms=$(zenity  --list  --text "Programs to install" \
-		       --height 500 --checklist  --column "Pick" \
-		       --column "programs" $(echo $listProgramsFromOrg) \
-		       --separator=" "); echo $listPrograms
+if [ $# -eq 0 ]
+then
+    listPrograms=$(zenity  --list  --text "Programs to install" \
+			   --height 500 --checklist  --column "Pick" \
+			   --column "programs" $(echo $listProgramsFromOrg) \
+			   --separator=" "); echo $listPrograms
+else
+    case "$1" in
+	-t|-mt)
+	    exec 3>&1
+	    listPrograms=$(dialog --no-tags --checklist "Programs to install" 100 40 20 \
+				  $(echo $listProgramsFromOrg)\
+				  2>&1 1>&3)
+
+	    echo $listPrograms
+	    ;;
+	-m)
+	    listPrograms=$(zenity  --list  --text "Programs to install" \
+				   --height 500 --checklist  --column "Pick" \
+				   --column "programs" $(echo $listProgramsFromOrg) \
+				   --separator=" "); echo $listPrograms
+	    ;;
+    esac
+fi
+
+
+
 
 [[ $listPrograms ]] || exit 1
 
@@ -37,5 +72,3 @@ sudo make install
 sudo add-apt-repository ppa:kelleyk/emacs
 sudo apt-get update
 sudo apt-get install emacs26
-
-
