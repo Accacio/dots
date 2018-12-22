@@ -214,7 +214,7 @@ bar {
 font pango: FontAwesome 12
 strip_workspace_numbers yes
 position top
-output HDMI1
+output MONITOR1
 tray_output none
 binding_mode_indicator no
 colors {
@@ -226,7 +226,7 @@ bar {
 
 workspace_buttons no
 strip_workspace_numbers yes
-output HDMI1
+output MONITOR1
 colors {
 
 focused_workspace #000000 #2E8B57 #000000 
@@ -241,7 +241,7 @@ bar {
 
 workspace_buttons yes
 strip_workspace_numbers yes
-output eDP1
+output MONITOR2
 colors {
 
 focused_workspace #000000 #2E8B57 #000000 
@@ -378,9 +378,9 @@ exec_always xsetwacom set "Wacom Intuos PT S 2 Pad pad" Button 1 23
 exec_always xsetwacom set "Wacom Intuos PT S 2 Pad pad" Button 9 24
 exec_always xsetwacom set "Wacom Intuos PT S 2 Pad pad" Button 8 25
 bindsym --whole-window button22 exec "~/dots/scripts/wacomChangeOutput"
-bindsym --whole-window button23 exec "xsetwacom set 'Wacom Intuos PT S 2 Pen stylus' MapToOutput eDP1"
+bindsym --whole-window button23 exec "xsetwacom set 'Wacom Intuos PT S 2 Pen stylus' MapToOutput MONITOR2"
 bindsym --whole-window button24 exec "~/dots/scripts/wacomChangeOutput"
-bindsym --whole-window button25  exec "xsetwacom set 'Wacom Intuos PT S 2 Pen stylus' MapToOutput eDP1"
+bindsym --whole-window button25  exec "xsetwacom set 'Wacom Intuos PT S 2 Pen stylus' MapToOutput MONITOR2"
 
 
 

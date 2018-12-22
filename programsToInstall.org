@@ -11,10 +11,14 @@
 ** dmenu
 ** dspdfviewer
 ** feh
+** ffmpeg
 ** fzy
+** git-gui
 ** gnome-screenshot
 ** i3
 ** i3blocks
+** i3lock
+** i3status
 ** imagemagick
 ** inotify-tools
 ** ispell
@@ -24,7 +28,7 @@
 ** libreoffice-calc
 ** libx11-dev
 ** libxft-dev
-** lightdm
+** m4
 ** make
 ** mpc
 ** mpd
@@ -47,9 +51,9 @@
 ** surf
 ** texlive-full
 ** ubuntu-restricted-extras
-** unity-greeter
 ** xclip
 ** xdotool
+** xinit
 ** xinput
 ** xournal
 ** xserver-xorg-input-all
