@@ -1,4 +1,5 @@
 # If not running interactively, don't do anything
+xrdb ~/.Xresources
 case $- in
     *i*) ;;
       *) return;;
