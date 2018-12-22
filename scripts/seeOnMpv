@@ -6,7 +6,7 @@ then
     sleep 1;
 xdotool key ctrl+l ctrl+c;
 echo $(xclip -selection c -o)
-xclip -selection c -o | xargs -0 mpv --geometry=25%-20+20;
+xclip -selection c -o | xargs -0 mpv;
 fi
 
 
