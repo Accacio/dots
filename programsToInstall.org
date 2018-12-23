@@ -3,6 +3,7 @@
 ** arandr
 ** aspell-fr
 ** aspell-pt-br
+** calcurse
 ** clang
 ** cmake
 ** compton
@@ -10,6 +11,7 @@
 ** dialog
 ** dmenu
 ** dspdfviewer
+** emacs
 ** feh
 ** ffmpeg
 ** fzy
@@ -44,9 +46,11 @@
 ** pulseaudio
 ** ranger
 ** rhythmbox
+** rustc
 ** sct
 ** silversearcher-ag
 ** solaar
+** st
 ** stow
 ** surf
 ** texlive-full
@@ -59,4 +63,5 @@
 ** xserver-xorg-input-all
 ** xserver-xorg-input-kbd
 ** xserver-xorg-input-synaptics
+** zathura
 ** zenity

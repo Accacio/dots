@@ -52,23 +52,29 @@ else
     esac
 fi
 
-
-
-
 [[ $listPrograms ]] || exit 1
 
+# install st from github fork
+if [[ $listPrograms == *"st"* ]]
+then
+    listPrograms=${listPrograms//"st"/}
+    [ -d ~/git/] || mkdir ~/git/
+    cd ~/git/
+    [ -d ~/git/st/] || git clone http://github.com/Accacio/st
+    cd st
+    make
+    sudo make install
+fi
+
+# install emacs from ppa 
+if [[ $listPrograms == *"emacs"* ]]
+then      
+    listPrograms=${listPrograms//"emacs"/}
+    sudo add-apt-repository ppa:kelleyk/emacs
+    sudo apt-get update
+    sudo apt-get install emacs26
+fi
+
+# install all other programs
 sudo apt-get install  --no-install-recommends $(echo $listPrograms)
 sudo apt-get remove xterm gnome-terminal
-
-# install st from github for
-[ -d ~/git/] || mkdir ~/git/
-cd ~/git/
-[ -d ~/git/st/] || git clone http://github.com/Accacio/st
-cd st
-make
-sudo make install
-
-
-sudo add-apt-repository ppa:kelleyk/emacs
-sudo apt-get update
-sudo apt-get install emacs26
