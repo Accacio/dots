@@ -63,5 +63,6 @@
 ** xserver-xorg-input-all
 ** xserver-xorg-input-kbd
 ** xserver-xorg-input-synaptics
+** youtube-dl
 ** zathura
 ** zenity
