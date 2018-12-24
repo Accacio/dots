@@ -5,10 +5,10 @@ status=$(echo $(mpc status|sed -n 2p|cut -d " " -f 1))
 #full text
 case $status  in
     "[playing]"| "[paused]")
-	echo $(ncmpcpp -q --current-song="$1%t - %a$9")
+	echo  $(ncmpcpp -q --current-song="$1%t - %a$9")
 	;;
     *)
-	echo -
+	echo 
 	;;
 esac
 

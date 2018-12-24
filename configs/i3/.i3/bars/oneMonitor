@@ -15,6 +15,7 @@ bar {
 
 workspace_buttons no
 strip_workspace_numbers yes
+font pango:monospace 8, FontAwesome 8
 output MONITOR1
 colors {
 
