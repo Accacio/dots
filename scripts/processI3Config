@@ -1,2 +1,28 @@
 #!/bin/bash
-m4 -DMONITOR1="$(xrandr|grep " connected"|awk '{print $1}'|head -n 2|tail -n 1)" -DMONITOR2="$(xrandr|grep " connected"|awk '{print $1}'|head -n 1|tail -n 1)" ~/.i3/config.raw > ~/.i3/config
+monitors=( $(xrandr |grep " connected"|cut -d " " -f 1|tr "\n" " "))
+
+echo ${#monitors[@]}
+case ${#monitors[@]}
+in
+    1)
+	barsfile=$(echo ~/dots/configs/i3/.i3/bars/oneMonitor)
+	;;
+    2)
+	barsfile=$(echo ~/dots/configs/i3/.i3/bars/twoMonitors)
+	;;
+    *)
+	barsfile=$(echo ~/dots/configs/i3/.i3/bars/oneMonitor)
+	;;
+esac
+
+workspacesnames=$(echo ~/dots/workspaceNames)
+
+
+sed "/WORKSPACES/\
+{r $workspacesnames
+d}
+;/BARS/ \
+{r $barsfile
+d
+}
+"  ~/dots/configs/i3/.i3/config.raw | sed "s/MONITOR1/${monitors[0]}/;s/MONITOR2/${monitors[1]}/" > ~/.i3/config

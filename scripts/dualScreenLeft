@@ -17,7 +17,7 @@ if [ $# -eq 0 ]
       sub(/x.*/,"",externX)
       sub(/.*x/,"",externY)
       print "xrandr --output " internName " --mode " internResol " \
---pos " externX "x0 --rotate inverted --output " externName " --primary \
+--pos " externX "x0  --output " externName " --primary \
 --mode " externResol " --pos 0x0"}')
 else
     xrandr --newmode "1720x1440"  209.75  1720 1848 2032 2344  1440 1443 1453 1493 -hsync +vsync
@@ -40,18 +40,18 @@ else
 
 fi
 
-WS1=$(head ~/dots/workspaceNames -n 1 | tail -n 1)
-WS2=$(head ~/dots/workspaceNames -n 2 | tail -n 1)
-WS3=$(head ~/dots/workspaceNames -n 3 | tail -n 1)
-WS4=$(head ~/dots/workspaceNames -n 4 | tail -n 1)
-WS5=$(head ~/dots/workspaceNames -n 5 | tail -n 1)
-WS6=$(head ~/dots/workspaceNames -n 6 | tail -n 1)
-WS7=$(head ~/dots/workspaceNames -n 7 | tail -n 1)
-WS8=$(head ~/dots/workspaceNames -n 8 | tail -n 1)
-WS9=$(head ~/dots/workspaceNames -n 9 | tail -n 1)
-WS10=$(head ~/dots/workspaceNames -n 10 | tail -n 1)
+WS1=$(head ~/dots/workspaceNames| cut -d " " -f 3|  -n 1 | tail -n 1)
+WS2=$(head ~/dots/workspaceNames| cut -d " " -f 3|  -n 2 | tail -n 1)
+WS3=$(head ~/dots/workspaceNames| cut -d " " -f 3|  -n 3 | tail -n 1)
+WS4=$(head ~/dots/workspaceNames| cut -d " " -f 3|  -n 4 | tail -n 1)
+WS5=$(head ~/dots/workspaceNames| cut -d " " -f 3|  -n 5 | tail -n 1)
+WS6=$(head ~/dots/workspaceNames| cut -d " " -f 3|  -n 6 | tail -n 1)
+WS7=$(head ~/dots/workspaceNames| cut -d " " -f 3|  -n 7 | tail -n 1)
+WS8=$(head ~/dots/workspaceNames| cut -d " " -f 3|  -n 8 | tail -n 1)
+WS9=$(head ~/dots/workspaceNames| cut -d " " -f 3|  -n 9 | tail -n 1)
+WS10=$(head ~/dots/workspaceNames| cut -d " " -f 3| -n 10 | tail -n 1)
 
-intern=$(xrandr|grep connected|awk '{print $1}'|head -n 1|tail -n 1)
+intern=$(xrandr|grep " connected"|awk '{print $1}'|head -n 1|tail -n 1)
 i3-msg "workspace "$WS10", move workspace to output $intern"
 i3-msg "workspace "$WS9", move workspace to output $intern"
 i3-msg "workspace "$WS8", move workspace to output $intern"
@@ -59,7 +59,7 @@ i3-msg "workspace "$WS7", move workspace to output $intern"
 i3-msg "workspace "$WS6", move workspace to output $intern"
 
 
-extern=$(xrandr|grep connected|awk '{print $1}'|head -n 2|tail -n 1)
+extern=$(xrandr|grep " connected"|awk '{print $1}'|head -n 2|tail -n 1)
 i3-msg "workspace "$WS5", move workspace to output $extern"
 i3-msg "workspace "$WS4", move workspace to output $extern"
 i3-msg "workspace "$WS3", move workspace to output $extern"

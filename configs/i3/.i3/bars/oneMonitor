@@ -1,0 +1,27 @@
+bar {
+# font pango: FontAwesome 12
+font pango:monospace 8, FontAwesome 8
+strip_workspace_numbers yes
+position top
+output MONITOR1
+tray_output none
+binding_mode_indicator no
+colors {
+focused_workspace #000000 #2E8B57 #000000 
+}
+}
+
+bar {
+
+workspace_buttons no
+strip_workspace_numbers yes
+output MONITOR1
+colors {
+
+focused_workspace #000000 #2E8B57 #000000 
+
+}
+    status_command i3blocks
+    # tray_output none
+    position bottom
+}

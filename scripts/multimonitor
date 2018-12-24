@@ -7,6 +7,10 @@ mode=$(gdialog --title "Multi-monitor" --menu "Multi-monitor" 15 55 5\
 	       r "Second screen on the Right" \
 	       u "Second screen on the Left (PBP)" \
 	       t "Second screen on the Top" \
+	       rr "Rotate Right"\
+	       rl "Rotate Left"\
+	       ru "Rotate Up"\
+	       rd "Rotate Down"\
 	       \
 	       2>&1 1>&3)
 # mode=$(echo -e "One Screen\nLeft\nRight"|dmenu -sb seagreen -i -p "Multi-monitor")
@@ -30,5 +34,21 @@ case $mode in
     t)
 	notify-send "Monitor Scheme changed" "Second screen on Top"
 	. ~/dots/scripts/dualScreenTop;~/dots/scripts/changeWallpaper -1
+	;;
+    rr)
+	notify-send "Monitor Scheme changed" "Second screen on Top"
+	xrandr -o right;~/dots/scripts/changeWallpaper -1
+	;;
+    rl)
+	notify-send "Monitor Scheme changed" "Second screen on Top"
+	xrandr -o left;~/dots/scripts/changeWallpaper -1
+	;;
+    ru)
+	notify-send "Monitor Scheme changed" "Second screen on Top"
+	xrandr -o normal;~/dots/scripts/changeWallpaper -1
+	;;
+    rd)
+	notify-send "Rotate Down"
+	xrandr -o inverted;~/dots/scripts/changeWallpaper -1
 	;;
 esac

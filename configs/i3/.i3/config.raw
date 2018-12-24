@@ -1,17 +1,6 @@
-set $1 1:
-set $2 2:
-set $3 3:
-set $4 4:
-set $5 5:
-set $6 6
-set $7 7
-set $8 8
-set $9 9
-set $10 10:
+WORKSPACES
 
-exec_always sed 11q ~/dots/configs/i3/.i3/config.raw | cut -d " " -f 3 > ~/dots/workspaceNames
 
-exec_always "~/dots/scripts/processI3Config"
 # http://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
@@ -22,7 +11,7 @@ focus_follows_mouse yes
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+bindsym $mod+Shift+r exec "~/dots/scripts/processI3Config";restart
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -209,49 +198,7 @@ bindsym $mod+Shift+Ctrl+j  move workspace prev;workspace prev;exec "xdotool mous
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 
-bar {
-# font pango: FontAwesome 12
-font pango:monospace 12, FontAwesome 12
-strip_workspace_numbers yes
-position top
-output MONITOR1
-tray_output none
-binding_mode_indicator no
-colors {
-focused_workspace #000000 #2E8B57 #000000 
-}
-}
-
-bar {
-
-workspace_buttons no
-strip_workspace_numbers yes
-output MONITOR1
-colors {
-
-focused_workspace #000000 #2E8B57 #000000 
-
-}
-    status_command i3blocks
-    # tray_output none
-    position bottom
-}
-
-bar {
-
-workspace_buttons yes
-strip_workspace_numbers yes
-output MONITOR2
-colors {
-
-focused_workspace #000000 #2E8B57 #000000 
-
-}
-    status_command i3blocks
-    # tray_output none
-    position bottom
-}
-
+BARS
 
 
 # exec_always xfce4-panel
@@ -291,13 +238,13 @@ for_window [title="/horario.*jpg"] floating enable;
 exec surf web.whatsapp.com
 exec surf web.telegram.org
 
-for_window [title=".*whatsapp.*"] move scratchpad
-for_window [title=".*telegram.*"] move scratchpad
+for_window [title=".*WhatsApp$"] move scratchpad
+for_window [title=".*Telegram Web$"] move scratchpad
 
 bindcode $mod+25 mode "IM"
 mode "IM" {
-        bindsym 1 [title=".*WhatsApp.*"] scratchpad show;mode default
-	bindsym 2 [title=".*Telegram.*"] scratchpad show;mode default
+        bindsym 1 [title=".*WhatsApp$"] scratchpad show;mode default
+	bindsym 2 [title=".*Telegram Web$"] scratchpad show;mode default
 
 	# back to normal: Enter or Escape
 	bindsym Return mode "default"
@@ -321,6 +268,8 @@ bindsym XF86AudioMute exec pactl set-sink-mute $(pactl list short sink-inputs|he
 bindsym XF86AudioPlay exec mpc toggle;exec pkill -SIGRTMIN+11 i3blocks
 bindsym XF86AudioPrev exec mpc prev;exec pkill -SIGRTMIN+11 i3blocks
 bindsym XF86AudioNext exec mpc next;exec pkill -SIGRTMIN+11 i3blocks
+bindsym XF86AudioStop exec mpc stop;exec pkill -SIGRTMIN+11 i3blocks
+bindsym XF86Tools exec "i3-sensible-terminal -e  ncmpcpp"
 
 bindsym $mod+F10 exec mpc toggle;exec pkill -SIGRTMIN+11 i3blocks
 bindsym $mod+F9 exec mpc prev;exec pkill -SIGRTMIN+11 i3blocks

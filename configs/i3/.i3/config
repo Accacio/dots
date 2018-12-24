@@ -1,4 +1,3 @@
-#workspaces
 set $1 1:
 set $2 2:
 set $3 3:
@@ -9,7 +8,7 @@ set $7 7
 set $8 8
 set $9 9
 set $10 10:
-# exec_always head ~/dots/i3/.i3/config -n 11 | tail -n 10 | cut -d " " -f 3 > ~/dots/workspaceNames
+
 # http://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
@@ -20,12 +19,11 @@ focus_follows_mouse yes
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+bindsym $mod+Shift+r exec "~/dots/scripts/processI3Config";restart
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-# font pango:monospace 8
-font pango:FontAwesome 8
+font pango:monospace 8, FontAwesome 8
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -209,10 +207,11 @@ bindsym $mod+Shift+Ctrl+j  move workspace prev;workspace prev;exec "xdotool mous
 # finds out, if available)
 
 bar {
-font pango: FontAwesome 12
+# font pango: FontAwesome 12
+font pango:monospace 8, FontAwesome 8
 strip_workspace_numbers yes
 position top
-output HDMI1
+output HDMI-1
 tray_output none
 binding_mode_indicator no
 colors {
@@ -221,10 +220,10 @@ focused_workspace #000000 #2E8B57 #000000
 }
 
 bar {
-tray_output primary
+
 workspace_buttons no
 strip_workspace_numbers yes
-output HDMI1
+output HDMI-1
 colors {
 
 focused_workspace #000000 #2E8B57 #000000 
@@ -234,23 +233,6 @@ focused_workspace #000000 #2E8B57 #000000
     # tray_output none
     position bottom
 }
-
-bar {
-tray_output primary
-workspace_buttons yes
-strip_workspace_numbers yes
-output eDP1
-colors {
-
-focused_workspace #000000 #2E8B57 #000000 
-
-}
-    status_command i3blocks
-    # tray_output none
-    position bottom
-}
-
-
 
 # exec_always xfce4-panel
 # exec_always xfce4-power-manager
@@ -266,7 +248,7 @@ assign [class="Vivaldi-stable"] $3
 # assign [class="Nautilus"] 5
 assign [class="neomutt"] $5
 
-bindsym $mod+w scratchpad show
+
 
 
 # windows
@@ -282,8 +264,28 @@ for_window [instance="Msgcompose"] floating enable
 for_window [title="neomutt"] floating enable
 # for_window [instance="Msgcompose"] resize set 640 64
 for_window [title="/layouts/.*jpg"] floating enable;
-for_window [title=".*whatsapp.*"] move scratchpad
 for_window [title="/horario.*jpg"] floating enable;
+
+
+# IM
+exec surf web.whatsapp.com
+exec surf web.telegram.org
+
+for_window [title=".*WhatsApp$"] move scratchpad
+for_window [title=".*Telegram Web$"] move scratchpad
+
+bindcode $mod+25 mode "IM"
+mode "IM" {
+        bindsym 1 [title=".*WhatsApp$"] scratchpad show;mode default
+	bindsym 2 [title=".*Telegram Web$"] scratchpad show;mode default
+
+	# back to normal: Enter or Escape
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym space mode "default"
+ 	bindsym Control+g mode "default"
+}
+
 # Keyboard Shortcuts
 exec_always setxkbmap -option caps:ctrl_modifier
 exec_always setxkbmap -option ctrl:nocaps
@@ -299,6 +301,8 @@ bindsym XF86AudioMute exec pactl set-sink-mute $(pactl list short sink-inputs|he
 bindsym XF86AudioPlay exec mpc toggle;exec pkill -SIGRTMIN+11 i3blocks
 bindsym XF86AudioPrev exec mpc prev;exec pkill -SIGRTMIN+11 i3blocks
 bindsym XF86AudioNext exec mpc next;exec pkill -SIGRTMIN+11 i3blocks
+bindsym XF86AudioStop exec mpc stop;exec pkill -SIGRTMIN+11 i3blocks
+bindsym XF86Tools exec "i3-sensible-terminal -e  ncmpcpp"
 
 bindsym $mod+F10 exec mpc toggle;exec pkill -SIGRTMIN+11 i3blocks
 bindsym $mod+F9 exec mpc prev;exec pkill -SIGRTMIN+11 i3blocks
@@ -334,7 +338,6 @@ exec --no-startup-id "~/dots/scripts/dropbox start"
 exec --no-startup-id "~/dots/scripts/autoRotation"
 exec "emacs --daemon"
 exec i3-sensible-terminal
-exec surf web.whatsapp.com
 exec mpd
 exec ~/dots/scripts/dualScreenTop
 
@@ -376,9 +379,9 @@ exec_always xsetwacom set "Wacom Intuos PT S 2 Pad pad" Button 1 23
 exec_always xsetwacom set "Wacom Intuos PT S 2 Pad pad" Button 9 24
 exec_always xsetwacom set "Wacom Intuos PT S 2 Pad pad" Button 8 25
 bindsym --whole-window button22 exec "~/dots/scripts/wacomChangeOutput"
-bindsym --whole-window button23 exec "xsetwacom set 'Wacom Intuos PT S 2 Pen stylus' MapToOutput eDP1"
+bindsym --whole-window button23 exec "xsetwacom set 'Wacom Intuos PT S 2 Pen stylus' MapToOutput "
 bindsym --whole-window button24 exec "~/dots/scripts/wacomChangeOutput"
-bindsym --whole-window button25  exec "xsetwacom set 'Wacom Intuos PT S 2 Pen stylus' MapToOutput eDP1"
+bindsym --whole-window button25  exec "xsetwacom set 'Wacom Intuos PT S 2 Pen stylus' MapToOutput "
 
 
 
