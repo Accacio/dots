@@ -5,7 +5,6 @@ stow -v -d configs/ -t ~/ \
      i3/       \
      i3blocks/ \
      calcurse/ \
-     mpd/      \
      ncmpcpp/  \
      xinitrc/  \
      xournal/  \
@@ -15,6 +14,7 @@ stow -v -d configs/ -t ~/.config/ \
      mpv/      \
      newsboat/ \
      zathura/  \
+     mpd/      \
      ranger/
 
 # install custom .desktop files
