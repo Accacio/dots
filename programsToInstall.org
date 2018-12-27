@@ -11,6 +11,7 @@
 ** dialog
 ** dmenu
 ** dspdfviewer
+** dunst
 ** emacs
 ** feh
 ** ffmpeg

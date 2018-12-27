@@ -15,7 +15,7 @@ bindsym $mod+Shift+r exec "~/dots/scripts/processI3Config";restart
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 12, FontAwesome 12
+font pango:monospace 12
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -300,13 +300,14 @@ mode "music" {
 }
 
 exec compton
+exec dunst
 exec "nm-applet &"
 exec --no-startup-id "~/dots/scripts/dropbox start"
 exec --no-startup-id "~/dots/scripts/autoRotation"
 exec "emacs --daemon"
 exec i3-sensible-terminal
 exec mpd
-exec ~/dots/scripts/dualScreenTop
+exec ~/dots/scripts/dualScreenTop d
 
 # Mouse configs
 exec_always xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Scrolling Distance' -20 -20
@@ -340,15 +341,16 @@ bindsym --whole-window Ctrl+$alt+button5 exec pactl set-sink-volume $(pactl list
 
 # Wacom configs
 
+exec_always xinput set-prop 'ELAN Touchscreen' 'Device Enabled' 0
 exec_always xinput set-prop 'Wacom Intuos PT S 2 Finger touch' 'Wacom Touch Gesture Parameters' 1, 10, 10
 exec_always xsetwacom set "Wacom Intuos PT S 2 Pad pad" Button 3 22
 exec_always xsetwacom set "Wacom Intuos PT S 2 Pad pad" Button 1 23
 exec_always xsetwacom set "Wacom Intuos PT S 2 Pad pad" Button 9 24
 exec_always xsetwacom set "Wacom Intuos PT S 2 Pad pad" Button 8 25
-bindsym --whole-window button22 exec "~/dots/scripts/wacomChangeOutput"
-bindsym --whole-window button23 exec "xsetwacom set 'Wacom Intuos PT S 2 Pen stylus' MapToOutput MONITOR2"
-bindsym --whole-window button24 exec "~/dots/scripts/wacomChangeOutput"
-bindsym --whole-window button25  exec "xsetwacom set 'Wacom Intuos PT S 2 Pen stylus' MapToOutput MONITOR2"
+bindsym --whole-window button22 exec "~/dots/scripts/wacomChangeOutput MONITOR2"
+bindsym --whole-window button23 exec "~/dots/scripts/wacomChangeOutput MONITOR1"
+bindsym --whole-window button24 exec "~/dots/scripts/wacomChangeOutput MONITOR2"
+bindsym --whole-window button25  exec "~/dots/scripts/wacomChangeOutput MONITOR1"
 
 
 

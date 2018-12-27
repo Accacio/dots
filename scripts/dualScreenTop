@@ -2,8 +2,8 @@
 
 
 if [ $# -eq 0 ]
-  then
-      $(xrandr| awk '/ connected|+/ {printf "%s ",$1}'|awk '{
+then
+    $(xrandr| awk '/ connected|+/ {printf "%s ",$1}'|awk '{
       internName=$1
       internResol=$2
       internX=$2
@@ -16,18 +16,42 @@ if [ $# -eq 0 ]
       externY=$4
       sub(/x.*/,"",externX)
       sub(/.*x/,"",externY)
-      print "xrandr --output " internName " --mode " internResol " --pos " \
+      print "xrandr --output " internName " --rotation normal --mode " internResol " --pos " \
 (externX-internX)/2 "x" externY " --output " externName " --primary --mode " \
 externResol " --pos 0x0 --rotate normal"}'
 
-)
+    )
 
 
 else
-    xrandr --newmode "1720x1440"  209.75  1720 1848 2032 2344  1440 1443 1453 1493 -hsync +vsync
-    xrandr --addmode HDMI1 "1720x1440"
-    resolution=$1
-    $(xrandr| awk '/ connected|+/ {printf "%s ",$1}'|awk -v resolution="$resolution" '{
+    if [ $1 == "d" ]
+    then
+	echo $1
+	$(xrandr| awk '/ connected|+/ {printf "%s ",$1}'|awk '{
+      internName=$1
+      internResol=$2
+      internX=$2
+      internY=$2
+      sub(/x.*/,"",internX)
+      sub(/.*x/,"",internY)
+      externName=$3
+      externResol=$4
+      externX=$4
+      externY=$4
+      sub(/x.*/,"",externX)
+      sub(/.*x/,"",externY)
+      print "xrandr --output " internName " --rotation inverted --mode " internResol " --pos " \
+(externX-internX)/2 "x" externY " --output " externName " --primary --mode " \
+externResol " --pos 0x0 --rotate normal"}'
+	)
+    else
+
+
+
+	xrandr --newmode "1720x1440"  209.75  1720 1848 2032 2344  1440 1443 1453 1493 -hsync +vsync
+	xrandr --addmode HDMI1 "1720x1440"
+	resolution=$1
+	$(xrandr| awk '/ connected|+/ {printf "%s ",$1}'|awk -v resolution="$resolution" '{
       internName=$1
       internResol=$2
       internX=$2
@@ -42,18 +66,18 @@ else
       sub(/.*x/,"",externY)
       print "xrandr --output " internName " --mode " internResol " --pos " externX "x0 --output " externName " --primary --mode " externResol " --pos 0x0"}')
 
+    fi
 fi
-
-WS1=$(head ~/dots/workspaceNames| cut -d " " -f 3|  -n 1 | tail -n 1)
-WS2=$(head ~/dots/workspaceNames| cut -d " " -f 3|  -n 2 | tail -n 1)
-WS3=$(head ~/dots/workspaceNames| cut -d " " -f 3|  -n 3 | tail -n 1)
-WS4=$(head ~/dots/workspaceNames| cut -d " " -f 3|  -n 4 | tail -n 1)
-WS5=$(head ~/dots/workspaceNames| cut -d " " -f 3|  -n 5 | tail -n 1)
-WS6=$(head ~/dots/workspaceNames| cut -d " " -f 3|  -n 6 | tail -n 1)
-WS7=$(head ~/dots/workspaceNames| cut -d " " -f 3|  -n 7 | tail -n 1)
-WS8=$(head ~/dots/workspaceNames| cut -d " " -f 3|  -n 8 | tail -n 1)
-WS9=$(head ~/dots/workspaceNames| cut -d " " -f 3|  -n 9 | tail -n 1)
-WS10=$(head ~/dots/workspaceNames| cut -d " " -f 3| -n 10 | tail -n 1)
+WS1=$(head ~/dots/workspaceNames  -n 1 | cut -d " " -f 3 | tail -n 1)
+WS2=$(head ~/dots/workspaceNames  -n 2 | cut -d " " -f 3 | tail -n 1)
+WS3=$(head ~/dots/workspaceNames  -n 3 | cut -d " " -f 3 | tail -n 1)
+WS4=$(head ~/dots/workspaceNames  -n 4 | cut -d " " -f 3 | tail -n 1)
+WS5=$(head ~/dots/workspaceNames  -n 5 | cut -d " " -f 3 | tail -n 1)
+WS6=$(head ~/dots/workspaceNames  -n 6 | cut -d " " -f 3 | tail -n 1)
+WS7=$(head ~/dots/workspaceNames  -n 7 | cut -d " " -f 3 | tail -n 1)
+WS8=$(head ~/dots/workspaceNames  -n 8 | cut -d " " -f 3 | tail -n 1)
+WS9=$(head ~/dots/workspaceNames  -n 9 | cut -d " " -f 3 | tail -n 1)
+WS10=$(head ~/dots/workspaceNames -n 10 | cut -d " " -f 3 | tail -n 1)
 
 intern=$(xrandr|grep connected|awk '{print $1}'|head -n 1|tail -n 1)
 i3-msg "workspace "$WS10", move workspace to output $intern"

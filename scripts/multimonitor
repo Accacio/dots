@@ -4,9 +4,12 @@ exec 3>&1;
 mode=$(gdialog --title "Multi-monitor" --menu "Multi-monitor" 15 55 5\
 	       o "One Screen"\
 	       l "Second screen on the Left" \
+	       ld "Second screen on the Left Down" \
 	       r "Second screen on the Right" \
+	       rd "Second screen on the Right Down" \
 	       u "Second screen on the Left (PBP)" \
 	       t "Second screen on the Top" \
+	       td "Second screen on the Top Down" \
 	       rr "Rotate Right"\
 	       rl "Rotate Left"\
 	       ru "Rotate Up"\
@@ -34,6 +37,10 @@ case $mode in
     t)
 	notify-send "Monitor Scheme changed" "Second screen on Top"
 	. ~/dots/scripts/dualScreenTop;~/dots/scripts/changeWallpaper -1
+	;;
+    td)
+	notify-send "Monitor Scheme changed" "Second screen on Top"
+	. ~/dots/scripts/dualScreenTop d;~/dots/scripts/changeWallpaper -1
 	;;
     rr)
 	notify-send "Monitor Scheme changed" "Second screen on Top"
