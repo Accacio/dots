@@ -1,5 +1,6 @@
 bar {
 font pango:monospace 8, FontAwesome 8
+# font pango:mono 8
 workspace_buttons yes
 strip_workspace_numbers yes
 output MONITOR1
@@ -15,7 +16,8 @@ focused_workspace #000000 #2E8B57 #000000
 
 bar {
 # font pango: FontAwesome 12
-font pango:monospace 12, FontAwesome 12
+# font pango:monospace 12, FontAwesome 12
+font pango:mono 8, FontAwesome 12
 strip_workspace_numbers yes
 position top
 output MONITOR2
@@ -27,7 +29,7 @@ focused_workspace #000000 #2E8B57 #000000
 }
 
 bar {
-font pango:monospace 8, FontAwesome 8
+font pango:mono 8, FontAwesome 8
 workspace_buttons no
 strip_workspace_numbers yes
 output MONITOR2
