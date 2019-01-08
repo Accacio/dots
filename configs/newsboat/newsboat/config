@@ -6,5 +6,6 @@ color listnormal_unread   red    black
 color listfocus_unread    green  white   bold
 color info                black  color70 bold
 color article             white  black
-
+macro E set browser "echo %u >> ~/.config/newsboat/queue; notify-send 'Added %u to queue'" ; open-in-browser ; set browser "elinks %u"
+macro C set browser "rm  ~/.config/newsboat/queue; notify-send 'Clean queue'"; open-in-browser ; set browser "i3 exec 'mpv'"
 # macro v set browser "i3 exec 'mpv --geometry=25%-20+20'"; open-in-browser ; set browser vivaldi
