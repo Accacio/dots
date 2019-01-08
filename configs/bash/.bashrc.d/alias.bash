@@ -18,18 +18,25 @@ alias emct="emacsclient -t"
 # To encrypt
 # openssl aes-256-cbc -e -in file_to_encrypt -out encrypted_file
 
-if [ -f ~/.proxy_address ]; then
-      . ~/.proxy_address
-fi
+[ -f ~/.proxy_address ] && . ~/.proxy_address
+
+export LESS='-R'
+export LESSOPEN='|pygmentize -g %s'
 
 alias myproxy='PW=`openssl aes-256-cbc -d -in ~/.pw`; PROXY="http://$PW@$proxyip"; export http_proxy=$PROXY; export https_proxy=$PROXY; export ftp_proxy=$PROXY; git config --global --replace-all http.proxy http://$PW@$proxyip'
 alias cls="printf '\ec'"
 alias l='ls -CFbh'
+alias lls='ls -CFbh --color|less'
 alias l.="ls -dbh .??*"
+alias l.ls="ls -dbh .??* --color|less"
 alias ll='ls -lFbh'
+alias llls='ls -lFbh --color | less'
 alias ll.="ls -ldbh .??*"
+alias ll.ls="ls -ldbh .??* --color | less"
 alias lla='ls -AlFbh'
+alias llals='ls -AlFbh --color | less'
 alias la='ls -Abh'
+alias lals='ls -Abh --color | less'
 alias gitgui='git gui &'
 alias clc='clear'
 # alias u='xrandr -o normal'
@@ -42,8 +49,15 @@ alias ......='cd ../../..'
 alias bcd="cd -"
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-. ~/dots/scripts/createShortcuts
+[ -f ~/dots/scripts/createShortcuts ] && . ~/dots/scripts/createShortcuts
 
+function addBook {
+    # while read data; do
+	cp $1 ~/books/TCC/
+    # done
+}
+
+alias addBooksRecursive='find -name "*.pdf" -print0 |xargs -0 -I file cp file ~/books/TCC'
 
 function gcd {
     if [ $# -eq 0 ]

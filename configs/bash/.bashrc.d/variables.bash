@@ -18,25 +18,27 @@ export PATH=$HOME/.cargo/bin:$PATH
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 # MyScripts
 
-export PATH="~/dots/scripts:$PATH"
+[ -f ~/bin/ ] \
+    || [ -d ~/dots/scripts/ ] \
+    ||  ln -s ~/dots/scripts ~/bin;\
+    export PATH="~/dots/scripts:$PATH"
 
 #
 # Editors
 #
-
-export ALTERNATE_EDITOR=""
+export ALTERNATE_EDITOR="emacsclient -c"
 # $EDITOR should open in terminal
-export EDITOR="emacsclient -c"
+export EDITOR="emacsclient -t"
 # $VISUAL opens in GUI with non-daemon as alternate
 export VISUAL="emacsclient -c -a emacs"
 
 # ROS
-if [ -f /opt/ros/indigo/setup.bash ]; then
-      . /opt/ros/indigo/setup.bash
-fi
-if [ -f /home/fady/catkin_ws/devel/setup.bash ]; then
-      . /home/fady/catkin_ws/devel/setup.bash
-fi
+[ -f /opt/ros/indigo/setup.bash ] &&  . /opt/ros/indigo/setup.bash
+
+[ -f /home/fady/catkin_ws/devel/setup.bash ] && . /home/fady/catkin_ws/devel/setup.bash
+
 
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+export OLDPWD=~
