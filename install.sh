@@ -5,7 +5,7 @@ stow -v -d configs/ -t ~/ \
      i3/       \
      i3blocks/ \
      calcurse/ \
-     xinitrc/  \
+     xconfigs/  \
      xournal/  \
      fonts
 

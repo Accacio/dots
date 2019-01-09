@@ -1,0 +1,36 @@
+st.alpha: 230
+*.font: mono-12
+
+*.color0: #073642
+*.color1: #dc322f
+*.color2: #009900
+*.color3: #b58900
+*.color4: #268bd2
+*.color5: #d33682
+*.color6: #2aa198
+*.color7: #eee8d5
+*.color8: #002b36
+*.color9: #cb4b16
+*.color10: #586e75
+*.color11: #657b83
+
+*.background: #002b36
+*.foreground: #fff
+*.cursorColor: #099000
+*.revCursorColor: #fdf6e3
+! * Default shape of cursor
+! * 2: Block ("█")
+! * 4: Underline ("_")
+! * 6: Bar ("|")
+! * 7: Snowman ("☃")
+*.cursorshape: 6
+
+! *.termname:
+! *.shell:
+! *.xfps:
+! *.actionfps:
+! *.blinktimeout:
+! *.bellvolume:
+! *.tabspaces:
+! *.cwscale:
+! *.chscale:
