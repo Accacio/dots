@@ -8,7 +8,7 @@ case $status  in
 	echo  $(ncmpcpp -q --current-song="$1%t - %a$9")
 	;;
     *)
-	echo 
+	echo ⏹
 	;;
 esac
 
