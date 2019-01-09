@@ -7,14 +7,18 @@ esac
 
 output=$(pactl list short sink-inputs|head -n 1|cut -f2)
 outputName=$(pactl list short sinks|grep "^$output"|cut -f2)
-echo Vol $(pactl list sinks | grep "Sink #$output" -A 9|tail -n 1|awk '{print $5}')  $(echo ${outputName:29})
-echo ""
+
+
 status=$(pactl list sinks | grep "Sink #$output" -A 8|tail -n 1|awk '{print $2}')
 case $status  in
     "yes")
+	echo 🔇 $(pactl list sinks | grep "Sink #$output" -A 9|tail -n 1|awk '{print $5}')  $(echo ${outputName:29})
+	echo ""
 	echo "#999999"
 	;;
     "no")
+	echo  🔊 $(pactl list sinks | grep "Sink #$output" -A 9|tail -n 1|awk '{print $5}')  $(echo ${outputName:29})
+	echo ""
 	echo "#aaFF22"
 	;;
 esac
