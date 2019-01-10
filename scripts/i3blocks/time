@@ -3,4 +3,4 @@
 case $BLOCK_BUTTON in
     1) i3-sensible-terminal -e calcurse;;
 esac
-echo $(date '+%Y-%m-%d'; echo "🕙";date '+%H:%M:%S')
+echo 📆 $(date '+%a %Y-%m-%d'; echo "🕙";date '+%H:%M:%S %:z UTC')
