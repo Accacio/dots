@@ -8,7 +8,6 @@
 # │ │ │ │ │
 # * * * * *  command to execute
 */5 * * * * /home/accacio/dots/scripts/changeWallpaper
-*/5 * * * * /home/accacio/dots/scripts/batteryNotify
 0 0 */4 * * rm -rd /home/accacio/Downloads/lixo/*
 */15 8-18 * * * /home/accacio/dots/scripts/setColorTemperature -d
 0 19-23 * * * /home/accacio/dots/scripts/setColorTemperature
