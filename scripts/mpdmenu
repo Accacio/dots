@@ -70,16 +70,19 @@ case "$mode" in
         fi
 
         mpc play >/dev/null 2>&1
+	~/dots/scripts/musicNotify
     ;;
     album)
 	album=$(mpc list album | sort -f | dmenu -p Album "${dmenu_args[@]}")
         [[ $album ]] || exit 2
 
-	mpc clear 
+	mpc clear
 	mpc find album "$album"|sort|mpc add
         mpc play >/dev/null 2>&1
+	~/dots/scripts/musicNotify
 	;;
     playlist)
         mpc play "$(d_playlist)"
+	~/dots/scripts/musicNotify
     ;;
 esac

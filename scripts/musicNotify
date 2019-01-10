@@ -1,0 +1,10 @@
+#!/bin/bash
+status=$(echo $(mpc status|sed -n 2p|cut -d " " -f 1))
+albumArt=(~/Music/"$(ncmpcpp -q --current-song='%D')"/*.jpg)
+case $status  in
+    "[playing]")
+	notify-send -t 2000 -i "$albumArt"  "$(ncmpcpp -q --current-song='%t')" "$(ncmpcpp -q --current-song='%b - %a')"
+	;;
+    "[paused]")
+	;;
+esac

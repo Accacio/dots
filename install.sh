@@ -12,6 +12,7 @@ stow -v -d configs/ -t ~/ \
 stow -v -d configs/ -t ~/.config/ \
      mpv/      \
      newsboat/ \
+     dunst/    \
      zathura/  \
      mpd/      \
      ncmpcpp/  \
