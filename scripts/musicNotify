@@ -13,7 +13,7 @@ echo "$artistName"
 echo "$albumArt"
 case $status  in
     "[playing]")
-	notify-send -a mpd -t 2000 -i "$coverArtPath"  "$(ncmpcpp -q --current-song='%t')" "$albumName - $artistName"
+	notify-send -a mpd -t 2000 -i "$coverArtPath"  "$(ncmpcpp -q --current-song='%t')" "$albumName\n$artistName"
 	;;
     "[paused]")
 	;;
