@@ -17,6 +17,7 @@
 ** ffmpeg
 ** fzy
 ** git-gui
+** glyrc
 ** gnome-screenshot
 ** i3
 ** i3blocks

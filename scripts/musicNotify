@@ -1,9 +1,19 @@
 #!/bin/bash
 status=$(echo $(mpc status|sed -n 2p|cut -d " " -f 1))
-albumArt=(~/Music/"$(ncmpcpp -q --current-song='%D')"/*.jpg)
+albumPath=$(ncmpcpp -q --current-song='%D')
+albumName=$(ncmpcpp -q --current-song='%b')
+artistName=$(ncmpcpp -q --current-song='%a')
+coverArtPath=(~/Music/"$albumPath"/*.png)
+albumNameNoDots=$(echo $albumName|sed "s/\,//g")
+[ -f "$coverArtPath" ] || glyrc cover --artist "$artistName" --album "$albumNameNoDots" -z 10 -w ~/Music/"$albumPath"/
+coverArtPath=(~/Music/"$albumPath"/*.png)
+echo "$albumNameNoDots"
+echo "$albumName"
+echo "$artistName"
+echo "$albumArt"
 case $status  in
     "[playing]")
-	notify-send -t 2000 -i "$albumArt"  "$(ncmpcpp -q --current-song='%t')" "$(ncmpcpp -q --current-song='%b - %a')"
+	notify-send -a mpd -t 2000 -i "$coverArtPath"  "$(ncmpcpp -q --current-song='%t')" "$albumName - $artistName"
 	;;
     "[paused]")
 	;;
