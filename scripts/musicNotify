@@ -1,12 +1,32 @@
 #!/bin/bash
+export MPD_HOST='/home/accacio/.config/mpd/socket'
 status=$(echo $(mpc status|sed -n 2p|cut -d " " -f 1))
 albumPath=$(ncmpcpp -q --current-song='%D')
+albumPath=(~/Music/"$albumPath")
 albumName=$(ncmpcpp -q --current-song='%b')
 artistName=$(ncmpcpp -q --current-song='%a')
-coverArtPath=(~/Music/"$albumPath"/*.png)
-albumNameNoDots=$(echo $albumName|sed "s/\,//g")
-[ -f "$coverArtPath" ] || glyrc cover --artist "$artistName" --album "$albumNameNoDots" -z 10 -w ~/Music/"$albumPath"/
-coverArtPath=(~/Music/"$albumPath"/*.png)
+coverArtPath=$(find "$albumPath" -name "*.jp*g" -or -name "*.png")
+# coverArtPath=("$albumPath"/*.png)
+albumNameNoDots=$(echo $albumName|sed "s/[\,\.]/ /g")
+echo "albumPath: $albumPath"
+echo "coverArtPath: $coverArtPath"
+echo "albumNameNoDots: $albumNameNoDots"
+
+case $coverArtPath in
+    *"podcast"*)
+	echo true
+	;;
+    *"//"*)
+	echo empty
+	;;
+    *)
+	echo notAPodcast
+	getCover= [ -f "$coverArtPath" ] || glyrc cover --artist "$artistName" --album "$albumNameNoDots" -z 10 -w "$albumPath"/
+	;;
+esac
+
+
+coverArtPath=$(find "$albumPath" -name "*.jp*g" -or -name "*.png")
 echo "$albumNameNoDots"
 echo "$albumName"
 echo "$artistName"
@@ -14,6 +34,8 @@ echo "$albumArt"
 case $status  in
     "[playing]")
 	notify-send -a mpd -t 2000 -i "$coverArtPath"  "$(ncmpcpp -q --current-song='%t')" "$albumName\n$artistName"
+	echo "$coverArtPath"
+	cp "$coverArtPath" /tmp/cover
 	;;
     "[paused]")
 	;;

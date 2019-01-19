@@ -1,4 +1,5 @@
 #!/bin/bash
+export MPD_HOST="/home/accacio/.config/mpd/socket"
 
 all_name='[ALL]'
 mode=library

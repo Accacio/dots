@@ -1,0 +1,22 @@
+#!/bin/bash
+export MPD_HOST="/home/accacio/.config/mpd/socket"
+[[ $1  ]] || exit 2
+albumImage=$(find $1  \( -name "*.png" -or -name "*.jp*g" \) \
+		  |sort|sxiv -tibof)
+    # |sed "s/\(.*\)/\"\1\"/g")
+[[ $albumImage ]] || exit 2
+SAVEIFS=$IFS
+IFS=$(echo -en "\n\b")
+# set me
+mpc clear
+for f in $albumImage
+do
+    # echo "$f"
+    album=$(dirname "$f")
+    mpc add $album
+
+done
+mpc play
+~/dots/scripts/musicNotify
+# restore $IFS
+IFS=$SAVEIFS

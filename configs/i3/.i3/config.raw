@@ -243,9 +243,9 @@ exec surf web.telegram.org
 
 for_window [title=".*WhatsApp$"] move scratchpad
 for_window [title=".*Telegram Web$"] move scratchpad
-
-bindcode $mod+25 mode "IM"
-mode "IM" {
+set $IM "1:Whatsapp, 2: Telegram"
+bindcode $mod+25 mode $IM
+mode $IM {
         bindsym 1 [title=".*WhatsApp$"] scratchpad show;mode default
 	bindsym 2 [title=".*Telegram Web$"] scratchpad show;mode default
 
@@ -263,22 +263,24 @@ exec_always setxkbmap -option compose:menu
 
 # bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
 
-
+set $mpc mpc --host='/home/accacio/.config/mpd/socket'
 bindsym Print exec "gnome-screenshot -i"
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $(pactl list short sink-inputs|head -n 1|cut -f2) +$((65535*5/100 ));exec pkill -SIGRTMIN+10 i3blocks
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume $(pactl list short sink-inputs|head -n 1|cut -f2) -$((65535*5/100 ));exec pkill -SIGRTMIN+10 i3blocks
 bindsym XF86AudioMute exec pactl set-sink-mute $(pactl list short sink-inputs|head -n 1|cut -f2) toggle;exec pkill -SIGRTMIN+10 i3blocks
-bindsym XF86AudioPlay exec mpc toggle;exec pkill -SIGRTMIN+11 i3blocks; exec ~/bin/musicNotify
-bindsym XF86AudioPrev exec mpc prev;exec pkill -SIGRTMIN+11 i3blocks; exec ~/bin/musicNotify
-bindsym XF86AudioNext exec mpc next;exec pkill -SIGRTMIN+11 i3blocks; exec ~/bin/musicNotify
-bindsym XF86AudioStop exec mpc stop;exec pkill -SIGRTMIN+11 i3blocks
+bindsym XF86AudioPlay exec $mpc toggle;exec pkill -SIGRTMIN+11 i3blocks; exec ~/bin/musicNotify
+
+bindsym XF86AudioPrev exec $mpc prev;exec pkill -SIGRTMIN+11 i3blocks; exec ~/bin/musicNotify
+bindsym XF86AudioNext exec $mpc next;exec pkill -SIGRTMIN+11 i3blocks; exec ~/bin/musicNotify
+bindsym XF86AudioStop exec $mpc stop;exec pkill -SIGRTMIN+11 i3blocks
 bindsym XF86Tools exec "i3-sensible-terminal -e  ncmpcpp"
 
-bindsym $mod+F10 exec mpc toggle;exec pkill -SIGRTMIN+11 i3blocks; exec ~/bin/musicNotify
-bindsym $mod+F9 exec mpc prev;exec pkill -SIGRTMIN+11 i3blocks; exec ~/bin/musicNotify
-bindsym $mod+F11 exec mpc stop;exec pkill -SIGRTMIN+11 i3blocks; exec ~/bin/musicNotify
-bindsym $mod+F12 exec mpc next;exec pkill -SIGRTMIN+11 i3blocks; exec ~/bin/musicNotify
-
+bindsym $mod+F10 exec $mpc toggle;exec pkill -SIGRTMIN+11 i3blocks; exec ~/bin/musicNotify
+bindsym $mod+F9 exec $mpc seek -00:00:10;exec pkill -SIGRTMIN+11 i3blocks
+bindsym $mod+shift+F9 exec $mpc prev;exec pkill -SIGRTMIN+11 i3blocks; exec ~/bin/musicNotify
+bindsym $mod+F11 exec $mpc stop;exec pkill -SIGRTMIN+11 i3blocks; exec ~/bin/musicNotify
+bindsym $mod+F12 exec $mpc seek +00:00:10;exec pkill -SIGRTMIN+11 i3blocks
+bindsym $mod+shift+F12 exec $mpc next;exec pkill -SIGRTMIN+11 i3blocks; exec ~/bin/musicNotify
 
 bindsym XF86Calculator exec --no-startup-id galculator
 bindsym $mod+F1 exec "~/dots/scripts/changeSoundOutput"
@@ -299,6 +301,7 @@ bindsym $mod+shift+m mode "music"
 mode "music" {
      bindsym Escape mode "default"
      bindsym a exec "~/dots/scripts/mpdmenu -a :: -sb  seagreen -b -i";mode "default"
+     bindsym n exec "~/dots/scripts/mpdMenuImage ~/Music";mode "default"
      bindsym m exec "~/dots/scripts/mpdmenu :: -sb  seagreen -b -i";mode "default"
 }
 

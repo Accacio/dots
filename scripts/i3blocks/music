@@ -1,11 +1,32 @@
 #!/bin/bash
 
-status=$(echo $(mpc status|sed -n 2p|cut -d " " -f 1))
+status=$(echo $(mpc --host='/home/accacio/.config/mpd/socket' status|sed -n 2p|cut -d " " -f 1))
+
+titleName=$(ncmpcpp -q --current-song='%t')
+titleName=${titleName}
+artistName=$(ncmpcpp -q --current-song='%a')
+# artistName=${artistName::10}
+
+path=$(ncmpcpp -q --current-song='%D')
+albumName=$(ncmpcpp -q --current-song='%b')
+
+albumNameNoDots=$(echo $albumName|sed "s/[\,\.]/ /g")
+
+case $path in
+    *"podcast"*)
+	first=$titleName
+	second=$albumName
+	;;
+    *)
+	first=$titleName
+	second=$artistName
+	;;
+esac
 
 #full text
 case $status  in
     "[playing]"| "[paused]")
-	echo  $(ncmpcpp -q --current-song="$1%t - %a$9")
+	echo  $first - $second
 	;;
     *)
 	echo ⏹
@@ -24,5 +45,6 @@ case $status  in
 esac
 
 case $BLOCK_BUTTON in
-    1) i3-sensible-terminal -e ncmpcpp;;
+    1) i3-msg exec "i3-sensible-terminal -e ncmpcpp";;
+    2) i3-msg exec "i3-sensible-terminal -e ncmpcpp -s outputs";;
 esac
