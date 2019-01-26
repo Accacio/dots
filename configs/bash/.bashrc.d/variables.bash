@@ -4,7 +4,7 @@ export EDITOR='emacsclient -c'
 export GEM_HOME=$HOME/gems
 export PATH=$HOME/gems/bin:$PATH
 export PRINTER=HP_LaserJet_Pro_MFP_M127fn
-
+export MPD_HOST="/home/accacio/.config/mpd/socket"
 # git configs
 git config --global user.email "raccacio@poli.ufrj.br"
 git config --global user.name "Accacio"
@@ -21,7 +21,7 @@ export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 [ -f ~/bin/ ] \
     || [ -d ~/dots/scripts/ ] \
     ||  ln -s ~/dots/scripts ~/bin;\
-    export PATH="~/dots/scripts:$PATH"
+    export PATH="/home/accacio/dots/scripts:$PATH"
 
 #
 # Editors

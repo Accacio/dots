@@ -1,6 +1,7 @@
 #!/bin/bash
 
 case $BLOCK_BUTTON in
-    1) i3-sensible-terminal -e calcurse;;
+    1) i3-msg exec "i3-sensible-terminal -e calcurse";;
+    3) notify-send -a cal -i " " "$(ncal -bh|sed 1q)" "$(ncal -bh|sed 1d)";;
 esac
 echo 📆 $(date '+%a %Y-%m-%d'; echo "🕙";date '+%H:%M:%S %:z UTC')

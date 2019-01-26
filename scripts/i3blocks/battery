@@ -45,11 +45,11 @@ then
     echo "#ffa500"
 elif [ "$batLevel" -lt 20 ]
 then
-    ~/dots/scripts/batteryNotify
     symbol=
     echo $stateSymbol $symbol $batLevel% $timeTo
     echo ""
     echo "#ff0000"
+    ~/dots/scripts/batteryNotify
 else
     symbol=?
 fi

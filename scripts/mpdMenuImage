@@ -3,7 +3,7 @@ export MPD_HOST="/home/accacio/.config/mpd/socket"
 [[ $1  ]] || exit 2
 albumImage=$(find $1  \( -name "*.png" -or -name "*.jp*g" \) \
 		  |sort|sxiv -tibof)
-    # |sed "s/\(.*\)/\"\1\"/g")
+
 [[ $albumImage ]] || exit 2
 SAVEIFS=$IFS
 IFS=$(echo -en "\n\b")

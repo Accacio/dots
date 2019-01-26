@@ -46,7 +46,14 @@ alias ..='cd ..'
 alias ....='cd ../..'
 alias ......='cd ../../..'
 
-alias bcd="cd -"
+function - {
+    cd -
+}
+
+#bloggin
+alias accSite="surf 192.168.1.140:4000 &"
+alias jsl="cd ~/blog/;jekyll serve --livereload"
+
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 [ -f ~/dots/scripts/createShortcuts ] && . ~/dots/scripts/createShortcuts
@@ -60,12 +67,7 @@ function addBook {
 alias addBooksRecursive='find -name "*.pdf" -print0 |xargs -0 -I file cp file ~/books/TCC'
 
 function gcd {
-    if [ $# -eq 0 ]
-    then
-	cd ~/git/
-    else
-	cd ~/git/ && cd $1
-    fi
+	cd ~/git/$(ls -a ~/git/|xargs -n1|fzy)
 }
 
 function _git_complete {
@@ -73,5 +75,9 @@ function _git_complete {
     COMPREPLY=($(ls ~/git/|xargs -n1|fzy))
     return 0
 }
+function _gcd {
+    cd ~/git/$(ls -a ~/git/|xargs -n1|fzy)
+}
 
-complete -F _git_complete gcd
+# complete -F _git_complete gcd
+alias wpp="surf web.whatsapp.com &"

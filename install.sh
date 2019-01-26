@@ -6,12 +6,12 @@ stow -v -d configs/ -t ~/ \
      i3blocks/ \
      calcurse/ \
      xconfigs/  \
+     newsboat/ \
      xournal/  \
      fonts
 
 stow -v -d configs/ -t ~/.config/ \
      mpv/      \
-     newsboat/ \
      dunst/    \
      zathura/  \
      mpd/      \

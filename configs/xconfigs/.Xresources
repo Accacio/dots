@@ -1,5 +1,5 @@
 st.alpha: 230
-*.font: mono-12
+*.font: mono:pixelsize=16:antialias=true:autohint=true
 
 *.color0: #073642
 *.color1: #dc322f

@@ -68,3 +68,4 @@
 ** youtube-dl
 ** zathura
 ** zenity
+** zsh

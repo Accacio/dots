@@ -60,7 +60,7 @@ bindsym XF86Display exec "~/dots/scripts/multimonitor"
 mode "apps"
 {
 
-        bindsym p exec "mpv --playlist  ~/.config/newsboat/queue";mode "default";exec "kill $(pidof feh)"
+        bindsym p exec "mpv --playlist  ~/.config/mpv/queue";mode "default";exec "kill $(pidof feh)"
         # bindsym p exec "~/dots/scripts/seeOnMpv";mode "default";exec "kill $(pidof feh)"
         bindsym v exec "vivaldi"; mode "default";exec "kill $(pidof feh)"
         bindsym a exec "i3-sensible-terminal -e  calcurse"; mode "default";exec "kill $(pidof feh)"
@@ -223,9 +223,9 @@ assign [class="neomutt"] $5
 
 # windows
 # default_floating_border pixel 0
-for_window [class="^.*"] border pixel 2
-for_window [class="Gnome-terminal"] border pixel 0
-for_window [class="St"] border pixel 0
+for_window [class="^.*"] border pixel 3
+for_window [class="Gnome-terminal"] border pixel 1
+for_window [class="St"] border pixel 1
 for_window [class="mpv"] sticky enable
 for_window [class="mpv"] border pixel 0
 for_window [urgent="latest"] border pixel 1
@@ -240,15 +240,18 @@ for_window [title="/horario.*jpg"] floating enable;
 # IM
 exec surf web.whatsapp.com
 exec surf web.telegram.org
+exec surf stonepgto.slack.com/
 
 for_window [title=".*WhatsApp$"] move scratchpad
 for_window [title=".*Telegram Web$"] move scratchpad
-set $IM "1:Whatsapp, 2: Telegram"
+for_window [title=".*Stone Pagamentos S.A. Slack$"] move scratchpad
+
+set $IM "1:Whatsapp, 2: Telegram, 3: Slack"
 bindcode $mod+25 mode $IM
 mode $IM {
         bindsym 1 [title=".*WhatsApp$"] scratchpad show;mode default
 	bindsym 2 [title=".*Telegram Web$"] scratchpad show;mode default
-
+	bindsym 3 [title=".*Stone Pagamentos S.A. Slack$"] scratchpad show;mode default
 	# back to normal: Enter or Escape
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
@@ -314,6 +317,19 @@ exec "emacs --daemon"
 exec i3-sensible-terminal
 exec mpd
 exec ~/dots/scripts/dualScreenTop d
+
+
+workspace $1 output MONITOR2
+workspace $2 output MONITOR2
+workspace $3 output MONITOR2
+workspace $4 output MONITOR2
+workspace $5 output MONITOR2
+
+workspace $6 output MONITOR1
+workspace $7 output MONITOR1
+workspace $8 output MONITOR1
+workspace $9 output MONITOR1
+workspace $10 output MONITOR1
 
 # Mouse configs
 exec_always xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Scrolling Distance' -20 -20
