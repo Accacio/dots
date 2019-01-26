@@ -83,6 +83,15 @@ then
     sudo -H pip3 install ueberzug
 fi
 
+# custom install zsh
+if [[ $listPrograms == *"zsh"* ]]
+then
+    listPrograms=${listPrograms//"zsh"/}
+    sudo apt-get install zsh
+    # oh my zsh
+    sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+fi
+
 # install all other programs
 sudo apt-get install  --no-install-recommends $(echo $listPrograms)
 sudo apt-get remove xterm gnome-terminal
