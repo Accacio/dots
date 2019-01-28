@@ -81,3 +81,4 @@ function _gcd {
 
 # complete -F _git_complete gcd
 alias wpp="surf web.whatsapp.com &"
+alias loadZ="sudo mount.cifs //RJDEV001045/confs /home/accacio/Z/ -o user=rafael.accacio"
