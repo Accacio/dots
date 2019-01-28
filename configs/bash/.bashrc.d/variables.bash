@@ -18,9 +18,9 @@ export PATH=$HOME/.cargo/bin:$PATH
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 # MyScripts
 
-[ -f ~/bin/ ] \
-    || [ -d ~/dots/scripts/ ] \
-    ||  ln -s ~/dots/scripts ~/bin;\
+[ ! -d ~/bin ] \
+    && [ -d ~/dots/scripts/ ] \
+    &&  ln -s ~/dots/scripts ~/bin;\
     export PATH="/home/accacio/dots/scripts:$PATH"
 
 #

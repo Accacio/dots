@@ -57,6 +57,7 @@
 ** surf
 ** texlive-full
 ** ubuntu-restricted-extras
+** vivaldi
 ** xclip
 ** xdotool
 ** xinit
