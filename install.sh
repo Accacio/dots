@@ -16,6 +16,7 @@ stow -v -d configs/ -t ~/.config/ \
      zathura/  \
      mpd/      \
      ncmpcpp/  \
+     polybar/  \
      ranger/
 
 # install custom .desktop files

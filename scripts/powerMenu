@@ -2,9 +2,10 @@
 export DISPLAY=:0.0
 wallpaper=~/wallpapers/20170216_171846.jpg
 # wallpaper=$(cat ~/wallpapers/currentWallpaper) #Current wallpaperjj
-
+# menu_fun='dmenu'
+menu_fun='rofi -dmenu -theme menu'
 exec 3>&1;
-mode=$(echo -e "Lock\nLoki\nShutdown\nLogoff\nRestart"|dmenu -b -sb  seagreen -i -p "Power Menu")
+mode=$(echo -e "Lock\nLoki\nShutdown\nLogoff\nRestart"| $menu_fun -b -sb  seagreen -i -p "Power Menu")
 case $mode in
     Lock)
 	convert $wallpaper -resize $(xrandr | grep primary -A 1|tail -n 1|awk '{print $1}') \

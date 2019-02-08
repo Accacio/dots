@@ -1,5 +1,5 @@
-~/dots/scripts/processI3Config
+$HOME/dots/scripts/processI3Config
 
-[ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
+[ -f $HOME/.Xresources ] && xrdb -merge $HOME/.Xresources
 
 exec i3
