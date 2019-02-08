@@ -48,6 +48,7 @@
 ** pulseaudio
 ** ranger
 ** rhythmbox
+** rofi
 ** rustc
 ** sct
 ** silversearcher-ag

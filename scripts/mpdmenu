@@ -2,6 +2,7 @@
 export MPD_HOST="/home/accacio/.config/mpd/socket"
 
 all_name='[ALL]'
+menu_fun='rofi -dmenu -theme menu'
 mode=library
 d_songs() {
     local artist="$1"
@@ -11,7 +12,7 @@ d_songs() {
 }
 
 d_artist() {
-    mpc list artist | sort -f | dmenu -p Artist "${dmenu_args[@]}"
+    mpc list artist | sort -f | $menu_fun -p Artist "${dmenu_args[@]}"
 }
 
 d_album() {
@@ -23,7 +24,7 @@ d_album() {
         {
             printf '%s\n' "$all_name"
             printf '%s\n' "${albums[@]}" | sort -f
-        } | dmenu -p Album "${dmenu_args[@]}"
+        } | $menu_fun -p Album "${dmenu_args[@]}"
     else
         # We only have one album, so just use that.
         printf '%s\n' "${albums[0]}"
@@ -34,7 +35,7 @@ d_playlist() {
     local format="%position% - %title% - %album% - %artist%"
     local track
 
-    track=$(mpc playlist -f "$format" | dmenu -p Track "${dmenu_args[@]}")
+    track=$(mpc playlist -f "$format" | $menu_fun -p Track "${dmenu_args[@]}")
     printf '%s' "${track%% *}"
 }
 
@@ -74,7 +75,7 @@ case "$mode" in
 	~/dots/scripts/musicNotify
     ;;
     album)
-	album=$(mpc list album | sort -f | dmenu -p Album "${dmenu_args[@]}")
+	album=$(mpc list album | sort -f | $menu_fun -p Album "${dmenu_args[@]}")
         [[ $album ]] || exit 2
 
 	mpc clear

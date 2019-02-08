@@ -11,8 +11,8 @@ focus_follows_mouse yes
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r exec "~/dots/scripts/processI3Config" ;restart
-bindsym $mod+Pause exec "~/dots/scripts/processI3Config"
+bindsym $mod+Shift+r restart
+bindsym $mod+Pause exec "$HOME/dots/scripts/processI3Config"
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -68,9 +68,10 @@ mode "apps"
 	bindsym m exec "i3-sensible-terminal -c neomutt -e  bash -l -c neomutt"; mode "default";exec "kill $(pidof feh)"
 	bindsym n exec "i3-sensible-terminal -e  newsboat"; mode "default";exec "kill $(pidof feh)"
 	bindsym r exec "i3-sensible-terminal -e  ranger"; mode "default";exec "kill $(pidof feh)"
-	bindsym e exec "emacsclient -c"; mode "default";exec "kill $(pidof feh)"
+	# bindsym e exec "emacsclient -c"; mode "default";exec "kill $(pidof feh)"
+	bindsym e exec "~/dots/scripts/emacsOpen"; mode "default";exec "kill $(pidof feh)"
 	bindsym z exec "zathura"; mode "default";exec "kill $(pidof feh)"
-
+	# bindsym e exec "$(locate --regex ^/home| rofi  -dmenu -theme arthur -i -p "open in emacs")"; mode "default";exec "kill $(pidof feh)"
         bindsym Escape mode "default";exec "kill $(pidof feh)"
 	bindsym Control+g mode "default";exec "kill $(pidof feh)"
 }
@@ -287,6 +288,7 @@ bindsym $mod+shift+F12 exec $mpc next;exec pkill -SIGRTMIN+11 i3blocks; exec ~/b
 
 bindsym XF86Calculator exec --no-startup-id galculator
 bindsym $mod+F1 exec "~/dots/scripts/changeSoundOutput"
+bindsym $mod+F2 exec "~/git/rofimoji/rofimoji.py"
 # ;exec pkill -SIGRTMIN+10 i3blocks
 
 # Screen brightness controls
