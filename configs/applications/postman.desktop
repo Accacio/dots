@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Postman
+Exec=~/Downloads/Postman/Postman
+Icon=
+Type=Application
+Terminal=false
+Categories=Development;TextEditor;
+StartupWMClass=Emacs
+Keywords=Text;Editor;
