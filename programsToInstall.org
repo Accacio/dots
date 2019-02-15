@@ -45,6 +45,7 @@
 ** okular
 ** p7zip-full
 ** pavucontrol
+** polybar
 ** pulseaudio
 ** ranger
 ** rhythmbox

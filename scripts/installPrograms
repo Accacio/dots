@@ -103,6 +103,24 @@ then
     sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
 
+# custom install polybar
+if [[ $listPrograms == *"polybar"* ]]
+then
+    listPrograms=${listPrograms//"polybar"/}
+    sudo apt-get install build-essential cmake cmake-data pkg-config \
+	 libcairo2-dev lixcb1-dev libxcb-util0-dev libxcb-randr0-dev \
+	 libxcb-composite0-dev python-xcbgen xcb-proto \
+	 libxcb-image0-dev libxcb-ewmh-dev libxcb-icccm4-dev \
+	 libxcb-xkb-dev libxcb-xrm-dev libxcb-cursor-dev libpulse-dev \
+	 libjsopncpp-dev libmpdclient-dev libcurl4-openssl-dev \
+	 libiw-dev libnl-genl-3-dev
+    cd $HOME/git/
+    git clone https://github.com/jaagr/polybar
+    cd polybar
+    ./build
+fi
+
+
 # install all other programs
 sudo apt-get install  --no-install-recommends $(echo $listPrograms)
 sudo apt-get remove xterm gnome-terminal

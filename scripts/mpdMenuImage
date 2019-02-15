@@ -1,6 +1,11 @@
 #!/bin/bash
 export MPD_HOST="/home/accacio/.config/mpd/socket"
 [[ $1  ]] || exit 2
+
+
+# artists=$(find $1 -maxdepth 2 \( -name "*.jp*g" -o -name "*.png" \) \
+     # |sort|sxiv -tibof)
+
 albumImage=$(find $1  \( -name "*.png" -or -name "*.jp*g" \) \
 		  |sort|sxiv -tibof)
 

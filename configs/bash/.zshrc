@@ -68,7 +68,7 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
-
+source /etc/zsh_command_not_found
 ncmpcppShow() { ncmpcpp <$TTY; zle redisplay; }
 zle -N ncmpcppShow
 rangerShow() { ranger <$TTY; zle redisplay; }
@@ -77,6 +77,7 @@ zle -N rangerShow
 bindkey '^[\' ncmpcppShow
 bindkey '^[r' rangerShow
 
-. ~/.bashrc.d/configs.bash
-. ~/.bashrc.d/alias.bash
-. ~/.bashrc.d/variables.bash
+source ~/.bashrc.d/configs.bash
+source ~/.bashrc.d/alias.bash
+source ~/.bashrc.d/variables.bash
+

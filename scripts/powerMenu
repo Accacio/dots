@@ -1,5 +1,4 @@
 #!/bin/bash
-export DISPLAY=:0.0
 wallpaper=~/wallpapers/20170216_171846.jpg
 # wallpaper=$(cat ~/wallpapers/currentWallpaper) #Current wallpaperjj
 # menu_fun='dmenu'
@@ -25,6 +24,7 @@ case $mode in
 	;;
     Logoff)
 	i3-msg exit
+	bspc quit
 	;;
     Restart)
 	shutdown -r now

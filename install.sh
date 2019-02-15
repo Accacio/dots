@@ -17,6 +17,9 @@ stow -v -d configs/ -t ~/.config/ \
      mpd/      \
      ncmpcpp/  \
      polybar/  \
+     rofi/     \
+     bspwm/    \
+     sxhkd/    \
      ranger/
 
 # install custom .desktop files

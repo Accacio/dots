@@ -1,0 +1,39 @@
+#! /bin/bash
+
+
+sxhkd -m 1 &
+compton &
+dunst &
+mpd &
+/home/accacio/bin/dualScreenTop d &
+/home/accacio/.config/polybar/launch.sh &
+/home/accacio/bin/changeWallpaper &
+setxkbmap br
+
+bspc monitor HDMI1 -d  1 2 3 4 5
+bspc monitor eDP1 -d 6 7 8 9 10
+
+bspc config focus_follows_pointer true
+sleep 1
+desktop_config(){
+    bspc config $1 $2
+    for M in $(bspc query -M); do
+        bspc config -m $M $1 $2
+    done
+}
+
+desktop_config border_width    2
+desktop_config top_padding 20
+desktop_config window_gap      0
+
+bspc config single_monocle true
+
+# bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+# bspc rule -a Gimp desktop='^8' state=floating follow=on
+# bspc rule -a Chromium desktop='^2'
+# bspc rule -a mplayer2 state=floating
+# bspc rule -a Kupfer.py focus=on
+# bspc rule -a Screenkey manage=off
