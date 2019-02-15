@@ -1,6 +1,5 @@
 #!/bin/bash
 
-export DISPLAY=:0.0
 
 batLevel=$(upower -i $(upower -e | grep '/battery') | grep --color=never -E "percentage"| awk '{print $2}'| sed -e 's/%//g')
 

@@ -62,7 +62,9 @@ mode "apps"
 
         bindsym p exec "mpv --playlist  ~/.config/mpv/queue";mode "default";exec "kill $(pidof feh)"
         # bindsym p exec "~/dots/scripts/seeOnMpv";mode "default";exec "kill $(pidof feh)"
-        bindsym v exec "vivaldi"; mode "default";exec "kill $(pidof feh)"
+	bindsym t exec "$HOME/bin/openTCC"; mode "default";exec "kill $(pidof feh)"
+
+	bindsym v exec "vivaldi"; mode "default";exec "kill $(pidof feh)"
         bindsym a exec "i3-sensible-terminal -e  calcurse"; mode "default";exec "kill $(pidof feh)"
 	bindsym c exec "i3-sensible-terminal -e  ncmpcpp"; mode "default";exec "kill $(pidof feh)"
 	bindsym m exec "i3-sensible-terminal -c neomutt -e  bash -l -c neomutt"; mode "default";exec "kill $(pidof feh)"

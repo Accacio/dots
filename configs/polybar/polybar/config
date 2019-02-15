@@ -25,6 +25,8 @@ foreground = #dfdfdf
 foreground-alt = #555
 primary = #2e8b57
 secondary = #e60053
+dimmed= #7a7a7a
+dimmed-foreground= #000
 alert = #bd2c40
 
 [bar/example]
@@ -59,7 +61,7 @@ font-2 = siji:pixelsize=12;0
 font-3 = FontAwesome:pixelsize=12
 font-4 = Emojione:scale=12
 
-modules-left = i3
+modules-left = i3 bspwm
 modules-center = mpd
 modules-right =  pulseaudio xkeyboard wlan eth battery date
 
@@ -67,16 +69,16 @@ tray-position = right
 tray-padding = 2
 ;tray-background = #0063ff
 
-;wm-restack = bspwm
+wm-restack = bspwm
 ;wm-restack = i3
 
 ;override-redirect = true
 
-;scroll-up = bspwm-desknext
-;scroll-down = bspwm-deskprev
+scroll-up = bspwm-desknext
+scroll-down = bspwm-deskprev
 
-scroll-up = i3wm-wsnext
-scroll-down = i3wm-wsprev
+; scroll-up = i3wm-wsnext
+; scroll-down = i3wm-wsprev
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -157,6 +159,130 @@ label-urgent-padding = 2
 
 ; Separator in between workspaces
 ; label-separator = |
+
+
+[module/bspwm]
+type = internal/bspwm
+
+; Only show workspaces defined on the same output as the bar
+; NOTE: The bspwm and XRandR monitor names must match, which they do by default.
+; Default: true
+pin-workspaces = true
+
+; Output mode flags after focused state label
+; Default: false
+inline-mode = false
+
+; Create click handler used to focus workspace
+; Default: true
+; enable-click = false
+
+; Create scroll handlers used to cycle workspaces
+; Default: true
+; enable-scroll = false
+
+; Set the scroll cycle direction 
+; Default: true
+; reverse-scroll = false
+
+; Use fuzzy (partial) matching on labels when assigning 
+; icons to workspaces
+; Example: code;♚ will apply the icon to all workspaces 
+; containing 'code' in the label
+; Default: false
+; fuzzy-match = true
+
+; Available tags:
+;   <label-monitor>
+;   <label-state> - gets replaced with <label-(focused|urgent|occupied|empty)>
+;   <label-mode> - gets replaced with <label-(monocle|tiled|fullscreen|floating|locked|sticky|private)>
+; Default: <label-state>
+format = <label-state> <label-mode>
+
+; Available tokens:
+;   %name%
+; Default: %name%
+label-monitor = %name%
+
+; If any values for label-dimmed-N are defined, the workspace/mode
+; colors will get overridden with those values if the monitor is out of focus
+; To only override workspaces in a specific state, use:
+;   label-dimmed-focused
+;   label-dimmed-occupied
+;   label-dimmed-urgent
+;   label-dimmed-empty
+; label-dimmed-foreground = ${colors.dimmed-foreground}
+label-dimmed-focused-underline = #0c6035
+; label-dimmed-focused-background = ${colors.dimmed}
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-focused = %name%
+label-focused-background = ${colors.background-alt}
+label-focused-underline = ${colors.primary}
+; label-focused-foreground = 
+label-focused-padding = 2
+
+label-unfocused = %name%
+label-unfocused-padding = 2
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-occupied = %name%
+label-occupied-underline = #555555
+label-occupied-padding = 2
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-urgent = %name%
+label-urgent-padding = 2
+; label-urgent-foreground = 
+label-urgent-background = {colors.alert}
+; label-urgent-underline = #9b0a20
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-empty = %name%
+label-empty-padding = 2
+; label-empty-foreground = #55
+
+label-visible = %name%
+label-visible-background = ${self.label-focused-background}
+label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = ${self.label-focused-padding}
+
+; The following labels will be used to indicate the layout/mode
+; for the focused workspace. Requires <label-mode>
+;
+; Available tokens:
+;   None
+;label-monocle = 
+;label-tiled = 
+label-fullscreen = 
+label-floating = 
+;label-pseudotiled = P
+;label-locked = 
+;label-locked-foreground = #bd2c40
+;label-sticky = 
+;label-sticky-foreground = #fba922
+;label-private = 
+;label-private-foreground = #bd2c40
+
+; Separator in between workspaces
+ ; label-separator = |
+; label-separator-padding = 2
+label-separator-foreground = #ffb52a
 
 
 [module/mpd]
@@ -252,13 +378,13 @@ format-disconnected =
 type = internal/date
 interval = 5
 
-date =
+date = 📅 %a %F
 date-alt = " %Y-%m-%d"
 
-time = %H:%M
+time =  %H:%M:%S %z %Z
 time-alt = %H:%M:%S
 
-format-prefix = 
+format-prefix =
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #0a6cf5
 

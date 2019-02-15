@@ -21,7 +21,7 @@ case $coverArtPath in
 	;;
     *)
 	echo notAPodcast
-	getCover= [ -f "$coverArtPath" ] || glyrc cover --artist "$artistName" --album "$albumNameNoDots" -z 10 -w "$albumPath"/
+	getCover= [ -f "$coverArtPath" ] || glyrc cover --artist "$artistName" --album "$albumNameNoDots" -z 10 -w "$albumPath" 2>/dev/null 
 	;;
 esac
 
