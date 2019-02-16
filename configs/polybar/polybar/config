@@ -381,7 +381,7 @@ interval = 5
 date = 📅 %a %F
 date-alt = " %Y-%m-%d"
 
-time =  %H:%M:%S %z %Z
+time =  %H:%M:%S %z UTC
 time-alt = %H:%M:%S
 
 format-prefix =

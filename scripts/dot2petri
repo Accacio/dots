@@ -1,0 +1,41 @@
+#!/bin/bash
+
+filename=$1
+fileext=${filename##*.}
+
+if [ ! $fileext = "dot" ]
+then
+    echo "File must be .dot"
+    exit 1
+fi
+
+inputFile=$(basename $filename .$fileext)
+
+tempfile="/tmp/$inputFile.tex"
+
+output="$inputFile.tex"
+
+
+search_markedplace="\(\\\node (p\)\([0-9]\+\)\(m\)\([0-9]\+\)\() at (.*) \[draw,ellipse\)\(\] {};\)"
+replace_markedplace="\\1\\2\\3\\4\\5,place, tokens=\\4, label=above:, label=left:\$p_{\\2}\$,rotate=90\\6"
+
+search_place="\(\\\node (p\)\([0-9]\+\)\() at (.*) \[draw,ellipse\)\(\] {};\)"
+replace_place="\\1\\2\\3,place, label=above:, label=left:\$p_{\\2}\$,rotate=90\\4"
+
+search_timedtransition="\(\\\node (tt\)\([0-9]\+\)\() at (.*) \[draw,ellipse\)\(\] {};\)"
+replace_timedtransition="\\1\\2\\3,timedtransition, label=above:, label=left:\$t_{\\2}\$,rotate=90\\4"
+
+search_transition="\(\\\node (t\)\([0-9]\+\)\() at (.*) \[draw,ellipse\)\(\] {};\)"
+replace_transition="\\1\\2\\3,transition, label=above:, label=left:\$t_{\\2}\$,rotate=90\\4"
+
+
+dot2tex --autosize -f tikz --figonly $1 > $tempfile
+
+sed "s/$search_markedplace/$replace_markedplace/g" $tempfile |\
+    sed "s/$search_place/$replace_place/g"    |\
+    sed "s/$search_transition/$replace_transition/g" |\
+    sed "s/$search_timedtransition/$replace_timedtransition/g" \
+	> "$output"
+rm $tempfile
+
+pdflatex --shell-escape figure.tex

@@ -2,6 +2,7 @@
 touch dummy.dummy
 find . -maxdepth 1 -type f -not -name '*.tex'\
      -not -name '*.org' \
+     -not -name '*.dot' \
      -not -name '*.exe' \
      -not -name '*.sty' \
      -not -name '*.cls' \
