@@ -5,14 +5,17 @@ WORKSPACES
 
 set $mod Mod4
 set $alt Mod1
+set $term st
+set $editor "emacsclient -c"
 
+# set $editor "gvim"
 focus_follows_mouse yes
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-bindsym $mod+Pause exec "$HOME/dots/scripts/processI3Config"
+bindsym $mod+Pause exec $scriptsFolder"processI3Config"
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -34,9 +37,9 @@ floating_modifier $mod
 for_window [class="Yad"] floating enable border pixel 0
 
 # start a terminal
-# bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Shift+Return exec "emacsclient -c"
+# bindsym $mod+Return exec $term
+bindsym $mod+Return exec $term
+bindsym $mod+Shift+Return exec $editor
 
 # kill focused window
 bindsym $mod+F4 kill
@@ -44,7 +47,7 @@ bindsym $mod+F4 kill
 # Modes
 
 # bindsym $mod+F7 mode "keyboard layout"
-bindsym $mod+F7 exec "~/dots/scripts/keyboarLayout"
+bindsym $mod+F7 exec "$SCRIPTSFOLDER/keyboarLayout"
 
 # mode "keyboard layout"
 # {
@@ -54,24 +57,24 @@ bindsym $mod+F7 exec "~/dots/scripts/keyboarLayout"
 	# bindsym p exec "setxkbmap br";mode "default"
 # }
 
-bindsym $mod+p exec "~/dots/scripts/multimonitor"
-bindsym XF86Display exec "~/dots/scripts/multimonitor"
+bindsym $mod+p exec "$SCRIPTSFOLDER/multimonitor"
+bindsym XF86Display exec "$SCRIPTSFOLDER/multimonitor"
 
 mode "apps"
 {
 
-        bindsym p exec "mpv --playlist  ~/.config/mpv/queue";mode "default";exec "kill $(pidof feh)"
-        # bindsym p exec "~/dots/scripts/seeOnMpv";mode "default";exec "kill $(pidof feh)"
-	bindsym t exec "$HOME/bin/openTCC"; mode "default";exec "kill $(pidof feh)"
-
+        bindsym p exec "mpv --playlist  $HOME/.config/mpv/queue";mode "default";exec "kill $(pidof feh)"
+        # bindsym p exec "$SCRIPTSFOLDER/seeOnMpv";mode "default";exec "kill $(pidof feh)"
+	bindsym t exec "$SCRIPTSFOLDER/openTCC"; mode "default";exec "kill $(pidof feh)"
+	bindsym o exec "$SCRIPTSFOLDER/passmenu"; mode "default";exec "kill $(pidof feh)"
 	bindsym v exec "vivaldi"; mode "default";exec "kill $(pidof feh)"
-        bindsym a exec "i3-sensible-terminal -e  calcurse"; mode "default";exec "kill $(pidof feh)"
-	bindsym c exec "i3-sensible-terminal -e  ncmpcpp"; mode "default";exec "kill $(pidof feh)"
-	bindsym m exec "i3-sensible-terminal -c neomutt -e  bash -l -c neomutt"; mode "default";exec "kill $(pidof feh)"
-	bindsym n exec "i3-sensible-terminal -e  newsboat"; mode "default";exec "kill $(pidof feh)"
-	bindsym r exec "i3-sensible-terminal -e  ranger"; mode "default";exec "kill $(pidof feh)"
+        bindsym a exec "$term -e  calcurse"; mode "default";exec "kill $(pidof feh)"
+	bindsym c exec "$term -e  ncmpcpp"; mode "default";exec "kill $(pidof feh)"
+	bindsym m exec "$term -c neomutt -e  bash -l -c neomutt"; mode "default";exec "kill $(pidof feh)"
+	bindsym n exec "$term -e  newsboat"; mode "default";exec "kill $(pidof feh)"
+	bindsym r exec "$term -e  ranger"; mode "default";exec "kill $(pidof feh)"
 	# bindsym e exec "emacsclient -c"; mode "default";exec "kill $(pidof feh)"
-	bindsym e exec "~/dots/scripts/emacsOpen"; mode "default";exec "kill $(pidof feh)"
+	bindsym e exec "$SCRIPTSFOLDER/emacsOpen"; mode "default";exec "kill $(pidof feh)"
 	bindsym z exec "zathura"; mode "default";exec "kill $(pidof feh)"
 	# bindsym e exec "$(locate --regex ^/home| rofi  -dmenu -theme arthur -i -p "open in emacs")"; mode "default";exec "kill $(pidof feh)"
         bindsym Escape mode "default";exec "kill $(pidof feh)"
@@ -82,10 +85,10 @@ mode "apps"
 # {
 	# bindsym s exec "shutdown now"
 	# bindsym Escape mode "default"
-	# bindsym l exec "xset dpms 1 0 0;i3lock -i ~/wallpapers/lock -n -c 000000;xset dpms 0 0 0";mode "default"
+	# bindsym l exec "xset dpms 1 0 0;i3lock -i $HOME/wallpapers/lock -n -c 000000;xset dpms 0 0 0";mode "default"
 # }
-bindsym $mod+Shift+e exec "~/dots/scripts/powerMenu"
-bindsym $mod+o mode "apps";exec "feh ~/dots/layouts/apps.jpg"
+bindsym $mod+Shift+e exec "$SCRIPTSFOLDER/powerMenu"
+bindsym $mod+o mode "apps";exec "feh $HOME/dots/layouts/apps.jpg"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -200,17 +203,67 @@ bindsym $mod+Shift+Ctrl+l move workspace next;workspace next;exec "xdotool mouse
 bindsym $mod+Shift+Ctrl+j  move workspace prev;workspace prev;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
 
 
+# Test workspacer
+
+# bindsym $mod+Ctrl+l workspace next;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+# bindsym $mod+Ctrl+j workspace prev;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+# bindsym $mod+Shift+Ctrl+l move workspace next;workspace next;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+# bindsym $mod+Shift+Ctrl+j  move workspace prev;workspace prev;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+
+
+# set $workspacer $HOME/git/i3-workspacer/i3-workspacer.py
+
+# # go to new workspace blocks
+# bindcode $mod+49 exec --no-startup-id $workspacer go -d up
+# bindcode $mod+23 exec --no-startup-id $workspacer go -d down
+
+# # move to new workspace blocks
+# bindcode $mod+Shift+49 exec --no-startup-id $workspacer move -d up;exec --no-startup-id $workspacer go -d up
+# bindcode $mod+Shift+23 exec --no-startup-id $workspacer move -d down;exec --no-startup-id $workspacer go -d down
+
+# # switch to workspace
+# bindsym $mod+Escape exec --no-startup-id $HOME/git/i3-workspacer/i3-goto-workspace
+# bindsym $mod+1 exec --no-startup-id $workspacer go -n 1
+# bindsym $mod+2 exec --no-startup-id $workspacer go -n 2
+# bindsym $mod+3 exec --no-startup-id $workspacer go -n 3
+# bindsym $mod+4 exec --no-startup-id $workspacer go -n 4
+# bindsym $mod+5 exec --no-startup-id $workspacer go -n 5
+# bindsym $mod+6 exec --no-startup-id $workspacer go -n 6
+# bindsym $mod+7 exec --no-startup-id $workspacer go -n 7
+# bindsym $mod+8 exec --no-startup-id $workspacer go -n 8
+# bindsym $mod+9 exec --no-startup-id $workspacer go -n 9
+# bindsym $mod+0 exec --no-startup-id $workspacer go -n 10
+
+# # move focused container to workspace
+# bindsym $mod+Shift+Escape exec --no-startup-id $HOME/git/i3-workspacer/i3-moveto-workspace
+# bindsym $mod+Shift+1 exec  $workspacer move -n 1;exec --no-startup-id $workspacer go -n 1
+# bindsym $mod+Shift+2 exec  $workspacer move -n 2;exec --no-startup-id $workspacer go -n 2
+# bindsym $mod+Shift+3 exec  $workspacer move -n 3;exec --no-startup-id $workspacer go -n 3
+# bindsym $mod+Shift+4 exec  $workspacer move -n 4;exec --no-startup-id $workspacer go -n 4
+# bindsym $mod+Shift+5 exec  $workspacer move -n 5;exec --no-startup-id $workspacer go -n 5
+# bindsym $mod+Shift+6 exec  $workspacer move -n 6;exec --no-startup-id $workspacer go -n 6
+# bindsym $mod+Shift+7 exec  $workspacer move -n 7;exec --no-startup-id $workspacer go -n 7
+# bindsym $mod+Shift+8 exec  $workspacer move -n 8;exec --no-startup-id $workspacer go -n 8
+# bindsym $mod+Shift+9 exec  $workspacer move -n 9;exec --no-startup-id $workspacer go -n 9
+# bindsym $mod+Shift+0 exec  $workspacer move -n 10;exec --no-startup-id $workspacer go -n 10
+
+# # renaming workspace
+# bindsym $mod+n exec --no-startup-id $HOME/git/i3-workspacer/i3-rename-workspace
+# bindsym $mod+Shift+n exec --no-startup-id $HOME/git/i3-workspacer/i3-renumber-workspace
+
 # Panel
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 
-BARS
 
+
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # exec_always xfce4-panel
 # exec_always xfce4-power-manager
 # bindsym $mod+x exec "xfce4-popup-whiskermenu"
-bindsym $mod+x exec i3-dmenu-desktop --dmenu="dmenu -b -i -sb seagreen"
+# bindsym $mod+x exec i3-dmenu-desktop --dmenu="dmenu -b -i -sb seagreen"
+bindsym $mod+x exec rofi -show drun -theme menu -show-icons -threads 0
 # bindsym Super_R exec "xfce4-popup-whiskermenu"
  # exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
@@ -243,18 +296,18 @@ for_window [title="/horario.*jpg"] floating enable;
 # IM
 exec surf web.whatsapp.com
 exec surf web.telegram.org
-exec surf stonepgto.slack.com/
 
 for_window [title=".*WhatsApp$"] move scratchpad
 for_window [title=".*Telegram Web$"] move scratchpad
-for_window [title=".*Stone Pagamentos S.A. Slack$"] move scratchpad
 
-set $IM "1:Whatsapp, 2: Telegram, 3: Slack"
+# for_window [title="^Skype$"] move scratchpad
+
+set $IM "1:Whatsapp, 2: Telegram"
 bindcode $mod+25 mode $IM
 mode $IM {
         bindsym 1 [title=".*WhatsApp$"] scratchpad show;mode default
 	bindsym 2 [title=".*Telegram Web$"] scratchpad show;mode default
-	bindsym 3 [title=".*Stone Pagamentos S.A. Slack$"] scratchpad show;mode default
+
 	# back to normal: Enter or Escape
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
@@ -274,23 +327,23 @@ bindsym Print exec "gnome-screenshot -i"
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $(pactl list short sink-inputs|head -n 1|cut -f2) +$((65535*5/100 ));exec pkill -SIGRTMIN+10 i3blocks
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume $(pactl list short sink-inputs|head -n 1|cut -f2) -$((65535*5/100 ));exec pkill -SIGRTMIN+10 i3blocks
 bindsym XF86AudioMute exec pactl set-sink-mute $(pactl list short sink-inputs|head -n 1|cut -f2) toggle;exec pkill -SIGRTMIN+10 i3blocks
-bindsym XF86AudioPlay exec $mpc toggle;exec pkill -SIGRTMIN+11 i3blocks; exec ~/bin/musicNotify
+bindsym XF86AudioPlay exec $mpc toggle;exec pkill -SIGRTMIN+11 i3blocks; exec $SCRIPTSFOLDER/musicNotify
 
-bindsym XF86AudioPrev exec $mpc prev;exec pkill -SIGRTMIN+11 i3blocks; exec ~/bin/musicNotify
-bindsym XF86AudioNext exec $mpc next;exec pkill -SIGRTMIN+11 i3blocks; exec ~/bin/musicNotify
+bindsym XF86AudioPrev exec $mpc prev;exec pkill -SIGRTMIN+11 i3blocks; exec $SCRIPTSFOLDER/musicNotify
+bindsym XF86AudioNext exec $mpc next;exec pkill -SIGRTMIN+11 i3blocks; exec $SCRIPTSFOLDER/musicNotify
 bindsym XF86AudioStop exec $mpc stop;exec pkill -SIGRTMIN+11 i3blocks
-bindsym XF86Tools exec "i3-sensible-terminal -e  ncmpcpp"
+bindsym XF86Tools exec "$term -e  ncmpcpp"
 
-bindsym $mod+F10 exec $mpc toggle;exec pkill -SIGRTMIN+11 i3blocks; exec ~/bin/musicNotify
+bindsym $mod+F10 exec $mpc toggle;exec pkill -SIGRTMIN+11 i3blocks; exec $SCRIPTSFOLDER/musicNotify
 bindsym $mod+F9 exec $mpc seek -00:00:10;exec pkill -SIGRTMIN+11 i3blocks
-bindsym $mod+shift+F9 exec $mpc prev;exec pkill -SIGRTMIN+11 i3blocks; exec ~/bin/musicNotify
-bindsym $mod+F11 exec $mpc stop;exec pkill -SIGRTMIN+11 i3blocks; exec ~/bin/musicNotify
+bindsym $mod+shift+F9 exec $mpc prev;exec pkill -SIGRTMIN+11 i3blocks; exec $SCRIPTSFOLDER/musicNotify
+bindsym $mod+F11 exec $mpc stop;exec pkill -SIGRTMIN+11 i3blocks; exec $SCRIPTSFOLDER/musicNotify
 bindsym $mod+F12 exec $mpc seek +00:00:10;exec pkill -SIGRTMIN+11 i3blocks
-bindsym $mod+shift+F12 exec $mpc next;exec pkill -SIGRTMIN+11 i3blocks; exec ~/bin/musicNotify
+bindsym $mod+shift+F12 exec $mpc next;exec pkill -SIGRTMIN+11 i3blocks; exec $SCRIPTSFOLDER/musicNotify
 
 bindsym XF86Calculator exec --no-startup-id galculator
-bindsym $mod+F1 exec "~/dots/scripts/changeSoundOutput"
-bindsym $mod+F2 exec "~/git/rofimoji/rofimoji.py"
+bindsym $mod+F1 exec "$SCRIPTSFOLDER/changeSoundOutput"
+bindsym $mod+F2 exec "$HOME/git/rofimoji/rofimoji.py"
 # ;exec pkill -SIGRTMIN+10 i3blocks
 
 # Screen brightness controls
@@ -298,42 +351,31 @@ bindsym $mod+F2 exec "~/git/rofimoji/rofimoji.py"
 # bindsym XF86MonBrightnessDown exec xbacklight - 20 # decrease screen brightness
 
 # bindsym XF86Mail exec --no-startup-id thunderbird
-bindsym XF86Mail exec "i3-sensible-terminal -c neomutt -e  bash -l -c neomutt"; mode "default";exec "kill $(pidof feh)"
+bindsym XF86Mail exec "$term -c neomutt -e  bash -l -c neomutt"; mode "default";exec "kill $(pidof feh)"
 bindsym XF86HomePage exec --no-startup-id vivaldi
-bindcode --release 105 exec "~/dots/scripts/findMouse"
-bindsym $mod+shift+h exec "feh ~/dots/layouts/keyboard-layout.jpg"
-bindsym $mod+shift+t exec "feh ~/Dropbox/produtividade/horario/horario-2018_2.jpg"
+bindcode --release 105 exec "$SCRIPTSFOLDER/findMouse"
+bindsym $mod+shift+h exec "feh $HOME/dots/layouts/keyboard-layout.jpg"
+bindsym $mod+shift+t exec "feh $HOME/Dropbox/produtividade/horario/horario-2018_2.jpg"
 bindsym $mod+shift+m mode "music"
 
 mode "music" {
      bindsym Escape mode "default"
-     bindsym a exec "~/dots/scripts/mpdmenu -a :: -sb  seagreen -b -i";mode "default"
-     bindsym n exec "~/dots/scripts/mpdMenuImage ~/Music";mode "default"
-     bindsym m exec "~/dots/scripts/mpdmenu :: -sb  seagreen -b -i";mode "default"
+     bindsym a exec "$SCRIPTSFOLDER/mpdmenu -a :: -sb  seagreen -b -i";mode "default"
+     bindsym n exec "$SCRIPTSFOLDER/mpdMenuImage $HOME/Music";mode "default"
+     bindsym m exec "$SCRIPTSFOLDER/mpdmenu :: -sb  seagreen -b -i";mode "default"
 }
 
 exec compton
 exec dunst
 exec "nm-applet &"
-exec --no-startup-id "~/dots/scripts/dropbox start"
-exec --no-startup-id "~/dots/scripts/autoRotation"
+exec --no-startup-id "$SCRIPTSFOLDER/dropbox start"
+exec --no-startup-id "$SCRIPTSFOLDER/autoRotation"
 exec "emacs --daemon"
-exec i3-sensible-terminal
 exec mpd
-exec ~/dots/scripts/dualScreenTop d
+exec $SCRIPTSFOLDER/dualScreenTop d
 
 
-workspace $1 output MONITOR2
-workspace $2 output MONITOR2
-workspace $3 output MONITOR2
-workspace $4 output MONITOR2
-workspace $5 output MONITOR2
 
-workspace $6 output MONITOR1
-workspace $7 output MONITOR1
-workspace $8 output MONITOR1
-workspace $9 output MONITOR1
-workspace $10 output MONITOR1
 
 # Mouse configs
 exec_always xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Scrolling Distance' -20 -20
@@ -342,8 +384,8 @@ exec_always xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Edge Scro
 exec_always xinput set-prop 'SynPS/2 Synaptics TouchPad' 'Synaptics Scrolling Distance' -200 -20
 
 # Modifiers
-bindsym --whole-window button10 exec "~/dots/scripts/mouseMode 10"
-bindsym --whole-window button11 exec "~/dots/scripts/mouseMode 11"
+bindsym --whole-window button10 exec "$SCRIPTSFOLDER/mouseMode 10"
+bindsym --whole-window button11 exec "$SCRIPTSFOLDER/mouseMode 11"
 
 bindsym --whole-window button6 exec "xdotool key ctrl+shift+Tab"
 bindsym --whole-window button7 exec "xdotool key ctrl+Tab"
@@ -373,13 +415,13 @@ exec_always xsetwacom set "Wacom Intuos PT S 2 Pad pad" Button 3 22
 exec_always xsetwacom set "Wacom Intuos PT S 2 Pad pad" Button 1 23
 exec_always xsetwacom set "Wacom Intuos PT S 2 Pad pad" Button 9 24
 exec_always xsetwacom set "Wacom Intuos PT S 2 Pad pad" Button 8 25
-bindsym --whole-window button22 exec "~/dots/scripts/wacomChangeOutput MONITOR2"
-bindsym --whole-window button23 exec "~/dots/scripts/wacomChangeOutput MONITOR1"
-bindsym --whole-window button24 exec "~/dots/scripts/wacomChangeOutput MONITOR2"
-bindsym --whole-window button25  exec "~/dots/scripts/wacomChangeOutput MONITOR1"
+bindsym --whole-window button22 exec "$SCRIPTSFOLDER/wacomChangeOutput MONITOR2"
+bindsym --whole-window button23 exec "$SCRIPTSFOLDER/wacomChangeOutput MONITOR1"
+bindsym --whole-window button24 exec "$SCRIPTSFOLDER/wacomChangeOutput MONITOR2"
+bindsym --whole-window button25  exec "$SCRIPTSFOLDER/wacomChangeOutput MONITOR1"
 
 
 
 
-exec_always "~/dots/scripts/changeWallpaper -1"
+exec_always "$SCRIPTSFOLDER/changeWallpaper -1"
 

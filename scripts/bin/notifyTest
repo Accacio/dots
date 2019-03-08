@@ -1,0 +1,34 @@
+#!/bin/bash
+function ImageLayer {
+    ueberzug layer -sp json
+}
+
+COVER="/tmp/cover"
+X_PADDING=0
+Y_PADDING=0
+
+# function add_cover {
+#     if [ -e $COVER ]; then
+#         echo "{\"action\": \"add\", \"identifier\": \"cover\", \"x\": $X_PADDING, \"y\": $Y_PADDING, \"path\": \"$COVER\"}";
+#     fi
+# }
+
+function reset_background
+{
+    # is there any better way?
+    printf "\e]20;;100x100+1000+1000\a"
+}
+reset_background
+# {
+#     clear
+# ImageLayer -< <(
+#     add_cover
+#     while inotifywait -q -q -e close_write "$COVER"; do
+#         add_cover
+#     done)
+# reset_background
+# } 
+
+
+# notify-send \
+#     "$(cal| sed "s/\_[^[:print:]][0-9]\_[^[:print:]][0-9]/$(date '+%d')/g"|sed "s/\ \([0-9]\)/  \1/g")"

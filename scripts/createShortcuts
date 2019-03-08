@@ -1,5 +1,0 @@
-#!/bin/bash
-shell_shortcuts="$HOME/.shortcuts"
-
-awk '{print "alias " $1"=\" cd " $2"\" "}' ~/dots/shortcuts > "$shell_shortcuts"
-

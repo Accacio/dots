@@ -1,0 +1,39 @@
+#!/bin/sh
+# Auto rotate screen based on device orientation
+
+# Receives input from monitor-sensor (part of iio-sensor-proxy package)
+# Screen orientation and launcher location is set based upon accelerometer position
+# Launcher will be on the left in a landscape orientation and on the bottom in a portrait orientation
+# This script should be added to startup applications for the user
+
+# Clear sensor.log so it doesn't get too long over time
+
+touch /tmp/sensor.log
+> /tmp/sensor.log
+
+# Launch monitor-sensor and store the output in a variable that can be parsed by the rest of the script
+monitor-sensor >> /tmp/sensor.log 2>&1 &
+
+# Parse output or monitor sensor to get the new orientation whenever the log file is updated
+# Possibles are: normal, bottom-up, right-up, left-up
+# Light data will be ignored
+while inotifywait -e modify /tmp/sensor.log; do
+    # Read the last line that was added to the file and get the orientation
+    ORIENTATION=$(tail -n 10 /tmp/sensor.log | grep 'orientation' |tail -n 1| grep -oE '[^ ]+$')
+
+    # Set the actions to be taken for each possible orientation
+    case "$ORIENTATION" in
+	normal)
+	    xrandr --output eDP1 --rotate normal
+	    xinput map-to-output "ELAN Touchscreen" eDP1;;
+	bottom-up)
+	    xrandr --output eDP1 --rotate inverted
+	    xinput map-to-output "ELAN Touchscreen" eDP1;;
+	right-up)
+	    xrandr --output eDP1 --rotate right
+	    xinput map-to-output "ELAN Touchscreen" eDP1;;
+	left-up)
+	    xrandr --output eDP1 --rotate left
+	    xinput map-to-output "ELAN Touchscreen" eDP1;;
+    esac
+done

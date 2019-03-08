@@ -64,8 +64,9 @@ ZSH_CUSTOM=/home/accacio/.customz
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     git,
-    z
+    history-substring-search,
 )
+
 
 source $ZSH/oh-my-zsh.sh
 source /etc/zsh_command_not_found
@@ -77,7 +78,14 @@ zle -N rangerShow
 bindkey '^[\' ncmpcppShow
 bindkey '^[r' rangerShow
 
-source ~/.bashrc.d/configs.bash
 source ~/.bashrc.d/alias.bash
 source ~/.bashrc.d/variables.bash
 
+
+source /home/accacio/.customz/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /home/accacio/.customz/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=3"
+
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

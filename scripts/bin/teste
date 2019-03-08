@@ -1,0 +1,3 @@
+#!/bin/bash
+find ~/Music/  \( -name "*.png" -or -name "*.jp*g" \) \
+		  |sort|~/git/sxiv/sxiv -tio

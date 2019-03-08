@@ -1,3 +1,6 @@
+stow -v -t ~/ \
+     scripts/
+
 # outside .config
 stow -v -d configs/ -t ~/ \
      bash/     \

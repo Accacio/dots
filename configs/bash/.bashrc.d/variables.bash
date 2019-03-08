@@ -1,3 +1,5 @@
+export PATH=$HOME/.local/bin:$PATH
+
 # Install Ruby Gems to $HOME/gems
 export GEM_HOME=$HOME/gems
 export PATH=$HOME/gems/bin:$PATH
@@ -8,7 +10,7 @@ git config --global user.email "raccacio@poli.ufrj.br"
 git config --global user.name "Accacio"
 
 # Install Cuda
-export PATH=/usr/local/cuda-9.2/bin:$PATH 
+export PATH=/usr/local/cuda-9.2/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/cuda-9.2/lib64:$LD_LIBRARY_PATH
 
 # Rust
@@ -18,13 +20,6 @@ export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 # Snap
 export PATH=/snap/bin:$PATH
 
-# MyScripts
-
-[ ! -d $HOME/bin ] \
-    && [ -d $HOME/dots/scripts/ ] \
-    &&  ln -s $HOME/dots/scripts $HOME/bin;\
-    export PATH="/home/accacio/dots/scripts:$PATH"
-[ -d $HOME/bin ] && export PATH="/home/accacio/dots/scripts:$PATH"
 #
 # Editors
 #

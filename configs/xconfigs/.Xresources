@@ -23,7 +23,7 @@ st.alpha: 230
 ! * 4: Underline ("_")
 ! * 6: Bar ("|")
 ! * 7: Snowman ("☃")
-*.cursorshape: 6
+*.cursorshape: 2
 
 ! *.termname:
 ! *.shell:

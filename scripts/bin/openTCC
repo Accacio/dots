@@ -1,0 +1,8 @@
+#!/bin/bash
+
+emacsclient -c ~/TCC/org/tabelas.org &
+emacsclient -c ~/TCC/figures/petriNets/completo/completo.tex &
+
+zathura ~/TCC/petriNets/lancellotePetriNets.pdf &
+zathura ~/TCC/figures/petriNets/completo/completo.pdf &
+

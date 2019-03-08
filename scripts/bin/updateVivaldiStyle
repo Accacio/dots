@@ -1,0 +1,5 @@
+#!/bin/bash
+curl https://gist.githubusercontent.com/Accacio/deec277f9692ab2aab3a7991470ab0e1/raw > /tmp/common.js;
+curl https://gist.githubusercontent.com/Accacio/3340b7f4734ebf0b48459c04160b6fa5/raw > /tmp/common.css;
+sudo mv /tmp/common.js /opt/vivaldi/resources/vivaldi/style/common.js
+sudo mv /tmp/common.css /opt/vivaldi/resources/vivaldi/style/common.css

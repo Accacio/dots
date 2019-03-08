@@ -44,6 +44,7 @@ alias myproxy='PW=`openssl aes-256-cbc -d -in $HOME/.pw`; PROXY="http://$PW@$pro
       emacsd="emacs -daemon" \
       emc="emacsclient -c" \
       emct="emacsclient -t" \
+      sc="sc-im"
       accSite="surf 192.168.1.140:4000 &" \
       jsl="cd $HOME/blog/;jekyll serve --livereload" \
       music='tmux new-session "tmux source-file $HOME/dots/configs/ncmpcpp/ncmpcpp/tmux_session"' \
@@ -54,6 +55,11 @@ alias myproxy='PW=`openssl aes-256-cbc -d -in $HOME/.pw`; PROXY="http://$PW@$pro
 # alias d='xrandr -o inverted'
 
 
+function vim {
+ID=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+socket=/tmp/nvim-$ID
+nvr --servername $socket --remote $1
+}
 function - {
     cd -
 }

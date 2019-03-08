@@ -1,0 +1,31 @@
+#!/bin/bash
+export DISPLAY=:0
+monitors=( $(xrandr |grep " connected"|cut -d " " -f 1|tr "\n" " "))
+
+echo \# of  Monitors plugged: ${#monitors[@]}
+case ${#monitors[@]}
+in
+    1)
+	barsfile=$(echo ~/dots/configs/i3/.i3/bars/oneMonitor)
+	;;
+    2)
+	barsfile=$(echo ~/dots/configs/i3/.i3/bars/twoMonitors)
+	;;
+    *)
+	barsfile=$(echo ~/dots/configs/i3/.i3/bars/oneMonitor)
+	;;
+esac
+
+workspacesnames=$(echo ~/dots/workspaceNames)
+
+
+sed "/WORKSPACES/\
+{r $workspacesnames
+d}
+;/BARS/ \
+{r $barsfile
+d
+}
+"  ~/dots/configs/i3/.i3/config.raw | sed "s/MONITOR1/${monitors[0]}/;s/MONITOR2/${monitors[1]}/" > ~/.i3/config
+notify-send "I3 config processed"
+i3-msg restart
