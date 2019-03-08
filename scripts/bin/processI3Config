@@ -28,4 +28,3 @@ d
 }
 "  ~/dots/configs/i3/.i3/config.raw | sed "s/MONITOR1/${monitors[0]}/;s/MONITOR2/${monitors[1]}/" > ~/.i3/config
 notify-send "I3 config processed"
-i3-msg restart
