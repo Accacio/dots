@@ -1,0 +1,2 @@
+#!/bin/bash
+rofi -password -dmenu -theme menu -p "$1"
