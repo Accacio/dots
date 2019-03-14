@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+dmenu="rofi -dmenu -theme menu -p Account:"
 
 shopt -s nullglob globstar
 
@@ -13,7 +14,7 @@ password_files=( "$prefix"/**/*.gpg )
 password_files=( "${password_files[@]#"$prefix"/}" )
 password_files=( "${password_files[@]%.gpg}" )
 
-password=$(printf '%s\n' "${password_files[@]}" | dmenu "$@")
+password=$(printf '%s\n' "${password_files[@]}" | $dmenu "$@")
 
 [[ -n $password ]] || exit
 

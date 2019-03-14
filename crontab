@@ -1,14 +1,15 @@
-# ┌───────────── minute (0 - 59)
+
+# ┌─────────────── minute (0 - 59)
 # │ ┌───────────── hour (0 - 23)
-# │ │ ┌───────────── day of month (1 - 31)
-# │ │ │ ┌───────────── month (1 - 12)
-# │ │ │ │ ┌───────────── day of week (0 - 6) (Sunday to Saturday;
-# │ │ │ │ │                                       7 is also Sunday on some systems)
+# │ │ ┌─────────── day of month (1 - 31)
+# │ │ │ ┌───────── month (1 - 12)
+# │ │ │ │ ┌─────── day of week (0 - 6) (Sunday to Saturday;
+# │ │ │ │ │                             7 is also Sunday on some systems)
 # │ │ │ │ │
 # │ │ │ │ │
 # * * * * *  command to execute
-*/5 * * * * /home/accacio/dots/scripts/changeWallpaper
+*/5 * * * * /home/accacio/bin/changeWallpaper
 0 0 */4 * * rm -rd /home/accacio/Downloads/lixo/*
-*/15 8-18 * * * /home/accacio/dots/scripts/setColorTemperature -d
-0 19-23 * * * /home/accacio/dots/scripts/setColorTemperature
-* * * * * /home/accacio/dots/scripts/batteryNotify
+*/15 8-18 * * * /home/accacio/bin/setColorTemperature -d
+0 19-23 * * * /home/accacio/bin/setColorTemperature
+* * * * * /home/accacio/bin/batteryNotify
