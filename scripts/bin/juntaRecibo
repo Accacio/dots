@@ -1,0 +1,33 @@
+#!/bin/bash
+notify-send juntaRecibo 
+temp1=$(mktemp)
+temp2=$(mktemp)
+filename=$1
+fileSuffix=${filename##*_}
+
+echo $fileSuffix
+if [ "$fileSuffix" != "conta.pdf" ];
+then
+    notify-send "Arquivo deve terminar com _conta.pdf"
+    exit 1
+fi
+# echo "Escreva a senha"
+# read -s pass
+pass=$(zenity --password --title="Insira senha do pdf")
+recibo=`basename $1 _conta.pdf`_rec.jpg
+echo $recibo
+output=`basename $1 _conta.pdf`.pdf
+
+
+qpdf --password=$pass --decrypt $1 $temp1
+# # # convert $temp1 $2 -resize 1240x1750 -compose Copy\
+# # #                -gravity center \
+# # #                `basename $1 .pdf`_final.pdf
+convert "$recibo" -resize 400 $temp2.pdf
+if [ $? != 0 ]
+then
+    echo "imagemagick not allowed to write pdf, changing writing rights"
+    sudo -A sed -i 's/<policy domain="coder" rights="none" pattern="PDF" \/>/<policy domain="coder" rights="read|write" pattern="PDF" \/>/g' /etc/ImageMagick-6/policy.xml
+fi
+pdfunite $temp1 $temp2.pdf $output
+rm $temp1 $temp2
