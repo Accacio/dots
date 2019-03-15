@@ -1,59 +1,35 @@
 #!/bin/bash
 
-
 if [ $# -eq 0 ]
 then
     t=`cat -v /dev/stdin`
-    filename=$(mktemp)
+
 else
     t=`cat -v $1`
-    filename=$(mktemp)
+
 fi
-# echo $filename
-fileext=${filename##*.}
+filename="tmp"
 
-# if [ ! $fileext = "dot" ]
-# then
-#     echo "File must be .dot"
-#     exit 1
-# fi
+inputFile=$filename
 
-inputFile=$(basename $filename .$fileext)
-
-tempfile="/tmp/$inputFile.tex"
-
-output="$inputFile.tex"
-outpt="$inputFile-bla.tex"
-
-# search_markedplace="\(\\\node (x\)\([0-9]\+\)\(m\)\([0-9]\+\)\() at (.*) \[draw,ellipse\)\(\] {};\)"
-# replace_markedplace="\\1\\2\\3\\4\\5,place, tokens=\\4, label=above:, label=left:\$p_{\\2}\$,rotate=90\\6"
 
 search_place="\(\\\node (x\)\([0-9]\+\)\() at (.*) \[draw,\)ellipse\(\] {x[0-9]\+};\)"
 replace_place="\\1\\2\\3,circle, label=above:,rotate=0] {\$x_{\\2}\$};"
 
 search_markedplace="\(\\\node (x\)\([0-9]\+\)\() at (.*) \[draw,circle, double\)\(\] {x[0-9]\+};\)"
 replace_markedplace="\\1\\2\\3,place, label=above:,rotate=0] {\$x_{\\2}\$};"
-# search_timedtransition="\(\\\node (tt\)\([0-9]\+\)\() at (.*) \[draw,ellipse\)\(\] {};\)"
-# replace_timedtransition="\\1\\2\\3,timedtransition, label=above:, label=left:\$t_{\\2}\$,rotate=90\\4"
 
-# search_transition="\(\\\node (t\)\([0-9]\+\)\() at (.*) \[draw,ellipse\)\(\] {};\)"
-# replace_transition="\\1\\2\\3,transition, label=above:, label=left:\$t_{\\2}\$,rotate=90\\4"
-
-# # insert [label=""] in nodes declaration
 echo $t |dot2tex --prog dot --autosize -f tikz \
 	--docpreamble \
 	"\usetikzlibrary{arrows,shapes,petri,external}
 	\tikzexternalize
-	\tikzsetnextfilename{$inputFile}" \
+	\tikzsetnextfilename{figure}" \
 	  |
 sed "s/$search_place/$replace_place/g" |
 sed "s/$search_markedplace/$replace_markedplace/g" |
     sed "s/down/\$\\\downarrow\$/g"  |
-    sed "s/up/\$\\\uparrow\$/g" > $outpt
-pdflatex --shell-escape $outpt 2&>/dev/null 
+    sed "s/up/\$\\\uparrow\$/g" > $filename
+pdflatex --shell-escape --output-directory /tmp $filename 2&>/dev/null
+rm $filename
 
-cleanLatex
-# rm "/tmp/$1"
-[ -f "$outpt" ] && rm $outpt
-[ -f "$(basename $outpt .tex).pdf" ] && rm "$(basename $outpt .tex).pdf"
-[ -f "$inputFile.pdf" ] && cat $inputFile.pdf;rm $inputFile.pdf
+[ -f "figure.pdf" ] && cat figure.pdf;rm figure.*
