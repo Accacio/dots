@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Junta Recibo
+Comment=Junta Recibo com a conta
+MimeType=application/pdf
+Exec=juntaRecibo %f
+Icon=/home/accacio/.local/share/applications/icons/junta.png
+Type=Application
+Terminal=false
+Categories=Development;TextEditor;
+StartupWMClass=Emacs
+Keywords=Text;Editor;

@@ -1,5 +1,5 @@
 #!/bin/bash
-notify-send juntaRecibo 
+notify-send juntaRecibo
 temp1=$(mktemp)
 temp2=$(mktemp)
 filename=$1

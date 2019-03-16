@@ -1,8 +1,29 @@
 #!/bin/bash
 
-emacsclient -c ~/TCC/org/tabelas.org &
-emacsclient -c ~/TCC/figures/petriNets/completo/completo.tex &
+options="Daoct\nPetri"
+mode=$(echo -e $options |rofi -dmenu -theme menu -p TCC)
+notify-send $mode
+case $mode in
+    Daoct)
+	path="/home/accacio/TCC/python/DAOCT"
 
-zathura ~/TCC/petriNets/lancellotePetriNets.pdf &
-zathura ~/TCC/figures/petriNets/completo/completo.pdf &
+	i3-msg "workspace 1; exec emacs $path/automaton.py $path/daoct $path/daoct.py $path/utils.py $path/graph.py"
+
+	path="~/TCC/python/DAOCT/Ryan/"
+	i3-msg "workspace 2; exec emacs $path/automaton.py $path/daoct.py $path/graph.py $path/paths.py $path/IO.py"
+
+	i3-msg 'workspace 4; exec zathura ~/Dropbox/TCC/leitura/artigos/moreira2018enhanced.pdf'
+	i3-msg "workspace 1"
+	;;
+    Petri)
+	# emacsclient-c ~/TCC/org/tabelas.org &
+	# st -e vim ~/TCC/org/tabelas.org &
+	# i3-msg split horizontal
+	# emacsclient -c ~/TCC/figures/petriNets/completo/completo.tex &
+
+	# zathura ~/TCC/petriNets/lancellotePetriNets.pdf &
+	# i3-msg split vertical
+	# zathura ~/TCC/figures/petriNets/completo/completo.pdf &
+	;;
+esac
 
