@@ -1,17 +1,26 @@
 #!/bin/bash
 
+filename=$1
+fileext=${filename##*.}
+
 if [ $# -eq 0 ]
 then
-    t=`cat -v /dev/stdin`
-
+    t="$(cat /dev/stdin)"
+    inputFile="stdin"
 else
-    t=`cat -v $1`
+
+    if [ ! $fileext = "dot" ]
+    then
+	echo "File must be .dot"
+	exit 1
+    else
+	t=`cat $1`
+	inputFile=$(basename $filename .$fileext)
+    fi
 
 fi
+
 filename="tmp"
-
-inputFile=$filename
-
 
 search_place="\(\\\node (x\)\([0-9]\+\)\() at (.*) \[draw,\)ellipse\(\] {x[0-9]\+};\)"
 replace_place="\\1\\2\\3,circle, label=above:,rotate=0] {\$x_{\\2}\$};"
@@ -19,7 +28,7 @@ replace_place="\\1\\2\\3,circle, label=above:,rotate=0] {\$x_{\\2}\$};"
 search_markedplace="\(\\\node (x\)\([0-9]\+\)\() at (.*) \[draw,circle, double\)\(\] {x[0-9]\+};\)"
 replace_markedplace="\\1\\2\\3,place, label=above:,rotate=0] {\$x_{\\2}\$};"
 
-echo $t |dot2tex --prog dot --autosize -f tikz \
+echo "$t" |dot2tex --prog dot --autosize -f tikz \
 	--docpreamble \
 	"\usetikzlibrary{arrows,shapes,petri,external}
 	\tikzexternalize
@@ -30,6 +39,5 @@ sed "s/$search_markedplace/$replace_markedplace/g" |
     sed "s/down/\$\\\downarrow\$/g"  |
     sed "s/up/\$\\\uparrow\$/g" > $filename
 pdflatex --shell-escape --output-directory /tmp $filename 2&>/dev/null
-rm $filename
 
-[ -f "figure.pdf" ] && cat figure.pdf;rm figure.*
+[ -f "figure.pdf" ] && mv figure.pdf $inputFile.pdf;rm figure.*;rm $filename

@@ -1,20 +1,30 @@
 #!/bin/bash
 
+trap "exit 255;" SIGINT SIGTERM SIGKILL
 filename=$1
 fileext=${filename##*.}
 
-if [ ! $fileext = "dot" ]
+if [ $# -eq 0 ]
 then
-    echo "File must be .dot"
-    exit 1
+    t="$(cat /dev/stdin)"
+    inputFile="stdin"
+else
+
+    if [ ! $fileext = "dot" ]
+    then
+	echo "File must be .dot"
+	exit 1
+    else
+	t=`cat $1`
+	inputFile=$(basename $filename .$fileext)
+    fi
+
 fi
 
-inputFile=$(basename $filename .$fileext)
+TMPDIR=$(mktemp -d)
+echo $TMPDIR
 
-tempfile="/tmp/$inputFile.tex"
-
-output="$inputFile.tex"
-
+filename="$inputFile.tex"
 
 search_markedplace="\(\\\node (p\)\([0-9]\+\)\(m\)\([0-9]\+\)\() at (.*) \[draw,ellipse\)\(\] {};\)"
 replace_markedplace="\\1\\2\\3\\4\\5,place, tokens=\\4, label=above:, label=left:\$p_{\\2}\$,rotate=90\\6"
@@ -28,16 +38,51 @@ replace_timedtransition="\\1\\2\\3,timedtransition, label=above:, label=left:\$t
 search_transition="\(\\\node (t\)\([0-9]\+\)\() at (.*) \[draw,ellipse\)\(\] {};\)"
 replace_transition="\\1\\2\\3,transition, label=above:, label=left:\$t_{\\2}\$,rotate=90\\4"
 
-# insert [label=""] in nodes declaration
-sed -E "s/^([ ]*(p|t|tt)[0-9,m]+)$/\1 [label=\"\"]/g" $1 > "/tmp/$1"
-
-dot2tex --prog dot --autosize -f tikz --figonly "/tmp/$1" > $tempfile
-
-sed "s/$search_markedplace/$replace_markedplace/g" $tempfile |\
+echo "$t" |sed -E "s/^([ ]*(p|t|tt)[0-9,m]+)$/\1 [label=\"\"]/g"\
+    | dot2tex --prog dot --autosize -f tikz \
+	--docpreamble \
+	"\usetikzlibrary{arrows,shapes,petri,external}
+	\tikzexternalize
+	\tikzsetnextfilename{figure}
+	\tikzset{
+	place/.style={
+	circle,
+	thick,
+	draw=black!100, % draw=blue!75,
+    % fill=blue!20,
+    minimum size=6mm
+  },
+  extPlace/.style={
+    circle,
+    dotted,
+    draw=black!100, % draw=blue!75,
+    % fill=blue!20,
+    minimum size=6mm
+  },
+  transition/.style={
+    rectangle,
+    thick,
+    fill=black,
+    minimum width=8mm,
+    inner ysep=0.7pt
+  },
+  timedtransition/.style={
+    rectangle,
+    thick,
+    fill=black,
+    minimum width=8mm,
+    inner ysep=2pt
+  },
+  inhibitor/.style={-o},
+  text/.style={}
+}" \
+    | sed "s/$search_markedplace/$replace_markedplace/g"|\
     sed "s/$search_place/$replace_place/g"    |\
     sed "s/$search_transition/$replace_transition/g" |\
     sed "s/$search_timedtransition/$replace_timedtransition/g" \
-	> "$output"
-rm $tempfile "/tmp/$1"
+	> $filename
 
-pdflatex --shell-escape figure.tex
+
+pdflatex --shell-escape $filename 2&>/dev/null
+
+[ -f "figure.pdf" ] && mv figure.pdf $inputFile.pdf; rm figure.*
