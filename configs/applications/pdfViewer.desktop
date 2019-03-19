@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=PDF Viewer
+GenericName=PDF viewer
+Comment=PDF viewer
+Exec=zathura %U
+Terminal=false

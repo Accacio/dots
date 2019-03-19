@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Text Editor
+GenericName=Text Editor
+Comment=Text Editor
+Exec=emacsclient -c %f
+Type=Application
+Icon=emacs26
+Terminal=false
+

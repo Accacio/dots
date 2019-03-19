@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Image Viewer
+GenericName=Image viewer
+Comment=Image viewer
+Exec=sxiv %F
+
