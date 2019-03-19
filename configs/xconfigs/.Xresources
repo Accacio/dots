@@ -14,7 +14,9 @@ st.alpha: 230
 *.color10: #586e75
 *.color11: #657b83
 
-*.background: #002b36
+! *.background: #002b36
+! *.background: #000000
+ *.background: #001b26
 *.foreground: #fff
 *.cursorColor: #099000
 *.revCursorColor: #fdf6e3

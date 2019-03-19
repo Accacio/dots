@@ -7,15 +7,15 @@
 # the display resolution, in pixels per inch
 display_dpi=96.00
 # the initial zoom level, in percent
-initial_zoom=100.00
+initial_zoom=164.34
 # maximize the window at startup (true/false)
 window_maximize=false
 # start in full screen mode (true/false)
 window_fullscreen=false
 # the window width in pixels (when not maximized)
-window_width=1366
+window_width=1360
 # the window height in pixels
-window_height=768
+window_height=742
 # scrollbar step increment (in pixels)
 scrollbar_speed=30
 # the step increment in the zoom dialog box
@@ -45,11 +45,11 @@ buttons_switch_mappings=false
 # automatically load filename.pdf.xoj instead of filename.pdf (true/false)
 autoload_pdf_xoj=false
 # enable periodic autosaves (true/false)
-autosave_enabled=false
+autosave_enabled=true
 # delay for periodic autosaves (in seconds)
 autosave_delay=5
 # default path for open/save (leave blank for current directory)
-default_path=
+default_path=/home/accacio/git/docsTCC
 # use pressure sensitivity to control pen stroke width (true/false)
 pressure_sensitivity=false
 # minimum width multiplier
@@ -62,7 +62,7 @@ interface_order=menu main_toolbar pen_toolbar drawarea statusbar
 # interface components in fullscreen mode, from top to bottom
 interface_fullscreen=main_toolbar pen_toolbar drawarea
 # interface has left-handed scrollbar (true/false)
-interface_lefthanded=false
+interface_lefthanded=true
 # hide some unwanted menu or toolbar items (true/false)
 shorten_menus=false
 # interface items to hide (customize at your own risk!)
@@ -72,7 +72,7 @@ shorten_menu_items=optionsProgressiveBG optionsLeftHanded optionsButtonSwitchMap
 # warning: opacity level is not saved in xoj files!
 highlighter_opacity=0.50
 # auto-save preferences on exit (true/false)
-autosave_prefs=false
+autosave_prefs=true
 # force PDF rendering through cairo (slower but nicer) (true/false)
 poppler_force_cairo=false
 # prefer xournal's own PDF code for exporting PDFs (true/false)
@@ -110,15 +110,15 @@ pen_cursor=false
 # default pen color
 pen_color=black
 # default pen thickness (fine = 1, medium = 2, thick = 3)
-pen_thickness=2
+pen_thickness=0
 # default pen is in ruler mode (true/false)
 pen_ruler=false
 # default pen is in shape recognizer mode (true/false)
-pen_recognizer=false
+pen_recognizer=true
 # default eraser thickness (fine = 1, medium = 2, thick = 3)
 eraser_thickness=2
 # default eraser mode (standard = 0, whiteout = 1, strokes = 2)
-eraser_mode=0
+eraser_mode=2
 # default highlighter color
 highlighter_color=yellow
 # default highlighter thickness (fine = 1, medium = 2, thick = 3)
@@ -140,7 +140,7 @@ btn2_ruler=false
 # button 2 shape recognizer mode (true/false) (pen or highlighter only)
 btn2_recognizer=false
 # button 2 eraser mode (eraser only)
-btn2_erasermode=0
+btn2_erasermode=2
 # button 3 tool (pen, eraser, highlighter, text, selectregion, selectrect, vertspace, hand, image)
 btn3_tool=selectregion
 # button 3 brush linked to primary brush (true/false) (overrides all other settings)
@@ -154,7 +154,7 @@ btn3_ruler=false
 # button 3 shape recognizer mode (true/false) (pen or highlighter only)
 btn3_recognizer=false
 # button 3 eraser mode (eraser only)
-btn3_erasermode=0
+btn3_erasermode=2
 # thickness of the various pens (in points, 1 pt = 1/72 in)
 pen_thicknesses=0.42;0.85;1.41;2.26;5.67
 # thickness of the various erasers (in points, 1 pt = 1/72 in)
