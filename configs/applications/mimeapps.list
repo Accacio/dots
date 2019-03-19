@@ -4,8 +4,10 @@ application/pdf=pdfViewer.desktop
 application/ppdf=FoxitReader.desktop
 application/octet-stream=FoxitReader.desktop
 application/lrf=calibre-lrfviewer.desktop
-application/x-shellscript=editor.desktop
+
 image/png=imageViewer.desktop
 image/jpg=imageViewer.desktop
+
 text/plain=editor.desktop
+application/x-shellscript=editor.desktop
 
