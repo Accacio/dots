@@ -24,23 +24,6 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-if [ "$color_prompt" = yes ]; then
-    PS1='\[\033[01;32m\]\u:\[\033[01;34m\]\w\[\033[00m\]\$' 
-#@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
-
 function get_divider {
     if [ "$(echo $(hostname))" == "going-mobile" ]
     then echo 'is'
@@ -51,22 +34,43 @@ function get_divider {
 function color_my_prompt {
     local __time_and_date='[\d - \t]'
     local __user_color='\[\033[01;32m\]'
-    local __user='\u'
-    local __divider=$(
-	if [ "$(echo $(hostname))" == "going-mobile" ]
-	then echo 'is'
-	else echo 'is at'
-	fi)
+    local __user=' \u'
+    # local __divider=$(
+    # 	if [ "$(echo $(hostname))" == "going-mobile" ]
+    # 	then echo 'is'
+    # 	else echo 'is at'
+    # 	fi)
+    if [[ "$TERM" = *-256color ]]
+    then
+	if [ "$(hostname)" = "home" ]
+	then
+	    promptHost=🏠
+	else
+	    promptHost=$(hostname)
+	fi
+	arrow=➜
+    else
+	promptHost=$(hostname)
+	arrow="->"
+    fi
+
     local __host='\h'
+    local __host='$promptHost'
     local __cur_location="\[\033[01;34m\]\w"
     local __git_branch_color="\[\033[31m\]"
-    local __prompt_tail='\[\033[31m\]⇝'
+    local __prompt_tail='\[\033[31m\]$arrow'
     local __git='$(__git_ps1)'
 
     local __last_color="\[\033[00m\]"
 
-    PS1="\n$__user_color[$__user $__divider $__host$__last_color $__cur_location]$__last_color$__git_branch_color$__git\n$__prompt_tail $__last_color"
+    PS1="\n$__user_color[$__user/$__host$__last_color $__cur_location ]$__last_color$__git_branch_color$__git\n$__prompt_tail $__last_color"
 
 }
 
-color_my_prompt
+
+if [ "$color_prompt" = yes ]; then
+    color_my_prompt
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+fi
+unset color_prompt force_color_prompt
