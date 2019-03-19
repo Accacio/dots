@@ -1,45 +1,56 @@
-bar {
-font pango:monospace 8, FontAwesome 8
-# font pango:mono 8
-workspace_buttons yes
-strip_workspace_numbers yes
-output MONITOR1
-colors {
+workspace 1 output MONITOR2
+workspace 2 output MONITOR2	
+workspace 3 output MONITOR2
+workspace 4 output MONITOR2
+workspace 5 output MONITOR2
+workspace 6 output MONITOR1
+workspace 7 output MONITOR1
+workspace 8 output MONITOR1
+workspace 9 output MONITOR1
+workspace 10 output MONITOR1
 
-focused_workspace #000000 #2E8B57 #000000 
+# bar {
+# font pango:monospace 8, FontAwesome 8
+# # font pango:mono 8
+# workspace_buttons yes
+# strip_workspace_numbers yes
+# output MONITOR1
+# colors {
 
-}
-    status_command i3blocks
-    # tray_output none
-    position bottom
-}
+# focused_workspace #000000 #2E8B57 #000000 
 
-bar {
-# font pango: FontAwesome 12
-# font pango:monospace 12, FontAwesome 12
-font pango:mono 8, FontAwesome 12
-strip_workspace_numbers yes
-position top
-output MONITOR2
-tray_output none
-binding_mode_indicator no
-colors {
-focused_workspace #000000 #2E8B57 #000000 
-}
-}
+# }
+#     status_command i3blocks
+#     # tray_output none
+#     position bottom
+# }
 
-bar {
-font pango:mono 8, FontAwesome 8
-workspace_buttons no
-strip_workspace_numbers yes
-output MONITOR2
-colors {
+# bar {
+# # font pango: FontAwesome 12
+# # font pango:monospace 12, FontAwesome 12
+# font pango:mono 8, FontAwesome 12
+# strip_workspace_numbers yes
+# position top
+# output MONITOR2
+# tray_output none
+# binding_mode_indicator no
+# colors {
+# focused_workspace #000000 #2E8B57 #000000 
+# }
+# }
 
-focused_workspace #000000 #2E8B57 #000000 
+# bar {
+# font pango:mono 8, FontAwesome 8
+# workspace_buttons no
+# strip_workspace_numbers yes
+# output MONITOR2
+# colors {
 
-}
-    status_command i3blocks
-    # tray_output none
-    position bottom
-}
+# focused_workspace #000000 #2E8B57 #000000 
+
+# }
+#     status_command i3blocks
+#     # tray_output none
+#     position bottom
+# }
 
