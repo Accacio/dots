@@ -16,14 +16,14 @@ case $mode in
 	i3-msg "workspace 1"
 	;;
     Petri)
-	# emacsclient-c ~/TCC/org/tabelas.org &
+	i3-msg 'workspace 6;exec emacs ~/TCC/org/tabelas.org; split horizontal;exec emacs ~/TCC/org/PointsMarcos.org '
 	# st -e vim ~/TCC/org/tabelas.org &
-	# i3-msg split horizontal
-	# emacsclient -c ~/TCC/figures/petriNets/completo/completo.tex &
+	i3-msg 'workspace 2'
+	i3-msg 'exec emacs ~/TCC/figures/petriNets/dot/tex/completo.dot;split horizontal;exec zathura ~/TCC/figures/petriNets/dot/tex/completo.pdf'
 
-	# zathura ~/TCC/petriNets/lancellotePetriNets.pdf &
-	# i3-msg split vertical
-	# zathura ~/TCC/figures/petriNets/completo/completo.pdf &
+	i3-msg 'workspace 1;exec zathura ~/TCC/petriNets/lancellotePetriNets.pdf'
+
+
 	;;
 esac
 
