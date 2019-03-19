@@ -1,7 +1,10 @@
 let vimcommand = 'emacsclient -c'
 iunmapAll
 
-" Keybindings
+" source cVimrc
+map <C-r> :source /home/accacio/dots/configs/cVim/cVimrc
+
+" Emacs Keybindings
 imap <C-d> deleteChar
 imap <C-f> forwardChar
 imap <A-f> forwardWord
@@ -17,6 +20,7 @@ imap <C-k> deleteToEnd
 imap <C-o> editWithVim
 unmap a
 map a :tabnew duckduckgo<Space>
+
 site '*://*.netflix.com/watch*' {
   unmap <Space> 
   unmap f
