@@ -1,14 +1,15 @@
 #!/bin/bash
-set -o errexit -o pipefail -o noclobber -o nounset
+set -o errexit -o pipefail -o nounset
 
 version=0.0
-
-# test dependencies
 
 function require {
     command -v $1 >/dev/null 2>&1 ||\
 	{ echo >&2 "`basename $0`: $1 is a dependency and was not found. Aborting."; exit 1; }
+}
 
+function printError {
+    echo >&2  $@
 }
 
 require dot2tex
@@ -32,7 +33,7 @@ if [[ ${PIPESTATUS[0]} -ne 4 ]]; then
     exit 1
 fi
 
-OPTIONS=to:dv
+OPTIONS=hto:dvp
 LONGOPTS=debug,onlyTikzPicture,output:,verbose
 
 # -use ! and PIPESTATUS to get exit code with errexit set
@@ -61,15 +62,23 @@ while true; do
 	    onlyTikzPicture=1
             shift
             ;;
-	-d|--debug) debug=1
-		    shift
-		    ;;
+	-d|--debug)
+	    set -x
+	    debug=1
+	    shift
+	    ;;
         -o|--output)
             outFile="$2"
 	    exportPdf=1
             shift 2
             ;;
-	-p) exportPdf=1
+	-p)
+	    exportPdf=1
+	    shift
+	    ;;
+	-h)
+	    usage
+	    exit 0
 	    ;;
 	-v)
 	    echo dot2petri version $version
@@ -120,12 +129,10 @@ else
 	t=`cat $1`
 	fileext=${filename##*.}
 	inputFile=$(basename $filename .$fileext)
-
     fi
 fi
 
-
-filename="$inputFile.tex"
+filenameTex="$inputFile.tex"
 printd Filename: $filename
 printd InputFile: $inputFile
 
@@ -160,7 +167,7 @@ replace_transition="\\1\\2\\3,transition, label=above:, label=left:\$t_{\\2}\$,r
 if [ "$onlyTikzPicture" == 1 ]
 then
     printd Only Tikz Picture
-    if [ -f "$filename" ]
+    if [ -f "$filenameTex" ]
     then
 	echo "File $filename exists do you want to overwrite it? (y/N)"
 	read p </dev/tty
@@ -168,7 +175,7 @@ then
 	then
 	    printd removing $filename
 	    rm $filename
-	else	
+	else
 	    exit 1
 	fi
     fi
@@ -179,22 +186,28 @@ then
 	sed "s/$search_place/$replace_place/g"    |\
 	sed "s/$search_transition/$replace_transition/g" |\
 	sed "s/$search_timedtransition/$replace_timedtransition/g" \
-	    > $filename
-else
-    if [ -f "$filename" ]
+	    > $filenameTex
+    if [ ! -s "$filenameTex" ]
     then
-	echo "File $filename exists do you want to overwrite it? (y/N)"
+	printError $filenameTex could not be written semantic error in $filename
+	rm $filenameTex
+	exit 1
+    fi
+else
+    if [ -f "$filenameTex" ]
+    then
+	echo "File $filenameTex exists do you want to overwrite it? (y/N)"
 	read p </dev/tty
 	if [ "$p" = "y" ]
 	then
-	    printd removing $filename
-	    rm $filename
+	    printd removing $filenameTex
+	    rm $filenameTex
 	else	
 	    exit 1
 	fi
     fi
     printd running dot2tex
-    echo "$t" |sed -E "s/^([ ]*(p|t|tt)[0-9,m]+)$/\1 [label=\"\"]/g"\
+    ! echo "$t" |sed -E "s/^([ ]*(p|t|tt)[0-9,m]+)$/\1 [label=\"\"]/g"\
 	| dot2tex --prog dot --autosize -f tikz \
 		  --docpreamble \
 		  "\usetikzlibrary{arrows,shapes,petri,external}
@@ -236,12 +249,25 @@ else
 	sed "s/$search_place/$replace_place/g"    |\
 	sed "s/$search_transition/$replace_transition/g" |\
 	sed "s/$search_timedtransition/$replace_timedtransition/g" \
-	    > $filename
+	    > $filenameTex
+    if [ ! -s "$filenameTex" ]
+    then
+	printError $filenameTex could not be written semantic error in $filename
+	rm $filenameTex
+	exit 1
+    fi
 fi
+
+
+
 
 if [ "$onlyTikzPicture" == 0 -a  "$exportPdf" == 1 ]
 then
     printd running pdflatex to generate pdf
-    pdflatex --shell-escape --output-directory /tmp/ $filename 2&>/dev/null
+    pdflatex --shell-escape --output-directory /tmp/ $filenameTex 2&>/dev/null
     [ -f "figure.pdf" ] && mv figure.pdf $outFile; rm figure.*
 fi
+
+tempfile=$(mktemp)
+cat $filenameTex| awk '/% Start of code/{f=1;next} /% End of code/{f=0} f' > $tempfile
+mv $tempfile "$filenameTex"
