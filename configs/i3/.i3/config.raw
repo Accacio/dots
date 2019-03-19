@@ -349,8 +349,8 @@ bindsym $mod+F2 exec "$HOME/git/rofimoji/rofimoji.py"
 # ;exec pkill -SIGRTMIN+10 i3blocks
 
 # Screen brightness controls
-# bindsym XF86MonBrightnessUP exec xbacklight + 20 # decrease screen brightness
-# bindsym XF86MonBrightnessDown exec xbacklight - 20 # decrease screen brightness
+bindsym XF86MonBrightnessUP exec xbacklight -inc 20 # decrease screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
 
 # bindsym XF86Mail exec --no-startup-id thunderbird
 bindsym XF86Mail exec "$term -c neomutt -e  bash -l -c neomutt"; mode "default";exec "kill $(pidof feh)"
