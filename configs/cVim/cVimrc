@@ -1,6 +1,7 @@
-" Teste
 let vimcommand = 'emacsclient -c'
 iunmapAll
+
+" Keybindings
 imap <C-d> deleteChar
 imap <C-f> forwardChar
 imap <A-f> forwardWord
