@@ -1,5 +1,5 @@
 
-export PATH="$PATH:$(du "$HOME/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
+export PATH="$PATH:$(du "$HOME/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//;s|/$||')"
 export PRINTER=HP-LaserJet-Pro-MFP-M127fn
 export MPD_HOST="/home/accacio/.config/mpd/socket"
 export SCRIPTSFOLDER="$HOME/bin"
