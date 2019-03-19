@@ -17,6 +17,13 @@
 # openssl aes-256-cbc -e -in file_to_encrypt -out encrypted_file
 
 [ -f "$HOME/.proxy_address" ] && . "$HOME/.proxy_address"
+function qrCli {
+    temp=$(mktemp)
+    qrencode $1 -o $temp
+    sxiv -f $temp
+
+    rm $temp
+}
 
 export LESS='-R'
 export LESSOPEN='|pygmentize -g %s'
