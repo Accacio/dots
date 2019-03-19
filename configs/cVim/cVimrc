@@ -1,0 +1,38 @@
+" Teste
+let vimcommand = 'emacsclient -c'
+iunmapAll
+imap <C-d> deleteChar
+imap <C-f> forwardChar
+imap <A-f> forwardWord
+imap <C-b> backwardChar
+imap <C-a> beginningOfLine
+imap <C-e> endOfLine
+imap <C-d> deleteForwardChar
+imap <A-d> deleteForwardWord
+imap <A-b> backwardWord
+imap <C-n> forwardLine
+imap <C-p> backwardLine
+imap <C-k> deleteToEnd
+imap <C-o> editWithVim
+unmap a
+map a :tabnew duckduckgo<Space>
+site '*://*.netflix.com/watch*' {
+  unmap <Space> 
+  unmap f
+}
+site '*://*.youtube.com/watch*' {
+  unmap <Space> 
+  unmap f
+  unmap j
+  unmap k
+  unmap l
+}
+map <C-d> :file ~/<CR>
+
+let searchengine netflix = ["http://www.netflix.com" , "http://www.netflix.com/search/search?q="]
+let completionengines = [ "duckduckgo", "google", "youtube", "wikipedia"]
+let searchengine gm = "https://www.google.com/maps/search/"
+let searchalias d = "duckduckgo"
+let searchalias n = "netflix"
+let defaultengine = "duckduckgo"
+let hintcharacters = "dfjk"
