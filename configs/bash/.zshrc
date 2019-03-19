@@ -62,14 +62,14 @@ ZSH_CUSTOM=/home/accacio/.customz
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(
-    git,
-    history-substring-search,
-)
+# plugins=(
+#     git,
+#     history-substring-search,
+# )
 
 
 source $ZSH/oh-my-zsh.sh
-source /etc/zsh_command_not_found
+# source /etc/zsh_command_not_found
 ncmpcppShow() { ncmpcpp <$TTY; zle redisplay; }
 zle -N ncmpcppShow
 rangerShow() { ranger <$TTY; zle redisplay; }
@@ -80,7 +80,7 @@ bindkey '^[r' rangerShow
 
 source ~/.bashrc.d/alias.bash
 source ~/.bashrc.d/variables.bash
-
+# source ~/.bashrc.d/prompt.bash
 
 source /home/accacio/.customz/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /home/accacio/.customz/zsh-autosuggestions/zsh-autosuggestions.zsh
