@@ -180,29 +180,28 @@ mpd_music_dir = ~/Music/
 ## with attributes listed above.
 ##
 ## Note: colors can be nested.
-##
 #
-#song_list_format = {%a - }{%t}|{$8%f$9}$R{$3(%l)$9}
+song_list_format = {%a - }{%t}|{$8%f$9}$R{$3(%l)$9}
 #
-#song_status_format = {{%a{ "%b"{ (%y)}} - }{%t}}|{%f}
+# song_status_format = {{%a{ "%b"{ (%y)}} - }{%t}}|{%f}
 #
-#song_library_format = {%n - }{%t}|{%f}
+song_library_format = {%n - }{%t}|{%f}
 #
 #alternative_header_first_line_format = $b$1$aqqu$/a$9 {%t}|{%f} $1$atqq$/a$9$/b
 #
 #alternative_header_second_line_format = {{$4$b%a$/b$9}{ - $7%b$9}{ ($4%y$9)}}|{%D}
 #
-#current_item_prefix = $(yellow)$r
+current_item_prefix = $(yellow)$r
 #
-#current_item_suffix = $/r$(end)
+current_item_suffix = $/r$(end)
 #
 #current_item_inactive_column_prefix = $(white)$r
 #
 #current_item_inactive_column_suffix = $/r$(end)
 #
-#now_playing_prefix = $b
+now_playing_prefix = $b
 #
-#now_playing_suffix = $/b
+now_playing_suffix = $/b
 #
 #browser_playlist_prefix = "$2playlist$9 "
 #
@@ -215,7 +214,7 @@ mpd_music_dir = ~/Music/
 ##
 ## Note: attributes are not supported for the following variables.
 ##
-#song_window_title_format = {%a - }{%t}|{%f}
+song_window_title_format = {%a - }{%t}|{%f}
 ##
 ## Note: Below variables are used for sorting songs in browser.  The sort mode
 ## determines how songs are sorted, and can be used in combination with a sort
@@ -262,7 +261,7 @@ mpd_music_dir = ~/Music/
 ##   available.
 ##
 #
-#song_columns_list_format = (20)[]{a} (6f)[green]{NE} (50)[white]{t|f:Title} (20)[cyan]{b} (7f)[magenta]{l}
+song_columns_list_format = (20)[]{a} (6f)[green]{NE} (50)[white]{t|f:Title} (20)[cyan]{b} (7f)[magenta]{l}
 #
 ##### various settings #####
 #
@@ -270,10 +269,8 @@ mpd_music_dir = ~/Music/
 ## Note: Custom command that will be executed each time song changes. Useful for
 ## notifications etc.
 ##
-execute_on_song_change = ~/dots/scripts/musicNotify
+execute_on_song_change = $SCRIPTSFOLDER/musicNotify 1>/dev/null
 
-#
-##
 ## Note: Custom command that will be executed each time player state
 ## changes. The environment variable MPD_PLAYER_STATE is set to the current
 ## state (either unknown, play, pause, or stop) for its duration.
@@ -281,18 +278,18 @@ execute_on_song_change = ~/dots/scripts/musicNotify
 #
 #execute_on_player_state_change = ""
 #
-#playlist_show_mpd_host = no
+playlist_show_mpd_host = no
 #
-#playlist_show_remaining_time = no
+playlist_show_remaining_time = yes
 #
 #playlist_shorten_total_times = no
 #
-#playlist_separate_albums = no
+playlist_separate_albums = no
 #
 ##
 ## Note: Possible display modes: classic, columns.
 ##
-#playlist_display_mode = columns
+playlist_display_mode = columns
 #
 #browser_display_mode = classic
 #
@@ -318,7 +315,7 @@ execute_on_song_change = ~/dots/scripts/musicNotify
 ## Note: You can specify third character which will be used to build 'empty'
 ## part of progressbar.
 ##
-#progressbar_look = =>
+progressbar_look = =>>
 #
 ## Available values: database, playlist.
 ##
@@ -356,7 +353,7 @@ execute_on_song_change = ~/dots/scripts/musicNotify
 #
 #lyrics_fetchers = lyricwiki, azlyrics, genius, sing365, lyricsmania, metrolyrics, justsomelyrics, jahlyrics, plyrics, tekstowo, internet
 #
-#follow_now_playing_lyrics = no
+follow_now_playing_lyrics = yes
 #
 #fetch_lyrics_for_current_song_in_background = no
 #
@@ -416,7 +413,7 @@ execute_on_song_change = ~/dots/scripts/musicNotify
 #
 #ask_before_clearing_playlists = yes
 #
-#clock_display_seconds = no
+clock_display_seconds = no
 #
 #display_volume_level = yes
 #
@@ -433,8 +430,7 @@ execute_on_song_change = ~/dots/scripts/musicNotify
 ## sorting items in browser, tags in media library, etc.
 ##
 #ignore_leading_the = no
-#
-##
+
 ## Note: if below is enabled, ncmpcpp will ignore diacritics while searching and
 ## filtering lists. This takes an effect only if boost was compiled with ICU
 ## support.
@@ -457,7 +453,6 @@ execute_on_song_change = ~/dots/scripts/musicNotify
 #
 #enable_window_title = yes
 #
-##
 ## Note: You can choose default search mode for search engine. Available modes
 ## are:
 ##
@@ -527,9 +522,9 @@ execute_on_song_change = ~/dots/scripts/musicNotify
 #
 #color2 = green
 #
-#progressbar_color = black:b
+progressbar_color = black:b
 #
-#progressbar_elapsed_color = green:b
+progressbar_elapsed_color = cyan:b
 #
 #statusbar_color = default
 #

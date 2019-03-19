@@ -1,12 +1,12 @@
 configs/xournal/.xournal/recent-files
 configs/mpv/mpv/watch_later/*
-configs/newsboat/newsboat/queue
+configs/newsboat/.newsboat/queue
+configs/newsboat/.newsboat/cache.db
 configs/i3/.i3/config
 configs/ranger/ranger/bookmarks
 configs/ranger/ranger/history
 configs/mpd/mpd/mpdstate
 configs/mpd/mpd/database
-configs/newsboat/newsboat/urls
 configs/*/*/*.pid
 configs/*/*/*.log
 configs/*/*/*.example
