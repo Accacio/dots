@@ -1,3 +1,4 @@
+" file:/home/accacio/dots/configs/cVim/cVimrc
 let vimcommand = 'emacsclient -c'
 iunmapAll
 
@@ -20,6 +21,8 @@ imap <C-k> deleteToEnd
 imap <C-o> editWithVim
 unmap a
 map a :tabnew duckduckgo<Space>
+map <C-a> :tab blabalbal
+
 
 site '*://*.netflix.com/watch*' {
   unmap <Space> 
@@ -32,7 +35,7 @@ site '*://*.youtube.com/watch*' {
   unmap k
   unmap l
 }
-map <C-d> :file ~/<CR>
+map <C-d> :file /home/accacio/<CR>
 
 let searchengine netflix = ["http://www.netflix.com" , "http://www.netflix.com/search/search?q="]
 let completionengines = [ "duckduckgo", "google", "youtube", "wikipedia"]
@@ -41,3 +44,6 @@ let searchalias d = "duckduckgo"
 let searchalias n = "netflix"
 let defaultengine = "duckduckgo"
 let hintcharacters = "dfjk"
+
+let configpath = '/home/accacio/dots/configs/cVim/cVimrc'
+let localconfig

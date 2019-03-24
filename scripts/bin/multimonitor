@@ -19,42 +19,43 @@ mode=$(gdialog --title "Multi-monitor" --menu "Multi-monitor" 15 55 5\
 case $mode in
     o)
 	notify-send "Monitor Scheme changed" "One screen"
-	. ~/dots/scripts/oneScreen;~/dots/scripts/changeWallpaper -1
+	. $SCRIPTSFOLDER/oneScreen;$SCRIPTSFOLDER/changeWallpaper -1
 	;;
     l)
 	notify-send "Monitor Scheme changed" "Second screen on the Left"
-	. ~/dots/scripts/dualScreenLeft;~/dots/scripts/changeWallpaper -1
+	. $SCRIPTSFOLDER/dualScreenLeft;$SCRIPTSFOLDER/changeWallpaper -1
 	;;
     r)
 	notify-send "Monitor Scheme changed" "Second screen on the Right"
-	. ~/dots/scripts/dualScreenRight;~/dots/scripts/changeWallpaper -1
+	. $SCRIPTSFOLDER/dualScreenRight;$SCRIPTSFOLDER/changeWallpaper -1
 	;;
     u) 
 	notify-send "Monitor Scheme changed" "Second screen on the Left (PBP)"
-	. ~/dots/scripts/dualScreenLeft 1720x1440  ;~/dots/scripts/changeWallpaper -1
+	. $SCRIPTSFOLDER/dualScreenLeft 1720x1440  ;$SCRIPTSFOLDER/changeWallpaper -1
 	;;
     t)
 	notify-send "Monitor Scheme changed" "Second screen on Top"
-	. ~/dots/scripts/dualScreenTop;~/dots/scripts/changeWallpaper -1
+	. $SCRIPTSFOLDER/dualScreenTop;$SCRIPTSFOLDER/changeWallpaper -1
 	;;
     td)
 	notify-send "Monitor Scheme changed" "Second screen on Top"
-	. ~/dots/scripts/dualScreenTop d;~/dots/scripts/changeWallpaper -1
+	. $SCRIPTSFOLDER/dualScreenTop d;$SCRIPTSFOLDER/changeWallpaper -1
 	;;
     rr)
 	notify-send "Monitor Scheme changed" "Second screen on Top"
-	xrandr -o right;~/dots/scripts/changeWallpaper -1
+	xrandr -o right;$SCRIPTSFOLDER/changeWallpaper -1
 	;;
     rl)
 	notify-send "Monitor Scheme changed" "Second screen on Top"
-	xrandr -o left;~/dots/scripts/changeWallpaper -1
+	xrandr -o left;$SCRIPTSFOLDER/changeWallpaper -1
 	;;
     ru)
 	notify-send "Monitor Scheme changed" "Second screen on Top"
-	xrandr -o normal;~/dots/scripts/changeWallpaper -1
+	xrandr -o normal;$SCRIPTSFOLDER/changeWallpaper -1
 	;;
     rd)
 	notify-send "Rotate Down"
-	xrandr -o inverted;~/dots/scripts/changeWallpaper -1
+	xrandr -o inverted;$SCRIPTSFOLDER/changeWallpaper -1
 	;;
 esac
+$SCRIPTSFOLDER/launchPolybar

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+[ -d $HOME/youtube/thumbs ] || mkdir -p $HOME/youtube/thumbs
+
+if [ $# -eq 0 ]
+then
+    echo `basename $0:` input at least one feed path
+    exit 1
+fi
+cd $HOME/youtube/thumbs
+
+curl -s $1 | grep "<media:thumbnail" | sed "s|.*url=\"\(.*\)\"\ w.*|\1|" | tee figsUrls | sed "s|.*vi/\(.*\)/.*|\1|" > figsFilenames
+
+files=(`cat figsFilenames`)
+urls=(`cat figsUrls`)
+for index in ${!files[*]}
+do
+    wget ${urls[$index]} -O ${files[$index]}
+done

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]
+then
+    echo `basename $0`: A single tag must be entered
+    exit
+fi
+
+if [ `basename $PWD` != "blog" ]
+then
+    echo `basename $0`: You should be in the blog folder 
+    exit
+fi
+
+rm -rd en/$1 pt/$1

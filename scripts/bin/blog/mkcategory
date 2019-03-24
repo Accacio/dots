@@ -1,0 +1,38 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]
+then
+    echo `basename $0`: A single tag must be entered
+    exit
+fi
+
+if [ `basename $PWD` != "blog" ]
+then
+    echo `basename $0`: You should be in the blog folder 
+    exit
+fi
+
+mkdir en/$1 pt/$1
+echo "---
+layout : paginator
+locale: en
+pagination:
+  enabled: true
+  categories:
+    $1
+  locale:
+    en
+---
+">./en/$1/index.html
+
+echo "---
+layout : paginator
+locale: pt
+pagination:
+  enabled: true
+  categories:
+    $1
+  locale:
+    pt
+---
+">./pt/$1/index.html

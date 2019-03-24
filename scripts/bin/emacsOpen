@@ -1,2 +1,0 @@
-#!/bin/bash
-xdg-open $(locate --regex ^/home| rofi  -dmenu -theme arthur -i -p "open in emacs") &

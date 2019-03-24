@@ -5,8 +5,8 @@ export MPD_HOST="/home/accacio/.config/mpd/socket"
 export SCRIPTSFOLDER="$HOME/bin"
 export SUDO_ASKPASS=$SCRIPTSFOLDER/askPass
 export ALTERNATE_EDITOR="emacsclient -t"
-export EDITOR="emacsclient -c"
-export VISUAL="emacsclient -c -a emacs"
+export EDITOR="emacsclient -t"
+export VISUAL="emacsclient -c"
 
 export OLDPWD=$HOME
 

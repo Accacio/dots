@@ -1,0 +1,2 @@
+#!/bin/bash
+ls $HOME/youtube/thumbs/* | sxiv -iftbo | sed 's!.*/!!' | sed "s|\(\)|https://www.youtube.com/watch?v=\1|" > $HOME/youtube/queue

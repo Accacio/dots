@@ -259,7 +259,7 @@ bindsym $mod+Shift+Ctrl+j  move workspace prev;workspace prev;exec "xdotool mous
 
 
 
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec_always --no-startup-id $SCRIPTSFOLDER/launchPolybar
 
 # exec_always xfce4-panel
 # exec_always xfce4-power-manager
@@ -318,9 +318,10 @@ mode $IM {
 }
 
 # Keyboard Shortcuts
-exec_always setxkbmap -option caps:ctrl_modifier
-exec_always setxkbmap -option ctrl:nocaps
-exec_always setxkbmap -option compose:menu
+exec_always setxkbmap -option caps:escape
+# exec_always setxkbmap -option caps:ctrl_modifier
+# exec_always setxkbmap -option ctrl:nocaps
+# exec_always setxkbmap -option compose:menu
 
 # bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
 

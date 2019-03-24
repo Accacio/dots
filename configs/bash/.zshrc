@@ -69,7 +69,7 @@ ZSH_CUSTOM=/home/accacio/.customz
 
 
 source $ZSH/oh-my-zsh.sh
-# source /etc/zsh_command_not_found
+source /etc/zsh_command_not_found
 ncmpcppShow() { ncmpcpp <$TTY; zle redisplay; }
 zle -N ncmpcppShow
 rangerShow() { ranger <$TTY; zle redisplay; }
@@ -89,3 +89,5 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=3"
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+fpath=(/home/accacio/bin/ $fpath)
+

@@ -1,0 +1,36 @@
+#!/bin/bash
+
+if [ `basename $PWD` != "blog" ]
+then
+    echo `basename $0`: You should be in the blog folder 
+    exit
+fi
+
+vars=($(ls -1 _drafts))
+echo $(echo ${vars[*]}|nl)
+# echo "${#vars[*]}"
+echo Which post do you want to publish?
+for index in ${!vars[*]}
+do
+    printf "%4d: %s\n" $((($index+1))) ${vars[$index]}
+done
+read -sn 1 postNum
+if [ "$postNum" -gt ${#vars[*]} -o "$postNum" -eq 0 ]
+then
+    echo Out of Range
+    exit
+fi
+post=${vars[$postNum-1]}
+postext=${post##*.}
+postDate=$(date +%Y-%m-%d)
+postName=$(grep title _drafts/$post | awk '!($1="" )'|sed 's|^\ ||;s|\ |-|g'|tr '[:upper:]' '[:lower:]')
+newPostName=$postDate-$postName.$postext
+echo Do you really want to export $post as $newPostName? \(y,N\)
+read -sn 1 prompt
+if [ "$prompt" = "y"  ] 
+then
+    mv _drafts/$post _posts/$newPostName
+else
+    exit 0
+fi
+
