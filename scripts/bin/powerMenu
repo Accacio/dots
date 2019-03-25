@@ -14,11 +14,11 @@ case $mode in
     Loki)
 	TMPBG=/tmp/screen.png
 	RES=$(xrandr | grep 'current' | sed -E 's/.*current\s([0-9]+)\sx\s([0-9]+).*/\1x\2/')
-	
+
 	ffmpeg -f x11grab -video_size $RES -y -i $DISPLAY -vframes 1 $TMPBG -loglevel quiet
 	i3lock -i $TMPBG -u
 	rm $TMPBG
-	;;    
+	;;
     Shutdown)
 	shutdown now
 	;;

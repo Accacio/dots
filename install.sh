@@ -11,7 +11,8 @@ stow -v -d configs/ -t ~/ \
      xconfigs/  \
      newsboat/ \
      xournal/  \
-     fonts
+     fonts/    \
+     spacemacs
 
 stow -v -d configs/ -t ~/.config/ \
      mpv/      \

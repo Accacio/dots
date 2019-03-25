@@ -77,8 +77,9 @@ mode "apps"
 	# bindsym e exec "emacsclient -c"; mode "default";exec "kill $(pidof feh)"
 	bindsym e exec "$SCRIPTSFOLDER/openFile"; mode "default";exec "kill $(pidof feh)"
 	bindsym z exec "zathura"; mode "default";exec "kill $(pidof feh)"
-	bindsym q exec "$SCRIPTSFOLDER/qr"; mode "default";exec "kill $(pidof feh)"
 	# bindsym e exec "$(locate --regex ^/home| rofi  -dmenu -theme arthur -i -p "open in emacs")"; mode "default";exec "kill $(pidof feh)"
+	bindsym y exec "$SCRIPTSFOLDER/youtube"; mode "default";exec "kill $(pidof feh)"
+	bindsym q exec "$SCRIPTSFOLDER/qr"; mode "default";exec "kill $(pidof feh)"
         bindsym Escape mode "default";exec "kill $(pidof feh)"
 	bindsym Control+g mode "default";exec "kill $(pidof feh)"
 }
@@ -294,12 +295,11 @@ for_window [title="neomutt"] floating enable
 for_window [title="/layouts/.*jpg"] floating enable;
 for_window [title="/horario.*jpg"] floating enable;
 
-
 # IM
 exec surf web.whatsapp.com
 exec surf web.telegram.org
 
-for_window [title=".*WhatsApp$"] move scratchpad
+for_window [title=".* WhatsApp - qutebrowser$"] move scratchpad
 for_window [title=".*Telegram Web$"] move scratchpad
 
 # for_window [title="^Skype$"] move scratchpad
@@ -307,7 +307,7 @@ for_window [title=".*Telegram Web$"] move scratchpad
 set $IM "1:Whatsapp, 2: Telegram"
 bindcode $mod+25 mode $IM
 mode $IM {
-        bindsym 1 [title=".*WhatsApp$"] scratchpad show;mode default
+  bindsym 1 [title=".*WhatsApp - qutebrowser$"] scratchpad show;mode default
 	bindsym 2 [title=".*Telegram Web$"] scratchpad show;mode default
 
 	# back to normal: Enter or Escape
@@ -371,14 +371,11 @@ mode "music" {
 exec compton
 exec dunst
 exec "nm-applet &"
-exec --no-startup-id "$SCRIPTSFOLDER/dropbox start"
 exec --no-startup-id "$SCRIPTSFOLDER/autoRotation"
 exec "emacs --daemon"
 exec mpd
 exec $SCRIPTSFOLDER/dualScreenTop d
-
-
-
+exec --no-startup-id "$SCRIPTSFOLDER/dropbox start"
 
 # Mouse configs
 exec_always xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Scrolling Distance' -20 -20

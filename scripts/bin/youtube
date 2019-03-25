@@ -1,0 +1,6 @@
+#!/bin/bash
+export DISPLAY=:0
+
+notify-send Youtube
+
+options="Play"
