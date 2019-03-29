@@ -106,7 +106,7 @@ function loadZ {
 }
 
 alias unloadZ="cd; sudo umount ~/Z"
-
+alias downloadCSV="curl -k 'https://192.168.1.1/Filebrowser?Path=/DataLogs/DATA_IDENTIFICATION.csv&RAW' -H 'Referer: https://192.168.1.1/Portal/Portal.mwsl?PriNav=Filebrowser&Path=/DataLogs/'"
 function encrypt {
     openssl aes-256-cbc -e -in $1 -out $2
 }
