@@ -1,0 +1,107 @@
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin('~/.config/nvim/plugged')
+Plug 'junegunn/goyo.vim'
+Plug 'scrooloose/nerdtree'
+" Plug 'morhetz/gruvbox'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'sheerun/vim-polyglot'
+Plug 'roxma/nvim-completion-manager'
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'bling/vim-airline'
+Plug 'jreybert/vimagit'
+" Plug 'lervag/vimtex'
+Plug 'vim-airline/vim-airline-themes'
+" Plug 'valloric/YouCompleteMe'
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'tpope/vim-commentary'
+call plug#end()
+
+
+set nocompatible
+" set path+=**
+filetype plugin on
+filetype indent on
+syntax on
+set encoding=utf-8
+set number relativenumber
+set hidden
+set clipboard=unnamedplus
+set relativenumber
+set inccommand=split
+set wildmode=longest,list,full
+set splitbelow splitright
+nnoremap <f6> :set spell! spelllang=pt<cr>
+" colorscheme gruvbox
+set background=light
+
+let g:airline#extensions#tabline#enabled = 1
+" Automatically deletes all trailing whitespace on save.
+	autocmd BufWritePre * %s/\s\+$//e
+
+function! TwiddleCase(str)
+  if a:str ==# toupper(a:str)
+    let result = tolower(a:str)
+  elseif a:str ==# tolower(a:str)
+    let result = substitute(a:str,'\(\<\w\+\>\)', '\u\1', 'g')
+  else
+    let result = toupper(a:str)
+  endif
+  return result
+endfunction
+vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
+
+" Run xrdb whenever Xdefaults or Xresources are updated.
+	autocmd BufWritePost ~/.Xresources,~/.Xdefaults !xrdb %
+
+inoremap <S-Insert> <c-r>*
+set mouse=a
+let mapleader = " " " Leader is the space key
+let g:mapleader = " "
+" let mapleader="\<F12>"
+map <F8> :NERDTreeToggle<CR>
+let g:polyglot_disabled = ['latex']
+nnoremap <leader>ev :e ~/.config/nvim/init.vim<cr>
+
+nnoremap <leader>ei :e ~/dots/configs/i3/.i3/config.raw<cr>
+nnoremap <leader>sv :source ~/.config/nvim/init.vim<cr>
+let g:vimtex_view_method = 'zathura'
+let g:vimtex_compile_progname = 'nvr'
+
+
+
+
+" move in long lines
+nnoremap k gk
+nnoremap j gj
+nnoremap <C-l> :tabnext<CR>
+nnoremap <C-h> :tabprevious<CR>
+
+" markdown also starts with .md
+autocmd BufNewFile,BufRead *.md set filetype=markdown
+
+
+" fzf command
+set rtp+=~/.fzf
+
+" easier write
+nmap <leader>w :w!<cr>
+" easier quit
+nmap <leader>q :q<cr>
+
+inoremap <S-Tab> <C-D>
+
+nnoremap <leader>a ggVG
+
+"for indenting
+set expandtab
+set shiftwidth=4
+set tabstop=4
+set smarttab
+vmap <Tab> >gv
+vmap <S-Tab> <gv

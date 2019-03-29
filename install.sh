@@ -24,7 +24,8 @@ stow -v -d configs/ -t ~/.config/ \
      rofi/     \
      bspwm/    \
      sxhkd/    \
-     ranger/
+     ranger/   \
+     nvim/
 
 # install custom .desktop files
 stow -v -d configs/ -t ~/.local/share/applications/ applications/
