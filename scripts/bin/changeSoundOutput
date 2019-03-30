@@ -1,5 +1,10 @@
 #!/bin/bash
-newSink=$((($(pactl list short sink-inputs|head -n 1|cut -f2)+1)%2 ))
+
+sinks=$(pactl list short sinks | grep -v RUNNING | cut -f2)
+echo sinks $sinks
+# newSink=$((($(pactl list short sink-inputs|head -n 1|cut -f2)+1)%3 ))
+newSink=`echo $sinks | grep $(echo "${sinks##*.}" | dmenu )`
+echo newSink $newSink
 pactl list short sink-inputs|while read stream; do
     streamId=$(echo $stream|cut '-d ' -f1)
     echo "moving stream $streamId"

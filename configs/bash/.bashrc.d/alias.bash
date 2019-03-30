@@ -90,7 +90,14 @@ function gcd {
 	cd "$HOME/git/$(ls -a ~/git/|xargs -n1|fzy)"
 }
 
-alias wpp="surf web.whatsapp.com & disown; exit"
+# alias wpp="surf web.whatsapp.com &"
+wpp="firefox -P app -new-window web.whatsapp.com &"
+
+function ddbrowser {
+    firefox -P app -new-window $1 &
+    disown
+}
+
 
 function loadZ {
     if [ -f $1 ]

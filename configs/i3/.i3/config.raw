@@ -296,19 +296,20 @@ for_window [title="/layouts/.*jpg"] floating enable;
 for_window [title="/horario.*jpg"] floating enable;
 
 # IM
-exec surf web.whatsapp.com
-exec surf web.telegram.org
+# exec surf web.whatsapp.com
+exec firefox -P app -new-window web.whatsapp.com
+exec firefox -P app -new-window web.telegram.org 
 
-for_window [title=".* WhatsApp - qutebrowser$"] move scratchpad
-for_window [title=".*Telegram Web$"] move scratchpad
+for_window [title=".*WhatsApp Web - Mozilla Firefox$"] move scratchpad
+for_window [title=".*Telegram Web - Mozilla Firefox$"] move scratchpad
 
 # for_window [title="^Skype$"] move scratchpad
 
 set $IM "1:Whatsapp, 2: Telegram"
 bindcode $mod+25 mode $IM
 mode $IM {
-  bindsym 1 [title=".*WhatsApp - qutebrowser$"] scratchpad show;mode default
-	bindsym 2 [title=".*Telegram Web$"] scratchpad show;mode default
+bindsym 1 [title=".*WhatsApp .*- Mozilla Firefox$"] scratchpad show;mode default
+bindsym 2 [title=".*Telegram .*- Mozilla Firefox$"] scratchpad show;mode default
 
 	# back to normal: Enter or Escape
 	bindsym Return mode "default"
