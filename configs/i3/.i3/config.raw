@@ -322,8 +322,7 @@ bindsym 2 [title=".*Telegram .*- Mozilla Firefox$"] scratchpad show;mode default
 exec_always setxkbmap -option caps:escape
 # exec_always setxkbmap -option caps:ctrl_modifier
 # exec_always setxkbmap -option ctrl:nocaps
-# exec_always setxkbmap -option compose:menu
-
+# exec_always setxkbmap -option compose:rctrl-altgr
 # bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
 
 set $mpc mpc --host='/home/accacio/.config/mpd/socket'
