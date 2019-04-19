@@ -1,0 +1,100 @@
+#!/bin/bash
+
+echo 'digraph A {
+    # splines = ortho
+    rankdir=LR;
+    ratio=fill
+    graph [pad="0.01", nodesep="0.1", ranksep="0.01"];
+    size="11.7,8.3!";
+    margin=0;
+
+    {rank =same; }
+'
+
+# echo "digraph A {
+# splines = ortho
+# rankdir=LR;
+# ratio=fill
+# graph [pad="0.5", nodesep="0.25", ranksep="0.2"];
+# margin=0;
+
+# "
+arcs=$( cat $1 | grep "\<arc "| sed 's|^.*<arc id.*source="\(.*\)" target="\(.*\)">|\1 -> \2|' | tr '[:upper:]' '[:lower:]')
+
+arcsType=($(cat $1 | grep -A 2 '<inscription' | grep value | sed -E "s|^.*<value/>|Default,0|;s|^.*<value>(.*)</value>|\1|;s|Default,||"))
+
+
+# arcsWeight
+# Transitions
+
+# Places
+
+places=($(cat $1| grep "<place" |  sed -E 's|^.*<place id="(.*)">|\1|' | tr '[:upper:]' '[:lower:]'))
+
+placesrnames=($(cat $1 | grep -A 2 "<initialMarking" | grep "value" | sed -E "s|^.*<value>Default,(.*)</value>|\1|"))
+
+size=$((${#placesrnames[@]} - 1 ))
+
+for i in $(seq 0 $size)
+do
+    if [ ${placesrnames[$i]} != "0" ]
+    then
+        placesrnames[$i]=${places[$i]}m${placesrnames[$i]}
+    else
+        placesrnames[$i]=${places[$i]}
+    fi
+    echo ${placesrnames[$i]}
+
+    arcs="$(echo "$arcs" | sed "s|${places[$i]}|${placesrnames[$i]}|g")"
+done
+echo ""
+
+
+transitions=($(cat $1 | grep "<transition" | sed -E 's|^.*<transition id="(.*)">|\1|' | tr '[:upper:]' '[:lower:]'))
+# echo ${transitions[@]}
+
+# transitions[1]=t${transitions[1]}
+transitionsrnames=($(cat $1 | grep -A 2 "<timed" | grep "value" | sed -E "s|^.*<value>(.*)</value>|\1|"))
+
+size=$((${#transitionsrnames[@]} - 1 ))
+
+for i in $(seq 0 $size)
+do
+    if [ ${transitionsrnames[$i]} = "true" ]
+    then
+        transitionsrnames[$i]=t${transitions[$i]}
+    else
+        transitionsrnames[$i]=${transitions[$i]}
+    fi
+    echo ${transitionsrnames[$i]}
+
+    arcs="$(echo "$arcs" | sed "s|${transitions[$i]}|${transitionsrnames[$i]}|g")"
+    # echo ${transitionsrnames[$i]}
+done
+
+echo ""
+i=0
+echo "$arcs" | while read line;
+do
+    if [ "${arcsType[$i]}" = "0" ]
+    then
+        echo $line [style=\"inhibitor\"]
+    else
+        if [ "${arcsType[$i]}" = "1" ]
+        then
+            echo $line
+        else
+            echo $line [label=\"${arcsType[$i]}\"]
+        fi
+    fi
+    i=$(($i+1))
+done
+# count=0
+# echo for item in $arcs
+# do
+#     count=$((count+1))
+#     echo $count $item
+# done
+
+echo ""
+echo }

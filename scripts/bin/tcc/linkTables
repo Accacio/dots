@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sed -i -E "s;^([tp])(t|)([0-9]+)(|m[0-9]+);\\\hyperlink{partialNet:\1\2\3}{\\\hypertarget{partialTable:\1\2\3\4}{$\1_{\3}$}};" $1

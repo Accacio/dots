@@ -1,0 +1,16 @@
+#!/bin/bash
+# cat "$1" |\
+#     sed 's|\(\\node (\)\([pt].*\)\() a.*:\)\(\$.*\$\)\(.*$\)|\1\2\3\\hyperlink\{partialTable:\2\}\{\\hypertarget\{partialNet:\2\}\{\4\}\}\5|g' |\
+#     sed 's|\(\\node (e\)\([pt].*\)\() a.*:\)\(\$.*\$\)\(.*$\)|\1\2\3\\hyperlink\{partialNet:\2\}\{\4\}\5|g' > $1.bak
+# mv $1.bak $1
+# sed -i -E "s;(\\\node \()([tp])(t|)([0-9]+)\)(.*\{)(.*);\1\2\3\4\5\\\hyperlink{partialNet:\2\3\4}{\\\hypertarget{partialTable:\2\3\4}{$\2_{\4}$}}\6;" $1
+
+
+# sed -i -E "s;(\\\node \()([tp])(t|)([0-9]+)(\).*:).*(,.*);\1\2\3\4\5\\\hyperlink{partialTable:\2\3\4}{\\\hypertarget{partialNet:\2\3\4}{$\2_{\4}$}}\6;" $1
+
+
+cat $1 | sed -E "s;(\\\node \()([tp])(t|)([0-9]+)(|m[0-9]+)(\).*:).*(,.*);\1\2\3\4\5\6\\\hyperlink{partialTable:\2\3\4\5}{\\\hypertarget{partialNet:\2\3\4\5}{$\2_{\4}$}}\7;" |\
+    sed -E "s;(\\\node \()e([tp])(t|)([0-9]+)(|m[0-9]+)(\).*:).*(,.*);\1e\2\3\4\5\6\\\hyperlink{partialNet:\2\3\4\5}{$\2_{\4}$}\7;" \
+    > ${1%.*}.tikz
+rm $1
+

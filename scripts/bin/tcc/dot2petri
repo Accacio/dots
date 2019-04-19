@@ -33,7 +33,7 @@ if [[ ${PIPESTATUS[0]} -ne 4 ]]; then
     exit 1
 fi
 
-OPTIONS=hto:dvp
+OPTIONS=hto:dvpy
 LONGOPTS=debug,onlyTikzPicture,output:,verbose
 
 # -use ! and PIPESTATUS to get exit code with errexit set
@@ -54,7 +54,7 @@ outFile=""
 onlyTikzPicture=0
 exportPdf=0
 debug=0 f=n v=n
-
+dontask=0
 # now enjoy the options in order and nicely split until we see --
 while true; do
     case "$1" in
@@ -84,6 +84,10 @@ while true; do
 	    echo dot2petri version $version
 	    exit 0
 	    ;;
+  -y)
+      dontask=1
+      shift
+      ;;
 	--)
             shift
             break
@@ -109,26 +113,30 @@ then
     then
 	t="$(cat /dev/stdin)"
 	inputFile="stdin"
+  filename="stdin"
+  directory="."
     else
 	echo "`basename $0`: Nothing in stdin"
 	exit 4
     fi
 else
-    filename=$1
+    filename="$1"
     fileext=${filename##*.}
     if [ ! $fileext = "dot" ]
     then
 	echo "`basename $0`: File must be .dot"
 	exit 4
     else
-	if [ ! -f $filename ]
+	if [ ! -f "$filename" ]
 	then
 	    echo "`basename $0`: $filename: No such file or directory"
 	    exit 4
 	fi
 	t=`cat $1`
 	fileext=${filename##*.}
-	inputFile=$(basename $filename .$fileext)
+	# inputFile=$(basename $filename .$fileext)
+  inputFile=${filename%%.$fileext}
+  directory=${inputFile%/*}
     fi
 fi
 
@@ -151,15 +159,31 @@ then
     fi
 fi
 printd Output File: $outFile
+arrowTip="-Latex"
 
 search_markedplace="\(\\\node (p\)\([0-9]\+\)\(m\)\([0-9]\+\)\() at (.*) \[draw,ellipse\)\(\] {};\)"
 replace_markedplace="\\1\\2\\3\\4\\5,place, tokens=\\4, label=above:, label=left:\$p_{\\2}\$,rotate=90\\6"
 
+search_extmarkedplace="\(\\\node (ep\)\([0-9]\+\)\(m\)\([0-9]\+\)\() at (.*) \[draw,ellipse\)\(\] {};\)"
+replace_extmarkedplace="\\1\\2\\3\\4\\5,extPlace, tokens=\\4, label=above:, label=left:\$p_{\\2}\$,rotate=90\\6"
+
 search_place="\(\\\node (p\)\([0-9]\+\)\() at (.*) \[draw,ellipse\)\(\] {};\)"
 replace_place="\\1\\2\\3,place, label=above:, label=left:\$p_{\\2}\$,rotate=90\\4"
 
+search_extplace="\(\\\node (ep\)\([0-9]\+\)\() at (.*) \[draw,ellipse\)\(\] {};\)"
+replace_extplace="\\1\\2\\3,extPlace, label=above:, label=left:\$p_{\\2}\$,rotate=90\\4"
+
 search_timedtransition="\(\\\node (tt\)\([0-9]\+\)\() at (.*) \[draw,ellipse\)\(\] {};\)"
 replace_timedtransition="\\1\\2\\3,timedtransition, label=above:, label=left:\$t_{\\2}\$,rotate=90\\4"
+
+search_exttimedtransition="\(\\\node (ett\)\([0-9]\+\)\() at (.*) \[draw,ellipse\)\(\] {};\)"
+replace_exttimedtransition="\\1\\2\\3,extTimedtransition, label=above:, label=left:\$t_{\\2}\$,rotate=90\\4"
+
+search_transition="\(\\\node (t\)\([0-9]\+\)\() at (.*) \[draw,ellipse\)\(\] {};\)"
+replace_transition="\\1\\2\\3,transition, label=above:, label=left:\$t_{\\2}\$,rotate=90\\4"
+
+search_exttransition="\(\\\node (et\)\([0-9]\+\)\() at (.*) \[draw,ellipse\)\(\] {};\)"
+replace_exttransition="\\1\\2\\3,extTransition, label=above:, label=left:\$t_{\\2}\$,rotate=90\\4"
 
 search_transition="\(\\\node (t\)\([0-9]\+\)\() at (.*) \[draw,ellipse\)\(\] {};\)"
 replace_transition="\\1\\2\\3,transition, label=above:, label=left:\$t_{\\2}\$,rotate=90\\4"
@@ -167,7 +191,7 @@ replace_transition="\\1\\2\\3,transition, label=above:, label=left:\$t_{\\2}\$,r
 if [ "$onlyTikzPicture" == 1 ]
 then
     printd Only Tikz Picture
-    if [ -f "$filenameTex" ]
+    if [ -f "$filenameTex" ] && [ "$dontask" = 0 ]
     then
 	echo "File $filename exists do you want to overwrite it? (y/N)"
 	read p </dev/tty
@@ -180,12 +204,17 @@ then
 	fi
     fi
     printd running dot2tex
-    echo "$t" |sed -E "s/^([ ]*(p|t|tt)[0-9,m]+)$/\1 [label=\"\"]/g"\
+    echo "$t" |sed -E "s/^([ ]*(ep|p|et|t|ett|tt)[0-9,m]+)$/\1 [label=\"\"]/g"\
 	| dot2tex --prog dot --autosize -f tikz --figonly \
 	| sed "s/$search_markedplace/$replace_markedplace/g"|\
+	sed "s/$search_extmarkedplace/$replace_extmarkedplace/g"    |\
 	sed "s/$search_place/$replace_place/g"    |\
+  sed "s/$search_extplace/$replace_extplace/g"    |\
 	sed "s/$search_transition/$replace_transition/g" |\
-	sed "s/$search_timedtransition/$replace_timedtransition/g" \
+  sed "s/$search_exttransition/$replace_exttransition/g" |\
+	sed "s/$search_timedtransition/$replace_timedtransition/g" |\
+  sed "s/$search_exttimedtransition/$replace_exttimedtransition/g" |\
+  sed "s|->|$arrowTip|g" \
 	    > $filenameTex
     if [ ! -s "$filenameTex" ]
     then
@@ -194,7 +223,7 @@ then
 	exit 1
     fi
 else
-    if [ -f "$filenameTex" ]
+    if [ -f "$filenameTex" ] && [ "$dontask" = 0 ]
     then
 	echo "File $filenameTex exists do you want to overwrite it? (y/N)"
 	read p </dev/tty
@@ -202,15 +231,16 @@ else
 	then
 	    printd removing $filenameTex
 	    rm $filenameTex
-	else	
+	else
 	    exit 1
 	fi
     fi
     printd running dot2tex
-    ! echo "$t" |sed -E "s/^([ ]*(p|t|tt)[0-9,m]+)$/\1 [label=\"\"]/g"\
+    echo "$t" |sed -E "s/^([ ]*(ep|p|et|t|ett|tt)[0-9,m]+)$/\1 [label=\"\"]/g"\
 	| dot2tex --prog dot --autosize -f tikz \
 		  --docpreamble \
-		  "\usetikzlibrary{arrows,shapes,petri,external}
+		  "\usepackage{hyperref}
+\usetikzlibrary{arrows,shapes,petri,external,arrows.meta}
 	\tikzexternalize
 	\tikzsetnextfilename{figure}
 	\tikzset{
@@ -228,12 +258,26 @@ else
     % fill=blue!20,
     minimum size=6mm
   },
+  extTransition/.style={
+    rectangle,
+    dotted,
+    fill=white,
+    minimum width=8mm,
+    inner ysep=0.7pt
+  },
   transition/.style={
     rectangle,
     thick,
     fill=black,
     minimum width=8mm,
     inner ysep=0.7pt
+  },
+  extTimedtransition/.style={
+    rectangle,
+    dotted,
+    fill=white,
+    minimum width=8mm,
+    inner ysep=2pt
   },
   timedtransition/.style={
     rectangle,
@@ -246,9 +290,14 @@ else
   text/.style={}
 }" \
 	| sed "s/$search_markedplace/$replace_markedplace/g"|\
-	sed "s/$search_place/$replace_place/g"    |\
+	sed "s/$search_extmarkedplace/$replace_extmarkedplace/g"    |\
+  sed "s/$search_place/$replace_place/g"    |\
+  sed "s/$search_extplace/$replace_extplace/g"    |\
 	sed "s/$search_transition/$replace_transition/g" |\
-	sed "s/$search_timedtransition/$replace_timedtransition/g" \
+  sed "s/$search_exttransition/$replace_exttransition/g" |\
+	sed "s/$search_timedtransition/$replace_timedtransition/g" |\
+  sed "s/$search_exttimedtransition/$replace_exttimedtransition/g" |\
+  sed "s|->|$arrowTip|g" \
 	    > $filenameTex
     if [ ! -s "$filenameTex" ]
     then
@@ -259,13 +308,20 @@ else
 fi
 
 
-
+# linkPetriNets $filenameTex
 
 if [ "$onlyTikzPicture" == 0 -a  "$exportPdf" == 1 ]
 then
+    cd "$directory"
     printd running pdflatex to generate pdf
-    pdflatex --shell-escape --output-directory /tmp/ $filenameTex 2&>/dev/null
-    [ -f "figure.pdf" ] && mv figure.pdf $outFile; rm figure.*
+    if [ "$debug" == 1 ]
+    then
+        pdflatex --shell-escape --output-directory=/tmp/ "${filenameTex##*/}"
+    else
+        pdflatex --shell-escape --output-directory=/tmp/ "${filenameTex##*/}" 2&>/dev/null
+    fi
+    [ -f "figure.pdf" ] && mv figure.pdf ${outFile#$directory/}; rm figure.*
+    cd -
 fi
 
 tempfile=$(mktemp)
