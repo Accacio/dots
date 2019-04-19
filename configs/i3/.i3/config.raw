@@ -356,7 +356,7 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightne
 # bindsym XF86Mail exec --no-startup-id thunderbird
 bindsym XF86Mail exec "$term -c neomutt -e  bash -l -c neomutt"; mode "default";exec "kill $(pidof feh)"
 bindsym XF86HomePage exec --no-startup-id vivaldi
-bindcode --release 105 exec "$SCRIPTSFOLDER/findMouse"
+# bindcode --release 105 exec "$SCRIPTSFOLDER/findMouse"
 bindsym $mod+shift+h exec "feh $HOME/dots/layouts/keyboard-layout.jpg"
 bindsym $mod+shift+t exec "feh $HOME/Dropbox/produtividade/horario/horario-2018_2.jpg"
 bindsym $mod+shift+m mode "music"
