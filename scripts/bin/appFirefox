@@ -1,0 +1,32 @@
+#!/bin/bash
+
+path=$HOME/.mozilla/firefox/
+filename=$HOME/.mozilla/firefox/profiles.ini
+testApp=$(grep Name=app "$filename"|sed '$!d')
+if [ "$testApp" = "Name=app" ]
+then
+    echo all is ok
+    exit 
+fi
+  
+
+n=$(grep Profile $HOME/.mozilla/firefox/profiles.ini|\
+    sed '$!d'|\
+    sed 's|\[Profile\([0-9]\)\]|\1|')
+
+echo -e [Profile$(expr $t + 1)]\\n\
+Name=app\\n\
+IsRelative=1\\n\
+Path=app\\n >> $filename
+
+[ -d "$path/app" ] || mkdir "$path/app"
+[ -d "$path/app/chrome" ] || mkdir "$path/app/chrome"
+[ -f "$path/app/chrome/userChrome.css" ] || \
+    echo -e '@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");\\n
+#TabsToolbar,
+#PersonalToolbar,
+#BookmarksToolbar,
+#MenuToolbar,
+#tabbrowser-tabs,
+#nav-bar,
+#TabsToolbar { display: none !important; }'> $path/app/chrome/userChrome.css
