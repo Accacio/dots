@@ -346,7 +346,7 @@ bindsym $mod+shift+F12 exec $mpc next;exec pkill -SIGRTMIN+11 i3blocks; exec $SC
 
 bindsym XF86Calculator exec --no-startup-id galculator
 bindsym $mod+F1 exec "$SCRIPTSFOLDER/changeSoundOutput"
-bindsym $mod+F2 exec "$HOME/git/rofimoji/rofimoji.py"
+bindsym $mod+F2 exec "$SCRIPTSFOLDER/rofimoji"
 # ;exec pkill -SIGRTMIN+10 i3blocks
 
 # Screen brightness controls
