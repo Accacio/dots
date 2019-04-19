@@ -297,8 +297,6 @@ for_window [title="/horario.*jpg"] floating enable;
 
 # IM
 # exec surf web.whatsapp.com
-exec firefox -P app -new-window web.whatsapp.com
-exec firefox -P app -new-window web.telegram.org 
 
 for_window [title=".*WhatsApp Web - Mozilla Firefox$"] move scratchpad
 for_window [title=".*Telegram Web - Mozilla Firefox$"] move scratchpad

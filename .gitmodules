@@ -1,3 +1,7 @@
 [submodule "emacs"]
 	path = emacs/.emacs.d
 	url = https://github.com/Accacio/.emacs.d
+
+[submodule "source code pro"]
+	path = configs/fonts/.fonts/adobe-fonts/source-code-pro
+	url = https://github.com/adobe-fonts/source-code-pro
