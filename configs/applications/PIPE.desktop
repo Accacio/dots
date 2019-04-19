@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=PIPE
+Exec=/home/accacio/Dropbox/Portables/PIPEv4.3.0/launch.sh
+Icon=/home/accacio/Dropbox/Portables/PIPEv4.3.0/Pipe/images/icon.png
+Type=Application
+Terminal=false
+

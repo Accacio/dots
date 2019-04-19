@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Godot 3.1
+MimeType=text/english;text/plain;text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-moc;text/x-pascal;text/x-tcl;text/x-tex;application/x-shellscript;text/x-c;text/x-c++;text/org
+Exec=/home/accacio/Downloads/programas/Godot/Godot_v3.1-stable_x11.64
+# Exec=/home/accacio/Downloads/programas/Godot/Godot_v2.1.5-stable_x11.64
+Icon=/home/accacio/Downloads/programas/Godot/icon.png
+Type=Application
+Terminal=false
+Categories=Development;TextEditor;
+
