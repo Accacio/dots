@@ -7,6 +7,6 @@ case $mode in
 	setxkbmap br
 	;;
     🇫🇷)
-	setxkbmap fr
+	setxkbmap fr latin9
 	;;
 esac
