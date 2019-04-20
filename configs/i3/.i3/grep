@@ -1,0 +1,364 @@
+set $1 1:
+set $2 2:
+set $3 3:
+set $4 4:
+set $5 5:
+set $6 6
+set $7 7
+set $8 8
+set $9 9
+set $10 10:
+
+exec_always sed 11q ~/dots/configs/i3/.i3/config.raw | cut -d " " -f 3 > ~/dots/workspaceNames
+
+# http://i3wm.org/docs/userguide.html for a complete reference!
+
+set $mod Mod4
+set $alt Mod1
+
+focus_follows_mouse yes
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r exec "~/dots/scripts/processI3Config";restart
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:monospace 8, FontAwesome 8
+
+# This font is widely installed, provides lots of unicode glyphs, right-to-left
+# text rendering and scalability on retina/hidpi displays (thanks to pango).
+# font pango:DejaVu Sans Mono 8
+
+# Before i3 v4.8, we used to recommend this one as the default:
+# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+# The font above is very space-efficient, that is, it looks good, sharp and
+# clear in small sizes. However, its unicode glyph coverage is limited, the old
+# X core fonts rendering does not support right-to-left and this being a bitmap
+# font, it doesn’t scale on retina/hidpi displays.
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+for_window [class="Yad"] floating enable border pixel 0
+
+
+# start a terminal
+# bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec i3-sensible-terminal
+
+# kill focused window
+bindsym $mod+F4 kill
+
+# Modes
+
+# bindsym $mod+F7 mode "keyboard layout"
+bindsym $mod+F7 exec "~/dots/scripts/keyboarLayout"
+
+# mode "keyboard layout"
+# {
+        # bindsym Return mode "default"
+        # bindsym Escape mode "default"
+	# bindsym f exec "setxkbmap fr";mode "default"
+	# bindsym p exec "setxkbmap br";mode "default"
+# }
+
+bindsym $mod+p exec "~/dots/scripts/multimonitor"
+bindsym XF86Display exec "~/dots/scripts/multimonitor"
+
+mode "apps"
+{
+        bindsym p exec "~/dots/scripts/seeOnMpv";mode "default";exec "kill $(pidof feh)"
+        bindsym v exec "vivaldi"; mode "default";exec "kill $(pidof feh)"
+        bindsym a exec "i3-sensible-terminal -e  calcurse"; mode "default";exec "kill $(pidof feh)"
+	bindsym c exec "i3-sensible-terminal -e  ncmpcpp"; mode "default";exec "kill $(pidof feh)"
+	bindsym m exec "i3-sensible-terminal -c neomutt -e  bash -l -c neomutt"; mode "default";exec "kill $(pidof feh)"
+	bindsym n exec "i3-sensible-terminal -e  newsboat"; mode "default";exec "kill $(pidof feh)"
+	bindsym r exec "i3-sensible-terminal -e  ranger"; mode "default";exec "kill $(pidof feh)"
+	bindsym e exec "emacsclient -c"; mode "default";exec "kill $(pidof feh)"
+	bindsym z exec "zathura"; mode "default";exec "kill $(pidof feh)"
+
+        bindsym Escape mode "default";exec "kill $(pidof feh)"
+	bindsym Control+g mode "default";exec "kill $(pidof feh)"
+}
+
+# mode "turnoff"
+# {
+	# bindsym s exec "shutdown now"
+	# bindsym Escape mode "default"
+	# bindsym l exec "xset dpms 1 0 0;i3lock -i ~/wallpapers/lock -n -c 000000;xset dpms 0 0 0";mode "default"
+# }
+bindsym $mod+Shift+e exec "~/dots/scripts/powerMenu"
+bindsym $mod+o mode "apps";exec "feh ~/dots/layouts/apps.jpg"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym i resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+        bindsym j resize shrink width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+	bindsym space mode "default"
+	bindsym Control+g mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# splits
+bindsym $mod+h split h
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+t layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+# Windows and workspaces
+
+# change focus
+bindsym $mod+j focus left;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+k focus down;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+i focus up;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+l focus right;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Down focus down;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Up focus up;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Right focus right;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+
+# move focused window
+bindsym $mod+Shift+j move left;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Shift+k move down;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Shift+i move up;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Shift+l move right;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Shift+Down move down;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Shift+Up move up;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Shift+Right move right;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+
+
+
+
+
+# switch to workspace
+bindsym $mod+1 workspace $1;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+2 workspace $2;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+3 workspace $3;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+4 workspace $4;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+5 workspace $5;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+6 workspace $6;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+7 workspace $7;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+8 workspace $8;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+9 workspace $9;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+0 workspace $10;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+
+bindsym $mod+Ctrl+l workspace next;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Ctrl+j workspace prev;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+
+# move focused container to workspace0 and change to respective workspace
+bindsym $mod+Shift+1 move container to workspace $1; workspace $1;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Shift+2 move container to workspace $2; workspace $2;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Shift+3 move container to workspace $3; workspace $3;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Shift+4 move container to workspace $4; workspace $4;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Shift+5 move container to workspace $5; workspace $5;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Shift+6 move container to workspace $6; workspace $6;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Shift+7 move container to workspace $7; workspace $7;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Shift+8 move container to workspace $8; workspace $8;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Shift+9 move container to workspace $9; workspace $9;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Shift+0 move container to workspace $10; workspace $10;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+
+bindsym $mod+Shift+Ctrl+l move workspace next;workspace next;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Shift+Ctrl+j  move workspace prev;workspace prev;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+
+
+# Panel
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+
+oi
+
+# exec_always xfce4-panel
+# exec_always xfce4-power-manager
+# bindsym $mod+x exec "xfce4-popup-whiskermenu"
+bindsym $mod+x exec i3-dmenu-desktop --dmenu="dmenu -b -i -sb seagreen"
+# bindsym Super_R exec "xfce4-popup-whiskermenu"
+ # exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
+
+# assign [class="X-terminal-emulator"] 2
+# assign [class="Gnome-terminal"] 2
+assign [class="Vivaldi-stable"] $3
+# assign [class="Nautilus"] 5
+assign [class="neomutt"] $5
+
+
+
+
+# windows
+# default_floating_border pixel 0
+for_window [class="^.*"] border pixel 2
+for_window [class="Gnome-terminal"] border pixel 0
+for_window [class="St"] border pixel 0
+for_window [class="mpv"] sticky enable
+for_window [class="mpv"] border pixel 0
+for_window [urgent="latest"] border pixel 1
+for_window [class="mpv"] floating enable
+for_window [instance="Msgcompose"] floating enable
+for_window [title="neomutt"] floating enable
+# for_window [instance="Msgcompose"] resize set 640 64
+for_window [title="/layouts/.*jpg"] floating enable;
+for_window [title="/horario.*jpg"] floating enable;
+
+
+# IM
+exec surf web.whatsapp.com
+exec surf web.telegram.org
+
+for_window [title=".*whatsapp.*"] move scratchpad
+for_window [title=".*telegram.*"] move scratchpad
+
+bindcode $mod+25 mode "IM"
+mode "IM" {
+        bindsym 1 [title=".*WhatsApp.*"] scratchpad show;mode default
+	bindsym 2 [title=".*Telegram.*"] scratchpad show;mode default
+
+	# back to normal: Enter or Escape
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym space mode "default"
+ 	bindsym Control+g mode "default"
+}
+
+# Keyboard Shortcuts
+exec_always setxkbmap -option caps:ctrl_modifier
+exec_always setxkbmap -option ctrl:nocaps
+exec_always setxkbmap -option compose:menu
+
+# bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
+
+
+bindsym Print exec "gnome-screenshot -i"
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $(pactl list short sink-inputs|head -n 1|cut -f2) +$((65535*5/100 ));exec pkill -SIGRTMIN+10 i3blocks
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume $(pactl list short sink-inputs|head -n 1|cut -f2) -$((65535*5/100 ));exec pkill -SIGRTMIN+10 i3blocks
+bindsym XF86AudioMute exec pactl set-sink-mute $(pactl list short sink-inputs|head -n 1|cut -f2) toggle;exec pkill -SIGRTMIN+10 i3blocks
+bindsym XF86AudioPlay exec mpc toggle;exec pkill -SIGRTMIN+11 i3blocks
+bindsym XF86AudioPrev exec mpc prev;exec pkill -SIGRTMIN+11 i3blocks
+bindsym XF86AudioNext exec mpc next;exec pkill -SIGRTMIN+11 i3blocks
+
+bindsym $mod+F10 exec mpc toggle;exec pkill -SIGRTMIN+11 i3blocks
+bindsym $mod+F9 exec mpc prev;exec pkill -SIGRTMIN+11 i3blocks
+bindsym $mod+F11 exec mpc stop;exec pkill -SIGRTMIN+11 i3blocks
+bindsym $mod+F12 exec mpc next;exec pkill -SIGRTMIN+11 i3blocks
+
+
+bindsym XF86Calculator exec --no-startup-id galculator
+bindsym $mod+F1 exec "~/dots/scripts/changeSoundOutput"
+# ;exec pkill -SIGRTMIN+10 i3blocks
+
+# Screen brightness controls
+# bindsym XF86MonBrightnessUP exec xbacklight + 20 # decrease screen brightness
+# bindsym XF86MonBrightnessDown exec xbacklight - 20 # decrease screen brightness
+
+# bindsym XF86Mail exec --no-startup-id thunderbird
+bindsym XF86Mail exec "i3-sensible-terminal -c neomutt -e  bash -l -c neomutt"; mode "default";exec "kill $(pidof feh)"
+bindsym XF86HomePage exec --no-startup-id vivaldi
+bindcode --release 105 exec "~/dots/scripts/findMouse"
+bindsym $mod+shift+h exec "feh ~/dots/layouts/keyboard-layout.jpg"
+bindsym $mod+shift+t exec "feh ~/Dropbox/produtividade/horario/horario-2018_2.jpg"
+bindsym $mod+shift+m mode "music"
+
+mode "music" {
+     bindsym Escape mode "default"
+     bindsym a exec "~/dots/scripts/mpdmenu -a :: -sb  seagreen -b -i";mode "default"
+     bindsym m exec "~/dots/scripts/mpdmenu :: -sb  seagreen -b -i";mode "default"
+}
+
+exec compton
+exec "nm-applet &"
+exec --no-startup-id "~/dots/scripts/dropbox start"
+exec --no-startup-id "~/dots/scripts/autoRotation"
+exec "emacs --daemon"
+exec i3-sensible-terminal
+exec mpd
+exec ~/dots/scripts/dualScreenTop
+
+# Mouse configs
+exec_always xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Scrolling Distance' -20 -20
+exec_always xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Two-Finger Scrolling' 1 0
+exec_always xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Edge Scrolling'  0 0 0
+exec_always xinput set-prop 'SynPS/2 Synaptics TouchPad' 'Synaptics Scrolling Distance' -200 -20
+
+# Modifiers
+bindsym --whole-window button10 exec "~/dots/scripts/mouseMode 10"
+bindsym --whole-window button11 exec "~/dots/scripts/mouseMode 11"
+
+bindsym --whole-window button6 exec "xdotool key ctrl+shift+Tab"
+bindsym --whole-window button7 exec "xdotool key ctrl+Tab"
+
+mode "mouse10"
+{
+	bindsym Escape mode "default"
+	bindsym --whole-window button6 exec "xdotool key alt+Left"
+	bindsym --whole-window button7 exec "xdotool key alt+Right"
+}
+mode "mouse11"
+{
+	bindsym Escape mode "default"
+	bindsym  --whole-window button6 exec "xdotool key ctrl+shift+t"
+	bindsym --whole-window button7 exec "xdotool key ctrl+t"
+}
+
+
+bindsym --whole-window Ctrl+$alt+button4 exec pactl set-sink-volume $(pactl list short sink-inputs|head -n 1|cut -f2) +$((65535*5/100 ));exec pkill -SIGRTMIN+10 i3blocks
+bindsym --whole-window Ctrl+$alt+button5 exec pactl set-sink-volume $(pactl list short sink-inputs|head -n 1|cut -f2) -$((65535*5/100 ));exec pkill -SIGRTMIN+10 i3blocks
+
+# Wacom configs
+
+exec_always xinput set-prop 'Wacom Intuos PT S 2 Finger touch' 'Wacom Touch Gesture Parameters' 1, 10, 10
+exec_always xsetwacom set "Wacom Intuos PT S 2 Pad pad" Button 3 22
+exec_always xsetwacom set "Wacom Intuos PT S 2 Pad pad" Button 1 23
+exec_always xsetwacom set "Wacom Intuos PT S 2 Pad pad" Button 9 24
+exec_always xsetwacom set "Wacom Intuos PT S 2 Pad pad" Button 8 25
+bindsym --whole-window button22 exec "~/dots/scripts/wacomChangeOutput"
+bindsym --whole-window button23 exec "xsetwacom set 'Wacom Intuos PT S 2 Pen stylus' MapToOutput MONITOR2"
+bindsym --whole-window button24 exec "~/dots/scripts/wacomChangeOutput"
+bindsym --whole-window button25  exec "xsetwacom set 'Wacom Intuos PT S 2 Pen stylus' MapToOutput MONITOR2"
+
+
+
+
+exec_always "~/dots/scripts/changeWallpaper -1"
+
