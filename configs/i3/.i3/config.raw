@@ -64,26 +64,24 @@ bindsym XF86Display exec "$SCRIPTSFOLDER/multimonitor"
 mode "apps"
 {
 
-        bindsym p exec "mpv --playlist  $HOME/.config/mpv/queue";mode "default";exec "kill $(pidof feh)"
+        # bindsym p exec "mpv --playlist  $HOME/.config/mpv/queue";mode "default";exec "kill $(pidof feh)"
         # bindsym p exec "$SCRIPTSFOLDER/seeOnMpv";mode "default";exec "kill $(pidof feh)"
 	bindsym t exec "$SCRIPTSFOLDER/openTCC"; mode "default";exec "kill $(pidof feh)"
-	bindsym o exec "$SCRIPTSFOLDER/passmenu"; mode "default";exec "kill $(pidof feh)"
+	bindsym p exec "$SCRIPTSFOLDER/passmenu"; mode "default";exec "kill $(pidof feh)"
 	bindsym v exec "vivaldi"; mode "default";exec "kill $(pidof feh)"
-        bindsym a exec "$term -e  calcurse"; mode "default";exec "kill $(pidof feh)"
-	bindsym c exec "$term -e  ncmpcpp"; mode "default";exec "kill $(pidof feh)"
-	bindsym m exec "$term -c neomutt -e  bash -l -c neomutt"; mode "default";exec "kill $(pidof feh)"
+  bindsym c exec "$term -e  calcurse"; mode "default";exec "kill $(pidof feh)"
+	bindsym m exec "$term -e  ncmpcpp"; mode "default";exec "kill $(pidof feh)"
 	bindsym n exec "$term -e  newsboat"; mode "default";exec "kill $(pidof feh)"
 	bindsym r exec "$term -e  ranger"; mode "default";exec "kill $(pidof feh)"
-	# bindsym e exec "emacsclient -c"; mode "default";exec "kill $(pidof feh)"
-	bindsym e exec "$SCRIPTSFOLDER/openFile"; mode "default";exec "kill $(pidof feh)"
+  bindsym o exec "$SCRIPTSFOLDER/openFile"; mode "default";exec "kill $(pidof feh)"
 	bindsym z exec "zathura"; mode "default";exec "kill $(pidof feh)"
-	# bindsym e exec "$(locate --regex ^/home| rofi  -dmenu -theme arthur -i -p "open in emacs")"; mode "default";exec "kill $(pidof feh)"
 	bindsym y exec "$SCRIPTSFOLDER/youtube"; mode "default";exec "kill $(pidof feh)"
 	bindsym q exec "$SCRIPTSFOLDER/qr"; mode "default";exec "kill $(pidof feh)"
-        bindsym Escape mode "default";exec "kill $(pidof feh)"
+  
+  bindsym Escape mode "default";exec "kill $(pidof feh)"
 	bindsym Control+g mode "default";exec "kill $(pidof feh)"
 }
-
+	bindsym $mod+m exec "$term -c neomutt -e  bash -l -c neomutt"; mode "default";exec "kill $(pidof feh)"
 # mode "turnoff"
 # {
 	# bindsym s exec "shutdown now"
@@ -291,6 +289,7 @@ for_window [urgent="latest"] border pixel 1
 for_window [class="mpv"] floating enable
 for_window [instance="Msgcompose"] floating enable
 for_window [title="neomutt"] floating enable
+for_window [title="^calcurse$"] floating enable
 # for_window [instance="Msgcompose"] resize set 640 64
 for_window [title="/layouts/.*jpg"] floating enable;
 for_window [title="/horario.*jpg"] floating enable;
