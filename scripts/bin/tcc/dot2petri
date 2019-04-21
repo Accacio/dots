@@ -161,32 +161,40 @@ fi
 printd Output File: $outFile
 arrowTip="-Latex"
 
-search_markedplace="\(\\\node (p\)\([0-9]\+\)\(m\)\([0-9]\+\)\() at (.*) \[draw,ellipse\)\(\] {};\)"
-replace_markedplace="\\1\\2\\3\\4\\5,place, tokens=\\4, label=above:, label=left:\$p_{\\2}\$,rotate=90\\6"
+function changeTex {
+    sed -E "s/$search_markedplace/$replace_markedplace/g" |\
+        sed -E "s/$search_extmarkedplace/$replace_extmarkedplace/g" |\
+        sed -E "s/$search_place/$replace_place/g" |\
+        sed -E "s/$search_extplace/$replace_extplace/g"    |\
+	      sed -E "s/$search_transition/$replace_transition/g" |\
+        sed -E "s/$search_exttransition/$replace_exttransition/g" |\
+	      sed -E "s/$search_timedtransition/$replace_timedtransition/g" |\
+        sed -E "s/$search_exttimedtransition/$replace_exttimedtransition/g"  |\
+        sed "s|->|$arrowTip|g" 
+}
+search_markedplace="(\\\node \()(c|)(p)([0-9]+)(m)(|[0-9]+)(\) at \(.*\) \[draw,ellipse)(\] \{\};)"
+replace_markedplace="\1\2\3\4\5\6\7,place, tokens=\6, label=above:, label=left:\$p_\{\4\}\$,rotate=90\8"
 
-search_extmarkedplace="\(\\\node (ep\)\([0-9]\+\)\(m\)\([0-9]\+\)\() at (.*) \[draw,ellipse\)\(\] {};\)"
-replace_extmarkedplace="\\1\\2\\3\\4\\5,extPlace, tokens=\\4, label=above:, label=left:\$p_{\\2}\$,rotate=90\\6"
+search_extmarkedplace="(\\\node \(ep)([0-9]+)(m)([0-9]+)(\) at \(.*\) \[draw,ellipse)(\] \{\};)"
+replace_extmarkedplace="\1\2\3\4\5,extPlace, tokens=\4, label=above:, label=left:\$p_\{\2\}\$,rotate=90\\6"
 
-search_place="\(\\\node (p\)\([0-9]\+\)\() at (.*) \[draw,ellipse\)\(\] {};\)"
-replace_place="\\1\\2\\3,place, label=above:, label=left:\$p_{\\2}\$,rotate=90\\4"
+search_place="(\\\node \()(c|)(p)([0-9]+)(\) at \(.*\) \[draw,ellipse)(\] \{\};)"
+replace_place="\1\2\3\4\5,place, label=above:, label=left:\$p_\{\4\}\$,rotate=90\6"
 
-search_extplace="\(\\\node (ep\)\([0-9]\+\)\() at (.*) \[draw,ellipse\)\(\] {};\)"
-replace_extplace="\\1\\2\\3,extPlace, label=above:, label=left:\$p_{\\2}\$,rotate=90\\4"
+search_extplace="(\\\node \(ep)([0-9]+)(\) at \(.*\) \[draw,ellipse)(\] \{\};)"
+replace_extplace="\1\2\3,extPlace, label=above:, label=left:\$p_\{\2\}\$,rotate=90\4"
 
-search_timedtransition="\(\\\node (tt\)\([0-9]\+\)\() at (.*) \[draw,ellipse\)\(\] {};\)"
-replace_timedtransition="\\1\\2\\3,timedtransition, label=above:, label=left:\$t_{\\2}\$,rotate=90\\4"
+search_transition="(\\\node \()(c|)(t)([0-9]+)(\) at \(.*\) \[draw,ellipse)(\] \{\};)"
+replace_transition="\1\2\3\4\5,transition, label=above:, label=left:\$t_\{\4\}\$,rotate=90\6"
 
-search_exttimedtransition="\(\\\node (ett\)\([0-9]\+\)\() at (.*) \[draw,ellipse\)\(\] {};\)"
-replace_exttimedtransition="\\1\\2\\3,extTimedtransition, label=above:, label=left:\$t_{\\2}\$,rotate=90\\4"
+search_exttransition="(\\\node \()(c|)(et)([0-9]+)(\) at \(.*\) \[draw,ellipse)(\] \{\};)"
+replace_exttransition="\1\2\3\4\5,extTransition, label=above:, label=left:\$t_\{\4\}\$,rotate=90\6"
 
-search_transition="\(\\\node (t\)\([0-9]\+\)\() at (.*) \[draw,ellipse\)\(\] {};\)"
-replace_transition="\\1\\2\\3,transition, label=above:, label=left:\$t_{\\2}\$,rotate=90\\4"
+search_timedtransition="(\\\node \()(c|)(tt)([0-9]+)(\) at \(.*\) \[draw,ellipse)(\] \{\};)"
+replace_timedtransition="\1\2\3\4\5,timedtransition, label=above:, label=left:\$t_\{\4\}\$,rotate=90\6"
 
-search_exttransition="\(\\\node (et\)\([0-9]\+\)\() at (.*) \[draw,ellipse\)\(\] {};\)"
-replace_exttransition="\\1\\2\\3,extTransition, label=above:, label=left:\$t_{\\2}\$,rotate=90\\4"
-
-search_transition="\(\\\node (t\)\([0-9]\+\)\() at (.*) \[draw,ellipse\)\(\] {};\)"
-replace_transition="\\1\\2\\3,transition, label=above:, label=left:\$t_{\\2}\$,rotate=90\\4"
+search_exttimedtransition="(\\\node \(ett)([0-9]+)(\) at \(.*\) \[draw,ellipse)(\] \{\};)"
+replace_exttimedtransition="\1\2\3,extTimedtransition, label=above:, label=left:\$t_\{\2\}\$,rotate=90\4"
 
 if [ "$onlyTikzPicture" == 1 ]
 then
@@ -204,18 +212,9 @@ then
 	fi
     fi
     printd running dot2tex
-    echo "$t" |sed -E "s/^([ ]*(ep|p|et|t|ett|tt)[0-9,m]+)$/\1 [label=\"\"]/g"\
+    echo "$t" |sed -E "s/^([ ]*(c|)(ep|p|et|t|ett|tt)[0-9,m]+)$/\1 [label=\"\"]/g"\
 	| dot2tex --prog dot --autosize -f tikz --figonly \
-	| sed "s/$search_markedplace/$replace_markedplace/g"|\
-	sed "s/$search_extmarkedplace/$replace_extmarkedplace/g"    |\
-	sed "s/$search_place/$replace_place/g"    |\
-  sed "s/$search_extplace/$replace_extplace/g"    |\
-	sed "s/$search_transition/$replace_transition/g" |\
-  sed "s/$search_exttransition/$replace_exttransition/g" |\
-	sed "s/$search_timedtransition/$replace_timedtransition/g" |\
-  sed "s/$search_exttimedtransition/$replace_exttimedtransition/g" |\
-  sed "s|->|$arrowTip|g" \
-	    > $filenameTex
+	| changeTex > $filenameTex
     if [ ! -s "$filenameTex" ]
     then
 	printError $filenameTex could not be written semantic error in $filename
@@ -236,7 +235,7 @@ else
 	fi
     fi
     printd running dot2tex
-    echo "$t" |sed -E "s/^([ ]*(ep|p|et|t|ett|tt)[0-9,m]+)$/\1 [label=\"\"]/g"\
+    echo "$t" |sed -E "s/^([ ]*(c|)(ep|p|et|t|ett|tt)[0-9,m]+)$/\1 [label=\"\"]/g"\
 	| dot2tex --prog dot --autosize -f tikz \
 		  --docpreamble \
 		  "\usepackage{hyperref}
@@ -289,16 +288,7 @@ else
   inhibitor/.style={-o},
   text/.style={}
 }" \
-	| sed "s/$search_markedplace/$replace_markedplace/g"|\
-	sed "s/$search_extmarkedplace/$replace_extmarkedplace/g"    |\
-  sed "s/$search_place/$replace_place/g"    |\
-  sed "s/$search_extplace/$replace_extplace/g"    |\
-	sed "s/$search_transition/$replace_transition/g" |\
-  sed "s/$search_exttransition/$replace_exttransition/g" |\
-	sed "s/$search_timedtransition/$replace_timedtransition/g" |\
-  sed "s/$search_exttimedtransition/$replace_exttimedtransition/g" |\
-  sed "s|->|$arrowTip|g" \
-	    > $filenameTex
+	| changeTex > $filenameTex
     if [ ! -s "$filenameTex" ]
     then
 	printError $filenameTex could not be written semantic error in $filename
