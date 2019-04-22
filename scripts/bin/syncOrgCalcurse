@@ -1,0 +1,36 @@
+#!/bin/bash
+
+if [ "$1" = "-o" ]
+then
+
+    # Calcurse to Org
+
+    cat $HOME/.calcurse/todo |\
+        sed -E "/DONE/!s;\[[0-9]\](>[0-9a-f]+|)(.*);* TODO\2\n\1\n;" |\
+        sed -E "s;\[[0-9]\](>[0-9a-f]+|)(.*) DONE;* DONE\2\n  CLOSED: [$(date "+%Y-%m-%d %a %H:%M")]\n\1\n;" \
+            > $HOME/Dropbox/AccDoc/Org/Todo.org
+
+    # rm $HOME/.calcurse/todo
+
+    awk -i inplace '/(^$|^  $)/ { print; next; }; !seen[$0]++' $HOME/Dropbox/AccDoc/Org/Todo.org
+    sed -i -E "/\*+ .*/,/^$/!d" $HOME/Dropbox/AccDoc/Org/Todo.org
+
+    # Remove DONES
+    cat $HOME/Dropbox/AccDoc/Org/Todo.org | sed -E "/\*+ DONE/,/^$/!d" >> $HOME/Dropbox/AccDoc/Org/Done.org
+    sed -ibak -E "/\*+ DONE/,/^$/d" $HOME/Dropbox/AccDoc/Org/Todo.org
+fi
+# # Org to Calcurse
+if [ "$1" = "-c" ]
+then
+    rm $HOME/.calcurse/todo
+
+   # Remove DONES
+   cat $HOME/Dropbox/AccDoc/Org/Todo.org | sed -E "/\*+ DONE/,/^$/!d" >> $HOME/Dropbox/AccDoc/Org/Done.org
+   sed -ibak -E "/\*+ DONE/,/^$/d" $HOME/Dropbox/AccDoc/Org/Todo.org
+
+   cat -v $HOME/Dropbox/AccDoc/Org/Todo.org |  sed -E "/\*+ TODO/,/^$/!d;" | tr '\n' '|' \
+       | sed -E "s;\* TODO ([0-9A-Za-z ]+)\|(:CREATED:  \[[0-9A-Za-z -:]+\|\]\||)(>[0-9a-f]+\||)\|;[0]\3 \1\n;g" > $HOME/.calcurse/todo
+fi
+
+
+

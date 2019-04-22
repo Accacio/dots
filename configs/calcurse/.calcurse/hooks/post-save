@@ -29,3 +29,5 @@ if [ -d caldav -a -x "$(which calcurse-caldav)" ]; then
 		echo
 	) >>caldav/log 2>&1 &
 fi
+
+syncOrgCalcurse -o

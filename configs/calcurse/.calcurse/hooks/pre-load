@@ -1,3 +1,4 @@
+#!/bin/sh
 cd "$HOME"/.calcurse/
 
 # Do not do anything when synchronizing with a CalDAV server.
@@ -12,3 +13,5 @@ if [ -d caldav -a -x "$(which calcurse-caldav)" ]; then
         echo
     ) >>caldav/log 2>&1 &
 fi
+
+syncOrgCalcurse -c
