@@ -71,6 +71,14 @@ alias cls="printf '\ec'" \
 # socket=/tmp/nvim-$ID
 # nvr --servername $socket --remote $1
 # }
+alias vim='nvim'
+alias vi='nvim'
+
+function - {
+    cd -
+}
+
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 function - {
     cd -
@@ -90,15 +98,17 @@ function gcd {
 	cd "$HOME/git/$(ls -a ~/git/|xargs -n1|fzy)"
 }
 
-# alias wpp="surf web.whatsapp.com &"
-wpp="firefox -P app -new-window web.whatsapp.com &"
+# alias wpp="surf web.whatsapp.com "
 
 function ddbrowser {
     firefox -P app -new-window $1 &
     disown
 }
-
-
+alias telegram="ddbrowser web.telegram.org"
+alias wpp="ddbrowser web.whatsapp.com"
+alias netflix="ddbrowser netflix.com"
+alias reloadAudio="pulseaudio -k && sudo alsa force-reload"
+alias primeVideo="ddbrowser primevideo.com"
 function loadZ {
     if [ -f $1 ]
        then
