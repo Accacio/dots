@@ -1,0 +1,31 @@
+#!/bin/bash
+
+if [ "$#" == "0" ]; then
+	  exit
+fi
+
+while (( "$#" )); do
+    dir=$PWD
+    file=$(readlink -f $dir/$1)
+    dir=$(dirname $file)
+    if [ "$file" != "" ]
+    then
+        dot2petri $file -py
+        linkPetriNets ${file%.*}.tex ${dir##*/}
+        if [ -f ${file%.*}.org ]
+        then
+            cat ${file%.*}.org | sed -n -e '/^# TransitionsBegin$/,/^# TransitionsEnd$/!d;p' |  sed '$d' > ${file%.*}Transitions.org
+            cat ${file%.*}.org | sed -n -e '/^# PlacesBegin$/,/^# PlacesEnd$/!d;p' |  sed '$d' > ${file%.*}Places.org
+            emacs ${file%.*}Transitions.org --batch --eval="(org-latex-export-to-latex nil nil nil t)" --kill;
+            emacs ${file%.*}Places.org --batch --eval="(org-latex-export-to-latex nil nil nil t)" --kill;
+            rm ${file%.*}Transitions.org
+            rm ${file%.*}Places.org
+            linkTables ${file%.*}Places.tex ${dir##*/}
+            linkTables ${file%.*}Transitions.tex ${dir##*/}
+            rm ${file%.*}Places.tex~
+            rm ${file%.*}Transitions.tex~
+        fi
+    fi
+    shift
+done
+
