@@ -1,0 +1,2 @@
+#!/bin/bash
+cat $1 | sed -E "s/SeqNo(,[0-9]+)+/sed 1q $2/eg" > ${1%%.*}IOheader.csv

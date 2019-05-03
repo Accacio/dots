@@ -1,0 +1,144 @@
+#!/bin/bash
+set -o errexit -o pipefail -o nounset
+
+version=0.0
+
+function require {
+    command -v $1 >/dev/null 2>&1 ||\
+	      { echo >&2 "`basename $0`: $1 is a dependency and was not found. Aborting."; exit 1; }
+}
+
+function printError {
+    echo >&2 `basename $0`: $@
+}
+
+function usage {
+    echo USAGE
+}
+
+function printd {
+    if [ "$debug" == 1 ]
+    then
+	      echo $@
+    fi
+}
+
+
+# from https://stackoverflow.com/a/29754866/9781176
+! getopt --test > /dev/null 
+if [[ ${PIPESTATUS[0]} -ne 4 ]]; then
+    echo 'I’m sorry, `getopt --test` failed in this environment.'
+    exit 1
+fi
+
+OPTIONS=hc:o:dv
+LONGOPTS=debug,collmuns:,output:,verbose
+
+# -use ! and PIPESTATUS to get exit code with errexit set
+# -temporarily store output to be able to check for errors
+# -activate quoting/enhanced mode (e.g. by writing out “--options”)
+# -pass arguments only via   -- "$@"   to separate them correctly
+! PARSED=$(getopt --options=$OPTIONS --longoptions=$LONGOPTS --name "`basename $0`" -- "$@")
+if [[ ${PIPESTATUS[0]} -ne 0 ]]; then
+    # e.g. return value is 1
+    #  then getopt has complained about wrong arguments to stdout
+    exit 2
+fi
+
+# read getopt’s output this way to handle the quoting right:
+eval set -- "$PARSED"
+
+outFile=""
+collumns=""
+debug=0
+dontask=0
+
+# now enjoy the options in order and nicely split until we see --
+while true; do
+    case "$1" in
+        -c|--collumns)
+	          collumns="$2"
+            shift 2
+            ;;
+	      -d|--debug)
+	          set -x
+	          debug=1
+	          shift
+	          ;;
+        -o|--output)
+            outFile="$2"
+            shift 2
+            ;;
+	      -p)
+	          exportPdf=1
+	          shift
+	          ;;
+	      -h)
+	          usage
+	          exit 0
+	          ;;
+	      -v)
+	          echo `basename $0` version $version
+	          exit 0
+	          ;;
+	      --)
+            shift
+            break
+            ;;
+        *)
+            usage
+            exit 3
+            ;;
+    esac
+done
+
+# handle non-option arguments
+if [[ $# -ne 1 ]]; then
+    echo "`basename $0`: A single input file is required."
+    usage
+    exit 4
+fi
+
+if [ "$1" = "-"  ]
+then
+    if [ -p /dev/stdin ]
+    then
+        cat /dev/stdin > .stdin
+        filename=".stdin"
+        directory="."
+    else
+	      echo "`basename $0`: Nothing in stdin"
+	      exit 4
+    fi
+else
+    filename="$1"
+    fileext=${filename##*.}
+    if [ ! $fileext = "csv" ]
+    then
+	      echo "`basename $0`: File must be .csv"
+	      exit 4
+    else
+	      if [ ! -f "$filename" ]
+	      then
+	          echo "`basename $0`: $filename: No such file or directory"
+	          exit 4
+	      fi
+    fi
+fi
+
+header=$(sed 1q $filename)
+tail=$(sed '$!d' $filename)
+content=$(sed '2,$!d' $filename | sed '$d')
+
+if [ "$collumns" = ""  ]
+then
+    printError At least one collumn should be chosen. Consult -h.
+    exit
+fi
+
+newContent=$(echo "$content" | cut -d, -f"$collumns" --complement | cut -d, -f 1 --complement | uniq | nl -s,)
+
+echo $header
+echo "$newContent"
+echo $tail
+[ -f ".stdin" ] && rm .stdin
