@@ -10,10 +10,22 @@ fi
 cd $HOME/youtube/thumbs
 
 curl -s $1 | grep "<media:thumbnail" | sed "s|.*url=\"\(.*\)\"\ w.*|\1|" | tee figsUrls | sed "s|.*vi/\(.*\)/.*|\1|" > figsFilenames
+curl -s $1 | grep media:title | sed "s| <media:title>\(.*\)</media:title>|\1|" > figsTitles
+
+
+curl -s https://www.youtube.com/feeds/videos.xml\?channel_id\=UCtrjFP7i92_30uv6IehwE5Q | grep -e media:title -e media:thumbnail 
+
+
+
+
+
+
+
+
 
 files=(`cat figsFilenames`)
 urls=(`cat figsUrls`)
 for index in ${!files[*]}
 do
-    wget ${urls[$index]} -O ${files[$index]}
+    wget -q ${urls[$index]} -O ${files[$index]}
 done
