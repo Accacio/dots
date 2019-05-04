@@ -36,6 +36,15 @@ set relativenumber
 set inccommand=split
 set wildmode=longest,list,full
 set splitbelow splitright
+" Triger `autoread` when files changes on disk
+" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
+" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+" Notification after file change
+" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
+autocmd FileChangedShellPost *
+  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+
 nnoremap <f6> :set spell! spelllang=pt<cr>
 " colorscheme gruvbox
 set background=light
@@ -66,10 +75,10 @@ let g:mapleader = " "
 " let mapleader="\<F12>"
 map <F8> :NERDTreeToggle<CR>
 let g:polyglot_disabled = ['latex']
-nnoremap <leader>ev :e ~/.config/nvim/init.vim<cr>
+nnoremap <leader>fev :e ~/.config/nvim/init.vim<cr>
 
-nnoremap <leader>ei :e ~/dots/configs/i3/.i3/config.raw<cr>
-nnoremap <leader>sv :source ~/.config/nvim/init.vim<cr>
+nnoremap <leader>fei :e ~/dots/configs/i3/.i3/config.raw<cr>
+nnoremap <leader>fvR :source ~/.config/nvim/init.vim<cr>
 let g:vimtex_view_method = 'zathura'
 let g:vimtex_compile_progname = 'nvr'
 
@@ -90,9 +99,9 @@ autocmd BufNewFile,BufRead *.md set filetype=markdown
 set rtp+=~/.fzf
 
 " easier write
-nmap <leader>w :w!<cr>
+nmap <leader>fs :w!<cr>
 " easier quit
-nmap <leader>q :q<cr>
+nmap <leader>qq :q<cr>
 
 inoremap <S-Tab> <C-D>
 
