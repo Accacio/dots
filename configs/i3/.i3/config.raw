@@ -40,7 +40,7 @@ for_window [class="Yad"] floating enable border pixel 0
 # start a terminal
 # bindsym $mod+Return exec $term
 bindsym $mod+Return exec $term
-bindsym $mod+Shift+Return exec $editor
+bindsym $mod+Shift+Return exec "$SCRIPTSFOLDER/samedir"
 
 # kill focused window
 bindsym $mod+F4 kill
