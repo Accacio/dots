@@ -9,7 +9,7 @@ function require {
 }
 
 function printError {
-    echo >&2  $@
+    echo >&2  `basename $0`: $@
 }
 
 require dot2tex
@@ -55,40 +55,41 @@ onlyTikzPicture=0
 exportPdf=0
 debug=0 f=n v=n
 dontask=0
+
 # now enjoy the options in order and nicely split until we see --
 while true; do
     case "$1" in
         -t|--onlyTikzPicture)
-	    onlyTikzPicture=1
+	          onlyTikzPicture=1
             shift
             ;;
-	-d|--debug)
-	    set -x
-	    debug=1
-	    shift
-	    ;;
+	      -d|--debug)
+	          set -x
+	          debug=1
+	          shift
+	          ;;
         -o|--output)
             outFile="$2"
-	    exportPdf=1
+	          exportPdf=1
             shift 2
             ;;
-	-p)
-	    exportPdf=1
-	    shift
-	    ;;
-	-h)
-	    usage
-	    exit 0
-	    ;;
-	-v)
-	    echo dot2petri version $version
-	    exit 0
-	    ;;
-  -y)
-      dontask=1
-      shift
-      ;;
-	--)
+	      -p)
+	          exportPdf=1
+	          shift
+	          ;;
+	      -h)
+	          usage
+	          exit 0
+	          ;;
+	      -v)
+	          echo `basename $0` version $version
+	          exit 0
+	          ;;
+        -y)
+            dontask=1
+            shift
+            ;;
+	      --)
             shift
             break
             ;;
