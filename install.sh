@@ -25,7 +25,8 @@ stow -v -d configs/ -t ~/.config/ \
      bspwm/    \
      sxhkd/    \
      ranger/   \
-     nvim/
+     nvim/     \
+     pdfpc/
 
 # install custom .desktop files
 stow -v -d configs/ -t ~/.local/share/applications/ applications/

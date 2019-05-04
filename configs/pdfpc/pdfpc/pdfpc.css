@@ -1,0 +1,82 @@
+*:not(button):not(label) {
+    border: none;
+    font-family: Verdana;
+}
+
+scrolledwindow trough * {
+    background-color: gray;
+}
+
+scrolledwindow trough {
+    background-color: white;
+}
+
+progressbar {
+    min-width: 1px;
+}
+
+progressbar trough * {
+    background-image: none;
+    background-color: blue;
+}
+
+progressbar trough {
+    background-color: white;
+}
+
+entry, iconview, textview *, window {
+    background-color: black;
+    color: white;
+}
+
+entry {
+    background-image: none;
+}
+
+paned separator {
+    background-image: none;
+    background-color: black;
+}
+
+.toolbox button:not(.color) * {
+    background-color: gray;
+}
+
+.help label {
+    font-size: 2em;
+    color: gray;
+    background-color: black;
+}
+
+.overviewWindow {
+    font-size: 4em;
+}
+
+/* The bottom text is automatically sized based on the resolution of
+ * the presenter's screen but setting this value in the user's custom
+ * CSS will override the auto-sizing.  See the man page for more
+ * details.
+    .bottomText {
+        font-size: 5em;
+    }
+ */
+
+.pretalk {
+    color: green;
+}
+
+.last-minutes {
+    color: orange;
+}
+
+.overtime {
+    color: red;
+}
+
+.too-fast {
+    color: steelblue;
+}
+
+.too-slow {
+    color: orange;
+}

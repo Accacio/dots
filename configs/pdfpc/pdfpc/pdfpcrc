@@ -1,0 +1,10 @@
+bind J next10
+bind j next
+bind K prev10
+bind k prev
+bind G gotoLast
+
+bind ampersand switchMode  
+bind eacute switchMode pointer
+bind quotedbl switchMode pen
+option black-on-end true
