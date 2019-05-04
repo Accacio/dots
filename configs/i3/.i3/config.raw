@@ -272,7 +272,7 @@ bindsym $mod+x exec rofi -show drun -theme menu -show-icons -threads 0
 # assign [class="Gnome-terminal"] 2
 assign [class="Vivaldi-stable"] $3
 # assign [class="Nautilus"] 5
-assign [class="neomutt"] $5
+
 
 
 
@@ -282,30 +282,31 @@ assign [class="neomutt"] $5
 for_window [class="^.*"] border pixel 3
 for_window [class="Gnome-terminal"] border pixel 1
 for_window [class="St"] border pixel 1
-for_window [class="mpv"] sticky enable
-for_window [class="mpv"] border pixel 0
+for_window [class="mpv" title="TCCVIDEO"] floating enable
+# for_window [class="mpv"] sticky enable
+# for_window [class="mpv"] border pixel 0
 for_window [urgent="latest"] border pixel 1
-for_window [class="mpv"] floating enable
+# for_window [class="mpv"] floating enable
 for_window [instance="Msgcompose"] floating enable
-for_window [title="neomutt"] floating enable
+for_window [title="^neomutt$"] floating enable
 for_window [title="^calcurse$"] floating enable
 # for_window [instance="Msgcompose"] resize set 640 64
 for_window [title="/layouts/.*jpg"] floating enable;
 for_window [title="/horario.*jpg"] floating enable;
-
+for_window [class="neomutt"] floating enable;
 # IM
 # exec surf web.whatsapp.com
 
-for_window [title=".*WhatsApp Web - Mozilla Firefox$"] move scratchpad
-for_window [title=".*Telegram Web - Mozilla Firefox$"] move scratchpad
+for_window [class="^wpp$"] move scratchpad
+for_window [class="^telegram$"] move scratchpad
 
 # for_window [title="^Skype$"] move scratchpad
 
 set $IM "1:Whatsapp, 2: Telegram"
 bindcode $mod+25 mode $IM
 mode $IM {
-bindsym 1 [title=".*WhatsApp .*- Mozilla Firefox$"] scratchpad show;mode default
-bindsym 2 [title=".*Telegram .*- Mozilla Firefox$"] scratchpad show;mode default
+bindsym 1 [class="^wpp$"] scratchpad show;mode default
+bindsym 2 [title="^telegram$"] scratchpad show;mode default
 
 	# back to normal: Enter or Escape
 	bindsym Return mode "default"
