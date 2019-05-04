@@ -11,10 +11,10 @@ then
     else
       promptHost=$(hostname)
     fi
-    arrow=➜
+    arrow='~'
 else
     promptHost=$(hostname)
-    arrow="->"
+    arrow='~'
 fi
     PROMPT='%{$fg_bold[green]%}[ %n/%{$fg_bold[cyan]%}$promptHost %{$fg_bold[blue]%}%2~ ] $(git_prompt_info)
 %{$fg[red]%}$arrow %{$reset_color%}'
