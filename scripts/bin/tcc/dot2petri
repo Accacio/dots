@@ -16,7 +16,20 @@ require dot2tex
 require pdflatex
 
 function usage {
-    echo USAGE
+    echo "Usage: `basename $0` [OPTIONS] FILE"
+    echo "Create Petri Net tikz file and/or pdf using dot2tex and latex."
+    echo ""
+    echo "When FILE is -, read standard input"
+    echo ""
+    echo "  -h, --help             give this help list"
+    echo "  -d, --debug            emit debuggin messages"
+    echo "      --version          print program version"
+    echo "  -y,                    overwrites tex file"
+    echo "  -p                     exports pdf file "
+    echo "  -o, --output           chooses output name for pdf"
+    echo ""
+    echo "Report bugs to raccacio@poli.ufrj.br"
+    return
 }
 
 function printd {

@@ -1,26 +1,189 @@
 #!/bin/bash
+set -o errexit -o pipefail -o nounset
 
-filename=$1
-fileext=${filename##*.}
+version=0.0
 
-if [ $# -eq 0 ]
-then
-    t="$(cat /dev/stdin)"
-    inputFile="stdin"
-else
+function require {
+    command -v $1 >/dev/null 2>&1 ||\
+	      { echo >&2 "`basename $0`: $1 is a dependency and was not found. Aborting."; exit 1; }
+}
 
-    if [ ! $fileext = "dot" ]
+function printError {
+    echo >&2  `basename $0`: $@
+}
+
+require dot2tex
+require pdflatex
+
+function usage {
+    echo "Usage: `basename $0` [OPTIONS] FILE"
+    echo "Create Automata tikz file and/or pdf using dot2tex and latex."
+    echo ""
+    echo "When FILE is -, read standard input"
+    echo ""
+    echo "  -h, --help             give this help list"
+    echo "  -d, --debug            emit debuggin messages"
+    echo "      --version          print program version"
+    echo "  -y,                    overwrites tex file"
+    echo "  -p                     exports pdf file "
+    echo "  -o, --output           chooses output name for pdf"
+    echo ""
+    echo "Report bugs to raccacio@poli.ufrj.br"
+    return
+}
+
+function printd {
+    if [ "$debug" == 1 ]
     then
-	echo "File must be .dot"
-	exit 1
-    else
-	t=`cat $1`
-	inputFile=$(basename $filename .$fileext)
+	      echo $@
     fi
+}
 
+
+# from https://stackoverflow.com/a/29754866/9781176
+! getopt --test > /dev/null 
+if [[ ${PIPESTATUS[0]} -ne 4 ]]; then
+    echo 'I’m sorry, `getopt --test` failed in this environment.'
+    exit 1
 fi
 
-filename="tmp"
+OPTIONS=hto:dvpy
+LONGOPTS=debug,onlyTikzPicture,output:,verbose
+
+# -use ! and PIPESTATUS to get exit code with errexit set
+# -temporarily store output to be able to check for errors
+# -activate quoting/enhanced mode (e.g. by writing out “--options”)
+# -pass arguments only via   -- "$@"   to separate them correctly
+! PARSED=$(getopt --options=$OPTIONS --longoptions=$LONGOPTS --name "`basename $0`" -- "$@")
+if [[ ${PIPESTATUS[0]} -ne 0 ]]; then
+    # e.g. return value is 1
+    #  then getopt has complained about wrong arguments to stdout
+    exit 2
+fi
+
+# read getopt’s output this way to handle the quoting right:
+eval set -- "$PARSED"
+
+outFile=""
+onlyTikzPicture=0
+exportPdf=0
+debug=0 f=n v=n
+dontask=0
+
+# now enjoy the options in order and nicely split until we see --
+while true; do
+    case "$1" in
+        -t|--onlyTikzPicture)
+	          onlyTikzPicture=1
+            shift
+            ;;
+	      -d|--debug)
+	          set -x
+	          debug=1
+	          shift
+	          ;;
+        -o|--output)
+            outFile="$2"
+	          exportPdf=1
+            shift 2
+            ;;
+	      -p)
+	          exportPdf=1
+	          shift
+	          ;;
+	      -h)
+	          usage
+	          exit 0
+	          ;;
+	      -v)
+	          echo `basename $0` version $version
+	          exit 0
+	          ;;
+        -y)
+            dontask=1
+            shift
+            ;;
+	      --)
+            shift
+            break
+            ;;
+        *)
+            usage
+            exit 3
+            ;;
+    esac
+done
+
+# handle non-option arguments
+if [[ $# -ne 1 ]]; then
+    echo "`basename $0`: A single input file is required."
+    usage
+    exit 4
+fi
+
+# get stdin or file
+if [ "$1" = "-"  ]
+then
+    if [ -p /dev/stdin ]
+    then
+	      t="$(cat /dev/stdin)"
+	      inputFile="stdin"
+        filename="stdin"
+        directory="."
+    else
+	      echo "`basename $0`: Nothing in stdin"
+	      exit 4
+    fi
+else
+    filename="$1"
+    fileext=${filename##*.}
+    if [ ! $fileext = "dot" ]
+    then
+	      echo "`basename $0`: File must be .dot"
+	      exit 4
+    else
+	      if [ ! -f "$filename" ]
+	      then
+	          echo "`basename $0`: $filename: No such file or directory"
+	          exit 4
+	      fi
+	      t=`cat $1`
+	      fileext=${filename##*.}
+	      # inputFile=$(basename $filename .$fileext)
+        inputFile=${filename%%.$fileext}
+        directory=${inputFile%/*}
+    fi
+fi
+
+filenameTex="$inputFile.tex"
+printd Filename: $filename
+printd InputFile: $inputFile
+
+if [ "$exportPdf" == 1 ]
+then
+    if [ "$outFile" = "" ]
+    then
+	      outFile="$inputFile.pdf"
+    else
+	      outfileext=${outFile##*.}
+	      if [ ! $outfileext = "pdf" ]
+	      then
+	          echo "Output file must be .pdf"
+	          exit 4
+	      fi
+    fi
+fi
+
+printd Output File: $outFile
+arrowTip="-Latex"
+
+function changeTex {
+    sed "s/$search_markedplace/$replace_markedplace/g" |\
+        sed  "s/$search_place/$replace_place/g" |\
+        sed "s/down/\$\\\downarrow\$/g"  |\
+        sed "s/up/\$\\\uparrow\$/g" |\
+        sed "s|->|$arrowTip|g"
+}
 
 search_place="\(\\\node (x\)\([0-9]\+\)\() at (.*) \[draw,\)ellipse\(\] {x[0-9]\+};\)"
 replace_place="\\1\\2\\3,circle, label=above:,rotate=0] {\$x_{\\2}\$};"
@@ -28,16 +191,77 @@ replace_place="\\1\\2\\3,circle, label=above:,rotate=0] {\$x_{\\2}\$};"
 search_markedplace="\(\\\node (x\)\([0-9]\+\)\() at (.*) \[draw,circle, double\)\(\] {x[0-9]\+};\)"
 replace_markedplace="\\1\\2\\3,place, label=above:,rotate=0] {\$x_{\\2}\$};"
 
-echo "$t" |dot2tex --prog dot --autosize -f tikz \
-	--docpreamble \
-	"\usetikzlibrary{arrows,shapes,petri,external}
-	\tikzexternalize
-	\tikzsetnextfilename{figure}" \
-	  |
-sed "s/$search_place/$replace_place/g" |
-sed "s/$search_markedplace/$replace_markedplace/g" |
-    sed "s/down/\$\\\downarrow\$/g"  |
-    sed "s/up/\$\\\uparrow\$/g" > $filename
-pdflatex --shell-escape --output-directory /tmp $filename 2&>/dev/null
 
-[ -f "figure.pdf" ] && mv figure.pdf $inputFile.pdf;rm figure.*;rm $filename
+if [ "$onlyTikzPicture" == 1 ]
+then
+    printd Only Tikz Picture
+    if [ -f "$filenameTex" ] && [ "$dontask" = 0 ]
+    then
+	      echo "File $filename exists do you want to overwrite it? (y/N)"
+	      read p </dev/tty
+	      if [ "$p" = "y" ]
+	      then
+	          printd removing $filename
+	          rm $filename
+	      else
+	          exit 1
+	      fi
+    fi
+    printd running dot2tex
+    echo "$t" |dot2tex --prog dot --autosize -f tikz --figonly \
+        | changeTex > $filenameTex
+    if [ ! -s "$filenameTex" ]
+    then
+	      printError $filenameTex could not be written semantic error in $filename
+	      rm $filenameTex
+	      exit 1
+    fi
+else
+    if [ -f "$filenameTex" ] && [ "$dontask" = 0 ]
+    then
+	      echo "File $filenameTex exists do you want to overwrite it? (y/N)"
+	      read p </dev/tty
+	      if [ "$p" = "y" ]
+	      then
+	          printd removing $filenameTex
+	          rm $filenameTex
+	      else
+	          exit 1
+	      fi
+    fi
+    printd running dot2tex
+    echo "$t" \
+        |dot2tex --prog dot --autosize -f tikz \
+	               --docpreamble \
+	               "\usetikzlibrary{arrows,shapes,petri,external,arrows.meta}
+\tikzexternalize
+	\tikzsetnextfilename{figure}" \
+	      | changeTex > $filenameTex
+    if [ ! -s "$filenameTex" ]
+    then
+	      printError $filenameTex could not be written semantic error in $filename
+	      rm $filenameTex
+	      exit 1
+    fi
+fi
+
+if [ "$onlyTikzPicture" == 0 -a  "$exportPdf" == 1 ]
+then
+    cd "$directory"
+    printd running pdflatex to generate pdf
+    if [ "$debug" == 1 ]
+    then
+        pdflatex --shell-escape --output-directory=/tmp/ "${filenameTex##*/}"
+    else
+        pdflatex --shell-escape --output-directory=/tmp/ "${filenameTex##*/}" 2&>/dev/null
+    fi
+    [ -f "figure.pdf" ] && mv figure.pdf ${outFile#$directory/}; rm figure.*
+    cd -
+fi
+
+tempfile=$(mktemp)
+cat $filenameTex| awk '/% Start of code/{f=1;next} /% End of code/{f=0} f' > $tempfile
+mv $tempfile "$filenameTex"
+
+
+# [ -f "figure.pdf" ] && mv figure.pdf $inputFile.pdf;rm figure.*;rm $filename
