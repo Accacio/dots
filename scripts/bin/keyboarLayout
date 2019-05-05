@@ -5,8 +5,11 @@ mode=$(echo -e "🇧🇷\n🇫🇷"|rofi -dmenu -theme menu -sb seagreen -i -p "
 case $mode in
     🇧🇷)
 	setxkbmap br
-	;;
+	setxkbmap -option caps:escape
+  ;;
     🇫🇷)
 	setxkbmap fr latin9
-	;;
+  setxkbmap -option caps:escape
+  xmodmap -e "keysym oe = Super_L"
+  ;;
 esac
