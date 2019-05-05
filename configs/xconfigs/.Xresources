@@ -1,24 +1,63 @@
-st.alpha: 230
-*.font: mono:pixelsize=16:antialias=true:autohint=true
+! alpha crashes emacs
+st.alpha: 240
+! *.font: mono:pixelsize=16:antialias=true:autohint=true
+st.font: Source Code Pro-12
+URxvt.font: xft:Source\ Code\ Pro:pixelsize=16,xft:Symbola
+URxvt.scrollBar: false
 
-*.color0: #073642
-*.color1: #dc322f
-*.color2: #009900
-*.color3: #b58900
-*.color4: #268bd2
-*.color5: #d33682
-*.color6: #2aa198
-*.color7: #eee8d5
-*.color8: #002b36
-*.color9: #cb4b16
-*.color10: #586e75
-*.color11: #657b83
+! *.color0: #073642
+! *.color1: #dc322f
+! *.color2: #009900
+! *.color3: #b58900
+! *.color4: #268bd2
+! *.color5: #d33682
+! *.color6: #2aa198
+! *.color7: #eee8d5
+! *.color8: #002b36
+! *.color9: #cb4b16
+! *.color10: #586e75
+! *.color11: #657b83
 
-! *.background: #002b36
+/* !! gruvbox: */
+! *.color0: #1d2021
+! *.color1: #cc241d
+! *.color2: #98971a
+! *.color3: #d79921
+! *.color4: #458588
+! *.color5: #b16286
+! *.color6: #689d6a
+! *.color7: #a89984
+! *.color8: #928374
+! *.color9: #fb4934
+! *.color10: #b8bb26
+! *.color11: #fabd2f
+! *.color12: #83a598
+! *.color13: #d3869b
+! *.color14: #8ec07c
+! *.color15: #ebdbb2
+! *.background: [95]#282828
+! URxvt.color0: #073642
+! URxvt.color1: #dc322f
+! URxvt.color2: #009900
+! URxvt.color3: #b58900
+! URxvt.color4: #268bd2
+! URxvt.color5: #d33682
+! URxvt.color6: #2aa198
+! URxvt.color7: #eee8d5
+! URxvt.color8: #002b36
+! URxvt.color9: #cb4b16
+! URxvt.color10: #586e75
+! URxvt.color11: #657b83
+! URxvt.background: #002b36
+
+URxvt.depth:   32
+! URxvt.transparent:   true
+! URxvt.shading:       20
+
 ! *.background: #000000
- *.background: #001b26
-*.foreground: #fff
-*.cursorColor: #099000
+! *.background: #001b26
+! *.foreground: #fff
+! *.cursorColor: #099000
 *.revCursorColor: #fdf6e3
 ! * Default shape of cursor
 ! * 2: Block ("█")
