@@ -1,0 +1,3 @@
+#!/bin/bash
+
+curl -k "https:///$2/Filebrowser?Path=/DataLogs/$1.csv&RAW" -H "Referer: https://$2/Portal/Portal.mwsl?PriNav=Filebrowser&Path=/DataLogs/"
