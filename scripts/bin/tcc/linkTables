@@ -9,6 +9,6 @@ then
 else
     #complete
     sed -i -E "s;c([tp])(t|)([0-9]+)(|m[0-9]+);\\\hyperlink{completeNet:\1\2\3\4}{\\\hypertarget{completeTable:\1\2\3\4}{$\1_{\3}$}};g" $1
-    sed -i -E "s;([tp])(t|)([0-9]+)(|m[0-9]+)(\ *&);\\\hyperlink{${2// /}Net:\1\2\3\41}{\\\hypertarget{${2// /}Table:\1\2\3\4}{$\1_{\3}$}}\5;g" $1
+    sed -i -E "s;([tp])(t|)([0-9]+)(|m[0-9]+)(\ *&);\\\hyperlink{${2// /}Net:\1\2\3\4}{\\\hypertarget{${2// /}Table:\1\2\3\4}{$\1_{\3}$}}\5;g" $1
 fi
 
