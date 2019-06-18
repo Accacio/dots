@@ -13,9 +13,9 @@ window_maximize=false
 # start in full screen mode (true/false)
 window_fullscreen=false
 # the window width in pixels (when not maximized)
-window_width=1360
+window_width=634
 # the window height in pixels
-window_height=742
+window_height=1054
 # scrollbar step increment (in pixels)
 scrollbar_speed=30
 # the step increment in the zoom dialog box

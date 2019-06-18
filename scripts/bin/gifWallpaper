@@ -2,27 +2,28 @@
 
 int_handler()
 {
-    rm /tmp/out000*
-    
+    # rm /tmp/out000*
+    killall xwinwrap
     exit 1
 }
-trap 'int_handler' TRAP INT
+trap 'int_handler' SIGKILL
 
 
 if [ $# -eq 0 ]
 then
     echo
 else
-    convert -coalesce $1 /tmp/out%05d.png
-    frameDelay=$(echo "$(identify -verbose "$1"[0]|grep Delay|awk '{print $2}'|sed "s/x/\//g")"|bc -l)
-    while true
-    do
-	for i in /tmp/out*.png;
-	do
-	    feh --bg-fill $i & sleep $frameDelay
-	    
-	done
-    done
-    rm /tmp/out000*
+  #   convert -coalesce $1 /tmp/out%05d.png
+  #   frameDelay=$(echo "$(identify -verbose "$1"[0]|grep Delay|awk '{print $2}'|sed "s/x/\//g")"|bc -l)
+  #   while true
+  #   do
+	# for i in /tmp/out*.png;
+	# do
+	#     feh --bg-fill $i & sleep $frameDelay
+
+	# done
+  #   done
+    #   rm /tmp/out000*
+    xwinwrap -fs -ni -ov -- mpv -wid WID $1  --loop
 fi
 

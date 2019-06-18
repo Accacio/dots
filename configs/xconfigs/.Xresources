@@ -1,9 +1,32 @@
 ! alpha crashes emacs
+! st.alpha: 240
 st.alpha: 240
+
 ! *.font: mono:pixelsize=16:antialias=true:autohint=true
-st.font: Source Code Pro-12
-URxvt.font: xft:Source\ Code\ Pro:pixelsize=16,xft:Symbola
+*.font: Source Code Pro-12
+URxvt.font: xft:Source\ Code\ Pro:pixelsize=16,xft:Symbola,xft:siji
 URxvt.scrollBar: false
+
+
+
+! gruvbox light:
+! *.color0: #fbf1c7
+! *.color1: #cc241d
+! *.color2: #98971a
+! *.color3: #d79921
+! *.color4: #458588
+! *.color5: #b16286
+! *.color6: #689d6a
+! *.color7: #7c6f64
+! *.color8: #928374
+! *.color9: #9d0006
+! *.color10: #79740e
+! *.color11: #b57614
+! *.color12: #076678
+! *.color13: #8f3f71
+! *.color14: #427b58
+! *.color15: #3c3836
+
 
 ! *.color0: #073642
 ! *.color1: #dc322f
@@ -18,7 +41,7 @@ URxvt.scrollBar: false
 ! *.color10: #586e75
 ! *.color11: #657b83
 
-/* !! gruvbox: */
+!! gruvbox: 
 ! *.color0: #1d2021
 ! *.color1: #cc241d
 ! *.color2: #98971a
@@ -36,18 +59,25 @@ URxvt.scrollBar: false
 ! *.color14: #8ec07c
 ! *.color15: #ebdbb2
 ! *.background: [95]#282828
-! URxvt.color0: #073642
-! URxvt.color1: #dc322f
-! URxvt.color2: #009900
-! URxvt.color3: #b58900
-! URxvt.color4: #268bd2
-! URxvt.color5: #d33682
-! URxvt.color6: #2aa198
-! URxvt.color7: #eee8d5
-! URxvt.color8: #002b36
-! URxvt.color9: #cb4b16
-! URxvt.color10: #586e75
-! URxvt.color11: #657b83
+
+URxvt.color0: #073642
+URxvt.color1: #dc322f
+URxvt.color2: #98971a
+URxvt.color3: #b58900
+URxvt.color4: #268bd2
+URxvt.color5: #d33682
+URxvt.color6: #2aa198
+URxvt.color7: #eee8d5
+URxvt.color8: #002b36
+URxvt.color9: #cb4b16
+URxvt.color10: #586e75
+URxvt.color11: #657b83
+URxvt.color10: #b8bb26
+URxvt.color11: #fabd2f
+URxvt.color12: #83a598
+URxvt.color13: #d3869b
+URxvt.color14: #8ec07c
+URxvt.color15: #ebdbb2
 ! URxvt.background: #002b36
 
 URxvt.depth:   32
@@ -57,8 +87,8 @@ URxvt.depth:   32
 ! *.background: #000000
 ! *.background: #001b26
 ! *.foreground: #fff
-! *.cursorColor: #099000
-*.revCursorColor: #fdf6e3
+*.cursorColor: #099000
+! *.revCursorColor: #fdf6e3
 ! * Default shape of cursor
 ! * 2: Block ("█")
 ! * 4: Underline ("_")

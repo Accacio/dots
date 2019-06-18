@@ -31,7 +31,7 @@ if [[ ${PIPESTATUS[0]} -ne 4 ]]; then
     exit 1
 fi
 
-OPTIONS=hc:o:dv
+OPTIONS=hc:o:dvb
 LONGOPTS=debug,collmuns:,output:,verbose
 
 # -use ! and PIPESTATUS to get exit code with errexit set
@@ -52,6 +52,7 @@ outFile=""
 collumns=""
 debug=0
 dontask=0
+findBestx0=0
 
 # now enjoy the options in order and nicely split until we see --
 while true; do
@@ -71,6 +72,10 @@ while true; do
             ;;
 	      -p)
 	          exportPdf=1
+	          shift
+	          ;;
+        -b)
+	          findBestx0=1
 	          shift
 	          ;;
 	      -h)
@@ -136,9 +141,34 @@ then
     exit
 fi
 
-newContent=$(echo "$content" | cut -d, -f"$collumns" --complement | cut -d, -f 1 --complement | uniq | nl -s,)
+# use this to find best candidate as initial
+# echo "$content" | cut -d',' -f1 --complement | sort | uniq -c | sort -h | sed -E "s/\ +//;s/\ /,/" | cut -d"," -f1 --complement | sed -e :a -e '$q;N;1,$D;ba'
 
-echo $header
-echo "$newContent"
-echo $tail
+# nodeMostRepetitions=$(echo "$content" | cut -d, -f 1,"$collumns" --complement | sort -h | uniq -c | sort -Vb | sed -e :a -e '$q;N;1,$D;b' | sed -E "s/\ +//;s/\ /,/" | cut -d, -f1 --complement)
+
+
+nodeMostRepetitions=$(echo "$content" | cut -d, -f 1,"$collumns" --complement | uniq | sort -h | uniq -c | sort -Vb | sed -e :a -e '$q;N;1,$D;b' | sed -E "s/\ +//;s/\ /,/" | cut -d, -f1 --complement)
+
+# echo "$nodeMostRepetitions"
+
+# echo "$content" | grep "$nodeMostRepetitions" | sed 5q
+
+
+newContent1=$(echo "$content" | cut -d, -f"$collumns" --complement | cut -d, -f 1 --complement | uniq | nl -s,)
+# echo "$newContent1" | wc -l
+
+newContent=$(echo "$content" | cut -d, -f"$collumns" --complement | cut -d, -f 1 --complement | uniq | sed -n '/'"$nodeMostRepetitions"'/,$!d;p' | nl -s,)
+
+# echo "$newContent" | wc -l
+
+# echo "$content" | grep "$nodeMostRepetitions" | sed 5q
+
+echo $header| cut -d, -f"$collumns" --complement
+if [ "$findBestx0" == 1 ]
+then
+    echo "$newContent"
+else
+    echo "$newContent1"
+fi
+echo $tail | cut -d, -f"$collumns" --complement
 [ -f ".stdin" ] && rm .stdin

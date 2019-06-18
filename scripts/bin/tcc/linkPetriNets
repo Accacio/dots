@@ -1,15 +1,27 @@
 #!/bin/bash
-if [ "$2" = "" ]
-then
+tmpfile=$(mktemp /tmp/linkPetriNets.XXXXX)
+trap 'rm "$tmpfile"' 0 1 15
 
-    cat $1 |  sed -E "s;(\\\node \()(c)([tp])(t|)([0-9]+)(|m[0-9]+)(\).*:)(.*)(,.*);\1\2\3\4\5\6\7\\\hyperlink{completeTable:\3\4\5\6}{\\\hypertarget{completeNet:\3\4\5\6}{\8}}\9;" |\
-        sed -E "s;(\\\node \()([tp])(t|)([0-9]+)(|m[0-9]+)(\).*:).*(,.*);\1\2\3\4\5\6\\\hyperlink{partialTable:\2\3\4\5}{\\\hypertarget{partialNet:\2\3\4\5}{$\2_{\4}$}}\7;" |\
-        sed -E "s;(\\\node \()e([tp])(t|)([0-9]+)(|m[0-9]+)(\).*:).*(,.*);\1e\2\3\4\5\6\\\hyperlink{partialNet:\2\3\4\5}{$\2_{\4}$}\7;" > ${1%.*}.tikz
-    rm $1
+filename="$1"
+fileext=${filename##*.}
+if [ ! $fileext = "tikz" ]
+then
+	  echo "`basename $0`: File must be .tikz"
+	  exit 4
 else
-    cat $1 |  sed -E "s;(\\\node \()(c|)([tp])(t|)([0-9]+)(|m[0-9]+)(\).*:)(.*)(,.*);\1\2\3\4\5\6\7\\\hyperlink{${2// /}Table:\3\4\5\6}{\\\hypertarget{${2// /}Net:\3\4\5\6}{\8}}\9;" |\
-        sed -E "s;(\\\node \()e([tp])(t|)([0-9]+)(|m[0-9]+)(\).*:).*(,.*);\1e\2\3\4\5\6\\\hyperlink{${2// /}Net:\2\3\4\5}{$\2_{\4}$}\7;"> ${1%.*}.tikz
-    rm $1
+	  if [ "$2" = "" ]
+    then
+        mv $1 ${1%.*}.tikz.bak
+        cat ${1%.*}.tikz.bak |  sed -E "s;(\\\node \()(c)([tp])(t|)([0-9]+)(|m[0-9]+)(\).*:)(.*)(,.*);\1\2\3\4\5\6\7\\\hyperlink{completeTable:\3\4\5\6}{\\\hypertarget{completeNet:\3\4\5\6}{\8}}\9;" |\
+            sed -E "s;(\\\node \()([tp])(t|)([0-9]+)(|m[0-9]+)(\).*:).*(,.*);\1\2\3\4\5\6\\\hyperlink{partialTable:\2\3\4\5}{\\\hypertarget{partialNet:\2\3\4\5}{$\2_{\4}$}}\7;" |\
+            sed -E "s;(\\\node \()e([tp])(t|)([0-9]+)(|m[0-9]+)(\).*:).*(,.*);\1e\2\3\4\5\6\\\hyperlink{partialNet:\2\3\4\5}{$\2_{\4}$}\7;" > ${1%.*}.tikz
+    else
+        mv $1 ${1%.*}.tikz.bak
+        cat ${1%.*}.tikz.bak |  sed -E "s;(\\\node \()(c|)([tp])(t|)([0-9]+)(|m[0-9]+)(\).*:)(.*)(,.*);\1\2\3\4\5\6\7\\\hyperlink{${2// /}Table:\3\4\5\6}{\\\hypertarget{${2// /}Net:\3\4\5\6}{\8}}\9;" |\
+            sed -E "s;(\\\node \()e([tp])(t|)([0-9]+)(|m[0-9]+)(\).*:).*(,.*);\1e\2\3\4\5\6\\\hyperlink{${2// /}Net:\2\3\4\5}{$\2_{\4}$}\7;"> ${1%.*}.tikz
+    fi
 fi
+
+
 
 

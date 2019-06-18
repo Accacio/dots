@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sort -V | sed "s/⬆/\$\\\uparrow\$/g" | sed "s/⬇/\$\\\downarrow\$/g" | sed -E "s/^(.*)/\1 \\\\\\\/"

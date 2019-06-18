@@ -19,7 +19,11 @@ if [ $# -eq 0 ]
       currentWallpaper=$(head -n 1 ~/wallpapers/listWallpaper)
       if [[ $currentWallpaper  == *.gif ]]
       then
-	  gifWallpaper $currentWallpaper & sleep 10; kill -s 5 $!
+	        feh --bg-max $currentWallpaper
+          if [ "$(which xwinwrap)" != "" ]
+          then
+              (xwinwrap -g "1920x1080+2560" -ni -ov -- mpv -wid WID $currentWallpaper  --loop & sleep 10; kill -s 9 $!) & ( xwinwrap -g "2560x1080" -ni -ov -- mpv -wid WID $currentWallpaper  --loop & sleep 10; kill -s 9 $! )
+          fi
       else
       feh --bg-fill "$(head -n 1 ~/wallpapers/listWallpaper)"
       fi
@@ -36,10 +40,14 @@ else
     if [ -f "$1" ]
     then
 
-    
-	if [[ $1  == *.gif ]]
-	then
-	    gifWallpaper $1 & sleep 10; kill -s 5 $!
+
+	      if [[ $1  == *.gif ]] || [[ $1  == *.mp4 ]]
+	      then
+            feh --bg-max $1
+            if [ "$(which xwinwrap)" != "" ]
+            then
+                (xwinwrap -g "1920x1080+2560" -ni -ov -- mpv -wid WID $1  --loop & sleep 10; kill -s 9 $!) & ( xwinwrap -g "2560x1080" -ni -ov -- mpv -wid WID $1  --loop & sleep 10; kill -s 9 $! )
+            fi
 	else
 	    feh --bg-fill $1
 	fi

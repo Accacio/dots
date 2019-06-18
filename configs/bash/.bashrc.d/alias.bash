@@ -8,10 +8,10 @@ export LESSOPEN='|pygmentize -g %s'
 function proxyOn {
     PW=`openssl aes-256-cbc -d -in $HOME/.pw`;
     PROXY="http://$PW@$proxyIp";
-      export http_proxy=$PROXY; 
+      export http_proxy=$PROXY;
       export https_proxy=$PROXY;
-      export ftp_proxy=$PROXY; 
-      git config --global --replace-all http.proxy http://$PW@$proxyIp
+      export ftp_proxy=$PROXY;
+      git config --global --replace-all http.proxy http://$PW@$proxyIp;
 }
 
 function proxyOff {
@@ -74,10 +74,6 @@ alias cls="printf '\ec'" \
 alias vim='nvim'
 alias vi='nvim'
 
-function - {
-    cd -
-}
-
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 function - {
@@ -101,14 +97,29 @@ function gcd {
 # alias wpp="surf web.whatsapp.com "
 
 function ddbrowser {
-    firefox -P app -new-window $1 &
+    appFirefox $2
+    pid=$(ps a | sed "s/^\ //" | grep -v grep | grep "$1" | cut -d " " -f1)
+    if [ "$pid" != "" ]
+    then
+      return
+    fi
+    firefox -no-remote -P $2 -new-window $1 & 
     disown
+    xdotool search --sync --class Firefox
+    pid=$(ps a | sed "s/^\ //" | grep -v grep | grep "$1" | cut -d " " -f1)
+    sleep 0.5s
+    widhex=$(wmctrl -lip | grep $pid | cut -d ' ' -f1 | tr '[:lower:]' '[:upper:]')
+    echo my widhex is $widhex
+    echo my pid is $pid
+    wid=$(echo "ibase=16; ${widhex:2}"|bc)
+    echo my wid is $wid
+    xdotool set_window --class "$2" $wid
 }
-alias telegram="ddbrowser web.telegram.org"
-alias wpp="ddbrowser web.whatsapp.com"
-alias netflix="ddbrowser netflix.com"
+alias telegram="ddbrowser web.telegram.org telegram"
+alias wpp="ddbrowser web.whatsapp.com wpp"
+alias netflix="ddbrowser netflix.com netflix"
 alias reloadAudio="pulseaudio -k && sudo alsa force-reload"
-alias primeVideo="ddbrowser primevideo.com"
+alias primeVideo="ddbrowser primevideo.com primeVideo"
 function loadZ {
     if [ -f $1 ]
        then

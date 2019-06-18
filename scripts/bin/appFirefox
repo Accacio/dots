@@ -2,8 +2,8 @@
 
 path=$HOME/.mozilla/firefox/
 filename=$HOME/.mozilla/firefox/profiles.ini
-testApp=$(grep Name=app "$filename"|sed '$!d')
-if [ "$testApp" = "Name=app" ]
+testApp=$(grep Name=$1 "$filename"|sed '$!d')
+if [ "$testApp" = "Name=$1" ]
 then
     echo all is ok
     exit 
@@ -14,14 +14,14 @@ n=$(grep Profile $HOME/.mozilla/firefox/profiles.ini|\
     sed '$!d'|\
     sed 's|\[Profile\([0-9]\)\]|\1|')
 
-echo -e [Profile$(expr $t + 1)]\\n\
-Name=app\\n\
+echo -e [Profile$(expr $n + 1)]\\n\
+Name=$1\\n\
 IsRelative=1\\n\
-Path=app\\n >> $filename
+Path=$1\\n >> $filename
 
-[ -d "$path/app" ] || mkdir "$path/app"
-[ -d "$path/app/chrome" ] || mkdir "$path/app/chrome"
-[ -f "$path/app/chrome/userChrome.css" ] || \
+[ -d "$path/$1" ] || mkdir "$path/$1"
+[ -d "$path/$1/chrome" ] || mkdir "$path/$1/chrome"
+[ -f "$path/$1/chrome/userChrome.css" ] || \
     echo -e '@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");\\n
 #TabsToolbar,
 #PersonalToolbar,
@@ -29,4 +29,4 @@ Path=app\\n >> $filename
 #MenuToolbar,
 #tabbrowser-tabs,
 #nav-bar,
-#TabsToolbar { display: none !important; }'> $path/app/chrome/userChrome.css
+#TabsToolbar { display: none !important; }'> $path/$1/chrome/userChrome.css

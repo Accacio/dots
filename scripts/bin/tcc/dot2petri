@@ -158,20 +158,20 @@ filenameTex="$inputFile.tex"
 printd Filename: $filename
 printd InputFile: $inputFile
 
-if [ "$exportPdf" == 1 ]
-then
+# if [ "$exportPdf" == 1 ]
+# then
     if [ "$outFile" = "" ]
     then
-	outFile="$inputFile.pdf"
-    else
-	outfileext=${outFile##*.}
-	if [ ! $outfileext = "pdf" ]
-	then
-	    echo "Output file must be .pdf"
-	    exit 4
-	fi
+	      outFile="$inputFile"
+    # else
+	  #     outfileext=${outFile##*.}
+	  #     if [ ! $outfileext = "pdf" ]
+	  #     then
+	  #         echo "Output file must be .pdf"
+	  #         exit 4
+	  #     fi
     fi
-fi
+# fi
 printd Output File: $outFile
 arrowTip="-Latex"
 
@@ -324,10 +324,12 @@ then
     else
         pdflatex --shell-escape --output-directory=/tmp/ "${filenameTex##*/}" 2&>/dev/null
     fi
-    [ -f "figure.pdf" ] && mv figure.pdf ${outFile#$directory/}; rm figure.*
+    [ -f "figure.pdf" ] && mv figure.pdf ${outFile#$directory/}.pdf; rm figure.*
     cd -
 fi
 
 tempfile=$(mktemp)
 cat $filenameTex| awk '/% Start of code/{f=1;next} /% End of code/{f=0} f' > $tempfile
-mv $tempfile "$filenameTex"
+filenameTikz="$outFile.tikz"
+rm $filenameTex
+mv $tempfile "$filenameTikz"

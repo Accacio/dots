@@ -1,0 +1,2 @@
+#!/bin/bash
+$TERMINAL -e less $HOME/Music/.lyrics/"$(mpc | sed 1q)".txt

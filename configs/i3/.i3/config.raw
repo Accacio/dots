@@ -77,6 +77,7 @@ mode "apps"
 	bindsym z exec "zathura"; mode "default";exec "kill $(pidof feh)"
 	bindsym y exec "$SCRIPTSFOLDER/youtube"; mode "default";exec "kill $(pidof feh)"
 	bindsym q exec "$SCRIPTSFOLDER/qr"; mode "default";exec "kill $(pidof feh)"
+  bindsym w exec "$SCRIPTSFOLDER/watchVideo"; mode "default";exec "kill $(pidof feh)"
 
   bindsym Escape mode "default";exec "kill $(pidof feh)"
 	bindsym Control+g mode "default";exec "kill $(pidof feh)"
@@ -127,6 +128,7 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen
 
 # change container layout (stacked, tabbed, toggle split)
+bindsym $mod+shift+s sticky toggle
 bindsym $mod+s layout stacking
 bindsym $mod+t layout tabbed
 bindsym $mod+e layout toggle split
@@ -188,6 +190,12 @@ bindsym $mod+0 workspace $10;exec "xdotool mousemove --window $(xdotool getwindo
 bindsym $mod+Ctrl+l workspace next;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
 bindsym $mod+Ctrl+j workspace prev;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
 
+bindsym $mod+$alt+l focus output right;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+$alt+j focus output left;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+
+bindsym $mod+Ctrl+Right workspace next;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Ctrl+Left workspace prev;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+
 # move focused container to workspace0 and change to respective workspace
 bindsym $mod+Shift+1 move container to workspace $1; workspace $1;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
 bindsym $mod+Shift+2 move container to workspace $2; workspace $2;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
@@ -203,6 +211,8 @@ bindsym $mod+Shift+0 move container to workspace $10; workspace $10;exec "xdotoo
 bindsym $mod+Shift+Ctrl+l move workspace next;workspace next;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
 bindsym $mod+Shift+Ctrl+j  move workspace prev;workspace prev;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
 
+bindsym $mod+Shift+Ctrl+Right move workspace next;workspace next;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
+bindsym $mod+Shift+Ctrl+Left  move workspace prev;workspace prev;exec "xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"
 
 # Test workspacer
 
@@ -317,6 +327,7 @@ bindsym 2 [title="^telegram$"] scratchpad show;mode default
 
 # Keyboard Shortcuts
 exec_always setxkbmap -option caps:escape
+exec_always xmodmap -e "keysym oe = Super_L"
 # exec_always setxkbmap -option caps:ctrl_modifier
 # exec_always setxkbmap -option ctrl:nocaps
 # exec_always setxkbmap -option compose:rctrl-altgr
@@ -346,6 +357,7 @@ bindsym $mod+F1 exec "$SCRIPTSFOLDER/changeSoundOutput"
 bindsym $mod+F2 exec "$SCRIPTSFOLDER/rofimoji"
 # ;exec pkill -SIGRTMIN+10 i3blocks
 
+# bindsym $mod+c exec "$SCRIPTSFOLDER/changeWallpaper"
 # Screen brightness controls
 bindsym XF86MonBrightnessUP exec xbacklight -inc 20 # decrease screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
@@ -362,6 +374,8 @@ mode "music" {
      bindsym Escape mode "default"
      bindsym a exec "$SCRIPTSFOLDER/mpdmenu -a :: -sb  seagreen -b -i";mode "default"
      bindsym n exec "$SCRIPTSFOLDER/mpdMenuImage $HOME/Music";mode "default"
+     bindsym l exec "$SCRIPTSFOLDER/musicLyrics";mode "default"
+
      bindsym m exec "$SCRIPTSFOLDER/mpdmenu :: -sb  seagreen -b -i";mode "default"
 }
 

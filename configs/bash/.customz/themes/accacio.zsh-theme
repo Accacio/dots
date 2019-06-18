@@ -16,8 +16,20 @@ else
     promptHost=$(hostname)
     arrow='~'
 fi
-    PROMPT='%{$fg_bold[green]%}[ %n/%{$fg_bold[cyan]%}$promptHost %{$fg_bold[blue]%}%2~ ] $(git_prompt_info)
+
+
+if [[ "$TERM" = rxvt-unicode-256color ]]
+then
+PROMPT='%{$fg_bold[green]%}[ %n/%{$fg_bold[cyan]%}$promptHost %{$fg_bold[blue]%}%2~ ] %{$reset_color%}'
+else
+PROMPT='%{$fg_bold[green]%}[ %n/%{$fg_bold[cyan]%}$promptHost %{$fg_bold[blue]%}%2~ ] $(git_prompt_info)
 %{$fg[red]%}$arrow %{$reset_color%}'
+fi
+
+#PROMPT='%{$fg_bold[green]%}[ %n/%{$fg_bold[cyan]%}$promptHost %{$fg_bold[blue]%}%2~ ] '
+
+#PROMPT='%{$fg_bold[green]%}[ %n/%{$fg_bold[cyan]%}$promptHost %{$fg_bold[blue]%}%2~ ] $(git_prompt_info)
+#%{$fg[red]%}$arrow %{$reset_color%}'
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}  %{$fg[red]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"

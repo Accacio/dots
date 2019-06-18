@@ -1,2 +1,10 @@
 #!/bin/bash
-ls $HOME/youtube/thumbs/* | sxiv -iftbo | sed 's!.*/!!' | sed "s|\(\)|https://www.youtube.com/watch?v=\1|" > $HOME/youtube/queue
+
+if [ ! -d $HOME/youtube/thumbs ]
+then
+    echo `basename $0`: No youtubeThumbs file found
+    exit 1
+fi
+
+cat $HOME/youtube/thumbs/figsFilenames | sxiv -iftbo | sed 's!.*/!!' | sed "s|\(\)|https://www.youtube.com/watch?v=\1|" > $HOME/youtube/queue
+# ls $HOME/youtube/thumbs/* | sxiv -iftbo | sed 's!.*/!!' | sed "s|\(\)|https://www.youtube.com/watch?v=\1|" > $HOME/youtube/queue

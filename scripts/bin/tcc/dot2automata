@@ -159,20 +159,20 @@ filenameTex="$inputFile.tex"
 printd Filename: $filename
 printd InputFile: $inputFile
 
-if [ "$exportPdf" == 1 ]
-then
+# if [ "$exportPdf" == 1 ]
+# then
     if [ "$outFile" = "" ]
     then
-	      outFile="$inputFile.pdf"
-    else
-	      outfileext=${outFile##*.}
-	      if [ ! $outfileext = "pdf" ]
-	      then
-	          echo "Output file must be .pdf"
-	          exit 4
-	      fi
+	      outFile="$inputFile"
+    # else
+	  #     outfileext=${outFile##*.}
+	  #     if [ ! $outfileext = "pdf" ]
+	  #     then
+	  #         echo "Output file must be .pdf"
+	  #         exit 4
+	  #     fi
     fi
-fi
+# fi
 
 printd Output File: $outFile
 arrowTip="-Latex"
@@ -180,8 +180,8 @@ arrowTip="-Latex"
 function changeTex {
     sed "s/$search_markedplace/$replace_markedplace/g" |\
         sed  "s/$search_place/$replace_place/g" |\
-        sed "s/down/\$\\\downarrow\$/g"  |\
-        sed "s/up/\$\\\uparrow\$/g" |\
+        sed "s/⬇/\$\\\downarrow\$/g"  |\
+        sed "s/⬆/\$\\\uparrow\$/g" |\
         sed "s|->|$arrowTip|g"
 }
 
@@ -208,7 +208,7 @@ then
 	      fi
     fi
     printd running dot2tex
-    echo "$t" |dot2tex --prog dot --autosize -f tikz --figonly \
+    echo "$t" |dot2tex -t raw --prog dot --autosize -f tikz --figonly \
         | changeTex > $filenameTex
     if [ ! -s "$filenameTex" ]
     then
@@ -231,7 +231,7 @@ else
     fi
     printd running dot2tex
     echo "$t" \
-        |dot2tex --prog dot --autosize -f tikz \
+        |dot2tex -t raw --prog dot --autosize -f tikz \
 	               --docpreamble \
 	               "\usetikzlibrary{arrows,shapes,petri,external,arrows.meta}
 \tikzexternalize
@@ -255,13 +255,15 @@ then
     else
         pdflatex --shell-escape --output-directory=/tmp/ "${filenameTex##*/}" 2&>/dev/null
     fi
-    [ -f "figure.pdf" ] && mv figure.pdf ${outFile#$directory/}; rm figure.*
+    [ -f "figure.pdf" ] && mv figure.pdf ${outFile#$directory/}.pdf; rm figure.*
     cd -
 fi
 
 tempfile=$(mktemp)
 cat $filenameTex| awk '/% Start of code/{f=1;next} /% End of code/{f=0} f' > $tempfile
-mv $tempfile "$filenameTex"
+filenameTikz="$outFile.tikz"
+rm $filenameTex
+mv $tempfile "$filenameTikz"
 
 
 # [ -f "figure.pdf" ] && mv figure.pdf $inputFile.pdf;rm figure.*;rm $filename

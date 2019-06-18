@@ -1,6 +1,7 @@
 #!/bin/bash
-touch dummy.dummy
-find .  -type f -not -name '*.tex'\
+if [ "`basename $PWD`" = "src" ]
+  then
+    find .  -type f -not -name '*.tex'\
      -not -name '*.org' \
      -not -name '*.dot' \
      -not -name '*.exe' \
@@ -16,4 +17,7 @@ find .  -type f -not -name '*.tex'\
      -not -name '*.bst'\
      -not -wholename '*/auto/*'\
      | xargs rm --
-
+       else
+         echo `basename $0`: folder may not be a tex project
+         exit
+fi

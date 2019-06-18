@@ -1,0 +1,2 @@
+#!/bin/bash
+du -a $HOME/Videos | cut -f2 | egrep '*.(mkv|mp4|avi)' | rofi -dmenu | xargs mpv

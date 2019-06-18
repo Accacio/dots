@@ -1,0 +1,4 @@
+#!/bin/bash
+sed -i "s/⬇/\$\\\downarrow\$/g" $1
+sed -i "s/⬆/\$\\\uparrow\$/g" $1
+sed -i "s/_/\\\_/g" $1
