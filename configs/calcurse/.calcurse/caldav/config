@@ -50,8 +50,8 @@ Verbose = Yes
 # Use the following to synchronize with an OAuth2-based service
 # such as Google Calendar. https://console.developers.google.com/apis/credentials?project=calendario-238302&folder&organizationId
 [OAuth2]
-ClientID =
-ClientSecret =
+ClientID = 998718790900-83pekdvg3h198chhn46n7dsdqdb44cgv.apps.googleusercontent.com
+ClientSecret = guuinmJ3EI38hkR7K06XDY3v
 
 # Scope of access for API calls. Synchronization requires read/write.
 Scope = https://www.googleapis.com/auth/calendar

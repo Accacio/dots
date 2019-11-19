@@ -3,7 +3,7 @@ export DISPLAY=:0
 
 batLevel=$(upower -i $(upower -e | grep '/battery') | grep --color=never -E "percentage"| awk '{print $2}'| sed -e 's/%//g')
 
-
+exit
 
 batState=$(upower -i $(upower -e | grep '/battery') | grep --color=never -E "state"| awk '{print $2}')
 # echo $batState

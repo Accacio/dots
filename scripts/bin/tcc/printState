@@ -1,0 +1,140 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+"""
+
+@author: Accacio
+"""
+# nuitka --recurse-on --python-version=3.6 printExceeding;
+
+import sys
+import os
+import getopt
+import matplotlib.pyplot as plt
+import matplotlib
+from matplotlib import rc
+import matplotlib2tikz
+from functools import reduce
+import scipy.io as sio
+
+# # config variables
+version=0.0
+inputFile=""
+N=-1
+multipleKArg=[]
+
+def usage():
+    print("Usage: printStates [OPTION] -i FILE")
+    print("")
+    print("  -h , --help             give this help list")
+    print("       --debug            emit debuggin messages")
+    print("       --version          print program version")
+    print("  -i , --input            chooses input file")
+    #  print("  -m                      use multiple k to plot graphic")
+    print("")
+    print("Report bugs to raccacio@poli.ufrj.br")
+    return
+
+try:
+    opts, args = getopt.gnu_getopt(sys.argv[1:],"m:hi:",["input=","help","verbose","debug","version"])
+except getopt.GetoptError:
+    usage()
+    sys.exit(-1)
+
+if opts==[] or opts==[('--debug','')]or opts in [('--verbose','')]:
+    usage()
+    sys.exit(-1)
+
+for opt, arg in opts:
+    if opt in ("-h","--help"):
+        usage()
+        sys.exit()
+    if opt in ("--version"):
+        print("VERSION:",version)
+        sys.exit()
+    if opt in ("--verbose"):
+        verbose=True
+    if opt in ("-g","--graphviz"):
+        graphviz=True
+    if opt in ("-m"):
+        multipleK=True
+        multipleKArg=arg
+    if opt in ("--debug"):
+        debug=True
+    if opt in ("-i", "--input"):
+        inputFile = arg
+    if opt in ("-s", "--stdin"):
+        fromStdin=True
+    if opt in ("-o", "--output"):
+        outputFolder=arg
+    if opt in ("-e", "--exceeding"):
+        n=int(arg)
+        exceeding=True
+
+if inputFile!="":
+    try:
+        open(inputFile,newline='')
+    except FileNotFoundError:
+        print("File not Found, please insert a valid file name")
+        sys.exit(-1)
+
+else:
+    usage()
+    sys.exit(-1)
+
+
+data = sio.loadmat(inputFile)
+K = data['K'][0]
+K = list(K)
+if multipleKArg != []:
+    Ks = [list(range(int(y.split("-")[0]),int(y.split("-")[1])+1)) if len(y.split("-")) > 1 else int(y) for y in multipleKArg.split(",")][0]
+else:
+    Ks = K
+
+if type(Ks) is int:
+    ks = str(Ks)
+    Ks = [Ks]
+else:
+    ks = reduce(lambda x,y: str(x)+ '-' + str(y),Ks)
+
+
+Ksindex = [K.index(i) for i in Ks]
+
+ExcNdaao = data['ExcNdaao']
+ExcDaoct = data['ExcDaoct']
+States = data['DaoctStates'][0]
+if N <= 0:
+    Ns = ExcDaoct.shape[1]
+else:
+    Ns = N
+
+title = 'states'
+f , ax= plt.subplots()
+print(K)
+print(States)
+#  for i in Ksindex:
+    #  Daoct = ExcDaoct[i,0:Ns]
+    #  Ndaao = ExcNdaao[i,0:Ns]
+plt.plot(K,States,'k-o',fillstyle='none',linewidth=0.1,clip_on=False)
+    #  plt.plot(range(1,Ns+1),Ndaao,'k-x',fillstyle='none',linewidth=0.1,clip_on=False)
+    #  ax.annotate('$k = ' + str(K[i]) + '$', xy=(3, 1), xycoords='data',
+                #  xytext=(1.02, Ndaao[-1]-0.1), textcoords=('axes fraction','data'),size=16)
+    #  ax.annotate('$k = ' + str(K[i]) + '$', xy=(3, 1), xycoords='data',
+                #  xytext=(1.02, Daoct[-1]-0.1), textcoords=('axes fraction','data'),size=16)
+plt.ylabel('$States$',fontsize=16)
+
+plt.xlabel('$k$',fontsize=16)
+ax.tick_params(axis='both', which='major', labelsize=16)
+#  x_ticks = range(1,K[-1])
+#  ax.set_xticks(x_ticks)
+plt.xlim(left=1)
+plt.xlim(right=K[-1])
+plt.ylim(bottom=0)
+ax.tick_params(axis='x', pad=10)
+ax.tick_params(axis='y', pad=10)
+ax.grid(which='both',color='gainsboro')
+plt.tick_params(axis='both',bottom=True, top=True, left=True, right=True, direction='in', which='major')
+
+dir_path = os.path.dirname(os.path.realpath(inputFile))
+print(title)
+# plt.show()
+f.savefig(dir_path + "/" + title +  ".pdf", bbox_inches='tight')

@@ -66,9 +66,11 @@ mode "apps"
 
         # bindsym p exec "mpv --playlist  $HOME/.config/mpv/queue";mode "default";exec "kill $(pidof feh)"
         # bindsym p exec "$SCRIPTSFOLDER/seeOnMpv";mode "default";exec "kill $(pidof feh)"
+  bindsym e exec $editor;mode "default";exec "kill $(pidof feh)"
 	bindsym t exec "$SCRIPTSFOLDER/openTCC"; mode "default";exec "kill $(pidof feh)"
 	bindsym p exec "$SCRIPTSFOLDER/passmenu"; mode "default";exec "kill $(pidof feh)"
-	bindsym v exec "vivaldi"; mode "default";exec "kill $(pidof feh)"
+	# bindsym v exec "vivaldi"; mode "default";exec "kill $(pidof feh)"
+	bindsym i exec "firefox"; mode "default";exec "kill $(pidof feh)"
   bindsym c exec "$term -e  calcurse -q"; mode "default";exec "kill $(pidof feh)"
 	bindsym m exec "$term -e  ncmpcpp"; mode "default";exec "kill $(pidof feh)"
 	bindsym n exec "$term -e  newsboat"; mode "default";exec "kill $(pidof feh)"
@@ -143,7 +145,7 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # focus the child container
-#bindsym $mod+d focus child
+bindsym $mod+d focus child
 
 # Windows and workspaces
 
@@ -293,10 +295,10 @@ for_window [class="^.*"] border pixel 3
 for_window [class="Gnome-terminal"] border pixel 1
 for_window [class="St"] border pixel 1
 for_window [class="mpv" title="TCCVIDEO"] floating enable
-# for_window [class="mpv"] sticky enable
+for_window [class="mpv"] sticky enable
 # for_window [class="mpv"] border pixel 0
 for_window [urgent="latest"] border pixel 1
-# for_window [class="mpv"] floating enable
+for_window [class="mpv"] floating enable
 for_window [instance="Msgcompose"] floating enable
 for_window [title="^neomutt$"] floating enable
 for_window [title="^calcurse$"] floating enable
@@ -305,9 +307,12 @@ for_window [title="/layouts/.*jpg"] floating enable;
 for_window [title="/horario.*jpg"] floating enable;
 for_window [class="neomutt"] floating enable;
 # IM
-# exec surf web.whatsapp.com
-
-for_window [class="^wpp$"] move scratchpad
+exec surf web.whatsapp.com
+exec surf https://organice.200ok.ch/file/accdoc/Org/Todo.org
+# for_window [class="^wpp$"] move scratchpad
+for_window [class="^Surf$" title="WhatsApp"] move scratchpad
+for_window [class="^Surf$" title="organice"] move scratchpad
+for_window [class="^Surf$" title="Google Keep"] move scratchpad
 for_window [class="^telegram$"] move scratchpad
 
 # for_window [title="^Skype$"] move scratchpad
@@ -315,7 +320,10 @@ for_window [class="^telegram$"] move scratchpad
 set $IM "1:Whatsapp, 2: Telegram"
 bindcode $mod+25 mode $IM
 mode $IM {
-bindsym 1 [class="^wpp$"] scratchpad show;mode default
+# bindsym 1 [class="^wpp$"] scratchpad show;mode default
+bindsym 1 [class="^Surf$" title="WhatsApp"] scratchpad show;mode default
+bindsym o [class="^Surf$" title="organice"] scratchpad show;mode default
+bindsym t [class="^Surf$" title="Google Keep"] scratchpad show;mode default
 bindsym 2 [title="^telegram$"] scratchpad show;mode default
 
 	# back to normal: Enter or Escape
@@ -368,15 +376,17 @@ bindsym XF86HomePage exec --no-startup-id vivaldi
 # bindcode --release 105 exec "$SCRIPTSFOLDER/findMouse"
 bindsym $mod+shift+h exec "feh $HOME/dots/layouts/keyboard-layout.jpg"
 bindsym $mod+shift+t exec "feh $HOME/Dropbox/produtividade/horario/horario-2018_2.jpg"
-bindsym $mod+shift+m mode "music"
 
-mode "music" {
+set $music "music: a (Album), n (Album Art), l (lyrics), m (Artist)"
+bindsym $mod+shift+m mode $music
+
+mode $music {
      bindsym Escape mode "default"
      bindsym a exec "$SCRIPTSFOLDER/mpdmenu -a :: -sb  seagreen -b -i";mode "default"
      bindsym n exec "$SCRIPTSFOLDER/mpdMenuImage $HOME/Music";mode "default"
      bindsym l exec "$SCRIPTSFOLDER/musicLyrics";mode "default"
-
      bindsym m exec "$SCRIPTSFOLDER/mpdmenu :: -sb  seagreen -b -i";mode "default"
+
 }
 
 exec compton
@@ -387,7 +397,7 @@ exec "emacs --daemon"
 exec mpd
 #multimonitorSetup
 exec_always --no-startup-id $SCRIPTSFOLDER/launchPolybar
-exec --no-startup-id "$SCRIPTSFOLDER/dropbox start"
+# exec --no-startup-id "$SCRIPTSFOLDER/dropbox start"
 
 # Mouse configs
 exec_always xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Scrolling Distance' -20 -20
