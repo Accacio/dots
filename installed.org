@@ -4,6 +4,7 @@
 ** compton
 ** dialog
 ** emacs
+** fasd
 ** feh
 ** fzy
 ** gnome-screenshot
