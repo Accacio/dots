@@ -1,0 +1,52 @@
+;;; .doom.d/config.el -*- lexical-binding: t; -*-
+
+;; Place your private configuration here
+(setq org-latex-listings t)
+(eval-after-load "tex"
+  '(progn
+     (add-to-list
+      'TeX-command-list
+      '("LaTeX escaped"
+        "%`%l%(mode)%' -shell-escape -interaction nonstopmode %T"
+        TeX-run-TeX nil (latex-mode doctex-mode) :help "Run LaTeX shell escaped")
+      )
+     ))
+
+(defun org-mode-reftex-setup ()
+  (load-library "reftex")
+  (and (buffer-file-name) (file-exists-p (buffer-file-name))
+       (progn
+ ;enable auto-revert-mode to update reftex when bibtex file changes on disk
+ (global-auto-revert-mode t)
+ (reftex-parse-all)
+ ;add a custom reftex cite format to insert links
+ (reftex-set-cite-format
+  '((?b . "[[bib:%l][%l-bib]]")
+    (?n . "[[notes:%l][%l-notes]]")
+    (?p . "[[papers:%l][%l-paper]]")
+    (?t . "%t")
+    (?h . "** %t\n:PROPERTIES:\n:Custom_ID: %l\n:END:\n[[papers:%l][%l-paper]]")
+    (?c . "\\cite{%l}")
+      ))))
+  (define-key org-mode-map (kbd "C-c )") 'reftex-citation)
+  (define-key org-mode-map (kbd "C-c (") 'org-mode-reftex-search))
+
+(add-hook 'org-mode-hook 'org-mode-reftex-setup)
+(defun org-mode-reftex-search ()
+  ;;jump to the notes for the paper pointed to at from reftex search
+  (interactive)
+  (org-open-link-from-string (format "[[notes:%s]]" (first (reftex-citation t)))))
+
+(setq org-link-abbrev-alist
+      '(("bib" . "~/docsThese/latex/src/bibliography.bib::%s")
+("notes" . "~/research/org/notes.org::#%s")
+("papers" . "~/these/leitura/artigos/%s.pdf")))
+
+(require 'ox-extra)
+(ox-extras-activate '(ignore-headlines))
+(require 'ox-latex)
+(add-to-list 'org-latex-packages-alist '("" "minted"))
+(setq org-latex-listings 'minted)
+
+(setq org-latex-pdf-process (list "latexmk -pdflatex='pdflatex -shell-escape -interaction nonstopmode' -pdf -f %f"))
+(add-to-list 'org-latex-minted-langs '(ipython "python"))

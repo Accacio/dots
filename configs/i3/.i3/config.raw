@@ -49,6 +49,7 @@ bindsym $mod+F4 kill
 
 # bindsym $mod+F7 mode "keyboard layout"
 bindsym $mod+F7 exec "$SCRIPTSFOLDER/keyboarLayout"
+bindsym $mod+c exec "notify-send `zenity --entry --text=Calculate --ok-label Calculate|bc|tee >(xsel -i -o -b) `"
 
 # mode "keyboard layout"
 # {
@@ -92,6 +93,7 @@ mode "apps"
 	# bindsym l exec "xset dpms 1 0 0;i3lock -i $HOME/wallpapers/lock -n -c 000000;xset dpms 0 0 0";mode "default"
 # }
 bindsym $mod+Shift+e exec "$SCRIPTSFOLDER/powerMenu"
+bindsym $mod+Escape exec "xset dpms 2 0 0;i3lock -n -c 2e2e2e;xset dpms 0 0 0"
 bindsym $mod+o mode "apps";exec "feh $HOME/dots/layouts/apps.jpg"
 
 # resize window (you can also use the mouse for that)

@@ -1,9 +1,11 @@
 #!/bin/bash
 export DISPLAY=:0
-mobile=$(xrandr |grep "eDP")
-monitors=( $(xrandr |grep " connected"|cut -d " " -f 1|tr "\n" " "))
+mobile=$(xrandr |grep "eDP"|cut -d " " -f 1|tr "\n" " ")
+IFS=$'\n'
+monitors=($(xrandr |grep " connected"|cut -d " " -f 1))
 notify-send $mobile
-echo Monitors plugged: "${monitors}"
+echo Monitors plugged: "${monitors[0]}"
+# echo ${monitors[2]}
 case ${#monitors[@]}
 in
     1)
@@ -18,13 +20,15 @@ in
 esac
 
 workspacesnames=$(echo ~/dots/workspaceNames)
-if [ "$mobile" = "" ]
-then
-    mobile="exec_always $SCRIPTSFOLDER/dualScreenLeft"
-else
-    mobile="exec_always $SCRIPTSFOLDER/dualScreenLeft d"
-fi
+ if [ "$mobile" = "" ]
+ then
+     mobile="exec_always $SCRIPTSFOLDER/dualScreenLeft"
+ else
+     mobile="exec_always $SCRIPTSFOLDER/dualScreenLeft d"
+ fi
 
+
+# xrandr | grep " connected" | sed "s/ primary//"|cut -d " " -f 3 | sed "s/+.*$//"
 echo $mobile
 sed "/WORKSPACES/\
 {r $workspacesnames
@@ -34,7 +38,7 @@ d}
 d
 }
 "  ~/dots/configs/i3/.i3/config.raw |\
-    sed "s/MONITOR1/${monitors[0]}/;s/MONITOR2/${monitors[1]}/" |\
+    sed "s/MONITOR1/${monitors[1]}/;s/MONITOR2/${monitors[0]}/" |\
         sed -E "s;#multimonitorSetup;${mobile};" \
           > ~/.i3/config
 notify-send "I3 config processed"
