@@ -4,4 +4,4 @@ Exec=/home/accacio/Downloads/programas/Krita/krita-4.1.7-x86_64.appimage
 Icon=/home/accacio/Downloads/programas/Krita/krita-logo.jpg
 Type=Application
 Terminal=false
-
+Categories=Development;

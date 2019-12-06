@@ -17,6 +17,9 @@ function proxyOn {
 function proxyOff {
     sed "s/.*proxy.*//" $HOME/.gitconfig > $HOME/.gitconfig
 }
+function calc {
+    echo "$1" | bc
+}
 
 function emc {
     emacsclient -c $1 &

@@ -17,6 +17,7 @@ stow -v -d configs/ -t ~/ \
      xournal/ 
 
 stow -v -d configs/ -t ~/.config/ \
+     awesome/  \
      bspwm/    \
      doom/     \
      dunst/    \
