@@ -27,3 +27,4 @@ export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 
 
 
+export LEDGER_FILE=/home/accacio/org/ledger/`date +%Y`.ledger
