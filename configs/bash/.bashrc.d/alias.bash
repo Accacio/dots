@@ -18,7 +18,7 @@ function proxyOff {
     sed "s/.*proxy.*//" $HOME/.gitconfig > $HOME/.gitconfig
 }
 function calc {
-    echo "$1" | bc
+    echo "scale=10;$1" | bc -l
 }
 
 function emc {
@@ -59,6 +59,7 @@ alias cls="printf '\ec'" \
       ....='cd ../..' \
       ......='cd ../../..' \
       emacsd="emacs -daemon" \
+      e="emacs -nw" \
       sc="sc-im" \
       accSite="surf 192.168.1.140:4000 &" \
       jsl="cd $HOME/blog/;jekyll serve --livereload" \
@@ -145,3 +146,10 @@ function encrypt {
 function decrypt {
     openssl aes-256-cbc -d -in $1 -out $2
 }
+
+alias qutebrowser="$HOME/git/qutebrowser/.venv/bin/python3 -m qutebrowser"
+alias org2dbox="rclone -L sync ~/org dbox:org"
+alias dbox2org="rclone -L sync dbox:org ~/org"
+alias these2dbox="rclone -L sync ~/these dbox:these"
+alias dbox2these="rclone -L sync dbox:these ~/these"
+alias presentToday="pdfpc ~/docsThese/docs/slides/`date +%F`.pdf"

@@ -407,6 +407,7 @@ exec_always xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Two-Finge
 exec_always xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Edge Scrolling'  0 0 0
 exec_always xinput set-prop 'SynPS/2 Synaptics TouchPad' 'Synaptics Scrolling Distance' -200 -20
 exec_always xinput set-prop 'DELL0820:00 044E:121F Touchpad' 'libinput Natural Scrolling Enabled' 1
+exec_always xinput set-prop 'DELL0820:00 044E:121F Touchpad' 'libinput Tapping Enabled' 1
 
 # Modifiers
 bindsym --whole-window button10 exec "$SCRIPTSFOLDER/mouseMode 10"

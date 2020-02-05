@@ -121,6 +121,7 @@ then
 fi
 
 
+xdg-settings set default-web-browser browser.desktop
 # install all other programs
 sudo apt-get install  --no-install-recommends $(echo $listPrograms)
 sudo apt-get remove xterm gnome-terminal

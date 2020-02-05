@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ "`basename $PWD`" = "src" ]
+if [ "`basename $PWD`" = "src" ] || [ "$1" = "-f" ]
   then
     find .  -type f -not -name '*.tex'\
      -not -name '*.org' \
@@ -18,6 +18,6 @@ if [ "`basename $PWD`" = "src" ]
      -not -wholename '*/auto/*'\
      | xargs rm --
        else
-         echo `basename $0`: folder may not be a tex project
+         echo `basename $0`: folder \"`basename $PWD`\" may not be a tex project
          exit
 fi

@@ -105,3 +105,7 @@ URxvt.depth:   32
 ! *.tabspaces:
 ! *.cwscale:
 ! *.chscale:
+
+! gnuplot settings
+ gnuplot*font: mbfont:-misc-fixed-medium-r-normal-*-*-*-100-100-*-*-iso10646-*
+ gnuplot*encoding: utf-8

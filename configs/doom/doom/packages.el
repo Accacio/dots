@@ -6,3 +6,5 @@
 ;; (package! another-package :recipe (:host github :repo "username/repo"))
 ;; (package! builtin-package :disable t)
 (package! org-brain)
+(package! rainbow-mode)
+(package! matlab-mode)

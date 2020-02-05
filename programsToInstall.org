@@ -49,6 +49,7 @@
 ** pinentry-qt
 ** polybar
 ** pulseaudio
+** qutebrowser
 ** ranger
 ** rhythmbox
 ** rofi

@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=qutebrowser
-Exec=/bin/bash -c "$HOME/git/qutebrowser/.venv/bin/python3 -m qutebrowser %F"
-MimeType=text/english;text/plain;text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-moc;text/x-pascal;text/x-tcl;text/x-tex;application/x-shellscript;text/x-c;text/x-c++;text/org
+Exec=bash -c "~/git/qutebrowser/.venv/bin/python3 -m qutebrowser %u"
 Icon=/usr/share/icons/qutebrowser-128x128.png
 Type=Application
 Terminal=false
+MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;x-scheme-handler/chrome;video/webm;application/x-xpinstall;
 Categories=GNOME;GTK;Network;WebBrowser;

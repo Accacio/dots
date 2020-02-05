@@ -46,7 +46,27 @@
 (ox-extras-activate '(ignore-headlines))
 (require 'ox-latex)
 (add-to-list 'org-latex-packages-alist '("" "minted"))
+(add-to-list 'org-latex-packages-alist '("" "amsmath"))
+(add-to-list 'org-latex-packages-alist '("" "tikz"))
+(add-to-list 'org-latex-packages-alist '("" "xcolor"))
+(add-to-list 'org-latex-packages-alist '("" "geometry"))
+
 (setq org-latex-listings 'minted)
 
-(setq org-latex-pdf-process (list "latexmk -pdflatex='pdflatex -shell-escape -interaction nonstopmode' -pdf -f %f"))
+(setq org-latex-pdf-process (list "latexmk -outdir=`dirname %f` -auxdir=`dirname %f` -pdflatex='pdflatex -output-directory=`dirname %f` -shell-escape -interaction nonstopmode' -pdf -f %f"))
 (add-to-list 'org-latex-minted-langs '(ipython "python"))
+(setq org-babel-python-command "python3")
+(setq org-export-allow-bind-keywords t)
+;; (autoload 'matlab-mode "matlab" "Matlab Editing Mode" t)
+ ;; (add-to-list
+ ;;  'auto-mode-alist
+ ;;  '("\\.m$" . matlab-mode))
+ ;; (setq matlab-indent-function t)
+ (setq matlab-shell-command "matlab")
+
+(if (display-graphic-p)
+    ()
+  (load-theme 'doom-spacegrey))
+(set 'global-linum-mode 1)
+(setq display-line-numbers-type 'relative)
+(setq deft-directory "~/org/notes")

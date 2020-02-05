@@ -76,16 +76,16 @@ awful.layout.layouts = {
 --    awful.layout.suit.floating,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
---    awful.layout.suit.tile.bottom,
---    awful.layout.suit.tile.top,
---    awful.layout.suit.fair,
---    awful.layout.suit.fair.horizontal,
---    awful.layout.suit.spiral,
---    awful.layout.suit.spiral.dwindle,
---    awful.layout.suit.max,
---    awful.layout.suit.max.fullscreen,
---    awful.layout.suit.magnifier,
---    awful.layout.suit.corner.nw,
+   -- awful.layout.suit.tile.bottom,
+   -- awful.layout.suit.tile.top,
+   awful.layout.suit.fair,
+   awful.layout.suit.fair.horizontal,
+   -- awful.layout.suit.spiral,
+   -- awful.layout.suit.spiral.dwindle,
+   awful.layout.suit.max,
+   -- awful.layout.suit.max.fullscreen,
+   -- awful.layout.suit.magnifier,
+   -- awful.layout.suit.corner.nw,
     -- awful.layout.suit.corner.ne,
     -- awful.layout.suit.corner.sw,
     -- awful.layout.suit.corner.se,
@@ -145,6 +145,7 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 
 -- Keyboard map indicator and switcher
 mykeyboardlayout = awful.widget.keyboardlayout()
+battery = "text"
 
 -- {{{ Wibar
 -- Create a textclock widget
@@ -209,11 +210,11 @@ end
 screen.connect_signal("property::geometry", set_wallpaper)
 
 awful.screen.connect_for_each_screen(function(s)
-    -- Wallpaper
+        -- Wallpaper
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+    awful.tag({ "🌎‍", "📓", "📖", "4", "5", "6", "7", "👨‍🔬", "📧"}, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -239,7 +240,7 @@ awful.screen.connect_for_each_screen(function(s)
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            mylauncher,
+            -- mylauncher,
             s.mytaglist,
             s.mypromptbox,
         },
@@ -276,27 +277,50 @@ globalkeys = gears.table.join(
 
     awful.key({ modkey,           }, "j",
         function ()
-            awful.client.focus.byidx( 1)
+            awful.client.focus.byidx( 1);
+            awful.spawn('bash -c "sleep 0.1;xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"');
         end,
         {description = "focus next by index", group = "client"}
     ),
     awful.key({ modkey,           }, "k",
         function ()
-            awful.client.focus.byidx(-1)
+            awful.client.focus.byidx(-1);
+            awful.spawn('bash -c "sleep 0.1;xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"');
         end,
         {description = "focus previous by index", group = "client"}
     ),
     awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
               {description = "show main menu", group = "awesome"}),
 
+
+    
+    --dropdown wpp
+    -- awful.key({ modkey, }, "z", function () scratch.toggle("urxvt -name scratch", { instance = "scratch" }) end,
+    --           {description = "dropdown application", group = "launcher"}),
     -- Layout manipulation
-    awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
+    awful.key({ modkey, "Shift"   }, "j",
+        function ()
+            awful.client.swap.byidx(  1);
+            awful.spawn('bash -c "sleep 0.1;xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"');
+        end,
               {description = "swap with next client by index", group = "client"}),
-    awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end,
+    awful.key({ modkey, "Shift"   }, "k",
+        function ()
+            awful.client.swap.byidx( -1);
+            awful.spawn('bash -c "sleep 0.1;xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"');
+        end,
               {description = "swap with previous client by index", group = "client"}),
-    awful.key({ modkey, "Control" }, "l", function () awful.screen.focus_relative( 1) end,
+    awful.key({ modkey, "Control" }, "l",
+        function ()
+            awful.screen.focus_relative( 1);
+            -- awful.spawn('bash -c "sleep 0.1;xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"');
+        end,
               {description = "focus the next screen", group = "screen"}),
-    awful.key({ modkey, "Control" }, "h", function () awful.screen.focus_relative(-1) end,
+    awful.key({ modkey, "Control" }, "h",
+        function ()
+            awful.screen.focus_relative(-1);
+            -- awful.spawn('bash -c "sleep 0.1;xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"');
+        end,
               {description = "focus the previous screen", group = "screen"}),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
               {description = "jump to urgent client", group = "client"}),
@@ -315,9 +339,9 @@ globalkeys = gears.table.join(
     awful.key({ modkey,   }, "Escape", function () awful.spawn("bash -c 'xset dpms 2 0 0;i3lock -n -c 2e2e2e;xset dpms 0 0 0'") end,
              {description = "Quick Lock", group = "launcher"}),
     awful.key({ modkey, "Shift"          }, "Return", function () awful.spawn("samedir") end,
-              {description = "open a terminal", group = "launcher"}),
+              {description = "open a terminal in same directory", group = "launcher"}),
     awful.key({ modkey,           }, "F7", function () awful.spawn("keyboarLayout") end,
-              {description = "open a terminal", group = "launcher"}),
+              {description = "Change Keyboard Locale", group = "launcher"}),
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Shift" }, "r", awesome.restart,
@@ -356,6 +380,9 @@ globalkeys = gears.table.join(
     -- Prompt
     awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
               {description = "run prompt", group = "launcher"}),
+    -- Open
+    awful.key({ modkey , "Shift"},  "o",     function () awful.spawn("openFile") end,
+              {description = "run prompt", group = "launcher"}),
 
     -- awful.key({ modkey }, "x",
     --           function ()
@@ -380,6 +407,14 @@ awful.spawn("mpd")
 -- Keyboard settings
 awful.spawn("setxkbmap -option caps:escape")
 awful.spawn("setxkbmap -option compose:rctrl")
+-- Mouse configs
+awful.spawn("xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Scrolling Distance' -20 -20")
+awful.spawn("xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Two-Finger Scrolling' 1 0")
+awful.spawn("xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Edge Scrolling'  0 0 0")
+awful.spawn("xinput set-prop 'SynPS/2 Synaptics TouchPad' 'Synaptics Scrolling Distance' -200 -20")
+awful.spawn("xinput set-prop 'DELL0820:00 044E:121F Touchpad' 'libinput Natural Scrolling Enabled' 1")
+awful.spawn("xinput set-prop 'DELL0820:00 044E:121F Touchpad' 'libinput Tapping Enabled' 1")
+
 
 clientkeys = gears.table.join(
     awful.key({ modkey,           }, "f",
@@ -388,7 +423,7 @@ clientkeys = gears.table.join(
             c:raise()
         end,
         {description = "toggle fullscreen", group = "client"}),
-    awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
+    awful.key({ modkey,    }, "F4",      function (c) c:kill()                         end,
               {description = "close", group = "client"}),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
@@ -438,6 +473,7 @@ for i = 1, 9 do
                         if tag then
                            tag:view_only()
                         end
+                        -- awful.spawn('bash -c "sleep 0.1;xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"');
                   end,
                   {description = "view tag #"..i, group = "tag"}),
         -- Toggle tag display.
@@ -447,6 +483,7 @@ for i = 1, 9 do
                       local tag = screen.tags[i]
                       if tag then
                          awful.tag.viewtoggle(tag)
+                         awful.spawn('bash -c "sleep 0.1;xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"');
                       end
                   end,
                   {description = "toggle tag #" .. i, group = "tag"}),
@@ -457,6 +494,8 @@ for i = 1, 9 do
                           local tag = client.focus.screen.tags[i]
                           if tag then
                               client.focus:move_to_tag(tag)
+                              tag:view_only()
+                              awful.spawn('bash -c "sleep 0.1;xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"');
                           end
                      end
                   end,
@@ -531,7 +570,9 @@ awful.rules.rules = {
       }, properties = { titlebars_enabled = false }
     },
 
-    -- Set Firefox to always map on the tag named "2" on screen 1.
+    -- { rule = { class = "Surf", title="WhatsApp" },
+    --   properties = { screen = 1, tag = "9" } }
+    -- -- Set Firefox to always map on the tag named "2" on screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { screen = 1, tag = "2" } },
 }
@@ -549,6 +590,9 @@ client.connect_signal("manage", function (c)
       and not c.size_hints.program_position then
         -- Prevent clients from being unreachable after screen count changes.
         awful.placement.no_offscreen(c)
+    end
+    if not awesome.startup then
+            awful.client.setslave(c)
     end
 end)
 

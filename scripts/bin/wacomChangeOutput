@@ -1,3 +1,12 @@
 #!/bin/bash
 
-xsetwacom set 'Wacom Intuos PT S 2 Pen stylus' MapToOutput $1
+re='^[0-9]+$'
+echo $1
+if ! [[ $1 =~ $re ]] ; then
+    output=$1
+else
+    output=$(xrandr | grep " connected" | sed "s/ primary//"|cut -d " " -f 1 | head -n $1 | tail -n 1)
+    echo $output
+fi
+
+xsetwacom set 'Wacom Intuos PT S 2 Pen stylus' MapToOutput $output

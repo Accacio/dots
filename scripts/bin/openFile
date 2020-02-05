@@ -1,2 +1,2 @@
 #!/bin/bash
-xdg-open $(locate --regex ^$HOME| rofi  -dmenu -theme arthur -i -p "Open File ") &
+xdg-open $(locate -e --regex ^$HOME | grep -iv "\(_minted\|pycache\|\.emacs\.d\|trash\)" | rofi  -dmenu -theme arthur -i -p "Open File ") &
