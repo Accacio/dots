@@ -21,6 +21,10 @@ function calc {
     echo "scale=10;$1" | bc -l
 }
 
+function fotosEve {
+  curl https://difoccus.auryn.com.br/galeria-de-fotos/RRO27DJXX2/picture/$1/3264 -H 'Cookie: PHPSESSID=osidb8q7igdc349ncnk1qdfa71; REMEMBERME=UG10VmN0XFVzZXJCdW5kbGVcU2VjdXJpdHlcVXNlclxXZWJzZXJ2aWNlVXNlcjpaWFpsYkdselpXRnVkSFZ1WlhOQVoyMWhhV3d1WTI5dDoxNjA2NTA0MDAwOmZjYzNiMDlhYmI1OWNiYWNlOGQzMDVlMjE1NzU3NWU4ZWVjZjBlZDUyZTZiZmU4MjE1YjA3YTc0NGI4ZDI2MjY%3D'>$1.jpg
+}
+
 function emc {
     emacsclient -c $1 &
     disown
@@ -153,3 +157,11 @@ alias dbox2org="rclone -L sync dbox:org ~/org"
 alias these2dbox="rclone -L sync ~/these dbox:these"
 alias dbox2these="rclone -L sync dbox:these ~/these"
 alias presentToday="pdfpc ~/docsThese/docs/slides/`date +%F`.pdf"
+
+function webLedger {
+  pushd
+  cd ~/git/ledger2beancount
+  sed "s|/|-|g" ~/org/ledger/main.ledger | ./bin/ledger2beancount > /tmp/beancount
+  popd
+  fava /tmp/beancount
+}
