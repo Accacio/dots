@@ -70,3 +70,23 @@
 (set 'global-linum-mode 1)
 (setq display-line-numbers-type 'relative)
 (setq deft-directory "~/org/notes")
+
+
+;; Actually start using templates
+(after! org-capture
+  ;; Firefox
+  (add-to-list 'org-capture-templates
+               '("a" "Agenda" entry
+                 (file "~/org/agendas/poli.org")
+                 "* %?\n :PROPERTIES:\n :calendar-id: raccacio@poli.ufrj.br\n :END:\n:org-gcal:\n%^T%^T\n:END:\n"
+                 :kill-buffer t))
+)
+
+(after! org-gcal
+(setq org-gcal-client-id "729511610034-5jtaq9tnd4cu8b6jec6klr9rskljqmq2.apps.googleusercontent.com"
+      org-gcal-client-secret "bvQ-_ofRzkY_obFi02k1IeXs"
+      org-gcal-file-alist '(
+                            ("raccacio@poli.ufrj.br" .  "~/org/agendas/poli.org")
+                            ))
+)
+(add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-post-at-point)))
