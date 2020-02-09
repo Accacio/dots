@@ -15,7 +15,7 @@ git config --global user.name "Accacio"
 export LD_LIBRARY_PATH=/usr/local/cuda-9.2/lib64:$LD_LIBRARY_PATH
 
 # Rust
-export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+[ "$(command -v rustc)" = "" ] || export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 
 # ROS
 [ -f /opt/ros/indigo/setup.bash ] &&  . /opt/ros/indigo/setup.bash
