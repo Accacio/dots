@@ -1,0 +1,9 @@
+#!/bin/bash
+sudo apt install -y git stow zsh curl make gcc libX11-dev libxft-dev pkgconf
+git clone https://github.com/Accacio/dots.git ~/dots/ --recurse-submodules
+export RUNZSH=no;
+sh -c "$(wget -qO- https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+rm -rf .bash_logout .bashrc* .profile rm .zshrc*
+pushd dots
+./install.sh
+popd
