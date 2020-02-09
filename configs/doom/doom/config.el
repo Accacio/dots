@@ -66,7 +66,7 @@
 
 (if (display-graphic-p)
     ()
-  (load-theme 'doom-spacegrey))
+  (load-theme 'doom-spacegrey t))
 (set 'global-linum-mode 1)
 (setq display-line-numbers-type 'relative)
 (setq deft-directory "~/org/notes")
