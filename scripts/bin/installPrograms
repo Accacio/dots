@@ -105,6 +105,19 @@ then
     sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
 
+
+# custom install qutebrowser
+if [[ $listPrograms == *"qutebrowser"* ]]
+then
+    listPrograms=${listPrograms//"qutebrowser"/}
+    git clone https://github.com/qutebrowser/qutebrowser.git ~/git/qutebrowser/
+    pushd ~/git/qutebrowser/
+    sudo python3 scripts/mkvenv.py
+    popd
+fi
+
+
+
 # custom install polybar
 if [[ $listPrograms == *"polybar"* ]]
 then
@@ -126,4 +139,4 @@ fi
 xdg-settings set default-web-browser browser.desktop
 # install all other programs
 sudo apt-get install  --no-install-recommends $(echo $listPrograms)
-sudo apt-get remove xterm gnome-terminal
+# sudo apt-get remove xterm gnome-terminal
