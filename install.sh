@@ -27,6 +27,7 @@ stow -v -d configs/ -t ~/.config/ \
      nvim/     \
      pdfpc/    \
      polybar/  \
+     qutebrowser/ \
      ranger/   \
      rofi/     \
      sxhkd/    \
