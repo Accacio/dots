@@ -1,5 +1,42 @@
 #!/bin/bash
 exec 3>&1;
+
+monitors=($(xrandr|awk '/ connected/ {printf "%s\n",$1}'))
+modes=('one' 'two' 'three')
+
+twoLayouts=('sideBySide')
+
+
+mode=$(echo "${modes[@]/%/$'\n'}"|sed 's/^ //'|dmenu -i -p "# Monitors")
+
+case $mode in
+    one)
+    echo "oi"
+    monitor=$(  echo "${monitors[@]/%/$'\n'}"|sed 's/^ //'|dmenu -i  -p "Monitor")
+    xrandr --output $monitor
+    ;;
+    two)
+    layout=$(echo "${twoLayouts[@]/%/$'\n'}"|sed 's/^ //'|dmenu -i -p "Layout")
+    case $layout in
+        sideBySide)
+        leftMonitor=$(  echo "${monitors[@]/%/$'\n'}"|sed 's/^ //'|dmenu -i  -p "Left Monitor")
+        monitors=( "${monitors[@]/$leftMonitor}" )
+        rightMonitor=$(  echo "${monitors[@]/%/$'\n'}"|sed 's/^ //'|dmenu -i -p "Right Monitor")
+        xrandr --output $leftMonitor --left-of $rightMonitor --output $rightMonitor
+        ;;
+    esac
+    ;;
+esac
+
+
+
+
+
+
+
+
+exit
+
 mode=$(gdialog --title "Multi-monitor" --menu "Multi-monitor" 15 55 5\
 	       o "One Screen"\
 	       l "Second screen on the Left" \
