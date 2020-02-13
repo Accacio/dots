@@ -27,7 +27,7 @@ require("colorless.ercheck-config") -- load file with error handling
 -- Setup theme and environment vars
 -----------------------------------------------------------------------------------------------------------------------
 local env = require("colorless.env-config") -- load file with environment
-env:init({terminal = "st"})
+env:init({terminal = "st",sloppy_focus = "true"})
 
 
 -- Layouts setup
