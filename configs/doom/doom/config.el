@@ -64,6 +64,7 @@
  ;; (setq matlab-indent-function t)
  (setq matlab-shell-command "matlab")
 
+(setq org-babel-octave-shell-command "octave -q -W"))
 (if (display-graphic-p)
     ()
   (load-theme 'doom-spacegrey t))
