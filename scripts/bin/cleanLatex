@@ -11,6 +11,7 @@ if [ "`basename $PWD`" = "src" ] || [ "$1" = "-f" ]
      -not -name '*.bat' \
      -not -name '*.sh' \
      -not -name '*.pdf' \
+     -not -name '*.txt' \
      -not -name '*.projectile'\
      -not -name 'makefile'\
      -not -name '*.ist'\
