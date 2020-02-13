@@ -45,7 +45,7 @@
 (require 'ox-extra)
 (ox-extras-activate '(ignore-headlines))
 (require 'ox-latex)
-(add-to-list 'org-latex-packages-alist '("" "minted"))
+(add-to-list 'org-latex-packages-alist '("cache=false" "minted"))
 (add-to-list 'org-latex-packages-alist '("" "amsmath"))
 (add-to-list 'org-latex-packages-alist '("" "tikz"))
 (add-to-list 'org-latex-packages-alist '("" "xcolor"))
