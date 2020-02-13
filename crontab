@@ -9,8 +9,8 @@
 # │ │ │ │ │
 # * * * * *  command to execute
 */5 * * * * $HOME/bin/changeWallpaper >/dev/null 2>&1
-0 0 */4 * * rm -rd /home/accacio/Downloads/lixo/* >/dev/null 2>&1
-*/15 8-18 * * * /home/accacio/bin/setColorTemperature -d >/dev/null 2>&1
-0 19-23 * * * /home/accacio/bin/setColorTemperature >/dev/null 2>&1
+0 */4 */4 * * rm -rd $HOME/Downloads/lixo/* >/dev/null 2>&1
+*/15 8-18 * * * $HOME/bin/setColorTemperature -d >/dev/null 2>&1
+0 19-23 * * * $HOME/bin/setColorTemperature >/dev/null 2>&1
 */5 * * * * mbsync -a >/dev/null 2>&1
-* * * * * /home/accacio/bin/batteryNotify >/dev/null 2>&1
+* * * * * $HOME/bin/batteryNotify >/dev/null 2>&1
