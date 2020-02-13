@@ -58,12 +58,24 @@
 (setq org-babel-python-command "python3")
 (setq org-export-allow-bind-keywords t)
 ;; (autoload 'matlab-mode "matlab" "Matlab Editing Mode" t)
- ;; (add-to-list
- ;;  'auto-mode-alist
- ;;  '("\\.m$" . matlab-mode))
- ;; (setq matlab-indent-function t)
- (setq matlab-shell-command "matlab")
+ (add-to-list
+  'auto-mode-alist
+  '("\\.m$" . octave-mode))
+(add-hook 'octave-mode-hook
+          (lambda ()
+            (progn (setq octave-comment-char ?%) (setq comment-start "% ") (setq comment-add 0))
+            (abbrev-mode 1)
+            (auto-fill-mode 1)
+            (if (eq window-system 'x)
+                (font-lock-mode 1)
+              )
+            )
+          )
 
+
+ ;; (setq matlab-indent-function t)
+(after! org
+ ;; (setq matlab-shell-command "matlab -noFigureWindows")
 (setq org-babel-octave-shell-command "octave -q -W"))
 (if (display-graphic-p)
     ()
