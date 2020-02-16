@@ -102,4 +102,31 @@
                             ("raccacio@poli.ufrj.br" .  "~/org/agendas/poli.org")
                             ))
 )
-(add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-post-at-point)))
+;; (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-post-at-point)))
+(setq org-publish-project-alist
+      '(
+
+       ;; ... add all the components here (see below)...
+        ("docsThese-site"
+         :base-directory "~/docsThese/docs/org/"
+         :base-extension "org"
+         :publishing-directory "~/docsThese/docs/site/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4             ; Just the default for this project.
+         :body-only t
+         )
+        ("docsThese-latex"
+         :base-directory "~/docsThese/docs/org/"
+         :base-extension "org"
+         :publishing-directory "~/docsThese/docs/etudes/"
+         :recursive t
+         :publishing-function org-latex-publish-to-pdf
+         :headline-levels 4             ; Just the default for this project.
+         )
+      ))
+
+;; '(reftex-use-external-file-finders t)
+;; (setq reftex-external-file-finders
+;; '(("tex" . "/path/to/kpsewhich -format=.tex %f")
+;;   ("bib" . "/path/to/kpsewhich -format=.bib %f")))
