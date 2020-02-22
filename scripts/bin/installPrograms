@@ -86,6 +86,14 @@ then
     sudo -H pip3 install ueberzug
 fi
 
+# install xournalpp from repo
+if [[ $listPrograms == *"xournalpp"* ]]
+then
+    listPrograms=${listPrograms//"xournalpp"/}
+    sudo add-apt-repository ppa:andreasbutti/xournalpp-master
+    sudo apt install xournalpp
+fi
+
 # install vivaldi from repo
 if [[ $listPrograms == *"vivaldi"* ]]
 then

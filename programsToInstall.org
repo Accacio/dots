@@ -67,7 +67,7 @@
 ** xdotool
 ** xinit
 ** xinput
-** xournal
+** xournalpp
 ** xserver-xorg-input-all
 ** xserver-xorg-input-kbd
 ** xserver-xorg-input-synaptics
