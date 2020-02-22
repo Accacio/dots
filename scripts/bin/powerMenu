@@ -20,6 +20,10 @@ case $mode in
 	rm $TMPBG
 	;;
     Shutdown)
+    notify-send "Saving Org Folder to Dropbox"
+    org2dbox -n
+    notify-send "Saving These Folder to Dropbox"
+    these2dbox -n
 	shutdown now
 	;;
     Logoff)
@@ -28,6 +32,10 @@ case $mode in
     echo "awesome.quit()" | awesome-client
 	;;
     Restart)
+    notify-send "Saving Org Folder to Dropbox"
+    org2dbox -n
+    notify-send "Saving These Folder to Dropbox"
+    these2dbox -n
 	shutdown -r now
 	;;
 esac
