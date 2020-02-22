@@ -82,8 +82,23 @@
   (load-theme 'doom-spacegrey t))
 (set 'global-linum-mode 1)
 (setq display-line-numbers-type 'relative)
-(setq deft-directory "~/org/notes")
 
+(after! deft
+(defadvice deft (before changeDir )
+  ""
+  (if (null (projectile-project-root))
+      (setq deft-directory "~/org/notes")
+    (progn
+     ;; TODO create folder
+     (if (not(file-directory-p (concat (projectile-project-root) ".notes")))
+       (make-directory (concat (projectile-project-root) ".notes"))
+       )
+     (setq deft-directory (concat (projectile-project-root) ".notes"))
+     )
+      )
+        )
+(ad-activate 'deft)
+)
 
 ;; Actually start using templates
 (after! org-capture
@@ -130,3 +145,8 @@
 ;; (setq reftex-external-file-finders
 ;; '(("tex" . "/path/to/kpsewhich -format=.tex %f")
 ;;   ("bib" . "/path/to/kpsewhich -format=.bib %f")))
+;; (setq +latex-viewers '(pdf-tools))
+;; (setq +latex-viewers '(zathura))
+(after! projectile
+(setq projectile-indexing-method 'native)
+)
