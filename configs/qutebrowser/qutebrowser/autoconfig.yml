@@ -60,7 +60,7 @@ settings:
       matplotlib: https://matplotlib.org/search.html?q={}&check_keywords=yes&area=default
       numpy: https://docs.scipy.org/doc/numpy/search.html?q={}&check_keywords=yes&area=default
       octave: https://octave.sourceforge.io/list_functions.php?q={}
-      pronuncen: http://shtooka.net/search.php?str={}&lang=en
+      pronuncen: http://shtooka.net/search.php?str={}&lang=eng
       pronuncfr: http://shtooka.net/search.php?str={}&lang=fra
       scholar: https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q={}
       science: https://www-sciencedirect-com.ezproxy.universite-paris-saclay.fr/search/advanced?qs={}
