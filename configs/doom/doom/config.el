@@ -98,6 +98,7 @@
       )
         )
 (ad-activate 'deft)
+(setq deft-recursive t)
 )
 
 ;; Actually start using templates
