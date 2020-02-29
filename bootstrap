@@ -7,7 +7,7 @@ sudo apt install -y \
 export RUNZSH=no;
 sh -c "$(wget -qO- https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 rm -rf .bash_logout .bashrc* .profile rm .zshrc*
-pushd Downloads
+pushd ~/Downloads
 [ -n ripgrep_11.0.2_amd64.deb ] || curl -sLO https://github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripgrep_11.0.2_amd64.deb
 sudo dpkg -i ripgrep_11.0.2_amd64.deb
 popd
