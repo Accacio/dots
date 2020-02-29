@@ -154,10 +154,10 @@ function decrypt {
 }
 
 alias qutebrowser="$HOME/git/qutebrowser/.venv/bin/python3 -m qutebrowser"
-alias org2dbox="rclone -L sync ~/org dbox:org"
-alias dbox2org="rclone -L sync dbox:org ~/org"
-alias these2dbox="rclone -L sync ~/these dbox:these"
-alias dbox2these="rclone -L sync dbox:these ~/these"
+alias org2dbox="rclone -L copy ~/org dbox:org"
+alias dbox2org="rclone -L copy dbox:org ~/org"
+alias these2dbox="rclone -L copy ~/these dbox:these"
+alias dbox2these="rclone -L copy dbox:these ~/these"
 alias presentToday="pdfpc ~/docsThese/docs/slides/`date +%F`.pdf"
 
 function webLedger {
