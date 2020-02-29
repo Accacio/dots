@@ -59,12 +59,12 @@ settings:
       matlab: https://fr.mathworks.com/help/search.html?qdoc={}
       matplotlib: https://matplotlib.org/search.html?q={}&check_keywords=yes&area=default
       numpy: https://docs.scipy.org/doc/numpy/search.html?q={}&check_keywords=yes&area=default
+      octave: https://octave.sourceforge.io/list_functions.php?q={}
+      pronuncen: http://shtooka.net/search.php?str={}&lang=en
+      pronuncfr: http://shtooka.net/search.php?str={}&lang=fra
       scholar: https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q={}
       science: https://www-sciencedirect-com.ezproxy.universite-paris-saclay.fr/search/advanced?qs={}
       scipy: https://docs.scipy.org/doc/scipy/reference/search.html?q={}&check_keywords=yes&area=default
       y: https://www.youtube.com/results?search_query={}
-      octave: https://octave.sourceforge.io/list_functions.php?q={}
-      pronuncfr: http://shtooka.net/search.php?str={}&lang=fra
-      pronuncen: http://shtooka.net/search.php?str={}&lang=en
   window.title_format:
     global: '{perc}{current_title}{title_sep}qutebrowser'
