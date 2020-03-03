@@ -146,7 +146,7 @@
 ;; (setq reftex-external-file-finders
 ;; '(("tex" . "/path/to/kpsewhich -format=.tex %f")
 ;;   ("bib" . "/path/to/kpsewhich -format=.bib %f")))
-;; (setq +latex-viewers '(pdf-tools))
+(setq +latex-viewers '(pdf-tools))
 ;; (setq +latex-viewers '(zathura))
 (after! projectile
 (setq projectile-indexing-method 'native)
