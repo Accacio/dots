@@ -65,6 +65,7 @@ then
     cd st
     make
     sudo make install
+    sudo update-alternatives --install /usr/bin/st x-terminal-emulator /usr/local/bin/st 90
 fi
 
 # install emacs from ppa
