@@ -123,6 +123,7 @@ then
     pushd ~/git/qutebrowser/
     sudo python3 scripts/mkvenv.py
     popd
+    sudo update-alternatives --install /usr/bin/qutebrowser x-www-browser ~/bin/qutebrowser 90
 fi
 
 
