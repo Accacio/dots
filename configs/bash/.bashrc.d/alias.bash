@@ -70,8 +70,9 @@ alias cls="printf '\ec'" \
       accSite="surf 192.168.1.140:4000 &" \
       jsl="cd $HOME/blog/;jekyll serve --livereload" \
       music='tmux new-session "tmux source-file $HOME/dots/configs/ncmpcpp/ncmpcpp/tmux_session"' \
-      addBooksRecursive='find -name "*.pdf" -print0 |xargs -0 -I file cp file ~/books/TCC'
-
+      addBooksRecursive='find -name "*.pdf" -print0 |xargs -0 -I file cp file ~/books/TCC' \
+	ncmpcpp="ncmpcpp --host=$HOME/.config/mpd/socket" \
+	mpc="mpc --host=$HOME/.config/mpd/socket"
 # alias u='xrandr -o normal'
 # alias d='xrandr -o inverted'
 
