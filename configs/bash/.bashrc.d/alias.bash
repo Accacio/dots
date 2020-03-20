@@ -153,7 +153,6 @@ function decrypt {
     openssl aes-256-cbc -d -in $1 -out $2
 }
 
-alias qutebrowser="$HOME/git/qutebrowser/.venv/bin/python3 -m qutebrowser"
 alias org2dbox="rclone -l copy ~/org dbox:org"
 alias dbox2org="rclone -l copy dbox:org ~/org"
 alias these2dbox="rclone -l copy ~/these dbox:these"

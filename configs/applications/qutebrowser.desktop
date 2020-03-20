@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=qutebrowser
-Exec=bash -c "~/git/qutebrowser/.venv/bin/python3 -m qutebrowser %u"
+Exec=bash -c "~/bin/qutebrowser"
 Icon=/usr/share/icons/qutebrowser-128x128.png
 Type=Application
 Terminal=false
