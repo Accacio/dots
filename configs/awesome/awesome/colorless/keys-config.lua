@@ -385,6 +385,10 @@ function hotkeys:init(args)
 			{ description = "User key sequence", group = "Main" }
 		},
 		{
+			{ env.mod, "Shift" }, "Return", function() awful.spawn("samedir") end,
+			{ description = "Open a terminal in same directory", group = "Main" }
+		},
+		{
 			{ env.mod }, "Return", function() awful.spawn(env.terminal) end,
 			{ description = "Open a terminal", group = "Main" }
 		},
