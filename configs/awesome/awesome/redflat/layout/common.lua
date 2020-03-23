@@ -139,7 +139,7 @@ common.keys._fake = {
 		{ "Mod4" }, "N1 N1", nil,
 		{
 			description = "Focus client by key", group = "Action",
-			keyset = { "#10", "#11", "3", "4", "5", "6", "7", "8", "9", "0" }
+			keyset = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" }
 		}
 	},
 }
@@ -255,7 +255,7 @@ common.grabbers.base = function(mod, key)
 					client.focus = navigator.data[index].client
 					client.focus:raise()
 				else
-					-- redutil.client.swap(navigator.data[common.last.key].client, navigator.data[index].client)
+					redutil.client.swap(navigator.data[common.last.key].client, navigator.data[index].client)
 				end
 				common.last.key = nil
 			else
