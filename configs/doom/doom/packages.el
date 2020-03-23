@@ -11,3 +11,5 @@
 
 (package! org-roam
   :recipe (:host github :repo "jethrokuan/org-roam"))
+
+(package! org-ref)

@@ -172,3 +172,13 @@
         :desc "Org-Roam-Buffer" "r" #'org-roam)
   :config
   (org-roam-mode +1))
+
+(def-package! org-ref
+    :after org
+    :init
+    ; code to run before loading org-ref
+    :config
+    ; code to run after loading org-ref
+    (setq org-ref-default-bibliography '("~/docsThese/docs/memoire/bibliography.bib")
+      org-ref-pdf-directory "~/these/leitura/bibliography/")
+    )
