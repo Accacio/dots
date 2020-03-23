@@ -83,23 +83,33 @@
 (set 'global-linum-mode 1)
 (setq display-line-numbers-type 'relative)
 
+;; Try use org-roam (zettelkasten)
 (after! deft
 (defadvice deft (before changeDir )
   ""
-  (if (null (projectile-project-root))
-      (setq deft-directory "~/org/notes")
-    (progn
-     ;; TODO create folder
-     (if (not(file-directory-p (concat (projectile-project-root) ".notes")))
-       (make-directory (concat (projectile-project-root) ".notes"))
-       )
-     (setq deft-directory (concat (projectile-project-root) ".notes"))
-     )
-      )
+    (setq deft-directory "~/org/notes")
         )
 (ad-activate 'deft)
 (setq deft-recursive t)
 )
+
+;; (after! deft
+;; (defadvice deft (before changeDir )
+;;   ""
+;;   (if (null (projectile-project-root))
+;;       (setq deft-directory "~/org/notes")
+;;     (progn
+;;      ;; TODO create folder
+;;      (if (not(file-directory-p (concat (projectile-project-root) ".notes")))
+;;        (make-directory (concat (projectile-project-root) ".notes"))
+;;        )
+;;      (setq deft-directory (concat (projectile-project-root) ".notes"))
+;;      )
+;;       )
+;;         )
+;; (ad-activate 'deft)
+;; (setq deft-recursive t)
+;; )
 
 ;; Actually start using templates
 (after! org-capture
@@ -151,3 +161,14 @@
 (after! projectile
 (setq projectile-indexing-method 'native)
 )
+(use-package! org-roam
+  :commands (org-roam-insert org-roam-find-file org-roam)
+  :init
+  (setq org-roam-directory "~/org/notes")
+  (map! :leader
+        :prefix "n"
+        :desc "Org-Roam-Insert" "i" #'org-roam-insert
+        :desc "Org-Roam-Find"   "/" #'org-roam-find-file
+        :desc "Org-Roam-Buffer" "r" #'org-roam)
+  :config
+  (org-roam-mode +1))
