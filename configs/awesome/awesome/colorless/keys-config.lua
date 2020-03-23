@@ -450,10 +450,10 @@ function hotkeys:init(args)
 			{ env.mod, "Control" }, "i", function() redflat.widget.minitray:toggle() end,
 			{ description = "Show minitray", group = "Widgets" }
 		},
-		{
-			{ env.mod }, "F3", function() redflat.float.qlaunch:show() end,
-			{ description = "Application quick launcher", group = "Main" }
-		},
+		-- {
+		-- 	{ env.mod }, "F3", function() redflat.float.qlaunch:show() end,
+		-- 	{ description = "Application quick launcher", group = "Main" }
+		-- },
 
 		{
 			{ env.mod }, "t", function() redtitle.toggle(client.focus) end,
