@@ -329,15 +329,15 @@ function hotkeys:init(args)
 -- bindsym XF86AudioLowerVolume exec pactl set-sink-volume $(pactl list short sink-inputs|head -n 1|cut -f2) -$((65535*5/100 ));exec pkill -SIGRTMIN+10 i3blocks
 		{
 			{ }, "XF86AudioMute", function() awful.spawn("amixer -D pulse sset Master toggle") end,
-			{ description = "Show hotkeys helper", group = "Main" }
+			{ description = "Mute", group = "Audio" }
 		},
 		{
 			{ }, "XF86AudioLowerVolume", function() awful.spawn("amixer -D pulse sset Master 5%-") end,
-			{ description = "Show hotkeys helper", group = "Main" }
+			{ description = "Lower Volume", group = "Audio" }
 		},
 		{
 			{ }, "XF86AudioRaiseVolume", function() awful.spawn("amixer -D pulse sset Master 5%+") end,
-			{ description = "Show hotkeys helper", group = "Main" }
+			{ description = "Raise Volume", group = "Audio" }
 		},
 		{
 			{ env.mod , "Control"}, "#19",
