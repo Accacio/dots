@@ -1,7 +1,7 @@
 
 export PATH="$PATH:$(du "$HOME/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//;s|/$||')"
 export PRINTER=HP-LaserJet-Pro-MFP-M127fn
-export MPD_HOST="/home/accacio/.config/mpd/socket"
+export MPD_HOST="$HOME/.config/mpd/socket"
 export SCRIPTSFOLDER="$HOME/bin"
 export SUDO_ASKPASS=$SCRIPTSFOLDER/askPass
 export ALTERNATE_EDITOR="emacsclient -t"
