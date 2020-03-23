@@ -342,9 +342,9 @@ function hotkeys:init(args)
 		{
 			{ env.mod , "Control"}, "#19",
 			function()
-			local screen = awful.screen.focused()
-			local tag = screen.tags[i]
-			local current = client.focus and client.focus.first_tag or awful.screen.focused().selected_tag or nil
+				local screen = awful.screen.focused()
+				local tag = screen.tags[i]
+				local current = client.focus and client.focus.first_tag or screen.selected_tag or nil
 				local tags = screen.tags
 				for i,tag in ipairs(tags)
 				do
