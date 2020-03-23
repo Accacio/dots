@@ -75,8 +75,6 @@ zle -N ncmpcppShow
 rangerShow() { ranger <$TTY; zle redisplay; }
 zle -N rangerShow
 
-bindkey '^[\' ncmpcppShow
-bindkey '^[r' rangerShow
 
 source ~/.bashrc.d/alias.bash
 source ~/.bashrc.d/variables.bash
@@ -95,6 +93,9 @@ MODE_INDICATOR_VLINE='%F{12}<%F{4}V-LINE<%f'
 MODE_CURSOR_VICMD="green block"
 MODE_CURSOR_VIINS="#20d08a blinking bar"
 MODE_CURSOR_SEARCH="#ff00ff steady underline"
+
+bindkey '^[m' ncmpcppShow
+bindkey '^[r' rangerShow
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=3"
 
 
