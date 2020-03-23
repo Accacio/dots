@@ -158,12 +158,21 @@ function hotkeys:init(args)
 	-- Apprunner widget
 	------------------------------------------------------------
 	local apprunner_keys_move = {
+
 		{
-			{ env.mod }, "j", function() apprunner:down() end,
+			{ "Control"  }, "n", function() apprunner:down() end,
 			{ description = "Select next item", group = "Navigation" }
 		},
 		{
-			{ env.mod }, "k", function() apprunner:up() end,
+			{ "Control"  }, "p", function() apprunner:up() end,
+			{ description = "Select previous item", group = "Navigation" }
+		},
+		{
+			{ "Control" }, "j", function() apprunner:down() end,
+			{ description = "Select next item", group = "Navigation" }
+		},
+		{
+			{ "Control" }, "k", function() apprunner:up() end,
 			{ description = "Select previous item", group = "Navigation" }
 		},
 	}
