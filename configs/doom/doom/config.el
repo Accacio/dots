@@ -161,6 +161,16 @@
 (after! projectile
 (setq projectile-indexing-method 'native)
 )
+(after! ivy-posframe
+
+(setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center)))
+;; (setq ivy-posframe-parameters
+;;       '((left-fringe . 18)
+;;         (right-fringe . 18)))
+
+
+)
+
 (use-package! org-roam
   :commands (org-roam-insert org-roam-find-file org-roam)
   :init
