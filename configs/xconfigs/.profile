@@ -8,8 +8,8 @@ export ALTERNATE_EDITOR="emacsclient -t"
 export TERMINAL="st"
 export EDITOR="nvim"
 export VISUAL="st -e nvim"
-# export EDITOR="emacsclient -t"
-# export VISUAL="emacsclient -c"
+export EDITOR="emacs -nw"
+export VISUAL="emacs"
 
 export OLDPWD=$HOME
 

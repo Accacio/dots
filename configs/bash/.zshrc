@@ -82,7 +82,6 @@ source ~/.bashrc.d/variables.bash
 
 [ -f ~/.customz/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source ~/.customz/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 [ -f ~/.customz/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source ~/.customz/zsh-autosuggestions/zsh-autosuggestions.zsh
-
 [ -f ~/.customz/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh ] && source ~/.customz/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
 MODE_INDICATOR_VIINS='%F{15}<%F{8}INSERT<%f'
 MODE_INDICATOR_VICMD='%F{10}<%F{2}NORMAL<%f'
