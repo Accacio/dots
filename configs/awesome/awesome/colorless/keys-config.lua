@@ -400,12 +400,21 @@ function hotkeys:init(args)
 			{ env.mod }, "semicolon",
 			function()
 				local tag=awful.tag.selected()
-				local matcher = function (c)
-					return awful.rules.match(c, {instance= 'wpp'})
+
+				local screen = awful.screen.focused()
+				local current = client.focus or nil
+
+				if current ~= nil and current.instance == 'wpp'
+				then
+					current.minimized = true
+				else
+					local matcher = function (c)
+						return awful.rules.match(c, {instance= 'wpp'})
+					end
+					awful.client.run_or_raise('bash -c "surf web.whatsapp.com& export APP_PID=$!;sleep 2;xprop -id `xdotool search --pid $APP_PID|tail -n 1` -f WM_CLASS 8s -set WM_CLASS "wpp""', matcher)
+					client.focus:move_to_tag(tag)
+					tag:view_only()
 				end
-				awful.client.run_or_raise('bash -c "surf web.whatsapp.com& export APP_PID=$!;sleep 2;xprop -id `xdotool search --pid $APP_PID|tail -n 1` -f WM_CLASS 8s -set WM_CLASS "wpp""', matcher)
-				client.focus:move_to_tag(tag)
-				tag:view_only()
 			end,
 			{ description = "WPP", group = "Main" }
 		},
