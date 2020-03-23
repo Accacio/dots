@@ -381,9 +381,13 @@ function hotkeys:init(args)
 			{ description = "Reload awesome", group = "Main" }
 		},
 		{
-			{ env.mod }, "c", function() redflat.float.keychain:activate(keyseq, "User") end,
+			{ env.mod }, "c", function() awful.spawn("org-capture") end,
 			{ description = "User key sequence", group = "Main" }
 		},
+		-- {
+		-- 	{ env.mod }, "c", function() redflat.float.keychain:activate(keyseq, "User") end,
+		-- 	{ description = "User key sequence", group = "Main" }
+		-- },
 		{
 			{ env.mod, "Shift" }, "Return", function() awful.spawn("samedir") end,
 			{ description = "Open a terminal in same directory", group = "Main" }
