@@ -158,12 +158,21 @@ function hotkeys:init(args)
 	-- Apprunner widget
 	------------------------------------------------------------
 	local apprunner_keys_move = {
+
 		{
-			{ env.mod }, "j", function() apprunner:down() end,
+			{ "Control"  }, "n", function() apprunner:down() end,
 			{ description = "Select next item", group = "Navigation" }
 		},
 		{
-			{ env.mod }, "k", function() apprunner:up() end,
+			{ "Control"  }, "p", function() apprunner:up() end,
+			{ description = "Select previous item", group = "Navigation" }
+		},
+		{
+			{ "Control" }, "j", function() apprunner:down() end,
+			{ description = "Select next item", group = "Navigation" }
+		},
+		{
+			{ "Control" }, "k", function() apprunner:up() end,
 			{ description = "Select previous item", group = "Navigation" }
 		},
 	}
@@ -328,19 +337,23 @@ function hotkeys:init(args)
 -- bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $(pactl list short sink-inputs|head -n 1|cut -f2) +$((65535*5/100 ));exec pkill -SIGRTMIN+10 i3blocks
 -- bindsym XF86AudioLowerVolume exec pactl set-sink-volume $(pactl list short sink-inputs|head -n 1|cut -f2) -$((65535*5/100 ));exec pkill -SIGRTMIN+10 i3blocks
 		{
+			{ }, "XF86AudioMute", function() awful.spawn("amixer -D pulse sset Master toggle") end,
+			{ description = "Mute", group = "Audio" }
+		},
+		{
 			{ }, "XF86AudioLowerVolume", function() awful.spawn("amixer -D pulse sset Master 5%-") end,
-			{ description = "Show hotkeys helper", group = "Main" }
+			{ description = "Lower Volume", group = "Audio" }
 		},
 		{
 			{ }, "XF86AudioRaiseVolume", function() awful.spawn("amixer -D pulse sset Master 5%+") end,
-			{ description = "Show hotkeys helper", group = "Main" }
+			{ description = "Raise Volume", group = "Audio" }
 		},
 		{
 			{ env.mod , "Control"}, "#19",
 			function()
-			local screen = awful.screen.focused()
-			local tag = screen.tags[i]
-			local current = client.focus and client.focus.first_tag or awful.screen.focused().selected_tag or nil
+				local screen = awful.screen.focused()
+				local tag = screen.tags[i]
+				local current = client.focus and client.focus.first_tag or screen.selected_tag or nil
 				local tags = screen.tags
 				for i,tag in ipairs(tags)
 				do
@@ -377,8 +390,16 @@ function hotkeys:init(args)
 			{ description = "Reload awesome", group = "Main" }
 		},
 		{
-			{ env.mod }, "c", function() redflat.float.keychain:activate(keyseq, "User") end,
+			{ env.mod }, "c", function() awful.spawn("org-capture") end,
 			{ description = "User key sequence", group = "Main" }
+		},
+		-- {
+		-- 	{ env.mod }, "c", function() redflat.float.keychain:activate(keyseq, "User") end,
+		-- 	{ description = "User key sequence", group = "Main" }
+		-- },
+		{
+			{ env.mod, "Shift" }, "Return", function() awful.spawn("samedir") end,
+			{ description = "Open a terminal in same directory", group = "Main" }
 		},
 		{
 			{ env.mod }, "Return", function() awful.spawn(env.terminal) end,
@@ -388,12 +409,21 @@ function hotkeys:init(args)
 			{ env.mod }, "semicolon",
 			function()
 				local tag=awful.tag.selected()
-				local matcher = function (c)
-					return awful.rules.match(c, {instance= 'wpp'})
+
+				local screen = awful.screen.focused()
+				local current = client.focus or nil
+
+				if current ~= nil and current.instance == 'wpp'
+				then
+					current.minimized = true
+				else
+					local matcher = function (c)
+						return awful.rules.match(c, {instance= 'wpp'})
+					end
+					awful.client.run_or_raise('bash -c "surf web.whatsapp.com& export APP_PID=$!;sleep 2;xprop -id `xdotool search --pid $APP_PID|tail -n 1` -f WM_CLASS 8s -set WM_CLASS "wpp""', matcher)
+					client.focus:move_to_tag(tag)
+					tag:view_only()
 				end
-				awful.client.run_or_raise('bash -c "surf web.whatsapp.com& export APP_PID=$!;sleep 2;xprop -id `xdotool search --pid $APP_PID|tail -n 1` -f WM_CLASS 8s -set WM_CLASS "wpp""', matcher)
-				client.focus:move_to_tag(tag)
-				tag:view_only()
 			end,
 			{ description = "WPP", group = "Main" }
 		},
@@ -438,10 +468,10 @@ function hotkeys:init(args)
 			{ env.mod, "Control" }, "i", function() redflat.widget.minitray:toggle() end,
 			{ description = "Show minitray", group = "Widgets" }
 		},
-		{
-			{ env.mod }, "F3", function() redflat.float.qlaunch:show() end,
-			{ description = "Application quick launcher", group = "Main" }
-		},
+		-- {
+		-- 	{ env.mod }, "F3", function() redflat.float.qlaunch:show() end,
+		-- 	{ description = "Application quick launcher", group = "Main" }
+		-- },
 
 		{
 			{ env.mod }, "t", function() redtitle.toggle(client.focus) end,

@@ -8,3 +8,8 @@
 (package! org-brain)
 (package! rainbow-mode)
 (package! matlab-mode)
+
+(package! org-roam
+  :recipe (:host github :repo "jethrokuan/org-roam"))
+
+(package! org-ref)

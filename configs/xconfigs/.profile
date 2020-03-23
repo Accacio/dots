@@ -16,6 +16,12 @@ export OLDPWD=$HOME
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
+
+notify-send "Loading Org Folder from Dropbox"
+rclone -l copy dbox:org ~/org -P &
+notify-send "Loading These Folder from Dropbox"
+rclone -l copy dbox:these ~/these -P &
+
 echo "$0" | grep "zsh$" >/dev/null && [ -f ~/.zshrc ] && source "$HOME/.zshrc"
 
 # echo "$0" | grep "bash$" >/dev/null && [ -f ~/.bashrc ] && source "$HOME/.bashrc"

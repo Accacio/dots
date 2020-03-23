@@ -83,23 +83,33 @@
 (set 'global-linum-mode 1)
 (setq display-line-numbers-type 'relative)
 
+;; Try use org-roam (zettelkasten)
 (after! deft
 (defadvice deft (before changeDir )
   ""
-  (if (null (projectile-project-root))
-      (setq deft-directory "~/org/notes")
-    (progn
-     ;; TODO create folder
-     (if (not(file-directory-p (concat (projectile-project-root) ".notes")))
-       (make-directory (concat (projectile-project-root) ".notes"))
-       )
-     (setq deft-directory (concat (projectile-project-root) ".notes"))
-     )
-      )
+    (setq deft-directory "~/org/notes")
         )
 (ad-activate 'deft)
 (setq deft-recursive t)
 )
+
+;; (after! deft
+;; (defadvice deft (before changeDir )
+;;   ""
+;;   (if (null (projectile-project-root))
+;;       (setq deft-directory "~/org/notes")
+;;     (progn
+;;      ;; TODO create folder
+;;      (if (not(file-directory-p (concat (projectile-project-root) ".notes")))
+;;        (make-directory (concat (projectile-project-root) ".notes"))
+;;        )
+;;      (setq deft-directory (concat (projectile-project-root) ".notes"))
+;;      )
+;;       )
+;;         )
+;; (ad-activate 'deft)
+;; (setq deft-recursive t)
+;; )
 
 ;; Actually start using templates
 (after! org-capture
@@ -151,3 +161,34 @@
 (after! projectile
 (setq projectile-indexing-method 'native)
 )
+(after! ivy-posframe
+
+(setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center)))
+;; (setq ivy-posframe-parameters
+;;       '((left-fringe . 18)
+;;         (right-fringe . 18)))
+
+
+)
+
+(use-package! org-roam
+  :commands (org-roam-insert org-roam-find-file org-roam)
+  :init
+  (setq org-roam-directory "~/org/notes")
+  (map! :leader
+        :prefix "n"
+        :desc "Org-Roam-Insert" "i" #'org-roam-insert
+        :desc "Org-Roam-Find"   "/" #'org-roam-find-file
+        :desc "Org-Roam-Buffer" "r" #'org-roam)
+  :config
+  (org-roam-mode +1))
+
+(def-package! org-ref
+    :after org
+    :init
+    ; code to run before loading org-ref
+    :config
+    ; code to run after loading org-ref
+    (setq org-ref-default-bibliography '("~/docsThese/docs/memoire/bibliography.bib")
+      org-ref-pdf-directory "~/these/leitura/bibliography/")
+    )
