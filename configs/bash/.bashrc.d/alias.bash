@@ -164,3 +164,12 @@ function webLedger {
   popd
   fava /tmp/beancount
 }
+
+# pronunciation using shtooka project
+function pronunc {
+  curl `wget -qO- http://shtooka.net/search.php\?str\=$2\&lang\=$1 | grep onClick -m1 | sed "s/.*http\(.*\)',.*/http\1/"`| mpv --vo=null -
+}
+
+alias pronuncfr="pronunc fra"
+alias pronuncen="pronunc eng"
+alias pronuncde="pronunc de"
