@@ -76,7 +76,50 @@
  ;; (setq matlab-indent-function t)
 (after! org
  ;; (setq matlab-shell-command "matlab -noFigureWindows")
-(setq org-babel-octave-shell-command "octave -q -W"))
+  (setq org-babel-octave-shell-command "octave -q -W")
+  (setq org-src-window-setup 'current-window
+        org-return-follows-link t
+        ;; org-babel-load-languages '((emacs-lisp . t)
+        ;;                            (python . t)
+        ;;                            (dot . t)
+        ;;                            (R . t))
+        org-confirm-babel-evaluate nil
+        ;; org-use-speed-commands t
+        ;; org-catch-invisible-edits 'show
+        org-preview-latex-image-directory "/tmp/ltximg/"
+        org-structure-template-alist '(("a" . "export ascii")
+                                       ("c" . "center")
+                                       ("C" . "comment")
+                                       ("e" . "example")
+                                       ("E" . "export")
+                                       ("h" . "export html")
+                                       ("l" . "export latex")
+                                       ("q" . "quote")
+                                       ("s" . "src")
+                                       ("v" . "verse")
+                                       ("el" . "src emacs-lisp")
+                                       ("d" . "definition")
+                                       ("t" . "theorem")))
+  ;; From Jethro
+;; (setq org-capture-templates
+;;         `(("i" "inbox" entry (file ,(concat jethro/org-agenda-directory "inbox.org"))
+;;            "* TODO %?")
+;;           ("e" "email" entry (file+headline ,(concat jethro/org-agenda-directory "emails.org") "Emails")
+;;                "* TODO [#A] Reply: %a :@home:@school:"
+;;                :immediate-finish t)
+;;           ("c" "org-protocol-capture" entry (file ,(concat jethro/org-agenda-directory "inbox.org"))
+;;                "* TODO [[%:link][%:description]]\n\n %i"
+;;                :immediate-finish t)
+;;           ("w" "Weekly Review" entry (file+olp+datetree ,(concat jethro/org-agenda-directory "reviews.org"))
+;;            (file ,(concat jethro/org-agenda-directory "templates/weekly_review.org")))
+;;           ("r" "Reading" todo ""
+;;                ((org-agenda-files '(,(concat jethro/org-agenda-directory "reading.org")))))))
+
+;; (setq org-todo-keywords
+;;       '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+;;         (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)")))
+
+  )
 (if (display-graphic-p)
     ()
   (load-theme 'doom-spacegrey t))
@@ -179,6 +222,7 @@
         :prefix "n"
         :desc "Org-Roam-Insert" "i" #'org-roam-insert
         :desc "Org-Roam-Find"   "/" #'org-roam-find-file
+        :desc "org-roam-show-graph" "g" #'org-roam-show-graph
         :desc "Org-Roam-Buffer" "r" #'org-roam)
   :config
   (org-roam-mode +1))
