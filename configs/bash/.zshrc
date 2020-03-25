@@ -99,7 +99,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=3"
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-fpath=(/home/accacio/bin/ $fpath)
+fpath=($HOME/bin/ $fpath)
 
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"

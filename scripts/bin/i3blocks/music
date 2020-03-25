@@ -1,6 +1,6 @@
 #!/bin/bash
 
-status=$(echo $(mpc --host='/home/accacio/.config/mpd/socket' status|sed -n 2p|cut -d " " -f 1))
+status=$(echo $(mpc --host='$HOME/.config/mpd/socket' status|sed -n 2p|cut -d " " -f 1))
 
 titleName=$(ncmpcpp -q --current-song='%t')
 titleName=${titleName}
