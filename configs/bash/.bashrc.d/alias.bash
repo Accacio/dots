@@ -155,6 +155,12 @@ alias org2dbox="rclone -l copy ~/org dbox:org"
 alias dbox2org="rclone -l copy dbox:org ~/org"
 alias these2dbox="rclone -l copy ~/these dbox:these"
 alias dbox2these="rclone -l copy dbox:these ~/these"
+
+alias org2dboxSync="rclone -l sync ~/org dbox:org"
+alias dbox2orgSync="rclone -l sync dbox:org ~/org"
+alias these2dboxSync="rclone -l sync ~/these dbox:these"
+alias dbox2theseSync="rclone -l sync dbox:these ~/these"
+
 alias presentToday="pdfpc ~/docsThese/docs/slides/`date +%F`.pdf"
 
 function webLedger {
