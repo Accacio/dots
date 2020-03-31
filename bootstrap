@@ -15,6 +15,7 @@ popd
 pushd dots
 git submodule update --init --recursive
 ./install.sh
+sed "s|\$HOME|$HOME|" ~/.config/notmuch/config.raw > ~/.config/notmuch/config
 popd
 [ -n ~/git ] || git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install --no-bash --no-zsh --key-bindings --completion --update-rc
