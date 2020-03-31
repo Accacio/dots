@@ -1,5 +1,8 @@
 ;;; .doom.d/config.el -*- lexical-binding: t; -*-
 
+
+(setq user-full-name "Rafael Accácio Nogueira"
+      user-mail-address "raccacio@poli.ufrj.br")
 ;; Place your private configuration here
 (setq org-latex-listings t)
 (eval-after-load "tex"
@@ -213,6 +216,50 @@
 
 
 )
+;; From Jethro
+(use-package! notmuch
+  :commands (notmuch)
+  :init
+  (map! :desc "notmuch" "<f12>" #'notmuch)
+  ;; (map! :map notmuch-search-mode-map
+  ;;       :desc "toggle read" "t" #'+notmuch/toggle-read
+  ;;       :desc "Reply to thread" "r" #'notmuch-search-reply-to-thread
+  ;;       :desc "Reply to thread sender" "R" #'notmuch-search-reply-to-thread-sender)
+  ;; (map! :map notmuch-show-mode-map
+  ;;       :desc "Next link" "<tab>" #'org-next-link
+  ;;       :desc "Previous link" "<backtab>" #'org-previous-link
+  ;;       :desc "URL at point" "C-<return>" #'browse-url-at-point)
+  ;; (defun +notmuch/toggle-read ()
+  ;;   "toggle read status of message"
+  ;;   (interactive)
+  ;;   (if (member "unread" (notmuch-search-get-tags))
+  ;;       (notmuch-search-tag (list "-unread"))
+  ;;     (notmuch-search-tag (list "+unread"))))
+  ;; :config
+  (setq message-auto-save-directory "~/.mail/drafts/"
+        message-send-mail-function 'message-send-mail-with-sendmail
+        sendmail-program (executable-find "msmtp")
+        message-sendmail-envelope-from 'header
+        mail-envelope-from 'header
+        mail-specify-envelope-from t
+        message-sendmail-f-is-evil nil
+        message-kill-buffer-on-exit t
+        notmuch-always-prompt-for-sender t
+        notmuch-archive-tags '("-inbox" "-unread")
+        notmuch-crypto-process-mime t
+        notmuch-hello-sections '(notmuch-hello-insert-saved-searches)
+        notmuch-labeler-hide-known-labels t
+        notmuch-search-oldest-first nil
+        notmuch-archive-tags '("-inbox" "-unread")
+        notmuch-message-headers '("To" "Cc" "Subject" "Bcc")
+        ;; notmuch-saved-searches '((:name "unread" :query "tag:inbox and tag:unread")
+        ;;                          (:name "org-roam" :query "tag:inbox and tag:roam")
+        ;;                          (:name "personal" :query "tag:inbox and tag:personal")
+        ;;                          (:name "nushackers" :query "tag:inbox and tag:nushackers")
+        ;;                          (:name "nus" :query "tag:inbox and tag:nus")
+        ;;                          (:name "drafts" :query "tag:draft"))
+        ))
+
 
 (use-package! org-roam
   :commands (org-roam-insert org-roam-find-file org-roam)

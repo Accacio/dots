@@ -1,0 +1,7 @@
+
+set from      = 'raccacio@poli.ufrj.br'
+set folder = "~/.local/mail/messages/poli"
+set spoolfile = "+Inbox"
+
+mailboxes =Inbox =[Gmail]/.Sent\ Mail
+set sendmail="msmtp -a poli"

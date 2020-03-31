@@ -6,10 +6,12 @@ export SCRIPTSFOLDER="$HOME/bin"
 export SUDO_ASKPASS=$SCRIPTSFOLDER/askPass
 export ALTERNATE_EDITOR="emacsclient -t"
 export TERMINAL="st"
-export EDITOR="nvim"
-export VISUAL="st -e nvim"
 export EDITOR="emacs -nw"
+export VISUAL="st -e nvim"
+export EDITOR="nvim"
 export VISUAL="emacs"
+
+export NOTMUCH_CONFIG="$HOME/.config/notmuch/config"
 
 export OLDPWD=$HOME
 

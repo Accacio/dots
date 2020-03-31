@@ -1,0 +1,6 @@
+
+set from      = 'raccacio2@gmail.com'
+set folder = "~/.local/mail/messages/gmail"
+set spoolfile = "+Inbox"
+mailboxes =INBOX =[GMAIL]/.Sent
+set sendmail="msmtp -a gmail"

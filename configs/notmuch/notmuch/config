@@ -1,0 +1,14 @@
+[database]
+path=/home/nogueirar/.local/mail/
+[user]
+primary_email=raccacio@poli.ufrj.br
+other_email=rafael-accacio.nogueira@centralesupelec.fr;raccacio2@gmail.com;
+[new]
+tags=unread;inbox;
+ignore=
+[search]
+exclude_tags=deleted;spam;
+[maildir]
+synchronize_flags=true
+# [crypto]
+# gpg_path=gpg

@@ -1,0 +1,31 @@
+# Set default values for all following accounts.
+defaults
+auth           on
+tls            on
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+logfile        ~/.msmtp.log
+
+# Gmail
+account        gmail
+host           smtp.gmail.com
+port           587
+from           raccacio2@gmail.com
+user           raccacio2@gmail.com
+passwordeval   "pass Email/gmail"
+
+# Poli
+account        poli
+host           smtp.gmail.com
+port           587
+from           raccacio@poli.ufrj.br
+user           raccacio@poli.ufrj.br
+passwordeval   "pass Email/polimail"
+
+
+# CentraleSupelec
+account        supelec
+host           smtp.ecp.fr
+port           587
+from           rafael-accacio.nogueira@centralesupelec.fr
+user           nogueirar
+passwordeval   "pass Email/centralesupelec"

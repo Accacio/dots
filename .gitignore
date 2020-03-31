@@ -10,3 +10,6 @@ configs/mpd/mpd/database
 configs/*/*/*.pid
 configs/*/*/*.log
 configs/*/*/*.example
+
+configs/mail/mail/messages/**
+configs/mail/mail/.notmuch/xapian/

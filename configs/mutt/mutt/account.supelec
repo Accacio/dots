@@ -1,0 +1,5 @@
+
+set from      = 'rafael-accacio.nogueira@centralesupelec.fr'
+set folder = "~/.local/mail/messages/supelec"
+set spoolfile = "+Inbox"
+set sendmail="msmtp -a supelec"

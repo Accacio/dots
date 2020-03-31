@@ -9,12 +9,16 @@ stow -v -d configs/ -t ~/ \
      fonts/    \
      i3/       \
      i3blocks/ \
+     mbsync/   \
      newsboat/ \
      nvim/     \
      spacemacs \
      tmux/     \
      xconfigs/ \
-     xournal/ 
+     xournal/
+
+stow -v -d configs/ -t ~/.local/ \
+     mail
 
 stow -v -d configs/ -t ~/.config/ \
      awesome/  \
@@ -23,7 +27,10 @@ stow -v -d configs/ -t ~/.config/ \
      dunst/    \
      mpd/      \
      mpv/      \
+     msmtp/    \
+     mutt/     \
      ncmpcpp/  \
+     notmuch/  \
      nvim/     \
      pdfpc/    \
      polybar/  \
