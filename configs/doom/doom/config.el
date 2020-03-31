@@ -79,7 +79,8 @@
  ;; (setq matlab-indent-function t)
 (after! org
  ;; (setq matlab-shell-command "matlab -noFigureWindows")
-  (setq org-babel-octave-shell-command "octave -q -W")
+  ;; (setq org-babel-octave-shell-command "octave -q -W")
+  (setq org-babel-octave-shell-command "octave -q")
   (setq org-src-window-setup 'current-window
         org-return-follows-link t
         ;; org-babel-load-languages '((emacs-lisp . t)
@@ -175,6 +176,8 @@
                             ))
 )
 ;; (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-post-at-point)))
+;;https://orgmode.org/org.html#Publishing
+;;https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html
 (setq org-publish-project-alist
       '(
 
@@ -184,6 +187,11 @@
          :base-extension "org"
          :publishing-directory "~/docsThese/docs/site/"
          :recursive t
+         :with-tags nil
+         :with-toc nil
+         :section-numbers nil
+         :exlclude "*slide*.org"
+         ;; :publishing-function org-html-publish-to-html
          :publishing-function org-html-publish-to-html
          :headline-levels 4             ; Just the default for this project.
          :body-only t
@@ -192,11 +200,43 @@
          :base-directory "~/docsThese/docs/org/"
          :base-extension "org"
          :publishing-directory "~/docsThese/docs/etudes/"
+         :exlclude "*slide*.org"
          :recursive t
-         :publishing-function org-latex-publish-to-pdf
+         :exclude-tags ("html")
+         :with-tags nil
+         :with-toc nil
+         :publishing-function org-latex-publish-to-latex
+         ;; :publishing-function org-latex-publish-to-pdf
+         ;; :publishing-function (org-latex-publish-to-pdf org-latex-publish-to-latex)
          :headline-levels 4             ; Just the default for this project.
          )
       ))
+(defun org-html--toc-text (toc-entries)
+  "Return innards of a table of contents, as a string.
+TOC-ENTRIES is an alist where key is an entry title, as a string,
+and value is its relative level, as an integer."
+  (let* ((prev-level (1- (cdar toc-entries)))
+	 (start-level prev-level))
+    (concat
+     (mapconcat
+      (lambda (entry)
+	(let ((headline (car entry))
+	      (level (cdr entry)))
+	  (concat
+	   (let* ((cnt (- level prev-level))
+		  (times (if (> cnt 0) (1- cnt) (- cnt))))
+	     (setq prev-level level)
+	     (concat
+	      (org-html--make-string
+	       times (cond ((> cnt 0) "\n<ol>\n<li>")
+			   ((< cnt 0) "</li>\n</ol>\n")))
+	      (if (> cnt 0) "\n<ol>\n<li>" "</li>\n<li>")))
+	   headline)))
+      toc-entries "")
+     (org-html--make-string (- prev-level start-level) "</li>\n</ol>\n"))))
+
+
+
 
 ;; '(reftex-use-external-file-finders t)
 ;; (setq reftex-external-file-finders
