@@ -1,10 +1,12 @@
 #!/bin/bash
 
-if [ ! -d $HOME/youtube/thumbs ]
+if [ ! -d $HOME/Videos/youtube/thumbs ]
 then
     echo `basename $0`: No youtubeThumbs file found
     exit 1
 fi
 
-cat $HOME/youtube/thumbs/figsFilenames | sxiv -iftbo | sed 's!.*/!!' | sed "s|\(\)|https://www.youtube.com/watch?v=\1|" > $HOME/youtube/queue
+find $HOME/Videos/youtube/thumbs/* -name "*png" | shuf | sxiv -z 20 -iftbo  | sed 's!.*/!!' | sed "s|\(\)|https://www.youtube.com/watch?v=\1|" > $HOME/Videos/youtube/queue
+# find $HOME/Videos/youtube/thumbs/* -name "*png" | shuf | sxiv -iftbo | sed "s|.*\-\-\-\(.*\).png|https://www.youtube.com/watch?v=\1|" > $HOME/Videos/youtube/queue
+# cat $HOME/Videos/youtube/thumbs/*/figsFilenames | sxiv -iftbo | sed 's!.*/!!' | sed "s|\(\)|https://www.youtube.com/watch?v=\1|" > $HOME/Videos/youtube/queue
 # ls $HOME/youtube/thumbs/* | sxiv -iftbo | sed 's!.*/!!' | sed "s|\(\)|https://www.youtube.com/watch?v=\1|" > $HOME/youtube/queue

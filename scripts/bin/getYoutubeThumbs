@@ -1,13 +1,68 @@
 #!/bin/bash
 
-[ -d $HOME/youtube/thumbs ] || mkdir -p $HOME/youtube/thumbs
+[ -d $HOME/Videos/youtube/thumbs ] || mkdir -p $HOME/Videos/youtube/thumbs
 
+cd $HOME/Videos/youtube/thumbs
+# rm -rfd *
 if [ $# -eq 0 ]
 then
-    echo `basename $0:` input at least one feed path
-    exit 1
+    grep youtube $HOME/.newsboat/urls | while read -r i ;
+    do
+        # echo '====>>'
+        # echo $i
+        mkdir -p "$(echo $i | cut -d" " -f 2- | sed "s/\"\~\(.*\)\"/\1/")"
+        cd "$(echo $i | cut -d" " -f 2- | sed "s/\"\~\(.*\)\"/\1/")"
+        curl -s $(echo $i | cut -d" " -f 1) | grep "<media:thumbnail" | sed "s|.*url=\"\(.*\)\"\ w.*|\1|" | sed 6q | tee figsUrls | sed "s|.*vi/\(.*\)/.*|\1|" > figsFilenames
+        curl -s $(echo $i | cut -d" " -f 1) | grep media:title | sed "s| <media:title>\(.*\)</media:title>|\1|" | sed 6q > figsTitles
+        files=(`cat figsFilenames`)
+        urls=(`cat figsUrls`)
+        titles=()
+        while read line
+        do
+            # echo $line
+            titles+=("$line")
+        done < figsTitles
+        for index in ${!files[*]}
+        do
+            # echo ${titles[$index]}
+            # echo ${files[$index]}
+            # echo ${urls[$index]}
+            # TODO correct for videos with "/" in name
+            wget -q ${urls[$index]} -O "${files[$index]}.png"
+            convert "${files[$index]}.png" -crop 480x270+0+45 "${files[$index]}.png"
+            # width=`identify -format %w "${files[$index]}.png"`;
+            # convert -background '#0008' -fill white -gravity center -size ${width}x30 \
+            #     caption:"${titles[$index]}" \
+            #     "${files[$index]}.png" +swap -gravity south -append "${files[$index]}_withtext.png"
+            # exit 0
+            convert                               \
+                "${files[$index]}.png" \
+                -background Black                   \
+                -fill White                         \
+                -pointsize 40                       \
+                -size 320x270  -gravity center                     \
+                caption:"` echo ${titles[$index]} | awk -v len=49 '{ if (length($0) > len) print substr($0, 1, len-3) "..."; else print; }'`"                    \
+                -append                             \
+                "${files[$index]}.png"
+            # convert "${files[$index]}.png" -background Black -fill white label:"${titles[$index]}" \
+                # -gravity Center -append "${files[$index]}.png"
+
+        done
+        # ls
+        cd ..
+        # echo '<<===='
+
+
+
+
+    done
+
+
+exit 0
+
+
 fi
-cd $HOME/youtube/thumbs
+
 
 curl -s $1 | grep "<media:thumbnail" | sed "s|.*url=\"\(.*\)\"\ w.*|\1|" | tee figsUrls | sed "s|.*vi/\(.*\)/.*|\1|" > figsFilenames
 curl -s $1 | grep media:title | sed "s| <media:title>\(.*\)</media:title>|\1|" > figsTitles

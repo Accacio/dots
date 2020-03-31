@@ -1,8 +1,8 @@
 #!/bin/bash
 
-if [ -d $HOME/youtube/thumbs ]
+if [ ! -d $HOME/Videos/youtube/thumbs ]
 then
     echo `basename $0`: No youtubeThumbs file found
     exit 1
 fi
-mpv --ytdl-format=22 --playlist=$HOME/youtube/queue
+mpv --ytdl-format=22 --playlist=$HOME/Videos/youtube/queue
