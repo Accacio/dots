@@ -276,7 +276,9 @@ and value is its relative level, as an integer."
   ;;       (notmuch-search-tag (list "-unread"))
   ;;     (notmuch-search-tag (list "+unread"))))
   ;; :config
-  (setq message-auto-save-directory "~/.mail/drafts/"
+  (defvar +notmuch-mail-folder "~/.local/mail/messages/"
+  "Where your email folder is located (for use with gmailieer).")
+  (setq message-auto-save-directory "~/.local/mail/messages/drafts/"
         message-send-mail-function 'message-send-mail-with-sendmail
         sendmail-program (executable-find "msmtp")
         message-sendmail-envelope-from 'header
