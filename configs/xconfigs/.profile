@@ -23,10 +23,9 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 
 
 notify-send "Loading Org Folder from Dropbox"
-rclone -l copy dbox:org ~/org -P &
+(rclone -l copy dbox:org ~/org -P && notify-send "Finished Copying Dbox ➡ Org" )&
 notify-send "Loading These Folder from Dropbox"
-rclone -l copy dbox:these ~/these -P &
-
+(rclone -l copy dbox:these ~/these -P && notify-send "Finished Copying Dbox ➡ These")&
 echo "$0" | grep "zsh$" >/dev/null && [ -f ~/.zshrc ] && source "$HOME/.zshrc"
 
 # echo "$0" | grep "bash$" >/dev/null && [ -f ~/.bashrc ] && source "$HOME/.bashrc"

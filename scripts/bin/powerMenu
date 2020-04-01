@@ -21,25 +21,25 @@ case $mode in
 	;;
     Shutdown)
     notify-send "Saving Org Folder to Dropbox"
-    rclone -l copy ~/org dbox:org -P
+    rclone -l copy ~/org dbox:org -P && notify-send "Finished Copying Dbox ⬅ Org"
     notify-send "Saving These Folder to Dropbox"
-    rclone -l copy ~/these dbox:these -P
+    rclone -l copy ~/these dbox:these -P && notify-send "Finished Copying Dbox ⬅ These"
     shutdown now
     ;;
     Logoff)
     notify-send "Saving Org Folder to Dropbox"
-    rclone -l copy ~/org dbox:org -P
+    rclone -l copy ~/org dbox:org -P && notify-send "Finished Copying Dbox ⬅ Org"
     notify-send "Saving These Folder to Dropbox"
-    rclone -l copy ~/these dbox:these -P
+    rclone -l copy ~/these dbox:these -P && notify-send "Finished Copying Dbox ⬅ These"
 	i3-msg exit
 	bspc quit
     echo "awesome.quit()" | awesome-client
 	;;
     Restart)
     notify-send "Saving Org Folder to Dropbox"
-    rclone -l copy ~/org dbox:org -P
+    rclone -l copy ~/org dbox:org -P && notify-send "Finished Copying Dbox ⬅ Org"
     notify-send "Saving These Folder to Dropbox"
-    rclone -l copy ~/these dbox:these -P
+    rclone -l copy ~/these dbox:these -P && notify-send "Finished Copying Dbox ⬅ These"
 	shutdown -r now
 	;;
 esac
