@@ -345,6 +345,26 @@ function hotkeys:init(args)
 			{ description = "Mute", group = "Audio" }
 		},
 		{
+			{ }, "XF86AudioPlay", function() awful.util.spawn_with_shell("mpc toggle; $SCRIPTSFOLDER/musicNotify") end,
+			{ description = "Mute", group = "Audio" }
+		},
+		{
+			{ }, "XF86AudioPrev", function() awful.util.spawn_with_shell("mpc prev; $SCRIPTSFOLDER/musicNotify") end,
+			{ description = "Mute", group = "Audio" }
+		},
+		{
+			{ }, "XF86AudioNext", function() awful.util.spawn_with_shell("mpc next; $SCRIPTSFOLDER/musicNotify") end,
+			{ description = "Mute", group = "Audio" }
+		},
+		{
+			{ }, "XF86AudioStop", function() awful.util.spawn_with_shell("mpc stop; $SCRIPTSFOLDER/musicNotify") end,
+			{ description = "Mute", group = "Audio" }
+		},
+		{
+			{ }, "XF86Display", function() awful.util.spawn_with_shell("$SCRIPTSFOLDER/multimonitor") end,
+			{ description = "Monitors", group = "Audio" }
+		},
+		{
 			{ }, "XF86AudioLowerVolume", function() awful.spawn("amixer -D pulse sset Master 5%-") end,
 			{ description = "Lower Volume", group = "Audio" }
 		},
@@ -465,7 +485,11 @@ function hotkeys:init(args)
 			{ description = "Application launcher", group = "Widgets" }
 		},
 		{
-			{ env.mod }, "p", function() redflat.float.prompt:run() end,
+			{ env.mod  }, "p", function() awful.util.spawn_with_shell("$SCRIPTSFOLDER/multimonitor") end,
+			{ description = "Show the prompt box", group = "Widgets" }
+		},
+		{
+			{ env.mod  }, "o", function() redflat.float.prompt:run() end,
 			{ description = "Show the prompt box", group = "Widgets" }
 		},
 		{
