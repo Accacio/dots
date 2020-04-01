@@ -109,3 +109,7 @@ URxvt.depth:   32
 ! gnuplot settings
  gnuplot*font: mbfont:-misc-fixed-medium-r-normal-*-*-*-100-100-*-*-iso10646-*
  gnuplot*encoding: utf-8
+
+
+Xcursor.size: 16
+Xcursor.theme: Adwaita
