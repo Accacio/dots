@@ -12,5 +12,5 @@
 0 */4 */4 * * rm -rd $HOME/Downloads/lixo/* >/dev/null 2>&1
 */15 8-18 * * * $HOME/bin/setColorTemperature -d >/dev/null 2>&1
 0 19-23 * * * $HOME/bin/setColorTemperature >/dev/null 2>&1
-*/5 * * * * mbsync -a >/dev/null 2>&1
+*/5 * * * * mailsync >/dev/null 2>&1
 * * * * * $HOME/bin/batteryNotify >/dev/null 2>&1
