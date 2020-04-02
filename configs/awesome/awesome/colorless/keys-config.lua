@@ -345,6 +345,10 @@ function hotkeys:init(args)
 			{ description = "Mute", group = "Audio" }
 		},
 		{
+			{env.mod }, "XF86AudioPlay", function() awful.util.spawn_with_shell("mpdMenuImage $HOME/Music") end,
+			{ description = "Mute", group = "Audio" }
+		},
+		{
 			{ }, "XF86AudioPlay", function() awful.util.spawn_with_shell("mpc toggle; $SCRIPTSFOLDER/musicNotify") end,
 			{ description = "Mute", group = "Audio" }
 		},
