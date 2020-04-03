@@ -10,6 +10,11 @@ settings:
     global: true
   backend:
     global: webengine
+  bindings.commands:
+    global:
+      normal:
+        gy: spawn mpv {url}
+        gY: spawn sh -c "echo {url} >> $HOME/.config/mpv/queue"
   colors.tabs.pinned.even.bg:
     global: darkgrey
   colors.tabs.pinned.odd.bg:
