@@ -334,8 +334,10 @@ function hotkeys:init(args)
 			end,
 			{ }
 		},
--- bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $(pactl list short sink-inputs|head -n 1|cut -f2) +$((65535*5/100 ));exec pkill -SIGRTMIN+10 i3blocks
--- bindsym XF86AudioLowerVolume exec pactl set-sink-volume $(pactl list short sink-inputs|head -n 1|cut -f2) -$((65535*5/100 ));exec pkill -SIGRTMIN+10 i3blocks
+		{
+			{ }, "Print", function() awful.util.spawn_with_shell("sleep 0.5;scrot -s foo.png && xclip -selection c -t image/png foo.png && rm foo.png") end,
+			{ description = "ScreenShot", group = "Main" }
+		},
 		{
 			{ }, "Print", function() awful.util.spawn_with_shell("sleep 0.5;scrot -s foo.png && xclip -selection c -t image/png foo.png && rm foo.png") end,
 			{ description = "ScreenShot", group = "Main" }

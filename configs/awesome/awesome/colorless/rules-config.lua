@@ -23,7 +23,7 @@ rules.base_properties = {
 rules.floating_any = {
 	instance = { "DTA", "copyq", },
 	class = {
-		"Arandr", "Gpick", "Kruler", "MessageWin", "Sxiv", "Wpa_gui", "pinentry", "veromix",
+		"Arandr", "Gpick", "Kruler", "MessageWin", "Sxiv", "Wpa_gui", "pinentry", "mail", "veromix",
 		"xtightvncviewer"
 	},
 	name = { "Event Tester", },
@@ -50,6 +50,10 @@ function rules:init(args)
 		{
 			rule_any   = args.floating_any or self.floating_any,
 			properties = { floating = true }
+		},
+		{
+			rule_any   = { class = {"mpv"}},
+			properties = { floating = true, ontop=true , sticky=true, focusable=false}
 		},
 		{
 			rule_any   = { type = { "normal", "dialog" }},
