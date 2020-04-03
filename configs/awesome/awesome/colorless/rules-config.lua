@@ -23,10 +23,10 @@ rules.base_properties = {
 rules.floating_any = {
 	instance = { "DTA", "copyq", },
 	class = {
-		"Arandr", "Gpick", "Kruler", "MessageWin", "Sxiv", "Wpa_gui", "pinentry", "mail", "veromix",
+		"Arandr", "Gpick", "Kruler", "MessageWin", "Sxiv", "wpp", "Wpa_gui", "pinentry", "mail", "veromix",
 		"xtightvncviewer"
 	},
-	name = { "Event Tester", },
+	name = { "Event Tester", "WhatsApp" },
 	role = { "AlarmWindow", "pop-up", }
 }
 
