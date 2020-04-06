@@ -25,6 +25,7 @@ stow -v -d configs/ -t ~/.config/ \
      bspwm/    \
      doom/     \
      dunst/    \
+     lf/ \
      mpd/      \
      mpv/      \
      msmtp/    \
