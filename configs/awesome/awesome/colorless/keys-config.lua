@@ -352,27 +352,27 @@ function hotkeys:init(args)
 		},
 		{
 			{env.mod, "Shift" }, "XF86AudioPlay", function() awful.util.spawn_with_shell("st -c ncmpcpp ncmpcpp") end,
-			{ description = "Mute", group = "Audio" }
+			{ description = "Open ncmpcpp", group = "Audio" }
 		},
 		{
 			{env.mod }, "XF86AudioPlay", function() awful.util.spawn_with_shell("mpdMenuImage $HOME/Music") end,
-			{ description = "Mute", group = "Audio" }
+			{ description = "Select what to play", group = "Audio" }
 		},
 		{
 			{ }, "XF86AudioPlay", function() awful.util.spawn_with_shell("mpc toggle; $SCRIPTSFOLDER/musicNotify") end,
-			{ description = "Mute", group = "Audio" }
+			{ description = "Play/Pause", group = "Audio" }
 		},
 		{
 			{ }, "XF86AudioPrev", function() awful.util.spawn_with_shell("mpc prev; $SCRIPTSFOLDER/musicNotify") end,
-			{ description = "Mute", group = "Audio" }
+			{ description = "Previous", group = "Audio" }
 		},
 		{
 			{ }, "XF86AudioNext", function() awful.util.spawn_with_shell("mpc next; $SCRIPTSFOLDER/musicNotify") end,
-			{ description = "Mute", group = "Audio" }
+			{ description = "Next", group = "Audio" }
 		},
 		{
 			{ }, "XF86AudioStop", function() awful.util.spawn_with_shell("mpc stop; $SCRIPTSFOLDER/musicNotify") end,
-			{ description = "Mute", group = "Audio" }
+			{ description = "Stop", group = "Audio" }
 		},
 		{
 			{ }, "XF86Display", function() awful.util.spawn_with_shell("$SCRIPTSFOLDER/multimonitor") end,
@@ -421,7 +421,7 @@ function hotkeys:init(args)
 		},
 		{
 			{ env.mod ,"Shift"}, "e", function () awful.spawn("powerMenu") end,
-			{ description = "Window control mode", group = "Main" }
+			{ description = "Power Menu", group = "Main" }
 		},
 		{
 			{ env.mod, "Shift" }, "r", awesome.restart,
@@ -463,7 +463,7 @@ function hotkeys:init(args)
 					tag:view_only()
 				end
 			end,
-			{ description = "WPP", group = "Main" }
+			{ description = "Whatsapp", group = "Main" }
 		},
 		{
 			{ env.mod }, "l", focus_switch_byd("right"),
@@ -498,6 +498,14 @@ function hotkeys:init(args)
 			{ env.mod }, "r", function() apprunner:show() end,
 			{ description = "Application launcher", group = "Widgets" }
 		},
+		{
+			{ env.mod  }, "b", function() awful.util.spawn_with_shell("tabbed -c surf -e") end,
+			{ description = "Browser", group = "Programs" }
+		},
+		-- {
+		-- 	{ env.mod  }, "b", function() awful.util.spawn_with_shell("tabbed -c surf -e") end,
+		-- 	{ description = "Browser", group = "Programs" }
+		-- },
 		{
 			{ env.mod  }, "p", function() awful.util.spawn_with_shell("$SCRIPTSFOLDER/multimonitor") end,
 			{ description = "Show the prompt box", group = "Widgets" }

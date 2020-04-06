@@ -127,6 +127,18 @@ then
     sudo update-alternatives --install /usr/bin/qutebrowser x-www-browser ~/bin/qutebrowser 300
 fi
 
+# custom install surf
+if [[ $listPrograms == *"surf"* ]]
+then
+    listPrograms=${listPrograms//"surf"/}
+    git clone https://git.suckless.org/surf
+    pushd ~/git/surf/
+    sudo apt install libwebkit2gtk-4.0-dev libgstreamer1.0-dev libgcr-3-dev libgstreamer-plugins-good1.0-dev gstreamer1.0-libab
+    sudo make clean install
+    popd
+    sudo update-alternatives --install /usr/bin/x-www-browser x-www-browser ~/bin/qutebrowser 300
+    sudo update-alternatives --install /usr/bin/qutebrowser x-www-browser ~/bin/qutebrowser 300
+fi
 
 
 # custom install polybar

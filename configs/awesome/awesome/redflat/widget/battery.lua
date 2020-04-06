@@ -32,7 +32,7 @@ local function default_style()
 	return redutil.table.merge(style, redutil.table.check(beautiful, "widget.battery") or {})
 end
 
--- Support fucntions
+-- Support functions
 -----------------------------------------------------------------------------------------------------------------------
 local get_level = function(value, line)
 	for _, v in ipairs(line) do
