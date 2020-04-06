@@ -499,6 +499,10 @@ function hotkeys:init(args)
 			{ description = "Application launcher", group = "Widgets" }
 		},
 		{
+			{ env.mod  }, "e", function() awful.util.spawn("emacs") end,
+			{ description = "Emacs", group = "Programs" }
+		},
+		{
 			{ env.mod  }, "b", function() awful.util.spawn_with_shell("tabbed -c surf -e") end,
 			{ description = "Browser", group = "Programs" }
 		},
