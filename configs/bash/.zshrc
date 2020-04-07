@@ -95,6 +95,7 @@ MODE_CURSOR_SEARCH="#ff00ff steady underline"
 
 bindkey '^[m' ncmpcppShow
 bindkey '^[r' rangerShow
+bindkey -s '^[l' 'lfcd\n'
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=3"
 
 
