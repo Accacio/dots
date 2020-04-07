@@ -41,7 +41,7 @@
   (org-open-link-from-string (format "[[notes:%s]]" (first (reftex-citation t)))))
 
 (setq org-link-abbrev-alist
-      '(("bib" . "~/docsThese/latex/src/bibliography.bib::%s")
+      '(("bib" . "~/docsThese/docs/memoire/bibliography.bib::%s")
 ("notes" . "~/research/org/notes.org::#%s")
 ("papers" . "~/these/leitura/artigos/%s.pdf")))
 
