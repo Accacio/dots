@@ -14,7 +14,7 @@
         TeX-run-TeX nil (latex-mode doctex-mode) :help "Run LaTeX shell escaped")
       )
      ))
-
+(setq org-columns-default-format "%50ITEM(Task) %10CLOCKSUM %16TIMESTAMP_IA")
 (defun org-mode-reftex-setup ()
   (load-library "reftex")
   (and (buffer-file-name) (file-exists-p (buffer-file-name))
