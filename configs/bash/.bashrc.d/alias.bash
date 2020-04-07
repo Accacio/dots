@@ -185,3 +185,5 @@ function lfcd {
   cd `cat ~/.config/lf/lastdir`
 }
 alias lf=lfcd
+alias passBKP="tar cfz  pass.tgz .password-store;rclone copy pass.tgz dbox:AccDoc/;rm pass.tgz"
+alias passRestore="rclone copy dbox:AccDoc/pass.tgz .;tar xfz pass.tgz;rm pass.tgz"
