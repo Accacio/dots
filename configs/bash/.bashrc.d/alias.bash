@@ -179,3 +179,5 @@ function pronunc {
 alias pronuncfr="pronunc fra"
 alias pronuncen="pronunc eng"
 alias pronuncde="pronunc de"
+alias passBKP="tar cfz  pass.tgz .password-store;rclone copy pass.tgz dbox:AccDoc/;rm pass.tgz"
+alias passRestore="rclone copy dbox:AccDoc/pass.tgz .;tar xfz pass.tgz;rm pass.tgz"
