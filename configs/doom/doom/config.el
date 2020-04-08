@@ -350,6 +350,10 @@ and value is its relative level, as an integer."
 (map! :leader
       (:prefix-map ("t" . "toggle")
         :desc "Transparency"                 "T" 'toggle-transparency))
+(add-hook
+     'after-save-hook
+     'executable-make-buffer-file-executable-if-script-p)
+
 ;; highlight word
 (use-package! idle-highlight-mode
   :config
