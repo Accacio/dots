@@ -325,3 +325,18 @@ and value is its relative level, as an integer."
     (setq org-ref-default-bibliography '("~/docsThese/docs/memoire/bibliography.bib")
       org-ref-pdf-directory "~/these/leitura/bibliography/")
     )
+(defun toggle-transparency ()
+   (interactive)
+   (let ((alpha (frame-parameter nil 'alpha)))
+     (set-frame-parameter
+      nil 'alpha
+      (if (eql (cond ((numberp alpha) alpha)
+                     ((numberp (cdr alpha)) (cdr alpha))
+                     ;; Also handle undocumented (<active> <inactive>) form.
+                     ((numberp (cadr alpha)) (cadr alpha)))
+               100)
+          '(85 . 50) '(100 . 100)))))
+(toggle-transparency)
+(map! :leader
+      (:prefix-map ("t" . "toggle")
+        :desc "Transparency"                 "T" 'toggle-transparency))
