@@ -350,6 +350,7 @@ and value is its relative level, as an integer."
 (map! :leader
       (:prefix-map ("t" . "toggle")
         :desc "Transparency"                 "T" 'toggle-transparency))
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
 (add-hook
      'after-save-hook
      'executable-make-buffer-file-executable-if-script-p)
