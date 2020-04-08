@@ -56,7 +56,8 @@
 
 (display-battery-mode)
 (setq org-latex-listings 'minted)
-
+(remove-hook 'prog-mode-hook 'hl-line-mode)
+(add-hook 'prog-mode-hook 'rainbow-mode t)
 (setq org-latex-pdf-process (list "latexmk -outdir=`dirname %f` -auxdir=`dirname %f` -pdflatex='pdflatex -output-directory=`dirname %f` -shell-escape -interaction nonstopmode' -pdf -f %f"))
 (add-to-list 'org-latex-minted-langs '(ipython "python"))
 (setq org-babel-python-command "python3")
