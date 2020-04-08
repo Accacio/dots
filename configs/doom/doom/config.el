@@ -350,6 +350,14 @@ and value is its relative level, as an integer."
 (map! :leader
       (:prefix-map ("t" . "toggle")
         :desc "Transparency"                 "T" 'toggle-transparency))
+;; highlight word
+(use-package! idle-highlight-mode
+  :config
+  (progn  (add-hook 'prog-mode-hook (lambda () (idle-highlight-mode t)))
+          (set-face-background 'idle-highlight "#252")
+          (set-face-foreground 'idle-highlight "#fafafa")
+          ))
+
 (let ((langs '("american" "fr_FR" "pt_BR")))
       (setq lang-ring (make-ring (length langs)))
       (dolist (elem langs) (ring-insert lang-ring elem)))
