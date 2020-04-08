@@ -326,6 +326,15 @@ and value is its relative level, as an integer."
     (setq org-ref-default-bibliography '("~/docsThese/docs/memoire/bibliography.bib")
       org-ref-pdf-directory "~/these/leitura/bibliography/")
     )
+
+(global-set-key (kbd "<f5>") 'revert-buffer)
+(setq frame-title-format "%b")
+(global-prettify-symbols-mode t)
+(setq truncate-lines t)
+(setq auto-hscroll-mode 'current-line)
+
+(add-to-list 'auto-mode-alist '("mutt" . mail-mode))
+
 (defun toggle-transparency ()
    (interactive)
    (let ((alpha (frame-parameter nil 'alpha)))
