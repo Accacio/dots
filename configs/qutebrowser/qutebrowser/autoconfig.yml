@@ -15,6 +15,7 @@ settings:
       normal:
         gy: spawn mpv {url}
         gY: spawn sh -c "echo {url} >> $HOME/.config/mpv/queue"
+        gp: spawn passmenu
   colors.tabs.pinned.even.bg:
     global: darkgrey
   colors.tabs.pinned.odd.bg:
