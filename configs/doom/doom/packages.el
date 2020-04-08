@@ -9,6 +9,7 @@
 (package! rainbow-mode)
 (package! matlab-mode)
 
+(package! idle-highlight-mode)
 (package! org-roam
   :recipe (:host github :repo "jethrokuan/org-roam"))
 
