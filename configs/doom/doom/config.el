@@ -54,6 +54,7 @@
 (add-to-list 'org-latex-packages-alist '("" "xcolor"))
 (add-to-list 'org-latex-packages-alist '("" "geometry"))
 
+(display-battery-mode)
 (setq org-latex-listings 'minted)
 
 (setq org-latex-pdf-process (list "latexmk -outdir=`dirname %f` -auxdir=`dirname %f` -pdflatex='pdflatex -output-directory=`dirname %f` -shell-escape -interaction nonstopmode' -pdf -f %f"))
