@@ -86,6 +86,7 @@
   ;; (setq org-bullets-bullet-list '("Α" "Β"  "Γ" "Δ" "Ε" "Ζ" "Η" "Θ" "Ι" "Κ" "Λ" "Μ" "Ν" "Ξ" "Ο" "Π" "Ρ" "Σ" "Τ" "Υ" "Φ" "Χ" "Ψ" "Ω" ))
   (setq org-bullets-bullet-list '("α" "β" "γ" "δ" "ε" "ζ" "η" "θ" "ι" "κ" "λ" "μ" "ν" "ξ" "ο" "π" "ρ" "σ" "τ" "υ" "φ" "χ" "ψ" "ω"))
   (setq org-babel-octave-shell-command "octave -q")
+  (setq org-ditaa-jar-path "/usr/share/ditaa/ditaa.jar")
   (setq org-src-window-setup 'current-window
         org-return-follows-link t
         ;; org-babel-load-languages '((emacs-lisp . t)
