@@ -196,9 +196,9 @@
         )
 
 )
-
-(add-hook 'org-capture-after-finalize-hook (lambda () (org-caldav-sync)))
-(add-hook 'org-capture-after-finalize-hook (lambda () (org-caldav-sync)))
+;;TODO verificar melhor isso aqui
+;; (add-hook 'org-capture-after-finalize-hook (lambda () (org-caldav-sync)))
+;; (add-hook 'org-capture-after-finalize-hook (lambda () (org-caldav-sync)))
 
 ;; (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-post-at-point)))
 ;;https://orgmode.org/org.html#Publishing
