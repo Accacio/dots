@@ -180,6 +180,10 @@
                             ("raccacio@poli.ufrj.br" .  "~/org/agendas/poli.org")
                             ))
 )
+
+(add-hook 'org-capture-after-finalize-hook (lambda () (org-caldav-sync)))
+(add-hook 'org-capture-after-finalize-hook (lambda () (org-caldav-sync)))
+
 ;; (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-post-at-point)))
 ;;https://orgmode.org/org.html#Publishing
 ;;https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html
@@ -423,3 +427,20 @@ and value is its relative level, as an integer."
   )
 
   )
+(setq org-caldav-calendars
+      '(
+        (:calendar-id "raccacio2@gmail.com"
+                      :url google
+                      :caldav-oauth2-client-id "998718790900-83pekdvg3h198chhn46n7dsdqdb44cgv.apps.googleusercontent.com"
+                      :caldav-oauth2-client-secret (shell-command-to-string "pass show agenda/gmail")
+                      :inbox "~/org/fromGmail.org")
+        (:calendar-id "raccacio@poli.ufrj.br"
+                      :url google
+                      :caldav-oauth2-client-id "998718790900-83pekdvg3h198chhn46n7dsdqdb44cgv.apps.googleusercontent.com"
+                      :caldav-oauth2-client-secret (shell-command-to-string "pass show agenda/gmail")
+                      :inbox "~/org/fromPoli.org")
+        (:calendar-id "nogueirar/Calendar/personal/"
+                      :url "https://sogo.supelec.fr/SOGo/dav/"
+                      :inbox "~/org/fromSupelec.org")
+        )
+      )

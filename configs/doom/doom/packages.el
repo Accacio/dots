@@ -8,6 +8,8 @@
 (package! org-brain)
 (package! rainbow-mode)
 (package! matlab-mode)
+(package! org-caldav)
+(package! Oauth2)
 
 (package! idle-highlight-mode)
 (package! org-roam
