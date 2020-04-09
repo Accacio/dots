@@ -161,24 +161,39 @@
 
 ;; Actually start using templates
 (after! org-capture
-  ;; Firefox
-  (add-to-list 'org-capture-templates
-               '("e" "Evelise" entry
-                 (file+headline "~/org/Eve.org" "Inbox")
-                 "** TODO %?\n%i%a "
-                 :kill-buffer t)
-               '("a" "Agenda" entry
-                 (file "~/org/agendas/poli.org")
-                 "* %?\n :PROPERTIES:\n :calendar-id: raccacio@poli.ufrj.br\n :END:\n:org-gcal:\n%^T%^T\n:END:\n"
-                 :kill-buffer t))
-)
+  (setq org-capture-templates
+        (append
+                '(
+                  ("a" "Agenda")
+                  ("aa" "All Day")
+                  ("aas" "Supelec" entry (file "~/org/fromSupelec.org")
+                   "* %?\n %^t\n"
+                   :kill-buffer t)
+                  ("aap" "Poli" entry (file "~/org/fromPoli.org")
+                   "* %?\n %^t\n"
+                   :kill-buffer t)
+                  ("aag" "Gmail" entry (file "~/org/fromGmail.org")
+                   "* %?\n %^t\n"
+                   :kill-buffer t)
 
-(after! org-gcal
-(setq org-gcal-client-id "729511610034-5jtaq9tnd4cu8b6jec6klr9rskljqmq2.apps.googleusercontent.com"
-      org-gcal-client-secret "bvQ-_ofRzkY_obFi02k1IeXs"
-      org-gcal-file-alist '(
-                            ("raccacio@poli.ufrj.br" .  "~/org/agendas/poli.org")
-                            ))
+                  ("as" "Scheduled")
+                  ("ass" "Supelec" entry (file "~/org/fromSupelec.org")
+                   "* %?\n %^T--%^T\n"
+                   :kill-buffer t)
+                  ("asp" "Poli" entry (file "~/org/fromPoli.org")
+                   "* %?\n %^T--%^T\n"
+                   :kill-buffer t)
+                  ("asg" "Gmail" entry (file "~/org/fromGmail.org")
+                   "* %?\n %^T--%^T\n"
+                   :kill-buffer t)
+
+                  ("e" "Evelise" entry (file+headline "~/org/Eve.org" "Inbox")
+                   "** TODO %?\n%i%a "
+                   :kill-buffer t)
+                  )
+                org-capture-templates)
+        )
+
 )
 
 (add-hook 'org-capture-after-finalize-hook (lambda () (org-caldav-sync)))
