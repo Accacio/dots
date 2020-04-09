@@ -375,3 +375,47 @@ and value is its relative level, as an integer."
         (ispell-change-dictionary lang)))
 
 (global-set-key [f6] 'cycle-ispell-languages)
+
+(use-package! org
+:config
+
+(setq +pretty-code-symbols
+  '(;; org
+    :html  ""
+    :author ""
+    :title ""
+    :mail ""
+    :noweb ""
+    :language ""
+    :options ""
+    :tex      ""
+    :matlab ""
+    :octave ""
+    :python ""
+    ;; :emacs ""
+    ) )
+
+(set-pretty-symbols! 'org-mode
+  :def "function"
+  :html "#+HTML:"
+  :title "#+title:"
+  :title "#+TITLE:"
+  :author "#+author:"
+  :noweb ":noweb yes"
+  :mail "#+email:"
+  :mail "#+EMAIL:"
+  :author "#+AUTHOR:"
+  :options "#+OPTIONS:"
+  :author"#+author:"
+  :language "#+LANGUAGE:"
+  :language "#+language:"
+  :tex "#+LaTeX:"
+  :tex "latex:"
+  :tex "#+LaTeX_HEADER:"
+  :matlab "matlab"
+  :matlab "octave"
+  :python "python"
+  ;; :emacs "emacs-lisp"
+  )
+
+  )
