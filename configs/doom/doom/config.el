@@ -163,6 +163,10 @@
 (after! org-capture
   ;; Firefox
   (add-to-list 'org-capture-templates
+               '("e" "Evelise" entry
+                 (file+headline "~/org/Eve.org" "Inbox")
+                 "** TODO %?\n%i%a "
+                 :kill-buffer t)
                '("a" "Agenda" entry
                  (file "~/org/agendas/poli.org")
                  "* %?\n :PROPERTIES:\n :calendar-id: raccacio@poli.ufrj.br\n :END:\n:org-gcal:\n%^T%^T\n:END:\n"
