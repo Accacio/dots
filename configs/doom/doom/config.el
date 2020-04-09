@@ -426,21 +426,25 @@ and value is its relative level, as an integer."
   ;; :emacs "emacs-lisp"
   )
 
-  )
+)
+
 (setq org-caldav-calendars
-      '(
-        (:calendar-id "raccacio2@gmail.com"
-                      :url google
-                      :caldav-oauth2-client-id "998718790900-83pekdvg3h198chhn46n7dsdqdb44cgv.apps.googleusercontent.com"
-                      :caldav-oauth2-client-secret (shell-command-to-string "pass show agenda/gmail")
-                      :inbox "~/org/fromGmail.org")
-        (:calendar-id "raccacio@poli.ufrj.br"
-                      :url google
-                      :caldav-oauth2-client-id "998718790900-83pekdvg3h198chhn46n7dsdqdb44cgv.apps.googleusercontent.com"
-                      :caldav-oauth2-client-secret (shell-command-to-string "pass show agenda/gmail")
-                      :inbox "~/org/fromPoli.org")
-        (:calendar-id "nogueirar/Calendar/personal/"
-                      :url "https://sogo.supelec.fr/SOGo/dav/"
-                      :inbox "~/org/fromSupelec.org")
-        )
+      (list
+       (list :calendar-id "raccacio2@gmail.com"
+             :url 'google
+             :caldav-oauth2-client-id "998718790900-83pekdvg3h198chhn46n7dsdqdb44cgv.apps.googleusercontent.com"
+             :caldav-oauth2-client-secret (substring (shell-command-to-string "pass show agenda/gmail") 0 -1)
+             :inbox "~/org/fromGmail.org"
+             )
+       (list :calendar-id "raccacio@poli.ufrj.br"
+             :url 'google
+             :caldav-oauth2-client-id "998718790900-83pekdvg3h198chhn46n7dsdqdb44cgv.apps.googleusercontent.com"
+             :caldav-oauth2-client-secret (substring (shell-command-to-string "pass show agenda/gmail") 0 -1)
+             :inbox "~/org/fromPoli.org"
+             )
+       (list :calendar-id "nogueirar/Calendar/personal/"
+             :url "https://sogo.supelec.fr/SOGo/dav/"
+             :inbox "~/org/fromSupelec.org"
+             )
+       )
       )
