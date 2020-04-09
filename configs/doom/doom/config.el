@@ -463,3 +463,14 @@ and value is its relative level, as an integer."
              )
        )
       )
+
+(setq org-agenda-files
+      (list
+       "~/org/Eve.org"
+       "~/org/todo.org"
+       "~/org/todo_these.org"
+       "~/org/fromPoli.org"
+       "~/org/fromGmail.org"
+       "~/org/fromSupelec.org"
+       )
+      )
