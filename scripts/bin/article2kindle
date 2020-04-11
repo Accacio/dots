@@ -7,7 +7,10 @@ cd $outDir
 mkdir -p OEBPS/Images OEBPS/Text META-INF
 
 # convert $1 OEBPS/Images/page.jpg
-convert -density 300 $1 OEBPS/Images/page.jpg
+convert -density 200 $1 -sampling-factor 4:2:0 -strip -quality 85 -interlace JPEG -colorspace RGB OEBPS/Images/page.jpg
+
+convert -density 300 OEBPS/Images/page-0.jpg OEBPS/Images/cover.jpg
+# cp ../cover.jpg OEBPS/Images/cover.jpg
 
 echo -e "application/epub+zip\c"> mimetype
 echo -e "<?xml version=\"1.0\"?>
@@ -17,7 +20,7 @@ echo -e "<?xml version=\"1.0\"?>
 </rootfiles>
 </container>\c"> META-INF/container.xml
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<ncx version=\"2005-1\" xml:lang=\"en-US\" xmlns=\"http://www.daisy.org/z3986/2005/ncx/\">
+<ncx version=\"2005-1\" xml:lang=\"eng\" xmlns=\"http://www.daisy.org/z3986/2005/ncx/\">
 <head>
 <meta name=\"dtb:uid\" content=\"urn:uuid:$(cat /proc/sys/kernel/random/uuid)\"/>
 <meta name=\"dtb:depth\" content=\"1\"/>
@@ -27,7 +30,7 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 </head>
 <docTitle><text>forteb</text></docTitle>
 <navMap>
-<navPoint id=\"Text\"><navLabel><text>forteb</text></navLabel><content src=\"Text/"$(find OEBPS/Images/*  -printf "%f\n" | sed 1q | sed "s/.jpg//")".xhtml\"/></navPoint>
+<navPoint id=\"Text\"><navLabel><text>forteb</text></navLabel><content src=\"Text/"$(find OEBPS/Images/page*  -printf "%f\n" | sed 1q | sed "s/.jpg//")".xhtml\"/></navPoint>
 </navMap>
 </ncx>\c" > OEBPS/toc.ncx
 echo -e "<?xml version=\"1.0\" encoding=\"utf-8\"?>
@@ -38,14 +41,9 @@ echo -e "<?xml version=\"1.0\" encoding=\"utf-8\"?>
 <meta charset=\"utf-8\"/>
 </head>
 <body>
-<nav xmlns:epub=\"http://www.idpf.org/2007/ops\" epub:type=\"toc\" id=\"toc\">
-<ol>
-<li><a href=\"Text/$(find OEBPS/Images/*  -printf "%f\n" | sed 1q | sed "s/.jpg//").xhtml\">forteb</a></li>
-</ol>
-</nav>
 <nav epub:type=\"page-list\">
 <ol>
-<li><a href=\"Text/$(find OEBPS/Images/*  -printf "%f\n" | sed 1q | sed "s/.jpg//").xhtml\">forteb</a></li>
+<li><a href=\"Text/$(find OEBPS/Images/page*  -printf "%f\n" | sed 1q | sed "s/.jpg//").xhtml\">forteb</a></li>
 </ol>
 </nav>
 </body>
@@ -55,14 +53,14 @@ echo -e "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <package version=\"3.0\" unique-identifier=\"BookID\" xmlns=\"http://www.idpf.org/2007/opf\">
 <metadata xmlns:opf=\"http://www.idpf.org/2007/opf\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\">
 <dc:title>"$(pdfinfo $1 | grep Title | sed -e "s/:\ */:/g"| cut -d":" -f 2)"</dc:title>
-<dc:language>en-US</dc:language>
+<dc:language>eng</dc:language>
 <dc:identifier id=\"BookID\">urn:uuid:5adbc57e-fbc6-4e22-99a5-9b05881084b8</dc:identifier>
 <dc:contributor id=\"contributor\">Accacio</dc:contributor>
-<dc:creator>Accacio</dc:creator>
+<dc:creator>$(pdfinfo $1 | grep Author | sed -e "s/:\ */:/g"| cut -d":" -f 2)</dc:creator>
 <meta property=\"dcterms:modified\">\" $(date +%FT%XZ) \"</meta>
 <meta name=\"cover\" content=\"cover\"/>
 <meta name=\"fixed-layout\" content=\"true\"/>
-<meta name=\"original-resolution\" content=\"1264x1680\"/>
+<meta name=\"original-resolution\" content=\"1200x1600\"/>
 <meta name=\"book-type\" content=\"comic\"/>
 <meta name=\"primary-writing-mode\" content=\"vertical-lr\"/>
 <meta name=\"zero-gutter\" content=\"true\"/>
@@ -75,16 +73,21 @@ echo -e "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <manifest>
 <item id=\"ncx\" href=\"toc.ncx\" media-type=\"application/x-dtbncx+xml\"/>
 <item id=\"nav\" href=\"nav.xhtml\" properties=\"nav\" media-type=\"application/xhtml+xml\"/>
-$(find OEBPS/Images/*  -printf "%f\n" | sed 1q | awk '{print "<item id=" "\x22" "cover" "\x22" " href=" "\x22" "Images/" $1 "\x22" " media-type=" "\x22" "image/jpeg" "\x22" " properties=" "\x22" "cover-image"  "\x22"  "/>"}' )
-$(find OEBPS/Images/*  -printf "%f\n" | awk '{print "<item id=" "\x22" "image_" $1 "\x22" " href=" "\x22" "Images/" $1 "\x22" " media-type=" "\x22" "image/jpeg" "\x22" "/>"}' | sed "s/.jpg//")
-$(find OEBPS/Images/*  -printf "%f\n" | awk '{print "<item id=" "\x22" "page_" $1 "\x22" " href=" "\x22" "Text/" $1 ".xhtml\x22  media-type=" "\x22" "application/xhtml+xml" "\x22" "/>"}' | sed "s/.jpg//g")
+<item id=\"cover\" href=\"Images/cover.jpg\" media-type=\"image/jpeg\" properties=\"cover-image\"/>
+<item id=\"titlepage\" href=\"Text/titlepage.xhtml\" properties=\"title-page\" media-type=\"application/xhtml+xml\"/>
+$(find OEBPS/Images/page*  -printf "%f\n" | awk '{print "<item id=" "\x22" "image_" $1 "\x22" " href=" "\x22" "Images/" $1 "\x22" " media-type=" "\x22" "image/jpeg" "\x22" "/>"}' | sed "s/.jpg//")
+$(find OEBPS/Images/page*  -printf "%f\n" | awk '{print "<item id=" "\x22" "page_" $1 "\x22" " href=" "\x22" "Text/" $1 ".xhtml\x22  media-type=" "\x22" "application/xhtml+xml" "\x22" "/>"}' | sed "s/.jpg//g")
 <item id=\"css\" href=\"Text/style.css\" media-type=\"text/css\"/>
 </manifest>
 <spine page-progression-direction=\"ltr\" toc=\"ncx\">
-$(find OEBPS/Images/*  -printf "%f\n" | awk '{print "<itemref idref=" "\x22" "page_" $1 "\x22" " linear=" "\x22" "yes" "\x22" " properties=" "\x22" "page-spread-center" "\x22" "/>"}' | sed "s/.jpg//")
+<itemref idref=\"titlepage\"/>
+$(find OEBPS/Images/page*  -printf "%f\n" | awk '{print "<itemref idref=" "\x22" "page_" $1 "\x22" " linear=" "\x22" "yes" "\x22" " properties=" "\x22" "page-spread-center" "\x22" "/>"}' | sed "s/.jpg//")
 </spine>
+<guide>
+</guide>
 </package>\c" > OEBPS/content.opf
 
+ # <reference href=\"Text/titlepage.xhtml\" title=\"Cover\" type=\"cover\"/>
 echo -e "@page {
 margin: 0;
 }
@@ -158,7 +161,31 @@ position: absolute;
 display: none;
 }\c" > OEBPS/Text/style.css
 
-for i in $(find OEBPS/Images/*  -printf "%f\n")
+
+
+echo -e "<?xml version=\"1.0\" encoding=\"utf-8\"?>
+<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">
+    <head>
+        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>
+        <meta name=\"calibre:cover\" content=\"true\"/>
+        <title>Cover</title>
+        <style type=\"text/css\" title=\"override_css\">
+            @page {padding: 0pt; margin:0pt}
+            body { text-align: center; padding:0pt; margin: 0pt; }
+        </style>
+    </head>
+    <body>
+        <div>
+            <svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\" width=\"100%\" height=\"100%\" viewBox=\"0 0 1030 1334\" preserveAspectRatio=\"none\">
+                <image width=\"1030\" height=\"1334\" xlink:href=\"../Images/cover.jpg\"/>
+            </svg>
+        </div>
+    </body>
+</html>" > OEBPS/Text/titlepage.xhtml
+
+
+
+for i in $(find OEBPS/Images/page*  -printf "%f\n")
 do
 echo -e "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <!DOCTYPE html>
@@ -170,33 +197,33 @@ echo -e "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 </head>
 <body style=\"\">
 <div style=\"text-align:center;top:0.0%;\">
-<img width=\"1165\" height=\"1680\" src=\"../Images/"$i"\"/>
+<img  src=\"../Images/"$i"\"/>
 </div>
 <div id=\"PV\">
 <div id=\"PV-TL\">
 <a style=\"display:inline-block;width:100%;height:100%;\" class=\"app-amzn-magnify\" data-app-amzn-magnify='{\"targetId\":\"PV-TL-P\", \"ordinal\":1}'></a>
 </div>
-<div id=\"PV-BL\">
-<a style=\"display:inline-block;width:100%;height:100%;\" class=\"app-amzn-magnify\" data-app-amzn-magnify='{\"targetId\":\"PV-BL-P\", \"ordinal\":2}'></a>
-</div>
 <div id=\"PV-TR\">
 <a style=\"display:inline-block;width:100%;height:100%;\" class=\"app-amzn-magnify\" data-app-amzn-magnify='{\"targetId\":\"PV-TR-P\", \"ordinal\":3}'></a>
+</div>
+<div id=\"PV-BL\">
+<a style=\"display:inline-block;width:100%;height:100%;\" class=\"app-amzn-magnify\" data-app-amzn-magnify='{\"targetId\":\"PV-BL-P\", \"ordinal\":2}'></a>
 </div>
 <div id=\"PV-BR\">
 <a style=\"display:inline-block;width:100%;height:100%;\" class=\"app-amzn-magnify\" data-app-amzn-magnify='{\"targetId\":\"PV-BR-P\", \"ordinal\":4}'></a>
 </div>
 </div>
 <div class=\"PV-P\" id=\"PV-TL-P\" style=\"\">
-<img style=\"position:absolute;left:0;top:0;\" src=\"../Images/"$i"\" width=\"1747\" height=\"2520\"/>
-</div>
-<div class=\"PV-P\" id=\"PV-BL-P\" style=\"\">
-<img style=\"position:absolute;left:0;bottom:0;\" src=\"../Images/"$i"\" width=\"1747\" height=\"2520\"/>
+<img style=\"position:absolute;left:0;top:0;\" src=\"../Images/"$i"\" />
 </div>
 <div class=\"PV-P\" id=\"PV-TR-P\" style=\"\">
-<img style=\"position:absolute;right:0;top:0;\" src=\"../Images/"$i"\" width=\"1747\" height=\"2520\"/>
+<img style=\"position:absolute;right:0;top:0;\" src=\"../Images/"$i"\" />
+</div>
+<div class=\"PV-P\" id=\"PV-BL-P\" style=\"\">
+<img style=\"position:absolute;left:0;bottom:0;\" src=\"../Images/"$i"\" />
 </div>
 <div class=\"PV-P\" id=\"PV-BR-P\" style=\"\">
-<img style=\"position:absolute;right:0;bottom:0;\" src=\"../Images/"$i"\" width=\"1747\" height=\"2520\"/>
+<img style=\"position:absolute;right:0;bottom:0;\" src=\"../Images/"$i"\" />
 </div>
 </body>
 </html>\c" > OEBPS/Text/${i/.jpg/.xhtml}
@@ -206,4 +233,4 @@ zip -X0 ../${1/.pdf}.epub "mimetype"
 zip -Xr ../${1/.pdf}.epub META-INF/ OEBPS
 cd ..
 # rm -rf ${1/.pdf}
-kindlegen -c2 ${1/.pdf/.epub}
+kindlegen ${1/.pdf/.epub}
