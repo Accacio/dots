@@ -5,3 +5,5 @@ Repository for my "." files (.bash, .config and etc)
     - xdotool (mouse position and others)
     - feh (wallpaper)
     - mpv (pip videos)
+    - scrot
+    - sct

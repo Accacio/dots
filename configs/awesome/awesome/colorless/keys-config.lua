@@ -335,11 +335,27 @@ function hotkeys:init(args)
 			{ }
 		},
 		{
-			{ }, "Print", function() awful.util.spawn_with_shell("sleep 0.5;scrot -s foo.png && xclip -selection c -t image/png foo.png && rm foo.png") end,
+			{ }, "Print", function() awful.util.spawn_with_shell("sleep 0.5;scrot -s '%Y%m%d_%H%M_$wx$h.png' -e 'xclip -selection c -t image/png $f && rm $f'") end,
 			{ description = "ScreenShot", group = "Main" }
 		},
 		{
-			{ }, "Print", function() awful.util.spawn_with_shell("sleep 0.5;scrot -s foo.png && xclip -selection c -t image/png foo.png && rm foo.png") end,
+			{ "Shift" }, "Print", function() awful.util.spawn_with_shell("sleep 0.5;scrot -s '%Y%m%d_%H%M_$wx$h.png' -e 'xclip -selection c -t image/png $f && mv $f ~/Downloads/lixo/'") end,
+			{ description = "ScreenShot", group = "Main" }
+		},
+		{
+			{ env.mod }, "Print", function() awful.util.spawn_with_shell("sleep 0.5;scrot  '%Y%m%d_%H%M_$wx$h.png' -e 'xclip -selection c -t image/png $f && rm $f'") end,
+			{ description = "ScreenShot", group = "Main" }
+		},
+		{
+			{ env.mod , "Shift" }, "Print", function() awful.util.spawn_with_shell("sleep 0.5;scrot '%Y%m%d_%H%M_$wx$h.png' -e 'xclip -selection c -t image/png $f && mv $f ~/Downloads/lixo/'") end,
+			{ description = "ScreenShot", group = "Main" }
+		},
+		{
+			{ "Control" }, "Print", function() awful.util.spawn_with_shell("sleep 0.5;scrot -u '%Y%m%d_%H%M_$wx$h.png' -e 'xclip -selection c -t image/png $f && rm $f'") end,
+			{ description = "ScreenShot", group = "Main" }
+		},
+		{
+			{ "Control", "Shift" }, "Print", function() awful.util.spawn_with_shell("sleep 0.5;scrot -u '%Y%m%d_%H%M_$wx$h.png' -e 'xclip -selection c -t image/png $f && mv $f ~/Downloads/lixo/'") end,
 			{ description = "ScreenShot", group = "Main" }
 		},
 		{
