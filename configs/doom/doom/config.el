@@ -132,7 +132,12 @@
   )
 (if (display-graphic-p)
     ()
-  (load-theme 'doom-spacegrey t))
+  (load-theme 'doom-spacegrey t)
+  )
+
+(doom-themes-visual-bell-config)
+(doom-themes-neotree-config)
+(doom-themes-org-config)
 (set 'global-linum-mode 1)
 (setq display-line-numbers-type 'relative)
 
