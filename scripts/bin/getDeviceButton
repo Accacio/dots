@@ -1,0 +1,13 @@
+#!/bin/bash
+# from https://unix.stackexchange.com/questions/48505/how-to-make-sure-only-one-instance-of-a-bash-script-runs
+# from https://stackoverflow.com/questions/1652680/how-to-get-the-pid-of-a-process-that-is-piped-to-another-process-in-bash
+# get pid to file descriptor 3 and then use it to kill
+(xinput test "$1" & echo $! >&3) 3>pid | while read line
+do
+if [ "$(echo $line |grep "button press")" != "" ]
+then
+echo $line | cut -d" " -f 3
+kill $(<pid)
+break
+fi
+done

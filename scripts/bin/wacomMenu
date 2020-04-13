@@ -1,0 +1,32 @@
+#!/bin/bash
+
+me="$(basename "$0")";
+running=$(ps h -C "$me" | grep -wv $$ | wc -l);
+[[ $running > 1 ]] && exit;
+
+notify-send "Begin WacomMenu"
+while true
+do
+button=$(getDeviceButton "Wacom Intuos PT S 2 Pad pad")
+case $button in
+    3|25)
+        echo pew
+        notify-send "apertou 3"
+        exit
+        ;;
+    8|22)
+        echo bam
+        notify-send "apertou 4"
+        exit
+        ;;
+    9|23)
+        echo hello
+        notify-send "apertou 9"
+        exit
+        ;;
+
+    *)
+        notify-send "not Valid"
+        ;;
+esac
+done
