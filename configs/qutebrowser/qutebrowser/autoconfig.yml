@@ -13,9 +13,9 @@ settings:
   bindings.commands:
     global:
       normal:
-        gy: spawn mpv {url}
         gY: spawn sh -c "echo {url} >> $HOME/.config/mpv/queue"
         gp: spawn passmenu
+        gy: spawn mpv {url}
   colors.tabs.pinned.even.bg:
     global: darkgrey
   colors.tabs.pinned.odd.bg:
@@ -38,6 +38,11 @@ settings:
   content.notifications:
     https://www.reddit.com: false
     https://www.youtube.com: false
+  content.pdfjs:
+    global: true
+  content.register_protocol_handler:
+    https://calendar.google.com?cid=%25s: false
+    https://sogo.supelec.fr#!/Mail/0/INBOX/new?%25s: false
   editor.command:
     global:
     - emacs
