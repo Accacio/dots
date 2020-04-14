@@ -81,7 +81,29 @@
  ;; (setq matlab-indent-function t)
 (after! org
   ;; (setq matlab-shell-command "matlab -noFigureWindows")
+  (setq org-babel-octave-shell-command "octave -q ")
   ;; (setq org-babel-octave-shell-command "octave -q -W")
+  (setq org-babel-matlab-shell-command "matlab -nosplash -nodisplay -nodesktop -nojvm")
+
+(defun org-babel-octave-evaluate-external-process (body result-type matlabp)
+  "Evaluate BODY in an external octave process."
+  (let ((cmd (if matlabp
+		 org-babel-matlab-shell-command
+	       org-babel-octave-shell-command)))
+    (pcase result-type
+      (`output
+(if matlabp
+		 (org-babel-eval "sed -E '1,11d;s,(>> )+$,,'" (org-babel-eval cmd body))
+	       (org-babel-eval cmd body))
+       )
+      (`value (let ((tmp-file (org-babel-temp-file "octave-")))
+	       (org-babel-eval
+		cmd
+		(format org-babel-octave-wrapper-method body
+			(org-babel-process-file-name tmp-file 'noquote)
+			(org-babel-process-file-name tmp-file 'noquote)))
+	       (org-babel-octave-import-elisp-from-file tmp-file))))))
+
   (setq org-ellipsis " ▼") ;;▼ ⤵
   ;; (setq org-bullets-bullet-list '("Α" "Β"  "Γ" "Δ" "Ε" "Ζ" "Η" "Θ" "Ι" "Κ" "Λ" "Μ" "Ν" "Ξ" "Ο" "Π" "Ρ" "Σ" "Τ" "Υ" "Φ" "Χ" "Ψ" "Ω" ))
   (setq org-bullets-bullet-list '("α" "β" "γ" "δ" "ε" "ζ" "η" "θ" "ι" "κ" "λ" "μ" "ν" "ξ" "ο" "π" "ρ" "σ" "τ" "υ" "φ" "χ" "ψ" "ω"))
