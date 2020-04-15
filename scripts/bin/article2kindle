@@ -1,17 +1,25 @@
 #!/bin/bash
-
+me=$(basename $0)
 outDir=${1/.pdf}
+[ -f "$outDir.mobi" ] && [ ! "$2" = "-f" ] && echo -e "$outDir.mobi already exists. In order to regenerate (and overwrite) it use: $me $1 -f" && exit
+pages=$(pdfinfo $1 | grep Pages | sed -e "s/:\ */:/g"| cut -d":" -f 2)
+[ $pages -gt 50 ] && [ ! "$2" = "-f" ] && echo -e "$1 has more than 50 pages. In order to generate it use: $me $1 -f" && exit
 [ -d $outDir ] || mkdir $outDir
 cp $1 $outDir
 cd $outDir
 mkdir -p OEBPS/Images OEBPS/Text META-INF
-
-# convert $1 OEBPS/Images/page.jpg
-convert -density 200 $1 -sampling-factor 4:2:0 -strip -quality 85 -interlace JPEG -colorspace RGB OEBPS/Images/page.jpg
-
+printf "converting $1:"
+printf "extracting pages: "
+# flatten
+for (( i=1; i<=$pages;i++ ))
+do
+convert -density 200 $1[$(($i-1))] -sampling-factor 4:2:0 -strip -quality 85 -interlace JPEG -colorspace RGB -flatten OEBPS/Images/page-$(($i-1)).jpg
+done
 convert -density 300 OEBPS/Images/page-0.jpg OEBPS/Images/cover.jpg
 # cp ../cover.jpg OEBPS/Images/cover.jpg
-
+printf "OK |"
+# convert $1 OEBPS/Images/page.jpg
+printf "generating files: "
 echo -e "application/epub+zip\c"> mimetype
 echo -e "<?xml version=\"1.0\"?>
 <container version=\"1.0\" xmlns=\"urn:oasis:names:tc:opendocument:xmlns:container\">
@@ -30,20 +38,20 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 </head>
 <docTitle><text>forteb</text></docTitle>
 <navMap>
-<navPoint id=\"Text\"><navLabel><text>forteb</text></navLabel><content src=\"Text/"$(find OEBPS/Images/page*  -printf "%f\n" | sed 1q | sed "s/.jpg//")".xhtml\"/></navPoint>
+<navPoint id=\"Text\"><navLabel><text>forteb</text></navLabel><content src=\"Text/"$(find OEBPS/Images/page*  -printf "%f\n" | sort -V | sed 1q | sed "s/.jpg//")".xhtml\"/></navPoint>
 </navMap>
 </ncx>\c" > OEBPS/toc.ncx
 echo -e "<?xml version=\"1.0\" encoding=\"utf-8\"?>
 <!DOCTYPE html>
 <html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:epub=\"http://www.idpf.org/2007/ops\">
 <head>
-<title>"$(pdfinfo $1 | grep Title | sed -e "s/:\ */:/g"| cut -d":" -f 2)"</title>
+<title>"$(title=$(pdfinfo $1 | grep Title | sed -e "s/:\ */:/g"| cut -d":" -f 2 | sed "s,^$,${1/.pdf},");if [ "$title" = "" ];then echo ${1/.pdf}; else echo $title;fi)"</title>
 <meta charset=\"utf-8\"/>
 </head>
 <body>
 <nav epub:type=\"page-list\">
 <ol>
-<li><a href=\"Text/$(find OEBPS/Images/page*  -printf "%f\n" | sed 1q | sed "s/.jpg//").xhtml\">forteb</a></li>
+<li><a href=\"Text/$(find OEBPS/Images/page*  -printf "%f\n" | sort -V | sed 1q | sed "s/.jpg//").xhtml\">forteb</a></li>
 </ol>
 </nav>
 </body>
@@ -52,11 +60,11 @@ echo -e "<?xml version=\"1.0\" encoding=\"utf-8\"?>
 echo -e "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <package version=\"3.0\" unique-identifier=\"BookID\" xmlns=\"http://www.idpf.org/2007/opf\">
 <metadata xmlns:opf=\"http://www.idpf.org/2007/opf\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\">
-<dc:title>"$(pdfinfo $1 | grep Title | sed -e "s/:\ */:/g"| cut -d":" -f 2)"</dc:title>
+<dc:title>"$(title=$(pdfinfo $1 | grep Title | sed -e "s/:\ */:/g"| cut -d":" -f 2 | sed "s,^$,${1/.pdf},");if [ "$title" = "" ];then echo ${1/.pdf}; else echo $title;fi)"</dc:title>
 <dc:language>eng</dc:language>
-<dc:identifier id=\"BookID\">urn:uuid:5adbc57e-fbc6-4e22-99a5-9b05881084b8</dc:identifier>
+<dc:identifier id=\"BookID\">urn:uuid:$(cat /proc/sys/kernel/random/uuid)</dc:identifier>
 <dc:contributor id=\"contributor\">Accacio</dc:contributor>
-<dc:creator>$(pdfinfo $1 | grep Author | sed -e "s/:\ */:/g"| cut -d":" -f 2)</dc:creator>
+<dc:creator>"$(author=$(pdfinfo $1 | grep Author | sed -e "s/:\ */:/g"| cut -d":" -f 2 | sed "s,^$,${1/.pdf},");if [ "$author" = "" ];then echo ${1/.pdf}; else echo $author;fi)"</dc:creator>
 <meta property=\"dcterms:modified\">\" $(date +%FT%XZ) \"</meta>
 <meta name=\"cover\" content=\"cover\"/>
 <meta name=\"fixed-layout\" content=\"true\"/>
@@ -75,13 +83,13 @@ echo -e "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <item id=\"nav\" href=\"nav.xhtml\" properties=\"nav\" media-type=\"application/xhtml+xml\"/>
 <item id=\"cover\" href=\"Images/cover.jpg\" media-type=\"image/jpeg\" properties=\"cover-image\"/>
 <item id=\"titlepage\" href=\"Text/titlepage.xhtml\" properties=\"title-page\" media-type=\"application/xhtml+xml\"/>
-$(find OEBPS/Images/page*  -printf "%f\n" | awk '{print "<item id=" "\x22" "image_" $1 "\x22" " href=" "\x22" "Images/" $1 "\x22" " media-type=" "\x22" "image/jpeg" "\x22" "/>"}' | sed "s/.jpg//")
-$(find OEBPS/Images/page*  -printf "%f\n" | awk '{print "<item id=" "\x22" "page_" $1 "\x22" " href=" "\x22" "Text/" $1 ".xhtml\x22  media-type=" "\x22" "application/xhtml+xml" "\x22" "/>"}' | sed "s/.jpg//g")
+$(find OEBPS/Images/page*  -printf "%f\n" | sort -V | awk '{print "<item id=" "\x22" "image_" $1 "\x22" " href=" "\x22" "Images/" $1 "\x22" " media-type=" "\x22" "image/jpeg" "\x22" "/>"}' | sed "s/.jpg//")
+$(find OEBPS/Images/page*  -printf "%f\n" | sort -V | awk '{print "<item id=" "\x22" "page_" $1 "\x22" " href=" "\x22" "Text/" $1 ".xhtml\x22  media-type=" "\x22" "application/xhtml+xml" "\x22" "/>"}' | sed "s/.jpg//g")
 <item id=\"css\" href=\"Text/style.css\" media-type=\"text/css\"/>
 </manifest>
 <spine page-progression-direction=\"ltr\" toc=\"ncx\">
 <itemref idref=\"titlepage\"/>
-$(find OEBPS/Images/page*  -printf "%f\n" | awk '{print "<itemref idref=" "\x22" "page_" $1 "\x22" " linear=" "\x22" "yes" "\x22" " properties=" "\x22" "page-spread-center" "\x22" "/>"}' | sed "s/.jpg//")
+$(find OEBPS/Images/page*  -printf "%f\n" | sort -V | awk '{print "<itemref idref=" "\x22" "page_" $1 "\x22" " linear=" "\x22" "yes" "\x22" " properties=" "\x22" "page-spread-center" "\x22" "/>"}' | sed "s/.jpg//")
 </spine>
 <guide>
 </guide>
@@ -185,7 +193,7 @@ echo -e "<?xml version=\"1.0\" encoding=\"utf-8\"?>
 
 
 
-for i in $(find OEBPS/Images/page*  -printf "%f\n")
+for i in $(find OEBPS/Images/page*  -printf "%f\n"| sort -V )
 do
 echo -e "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <!DOCTYPE html>
@@ -229,8 +237,17 @@ echo -e "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 </html>\c" > OEBPS/Text/${i/.jpg/.xhtml}
 done
 rm $1
-zip -X0 ../${1/.pdf}.epub "mimetype"
-zip -Xr ../${1/.pdf}.epub META-INF/ OEBPS
+printf "OK |"
+printf "creating epub: "
+# zip -X0 ../${1/.pdf}.epub "mimetype"
+# zip -Xr ../${1/.pdf}.epub META-INF/ OEBPS
+zip -X0 ../${1/.pdf}.epub "mimetype" >/dev/null 2>&1
+zip -Xr ../${1/.pdf}.epub META-INF/ OEBPS >/dev/null 2>&1
+printf "OK |"
 cd ..
 rm -rf ${1/.pdf}
-kindlegen ${1/.pdf/.epub}
+printf "generating mobi: "
+# kindlegen ${1/.pdf/.epub} -o ${1/.pdf/.mobi}
+kindlegen ${1/.pdf/.epub} -o ${1/.pdf/.mobi} >/dev/null 2>&1
+printf "OK |"
+echo "Bye :)"
