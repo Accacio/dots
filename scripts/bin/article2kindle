@@ -232,5 +232,5 @@ rm $1
 zip -X0 ../${1/.pdf}.epub "mimetype"
 zip -Xr ../${1/.pdf}.epub META-INF/ OEBPS
 cd ..
-# rm -rf ${1/.pdf}
+rm -rf ${1/.pdf}
 kindlegen ${1/.pdf/.epub}
