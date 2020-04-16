@@ -308,6 +308,15 @@ and value is its relative level, as an integer."
 
 
 )
+(use-package! typewriter
+  :init
+  :config
+  (setq typewriter-play-command "mpv --vo=null")
+  (setq typewriter-sound-default " ~/.emacs.d/.local/straight/repos/typewriter-mode/sounds/default.mp3")
+  (setq typewriter-sound-end "~/.emacs.d/.local/straight/repos/typewriter-mode/sounds/bell.mp3")
+  (setq typewriter-sound-return "~/.emacs.d/.local/straight/repos/typewriter-mode/sounds/return.mp3")
+  (setq typewriter-sound-space "~/.emacs.d/.local/straight/repos/typewriter-mode/sounds/space.mp3")
+  )
 
 ;; From Jethro
 (use-package! notmuch
@@ -369,7 +378,7 @@ and value is its relative level, as an integer."
   :config
   (org-roam-mode +1))
 
-(def-package! org-ref
+(use-package! org-ref
     :after org
     :init
     ; code to run before loading org-ref
@@ -383,8 +392,8 @@ and value is its relative level, as an integer."
 (setq frame-title-format "%b")
 (global-prettify-symbols-mode t)
 (setq truncate-lines t)
-(setq auto-hscroll-mode 'current-line)
-
+;; (setq auto-hscroll-mode 'current-line)
+(setq auto-hscroll-mode t)
 (add-to-list 'auto-mode-alist '("mutt" . mail-mode))
 
 (defun toggle-transparency ()

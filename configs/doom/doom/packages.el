@@ -10,6 +10,8 @@
 (package! matlab-mode)
 (package! org-caldav)
 (package! Oauth2)
+(package! typewriter
+  :recipe (:host github :repo "kylefeng28/typewriter-mode"))
 
 (package! idle-highlight-mode)
 (package! org-roam
