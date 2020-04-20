@@ -22,7 +22,7 @@ setxkbmap -option compose:rctrl
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 
-
+mpd
 
 notify-send "Loading Org Folder from Dropbox"
 (rclone -l copy dbox:org ~/org -P && notify-send "Finished Copying Dbox ➡ Org" )&
