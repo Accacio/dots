@@ -80,6 +80,8 @@
 
  ;; (setq matlab-indent-function t)
 (after! org
+
+  (setq org-indirect-buffer-display 'other-window)
   ;; (setq matlab-shell-command "matlab -noFigureWindows")
   (setq org-babel-octave-shell-command "octave -q ")
   ;; (setq org-babel-octave-shell-command "octave -q -W")
