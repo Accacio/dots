@@ -58,6 +58,7 @@ alias cls="printf '\ec'" \
       la='ls -Abh' \
       lals='ls -Abh --color | less' \
       clc='clear' \
+      zat='zathura' \
       lsip='ifconfig | grep "inet "' \
       gl="git ls-tree --name-only HEAD|xargs ls -dCFbh --color" \
       gll="gl -l" \
