@@ -314,10 +314,10 @@ and value is its relative level, as an integer."
   :init
   :config
   (setq typewriter-play-command "mpv --vo=null")
-  (setq typewriter-sound-default " ~/.emacs.d/.local/straight/repos/typewriter-mode/sounds/default.mp3")
+  ;; (setq typewriter-sound-default " ~/.emacs.d/.local/straight/repos/typewriter-mode/sounds/default.mp3")
   (setq typewriter-sound-end "~/.emacs.d/.local/straight/repos/typewriter-mode/sounds/bell.mp3")
-  (setq typewriter-sound-return "~/.emacs.d/.local/straight/repos/typewriter-mode/sounds/return.mp3")
-  (setq typewriter-sound-space "~/.emacs.d/.local/straight/repos/typewriter-mode/sounds/space.mp3")
+  ;; (setq typewriter-sound-return "~/.emacs.d/.local/straight/repos/typewriter-mode/sounds/return.mp3")
+  ;; (setq typewriter-sound-space "~/.emacs.d/.local/straight/repos/typewriter-mode/sounds/space.mp3")
   )
 
 ;; From Jethro
