@@ -17,6 +17,9 @@ export LD_LIBRARY_PATH=/usr/local/cuda-9.2/lib64:$LD_LIBRARY_PATH
 # Rust
 [ "$(command -v rustc)" = "" ] || export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 
+# HomeBrew
+[ "$(command -v brew)" = "" ] || eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+
 # ROS
 [ -f /opt/ros/indigo/setup.bash ] &&  . /opt/ros/indigo/setup.bash
 
