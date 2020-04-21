@@ -15,6 +15,7 @@ settings:
       normal:
         gY: spawn sh -c "echo {url} >> $HOME/.config/mpv/queue"
         gp: spawn passmenu
+        gs: open javascript:void(location.href=%22https://ezproxy.universite-paris-saclay.fr/login?url=%22+location.href)
         gy: spawn mpv {url}
         zl: spawn --userscript qute-pass
   colors.tabs.pinned.even.bg:

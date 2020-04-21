@@ -3,9 +3,9 @@ me=$(basename $0)
 outDir=${1/.pdf}
 [ -f "$outDir.mobi" ] && [ ! "$2" = "-f" ] && echo -e "$outDir.mobi already exists. In order to regenerate (and overwrite) it use: $me $1 -f" && exit
 pages=$(pdfinfo $1 | grep Pages | sed -e "s/:\ */:/g"| cut -d":" -f 2)
-[ $pages -gt 50 ] && [ ! "$2" = "-f" ] && echo -e "$1 has more than 50 pages. In order to generate it use: $me $1 -f" && exit
+[ $pages -gt 50 ] && [ ! "$2" = "-b" ] && echo -e "$1 has more than 50 pages. In order to generate it use: $me $1 -f" && exit
 [ -d $outDir ] || mkdir $outDir
-cp $1 $outDir
+cp $1 $outDir || exit
 cd $outDir
 mkdir -p OEBPS/Images OEBPS/Text META-INF
 printf "converting $1:"

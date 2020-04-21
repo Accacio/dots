@@ -80,6 +80,8 @@
 
  ;; (setq matlab-indent-function t)
 (after! org
+
+  (setq org-indirect-buffer-display 'other-window)
   ;; (setq matlab-shell-command "matlab -noFigureWindows")
   (setq org-babel-octave-shell-command "octave -q ")
   ;; (setq org-babel-octave-shell-command "octave -q -W")
@@ -312,10 +314,10 @@ and value is its relative level, as an integer."
   :init
   :config
   (setq typewriter-play-command "mpv --vo=null")
-  (setq typewriter-sound-default " ~/.emacs.d/.local/straight/repos/typewriter-mode/sounds/default.mp3")
+  ;; (setq typewriter-sound-default " ~/.emacs.d/.local/straight/repos/typewriter-mode/sounds/default.mp3")
   (setq typewriter-sound-end "~/.emacs.d/.local/straight/repos/typewriter-mode/sounds/bell.mp3")
-  (setq typewriter-sound-return "~/.emacs.d/.local/straight/repos/typewriter-mode/sounds/return.mp3")
-  (setq typewriter-sound-space "~/.emacs.d/.local/straight/repos/typewriter-mode/sounds/space.mp3")
+  ;; (setq typewriter-sound-return "~/.emacs.d/.local/straight/repos/typewriter-mode/sounds/return.mp3")
+  ;; (setq typewriter-sound-space "~/.emacs.d/.local/straight/repos/typewriter-mode/sounds/space.mp3")
   )
 
 ;; From Jethro
@@ -427,12 +429,21 @@ and value is its relative level, as an integer."
 (let ((langs '("american" "fr_FR" "pt_BR")))
       (setq lang-ring (make-ring (length langs)))
       (dolist (elem langs) (ring-insert lang-ring elem)))
+(let ((dics '("american-english" "french" "portuguese")))
+      (setq dic-ring (make-ring (length dics)))
+      (dolist (elem dics) (ring-insert dic-ring elem)))
 
   (defun cycle-ispell-languages ()
       (interactive)
-      (let ((lang (ring-ref lang-ring -1)))
+      (let (
+            (lang (ring-ref lang-ring -1))
+            (dic (ring-ref dic-ring -1))
+            )
         (ring-insert lang-ring lang)
-        (ispell-change-dictionary lang)))
+        (ring-insert dic-ring dic)
+        (ispell-change-dictionary lang)
+        (setq ispell-complete-word-dict (concat "/usr/share/dict/" dic))
+        ))
 
 (global-set-key [f6] 'cycle-ispell-languages)
 
