@@ -15,7 +15,8 @@
 
        (syntax +childframe)            ; tasing you for every semicolon you forget
        spell          ; tasing you for misspelling mispelling
-
+       grammar
+      
        :completion
        (company +childframe)           ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
@@ -138,6 +139,7 @@
         +hugo            ; use Emacs for hugo blogging
         +ipython         ; ipython/jupyter support for babel
         +pandoc          ; export-with-pandoc support
+        +roam
         ;;+pomodoro        ; be fruitful with the tomato technique
         +present)        ; using org-mode for presentations
        ;;perl              ; write code no one else can comprehend
@@ -169,7 +171,6 @@
        ;;irc               ; how neckbeards socialize
        (rss +org)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
-       write             ; emacs for writers (fiction, notes, papers, etc.)
 
        :config
        ;;literate

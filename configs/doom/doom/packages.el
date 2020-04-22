@@ -14,7 +14,7 @@
   :recipe (:host github :repo "kylefeng28/typewriter-mode"))
 
 (package! idle-highlight-mode)
-(package! org-roam
-  :recipe (:host github :repo "jethrokuan/org-roam"))
+;; (package! org-roam
+;;   :recipe (:host github :repo "jethrokuan/org-roam"))
 
 (package! org-ref)

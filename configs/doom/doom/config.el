@@ -367,18 +367,11 @@ and value is its relative level, as an integer."
         ))
 
 
-(use-package! org-roam
-  :commands (org-roam-insert org-roam-find-file org-roam)
-  :init
-  (setq org-roam-directory "~/org")
-  (map! :leader
-        :prefix "n"
-        :desc "Org-Roam-Insert" "i" #'org-roam-insert
-        :desc "Org-Roam-Find"   "/" #'org-roam-find-file
-        :desc "org-roam-show-graph" "g" #'org-roam-show-graph
-        :desc "Org-Roam-Buffer" "r" #'org-roam)
-  :config
-  (org-roam-mode +1))
+(after! org-roam
+  (setq org-roam-graph-viewer "qutebrowser")
+  (setq org-roam-graph-executable "/usr/bin/neato")
+  (setq org-roam-graph-extra-config '(("overlap" . "false")))
+)
 
 (use-package! org-ref
     :after org

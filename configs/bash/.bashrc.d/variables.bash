@@ -23,6 +23,8 @@ export LD_LIBRARY_PATH=/usr/local/cuda-9.2/lib64:$LD_LIBRARY_PATH
 # ROS
 [ -f /opt/ros/indigo/setup.bash ] &&  . /opt/ros/indigo/setup.bash
 
+[ -f ~/.emacs.d/bin/doom ] &&  export PATH=$HOME/.emacs.d/bin/:$PATH
+
 # [ -f /home/fady/catkin_ws/devel/setup.bash ] && . /home/fady/catkin_ws/devel/setup.bash
 
 export LEDGER_FILE=~/org/ledger/main.ledger
