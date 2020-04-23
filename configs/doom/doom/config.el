@@ -52,7 +52,7 @@
 (add-to-list 'org-latex-packages-alist '("" "amsmath"))
 (add-to-list 'org-latex-packages-alist '("" "tikz"))
 (add-to-list 'org-latex-packages-alist '("" "xcolor"))
-(add-to-list 'org-latex-packages-alist '("" "geometry"))
+;; (add-to-list 'org-latex-packages-alist '("" "geometry"))
 
 (display-battery-mode)
 (setq org-latex-listings 'minted)
@@ -81,6 +81,23 @@
  ;; (setq matlab-indent-function t)
 (after! org
 
+  (add-to-list 'org-latex-classes
+               '("ifac" "\\documentclass{../aux/ifacconf}"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
+                 )
+               '("cdc" "\\documentclass{../aux/ieeeconf}"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
+                 )
+               )
+(customize-set-value 'org-latex-with-hyperref nil)
   (setq org-indirect-buffer-display 'other-window)
   ;; (setq matlab-shell-command "matlab -noFigureWindows")
   (setq org-babel-octave-shell-command "octave -q ")
