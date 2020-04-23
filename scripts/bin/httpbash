@@ -1,0 +1,53 @@
+#!/bin/bash
+x=0;
+while read I[$x] && [ ${#I[$x]} -gt 1 ];do
+      let "x = $x + 1";
+done ;
+Log=$(echo -n "["$(date "+%F %T %Z")"] $REMOTE_HOST ")$(x=0;
+        while [ ${#I[$x]} -gt 1 ];do
+              echo -n '"'${I[$x]} | sed -e's,.$,",';let "x = $x + 1";
+        done ;); echo $Log >> .bash_httpd
+
+METHOD=$(echo $I[0] | cut -f 1 -d" ")
+REQUEST=$(echo $I[0] |cut -d" " -f2)
+HTTP_VERSION=$(echo ${I[0]} |cut -d" " -f4)
+if [ "$METHOD" = "GET" ]; then
+    case "$REQUEST" in
+        "/"|"/index.html")
+            echo "AEEEEE trying to get $REQUEST" >> .bash_httpd
+            if [ -f "index.html" ]
+            then
+                Message_Body=$(cat index.html)
+            else
+               Message_Body="<html>HTML formatted home page stuff</html>"
+            fi
+            echo -en "HTTP/1.0 200 OK\nContent-Type: text/html\nContent-Length: ${#Message_Body}\n\n$Message_Body"
+               ;;
+        "/who") Message_Body="<html>$(who -a)</html>"
+                echo -en "HTTP/1.0 200 OK\nContent-Type: text/html\nContent-Length: ${#Message_Body}\n\n$Message_Body"
+                ;;
+        "/ps") Message_Body="<html>HTML formatted results of ps</html>"
+               echo -en "HTTP/1.0 200 OK\nContent-Type: text/html\nContent-Length: ${#Message_Body}\n\n$Message_Body"
+               ;;
+
+        "/kill") Message_Body="<html>HTML formatted results of ps</html>"
+                 echo -en "HTTP/1.0 200 OK\nContent-Type: text/html\nContent-Length: ${#Message_Body}\n\n$Message_Body"
+                 ;;
+        *mobi)
+            echo "trying to get mobi $REQUEST" >> .bash_httpd
+            if [ -f "./$(basename $REQUEST)" ]
+            then
+                Message_Body=$(cat "$REQUEST")
+                echo -en "HTTP/1.0 200 OK\nContent-Type:application/octet-stream\nContent-Length: ${#Message_Body}\n\n$Message_Body"
+            else
+               Message_Body="<html>File not found :/</html>"
+               echo -en "HTTP/1.0 200 OK\nContent-Type: text/html\nContent-Length: ${#Message_Body}\n\n$Message_Body"
+            fi
+            ;;
+        *)
+            echo "trying to get $REQUEST" >> .bash_httpd
+            Message_Body="<html>HTML formatted home page stuff</html>"
+            echo -en "HTTP/1.0 200 OK\nContent-Type: text/html\nContent-Length: ${#Message_Body}\n\n$Message_Body"
+            ;;
+    esac
+fi
