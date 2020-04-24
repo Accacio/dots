@@ -335,6 +335,14 @@ function hotkeys:init(args)
 			{ }
 		},
 		{
+			{ "Control" }, "F3", function() awful.util.spawn("macroRecord") end,
+			{ description = "", group = "Main" }
+		},
+		{
+			{ "Control" }, "F4", function() awful.util.spawn("macroStopPlay") end,
+			{ description = "", group = "Main" }
+		},
+		{
 			{ }, "Print", function() awful.util.spawn_with_shell("sleep 0.5;scrot -s '%Y%m%d_%H%M_$wx$h.png' -e 'xclip -selection c -t image/png $f && rm $f'") end,
 			{ description = "ScreenShot", group = "Main" }
 		},

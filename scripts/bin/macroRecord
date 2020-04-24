@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ "$(pgrep cnee)" != "" ]
+then
+    killall cnee
+else
+    rm /tmp/test.xns
+    cnee --record --mouse --keyboard -o /tmp/test.xns  -sk "twosuperior"
+fi
