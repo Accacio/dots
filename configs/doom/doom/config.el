@@ -417,16 +417,23 @@ and value is its relative level, as an integer."
     (interactive)
     (org-journal-new-entry t)))
 
+(use-package! org-noter
+  :config
+  (setq org-noter-notes-search-path '("~/org"))
+  )
+(use-package! org-pdftools
+  :hook (org-load . org-pdftools-setup-link))
 
 
-(use-package! org-ref
-    :after org
-    :init
-    ; code to run before loading org-ref
-    :config
-    ; code to run after loading org-ref
+(use-package! org-noter-pdftools
+  :after org-noter
+  :config
+  (with-eval-after-load 'pdf-annot
+    (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
+
+(after! org-ref
     (setq org-ref-default-bibliography '("~/docsThese/docs/memoire/bibliography.bib")
-      org-ref-pdf-directory "~/these/leitura/bibliography/")
+          org-ref-pdf-directory "~/these/leitura/bibliography/")
     )
 
 (global-set-key (kbd "<f5>") 'revert-buffer)
