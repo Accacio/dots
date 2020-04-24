@@ -77,7 +77,11 @@
             )
           )
 
-
+(use-package! gif-screencast
+  :bind
+  ("<f9>" . gif-screencast-start-or-stop)
+  )
+(setq gif-screencast-want-optimized nil)
  ;; (setq matlab-indent-function t)
 (after! org
 

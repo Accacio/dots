@@ -19,3 +19,5 @@
 
 (package! org-ref)
 (package! org-journal)
+(package! gif-screencast
+  :recipe (:host gitlab :repo "ambrevar/emacs-gif-screencast"))
