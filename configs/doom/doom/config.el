@@ -393,6 +393,11 @@ and value is its relative level, as an integer."
   (setq org-roam-graph-executable "/usr/bin/neato")
   (setq org-roam-graph-extra-config '(("overlap" . "false")))
   (setq org-roam-graph-exclude-matcher '("private" "ledger" "elfeed"))
+
+    (setq bibtex-completion-bibliography
+          '("~/docsThese/docs/memoire/bibliography.bib"))
+    (setq bibtex-completion-library-path '("~/these/leitura/bibliography/"))
+
 )
 (use-package! org-journal
   :bind
