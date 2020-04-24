@@ -404,11 +404,15 @@ and value is its relative level, as an integer."
   ("C-c n j" . org-journal-new-entry)
   ("C-c n t" . org-journal-today)
   :config
-  (setq org-journal-date-prefix "* "
+  (setq org-journal-date-prefix "#+TITLE: "
+        org-journal-time-prefix "* "
         org-journal-file-format "private-%Y-%m-%d.org"
         org-journal-dir "~/org/"
         org-journal-carryover-items nil
         org-journal-date-format "%Y-%m-%d")
+  ;; do not create title for dailies
+  (set-file-template! "/private-.*\\.org$"    :trigger ""    :mode 'org-mode)
+  (print +file-templates-alist)
   (defun org-journal-today ()
     (interactive)
     (org-journal-new-entry t)))
