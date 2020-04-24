@@ -398,6 +398,52 @@ and value is its relative level, as an integer."
           '("~/docsThese/docs/memoire/bibliography.bib"))
     (setq bibtex-completion-library-path '("~/these/leitura/bibliography/"))
 
+
+
+(setq org-roam-dailies-capture-templates
+  '(("d" "daily" plain (function org-roam-capture--get-point)
+     ""
+     :immediate-finish t
+     :file-name "private-%<%Y-%m-%d>"
+     :head "#+TITLE: %<%Y-%m-%d>")))
+
+(defun my/org-roam--backlinks-list-with-content (file)
+  (with-temp-buffer
+    (if-let* ((backlinks (org-roam--get-backlinks file))
+              (grouped-backlinks (--group-by (nth 0 it) backlinks)))
+        (progn
+          (insert (format "\n\n* %d Backlinks\n"
+                          (length backlinks)))
+          (dolist (group grouped-backlinks)
+            (let ((file-from (car group))
+                  (bls (cdr group)))
+              (insert (format "** [[file:%s][%s]]\n"
+                              file-from
+                              (org-roam--get-title-or-slug file-from)))
+              (dolist (backlink bls)
+                (pcase-let ((`(,file-from _ ,props) backlink))
+                  (insert (s-trim (s-replace "\n" " " (plist-get props :content))))
+                  (insert "\n\n")))))))
+    (buffer-string)))
+
+
+(defun my/org-roam--backlinks-list (file)
+  (if (org-roam--org-roam-file-p file)
+      (--reduce-from
+       (concat acc (format "- [[file:%s][%s]]\n"
+                           (file-relative-name (car it) org-roam-directory)
+                                 (org-roam--get-title-or-slug (car it))))
+       "" (org-roam-db-query [:select [from] :from links :where (= to $s1)] file))
+    ""))
+
+(defun my/org-export-preprocessor (backend)
+    (let ((links (my/org-roam--backlinks-list (buffer-file-name))))
+      (unless (string= links "")
+        (save-excursion
+          (goto-char (point-max))
+          (insert (concat "\n* Backlinks\n") links)))))
+(add-hook 'org-export-before-processing-hook 'my/org-export-preprocessor)
+
 )
 (use-package! org-journal
   :bind
