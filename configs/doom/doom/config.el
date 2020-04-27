@@ -579,6 +579,7 @@ and value is its relative level, as an integer."
   :config
   (setq org-noter-notes-search-path '("~/org"))
   (setq org-noter-always-create-frame nil)
+  (setq org-noter-kill-frame-at-session-end nil)
   (map! :map (pdf-view-mode)
         :leader
         (:prefix-map ("n" . "notes")
