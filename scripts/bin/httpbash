@@ -33,6 +33,17 @@ if [ "$METHOD" = "GET" ]; then
         "/kill") Message_Body="<html>HTML formatted results of ps</html>"
                  echo -en "HTTP/1.0 200 OK\nContent-Type: text/html\nContent-Length: ${#Message_Body}\n\n$Message_Body"
                  ;;
+        *html)
+            echo "trying to get mobi $REQUEST" >> .bash_httpd
+            if [ -f "./$(basename $REQUEST)" ]
+            then
+                Message_Body=$(cat ."$REQUEST")
+                echo -en "HTTP/1.0 200 OK\nContent-Type:text/html\nContent-Length: ${#Message_Body}\n\n$Message_Body"
+            else
+               Message_Body="<html>File not found :/</html>"
+               echo -en "HTTP/1.0 200 OK\nContent-Type: text/html\nContent-Length: ${#Message_Body}\n\n$Message_Body"
+            fi
+            ;;
         *mobi)
             echo "trying to get mobi $REQUEST" >> .bash_httpd
             if [ -f "./$(basename $REQUEST)" ]
