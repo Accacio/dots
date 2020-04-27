@@ -341,11 +341,89 @@ and value is its relative level, as an integer."
   ;; (setq typewriter-sound-space "~/.emacs.d/.local/straight/repos/typewriter-mode/sounds/space.mp3")
   )
 
+(use-package! gnus
+  :config
+(setq gnus-select-method '(nnnil))
+(setq gnus-secondary-select-methods
+      '((nnmaildir "poli"
+                  (directory "~/.local/mail/messages/poli/"))
+        (nnmaildir "gmail"
+                   (directory "~/.local/mail/messages/gmail/"))
+        (nnmaildir "supelec"
+                   (directory "~/.local/mail/messages/supelec/"))
+        )
+      )
+
+(setq gnus-summary-line-format "%U%R%D %-5,5L    %-20,20n\s\s\s%B%-80,80S\n"
+      gnus-thread-sort-functions '(gnus-thread-sort-by-most-recent-date)
+      gnus-sum-thread-tree-false-root ""
+      gnus-sum-thread-tree-indent " "
+      gnus-sum-thread-tree-leaf-with-other "├► "
+      gnus-sum-thread-tree-root ""
+      gnus-sum-thread-tree-single-leaf "╰► "
+      gnus-sum-thread-tree-vertical "│"
+      )
+(eval-after-load 'gnus-topic
+  '(progn
+     (setq gnus-message-archive-group '((format-time-string "sent.%Y")))
+     (setq gnus-topic-topology '(("Gnus" visible)
+                                 (("misc" visible))
+                                 (("hotmail" visible nil nil))
+                                 (("gmail" visible nil nil))))
+
+     ;; key of topic is specified in my sample ".gnus.el"
+     (setq gnus-topic-alist '(("hotmail" ; the key of topic
+                               "nnimap+hotmail:Inbox"
+                               "nnimap+hotmail:Drafts"
+                               )
+                              ("poli" ; the key of topic
+                               "nnmaildir+poli:Inbox"
+                               "nnimap+gmail:[Gmail]/Sent Mail"
+                               "nnimap+gmail:[Gmail]/Drafts"
+                               )
+                              ("gmail" ; the key of topic
+                               "nnmaildir+gmail:Inbox"
+                               "nnimap+gmail:[Gmail]/Sent Mail"
+                               "nnimap+gmail:[Gmail]/Drafts"
+                               )
+                              ("supelec" ; the key of topic
+                               "nnmaildir+supelec:Inbox"
+                               )
+                              ("misc" ; the key of topic
+                               "nndraft:drafts")
+                              ("Gnus")))))
+
+(map! :desc "gnus" "<f12>" #'gnus)
+(setq my-email-addresses '(
+                           "raccacio@poli.ufrj.br"
+                           "raccacio2@gmail.com"
+                           "rafael-accacio.nogueira@centralesupelec.fr"
+                           )
+      )
+(setq message-alternative-emails
+      (regexp-opt my-email-addresses))
+
+;; Gnus from manipulation
+(setq gnus-from-selected-index 0)
+(defun gnus-loop-from ()
+  (interactive)
+  (setq gnus-article-current-point (point))
+  (goto-char (point-min))
+  (if (eq gnus-from-selected-index (length my-email-addresses))
+      (setq gnus-from-selected-index 0) nil)
+  (while (re-search-forward "^From:.*$" nil t)
+    (replace-match (concat "From: " user-full-name " <" (nth gnus-from-selected-index my-email-addresses) ">")))
+  (goto-char gnus-article-current-point)
+  (setq gnus-from-selected-index (+ gnus-from-selected-index 1)))
+
+(global-set-key (kbd "C-c f") 'gnus-loop-from)
+)
+
 ;; From Jethro
-(use-package! notmuch
-  :commands (notmuch)
-  :init
-  (map! :desc "notmuch" "<f12>" #'notmuch)
+;; (use-package! notmuch
+;;   :commands (notmuch)
+  ;; :init
+  ;; (map! :desc "notmuch" "<f12>" #'notmuch)
   ;; (map! :map notmuch-search-mode-map
   ;;       :desc "toggle read" "t" #'+notmuch/toggle-read
   ;;       :desc "Reply to thread" "r" #'notmuch-search-reply-to-thread
@@ -361,8 +439,10 @@ and value is its relative level, as an integer."
   ;;       (notmuch-search-tag (list "-unread"))
   ;;     (notmuch-search-tag (list "+unread"))))
   ;; :config
-  (defvar +notmuch-mail-folder "~/.local/mail/messages/"
-  "Where your email folder is located (for use with gmailieer).")
+  ;; (defvar +notmuch-mail-folder "~/.local/mail/messages/"
+  ;; "Where your email folder is located (for use with gmailieer).")
+  ;;
+(setq mail-user-agen 'gnus-user-agent)
   (setq message-auto-save-directory "~/.local/mail/messages/drafts/"
         message-send-mail-function 'message-send-mail-with-sendmail
         sendmail-program (executable-find "msmtp")
@@ -371,21 +451,22 @@ and value is its relative level, as an integer."
         mail-specify-envelope-from t
         message-sendmail-f-is-evil nil
         message-kill-buffer-on-exit t
-        notmuch-always-prompt-for-sender t
-        notmuch-archive-tags '("-inbox" "-unread")
-        notmuch-crypto-process-mime t
-        notmuch-hello-sections '(notmuch-hello-insert-saved-searches)
-        notmuch-labeler-hide-known-labels t
-        notmuch-search-oldest-first nil
-        notmuch-archive-tags '("-inbox" "-unread")
-        notmuch-message-headers '("To" "Cc" "Subject" "Bcc")
+        ;; notmuch-always-prompt-for-sender t
+        ;; notmuch-archive-tags '("-inbox" "-unread")
+        ;; notmuch-crypto-process-mime t
+        ;; notmuch-hello-sections '(notmuch-hello-insert-saved-searches)
+        ;; notmuch-labeler-hide-known-labels t
+        ;; notmuch-search-oldest-first nil
+        ;; notmuch-archive-tags '("-inbox" "-unread")
+        ;; notmuch-message-headers '("To" "Cc" "Subject" "Bcc")
         ;; notmuch-saved-searches '((:name "unread" :query "tag:inbox and tag:unread")
         ;;                          (:name "org-roam" :query "tag:inbox and tag:roam")
         ;;                          (:name "personal" :query "tag:inbox and tag:personal")
         ;;                          (:name "nushackers" :query "tag:inbox and tag:nushackers")
         ;;                          (:name "nus" :query "tag:inbox and tag:nus")
         ;;                          (:name "drafts" :query "tag:draft"))
-        ))
+        ;; )
+  )
 
 
 (after! org-roam
