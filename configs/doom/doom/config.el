@@ -42,6 +42,7 @@
 
 (setq org-link-abbrev-alist
       '(("bib" . "~/docsThese/docs/memoire/bibliography.bib::%s")
+        ("bibpdf" . "~/these/leitura/bibliography/%s.pdf")
 ("notes" . "~/research/org/notes.org::#%s")
 ("papers" . "~/these/leitura/artigos/%s.pdf")))
 
@@ -85,6 +86,35 @@
  ;; (setq matlab-indent-function t)
 (after! org
 
+  (setq org-todo-keywords
+        '((sequence
+           "TODO(t)"  ; A task that needs doing & is ready to do
+           "PROJ(p)"  ; A project, which usually contains other tasks
+           "TOREAD(r)"  ; A project, which usually contains other tasks
+           "STRT(s)"  ; A task that is in progress
+           "WAIT(w)"  ; Something external is holding up this task
+           "HOLD(h)"  ; This task is paused/on hold because of me
+           "|"
+           "DONE(d)"  ; Task successfully completed
+           "READ(R)"  ; A project, which usually contains other tasks
+           "KILL(k)") ; Task was cancelled, aborted or is no longer applicable
+          (sequence
+           "[ ](T)"   ; A task that needs doing
+           "[-](S)"   ; Task is in progress
+           "[?](W)"   ; Task is being held up or paused
+           "|"
+           "[X](D)")) ; Task was completed
+        org-todo-keyword-faces
+        '(("[-]"  . +org-todo-active)
+          ("STRT" . +org-todo-active)
+          ("[?]"  . +org-todo-onhold)
+          ("WAIT" . +org-todo-onhold)
+          ("HOLD" . +org-todo-onhold)
+          ("PROJ" . +org-todo-project)))
+
+
+
+(setq +lookup-dictionary-prefer-offline nil)
   (add-to-list 'org-latex-classes
                '("ifac" "\\documentclass{../aux/ifacconf}"
                  ("\\section{%s}" . "\\section*{%s}")
@@ -343,16 +373,17 @@ and value is its relative level, as an integer."
 
 (use-package! gnus
   :config
-(setq gnus-select-method '(nnnil))
-(setq gnus-secondary-select-methods
-      '((nnmaildir "poli"
-                  (directory "~/.local/mail/messages/poli/"))
-        (nnmaildir "gmail"
-                   (directory "~/.local/mail/messages/gmail/"))
-        (nnmaildir "supelec"
-                   (directory "~/.local/mail/messages/supelec/"))
+  (setq gnus-interactive-exit nil)
+  (setq gnus-select-method '(nnnil))
+  (setq gnus-secondary-select-methods
+        '((nnmaildir "poli"
+                     (directory "~/.local/mail/messages/poli/"))
+          (nnmaildir "gmail"
+                     (directory "~/.local/mail/messages/gmail/"))
+          (nnmaildir "supelec"
+                     (directory "~/.local/mail/messages/supelec/"))
+          )
         )
-      )
 
 (setq gnus-summary-line-format "%U%R%D %-5,5L    %-20,20n\s\s\s%B%-80,80S\n"
       gnus-thread-sort-functions '(gnus-thread-sort-by-most-recent-date)
@@ -547,6 +578,12 @@ and value is its relative level, as an integer."
 (use-package! org-noter
   :config
   (setq org-noter-notes-search-path '("~/org"))
+  (setq org-noter-always-create-frame nil)
+  (map! :map (pdf-view-mode)
+        :leader
+        (:prefix-map ("n" . "notes")
+          :desc "Write notes"                    "w" #'org-noter)
+        )
   )
 (use-package! org-pdftools
   :hook (org-load . org-pdftools-setup-link))
