@@ -375,6 +375,8 @@ and value is its relative level, as an integer."
   :config
   (setq gnus-interactive-exit nil)
   (setq gnus-select-method '(nnnil))
+  (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
+  ; email
   (setq gnus-secondary-select-methods
         '((nnmaildir "poli"
                      (directory "~/.local/mail/messages/poli/"))
@@ -394,13 +396,19 @@ and value is its relative level, as an integer."
       gnus-sum-thread-tree-single-leaf "╰► "
       gnus-sum-thread-tree-vertical "│"
       )
+
 (eval-after-load 'gnus-topic
   '(progn
      (setq gnus-message-archive-group '((format-time-string "sent.%Y")))
      (setq gnus-topic-topology '(("Gnus" visible)
                                  (("misc" visible))
-                                 (("hotmail" visible nil nil))
-                                 (("gmail" visible nil nil))))
+                                 (("Email" visible)
+                                 (("hotmail" visible))
+                                 (("gmail" visible))
+                                 (("supelec" visible))
+                                 (("poli" visible))
+                                 )
+                                 ))
 
      ;; key of topic is specified in my sample ".gnus.el"
      (setq gnus-topic-alist '(("hotmail" ; the key of topic
