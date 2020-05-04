@@ -596,8 +596,11 @@ and value is its relative level, as an integer."
 
 (use-package! org-noter
   :config
+  (setq org-noter-pdftools-markup-pointer-color "yellow" )
   (setq org-noter-notes-search-path '("~/org"))
   (setq org-noter-always-create-frame nil)
+  (setq org-noter-pdftools-free-pointer-icon "Note")
+  (setq org-noter-pdftools-free-pointer-color "red")
   (setq org-noter-kill-frame-at-session-end nil)
   (map! :map (pdf-view-mode)
         :leader
