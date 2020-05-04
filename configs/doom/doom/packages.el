@@ -22,6 +22,8 @@
 (package! org-journal)
 (package! gif-screencast
   :recipe (:host gitlab :repo "ambrevar/emacs-gif-screencast"))
+(package! org-kanban
+  :recipe (:host github :repo "gizmomogwai/org-kanban"))
 
 (package! org-pdftools
   :recipe (:host github :repo "fuxialexander/org-pdftools"))

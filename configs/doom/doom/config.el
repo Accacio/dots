@@ -361,6 +361,17 @@ and value is its relative level, as an integer."
 
 
 )
+
+(use-package! org-kanban
+  :config
+(defun org-kanban//link-for-heading (heading file description)
+  "Create a link for a HEADING optionally USE-FILE a FILE and DESCRIPTION."
+  (if heading
+      (format "[[*%s][%s]]" heading description)
+    (error "Illegal state")))
+  )
+
+
 (use-package! typewriter
   :init
   :config
