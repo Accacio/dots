@@ -13,11 +13,13 @@ settings:
   bindings.commands:
     global:
       normal:
-        gY: spawn sh -c "echo {url} >> $HOME/.config/mpv/queue"
+        gyp: spawn sh -c "mpv --playlist=$HOME/.config/mpv/queue"
+        gyy: spawn mpv {url}
+        gyQ: spawn sh -c "echo {url} > $HOME/.config/mpv/queue"
+        gyq: spawn sh -c "echo {url} >> $HOME/.config/mpv/queue"
+        gc: open javascript:void(location.href='org-protocol://roam-ref?template=r&ref='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title))
         gp: spawn passmenu
         gs: open javascript:void(location.href=%22https://ezproxy.universite-paris-saclay.fr/login?url=%22+location.href)
-        gc: open javascript:void(location.href='org-protocol://roam-ref?template=r&ref='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title))
-        gy: spawn mpv {url}
         zl: spawn --userscript qute-pass
   colors.tabs.pinned.even.bg:
     global: darkgrey
@@ -31,6 +33,8 @@ settings:
     global: green
   colors.tabs.selected.odd.bg:
     global: green
+  completion.shrink:
+    global: true
   content.autoplay:
     global: false
   content.geolocation:
@@ -60,6 +64,8 @@ settings:
     global: true
   statusbar.position:
     global: bottom
+  tabs.background:
+    global: true
   tabs.position:
     global: bottom
   tabs.show:
