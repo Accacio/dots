@@ -24,7 +24,7 @@ if [ "$(uname)" = "Darwin" ]; then
     notify() { osascript -e "display notification \"$2 in $1\" with title \"You've got Mail\" subtitle \"Account: $account\"" && sleep 2 ;}
 else
     notify() {
-        notify-send --app-name="mail" "You've Got Mail" "📬 $2 new mail(s) in $1." ;
+        # notify-send --app-name="mail" "You've Got Mail" "📬 $2 new mail(s) in $1." ;
         emacsclient -e "(message \"You've got Mail: $2 new mail(s) in $1\")";}
 fi
 
@@ -35,12 +35,12 @@ syncandnotify() {
     new=$(find "$HOME/.local/mail/messages/$acc/INBOX/new/" "$HOME/.local/mail/messages/$acc/Inbox/new/" "$HOME/.local/mail/messages/$acc/inbox/new/" -type f -newer "$HOME/.config/mutt/.mailsynclastrun" 2> /dev/null)
     newcount=$(echo "$new" | sed '/^\s*$/d' | wc -l)
     if [ "$newcount" -gt "0" ]; then
-        notify "$acc" "$newcount" &
+        # notify "$acc" "$newcount" &
         for file in $new; do
             # Extract subject and sender from mail.
             from=$(awk '/^From: / && ++n ==1,/^\<.*\>:/' "$file" | perl -CS -MEncode -ne 'print decode("MIME-Header", $_)' | awk '{ $1=""; if (NF>=3)$NF=""; print $0 }' | sed 's/^[[:blank:]]*[\"'\''\<]*//;s/[\"'\''\>]*[[:blank:]]*$//')
             subject=$(awk '/^Subject: / && ++n == 1,/^\<.*\>: / && ++i == 2' "$file" | head -n-1 | perl -CS -MEncode -ne 'print decode("MIME-Header", $_)' | sed 's/^Subject: //' | sed 's/^{[[:blank:]]*[\"'\''\<]*//;s/[\"'\''\>]*[[:blank:]]*$//' | tr -d '\n')
-            mpv --vo=null /usr/share/sounds/ubuntu/stereo/message-new-instant.ogg
+            # mpv --vo=null /usr/share/sounds/ubuntu/stereo/message-new-instant.ogg
         done
     fi
 }
