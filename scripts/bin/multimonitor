@@ -2,7 +2,7 @@
 exec 3>&1;
 
 monitors=($(xrandr|awk '/ connected/ {printf "%s\n",$1}'| awk '{print NR"-"$1}'))
-modes=('one' 'two' 'three')
+modes=('one' 'two' 'three' 'wacom')
 
 twoLayouts=('sideBySide' 'Stacked')
 function printnl {
@@ -49,6 +49,33 @@ case $mode in
         xrandr --output $topMonitor --mode $top --pos 0x0 --output $downMonitor --mode $down --pos $((($topX-$downX)/2))x$topY
         ;;
     esac
+    ;;
+    wacom)
+    Monitor=$( printf '%s\n' "${monitors[@]}"|sed 's/^ //'|dmenu -i  -p "Monitor" |sed "s|[0-9]-||" )
+    res=$(xrandr | grep ^$Monitor | sed "s,.* \([0-9]*x[0-9]*+[0-9]*+[0-9]*\).*,\1,")
+    modes=('right' 'left' 'total')
+    mode=$( printf '%s\n' "${modes[@]}"|sed 's/^ //'|dmenu -i  -p "Monitor" |sed "s|[0-9]-||" )
+    # if right or left
+    xsetwacom set "Wacom Intuos PT S 2 Pen stylus" Rotate ccw;
+    xsetwacom set "Wacom Intuos PT S 2 Finger touch" Rotate ccw;
+    xres=$(echo $res | sed -e "s,\([0-9]*\)x.*,\1,")
+    yres=$(echo $res | sed -e "s,[0-9]*x\([0-9]*\)+.*,\1,")
+    xpos=$(echo $res | sed -e "s,[0-9]*x[0-9]*+\([0-9]*\)+.*,\1,")
+    ypos=$(echo $res | sed -e "s,[0-9]*x[0-9]*+[0-9]*+\([0-9]*\).*,\1,")
+    case $mode in
+        left)
+        newres=$(echo $(echo "scale=0;$yres/1.5" | bc -l)x$yres+$xpos+$ypos)
+        ;;
+        right)
+        newres=$(echo $(echo "scale=0;$yres/1.5" | bc -l)x$yres+$( echo "scale=0;$xpos+$xres-$yres/1.5" |bc -l)+$ypos)
+        ;;
+        *)
+        xsetwacom set "Wacom Intuos PT S 2 Pen stylus" Rotate none;
+        xsetwacom set "Wacom Intuos PT S 2 Finger touch" Rotate none;
+        newres=$res
+        ;;
+    esac
+    xsetwacom set "Wacom Intuos PT S 2 Pen stylus" MapToOutput $newres
     ;;
 esac
 
