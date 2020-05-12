@@ -437,6 +437,16 @@ and value is its relative level, as an integer."
         ))
 (global-set-key [f6] 'cycle-ispell-languages)
 
+(load! "diction")
+;; (add-to-list 'load-path "~/.emacs.d/lisp")
+
+(setq langtool-language-tool-jar
+      "~/Downloads/LanguageTool-4.9.1/languagetool-commandline.jar")
+(setq langtool-user-arguments '("--languagemodel" "/usr/local/LanguageTool-n-gram/"))
+;; (setq langtool-user-arguments '(("-l" "en-US") ("--languagemodel" "~/Downloads/ngrams"))
+(setq diction-command "diction -s -L")
+(setq diction-diction "diction -s -L")
+
 ;; LaTeX
 (eval-after-load "tex"
   '(progn
