@@ -483,7 +483,9 @@ function hotkeys:init(args)
 						return awful.rules.match(c, {instance= 'wpp'})
 					end
 					awful.client.run_or_raise('bash -c "surf -N web.whatsapp.com& export APP_PID=$!;sleep 2;xprop -id `xdotool search --pid $APP_PID|tail -n 1` -f WM_CLASS 8s -set WM_CLASS "wpp""', matcher)
+					client.focus:move_to_screen(screen)
 					client.focus:move_to_tag(tag)
+					awful.screen.focus(screen)
 					tag:view_only()
 				end
 			end,
