@@ -179,8 +179,7 @@ function pronunc {
 
 alias pronuncfr="pronunc fra"
 alias pronuncen="pronunc eng"
-alias pronuncde="pronunc de"
-
+alias pronuncde="pronunc deu"
 function lfcd {
   lf -last-dir-path ~/.config/lf/lastdir
   cd `cat ~/.config/lf/lastdir`
