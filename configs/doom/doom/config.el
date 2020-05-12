@@ -1,51 +1,117 @@
-;;; .doom.d/config.el -*- lexical-binding: t; -*-
+;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+
+;; Place your private configuration here! Remember, you do not need to run 'doom
+;; sync' after modifying this file!
 
 
+;; Some functionality uses this to identify you, e.g. GPG configuration, email
+;; clients, file templates and snippets.
 (setq user-full-name "Rafael Accácio Nogueira"
       user-mail-address "raccacio@poli.ufrj.br")
-;; Place your private configuration here
-(setq org-latex-listings t)
-(eval-after-load "tex"
-  '(progn
-     (add-to-list
-      'TeX-command-list
-      '("LaTeX escaped"
-        "%`%l%(mode)%' -shell-escape -interaction nonstopmode %T"
-        TeX-run-TeX nil (latex-mode doctex-mode) :help "Run LaTeX shell escaped")
+
+;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
+;; are the three important ones:
+;;
+;; + `doom-font'
+;; + `doom-variable-pitch-font'
+;; + `doom-big-font' -- used for `doom-big-font-mode'; use this for
+;;   presentations or streaming.
+;;
+;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
+;; font string. You generally only need these two:
+(setq doom-font (font-spec :family "monospace" :size 14))
+
+;; There are two ways to load a theme. Both assume the theme is installed and
+;; available. You can either set `doom-theme' or manually load a theme with the
+;; `load-theme' function. This is the default:
+
+;;Visual
+;;
+(after! ivy-posframe
+  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center)))
+  )
+
+(remove-hook 'prog-mode-hook 'hl-line-mode)
+(use-package! idle-highlight-mode
+  :config
+  (progn
+    (set-face-background 'idle-highlight "#252")
+    (set-face-foreground 'idle-highlight "#fafafa")
+    ))
+
+(defun toggle-transparency ()
+   (interactive)
+   (let ((alpha (frame-parameter nil 'alpha)))
+     (set-frame-parameter
+      nil 'alpha
+      (if (eql (cond ((numberp alpha) alpha)
+                     ((numberp (cdr alpha)) (cdr alpha))
+                     ;; Also handle undocumented (<active> <inactive>) form.
+                     ((numberp (cadr alpha)) (cadr alpha)))
+               100)
+          '(85 . 50) '(100 . 100)))))
+(toggle-transparency)
+(map! :leader
+      (:prefix-map ("t" . "toggle")
+        :desc "Transparency"                 "T" 'toggle-transparency))
+
+(if (display-graphic-p)
+  (setq doom-theme 'doom-one)
+  (setq doom-theme 'doom-spacegrey)
+  )
+
+;; Org
+(setq org-directory "~/org/")
+(after! org
+(setq org-agenda-files
+      (list
+       "~/org/Eve.org"
+       "~/org/todo.org"
+       "~/org/todo_these.org"
+       "~/org/fromPoli.org"
+       "~/org/fromGmail.org"
+       "~/org/fromSupelec.org"
+       )
       )
-     ))
-(setq org-columns-default-format "%50ITEM(Task) %10CLOCKSUM %16TIMESTAMP_IA")
-(defun org-mode-reftex-setup ()
-  (load-library "reftex")
-  (and (buffer-file-name) (file-exists-p (buffer-file-name))
-       (progn
- ;enable auto-revert-mode to update reftex when bibtex file changes on disk
- (global-auto-revert-mode t)
- (reftex-parse-all)
- ;add a custom reftex cite format to insert links
- (reftex-set-cite-format
-  '((?b . "[[bib:%l][%l-bib]]")
-    (?n . "[[notes:%l][%l-notes]]")
-    (?p . "[[papers:%l][%l-paper]]")
-    (?t . "%t")
-    (?h . "** %t\n:PROPERTIES:\n:Custom_ID: %l\n:END:\n[[papers:%l][%l-paper]]")
-    (?c . "\\cite{%l}")
-      ))))
-  (define-key org-mode-map (kbd "C-c )") 'reftex-citation)
-  (define-key org-mode-map (kbd "C-c (") 'org-mode-reftex-search))
 
-(add-hook 'org-mode-hook 'org-mode-reftex-setup)
-(defun org-mode-reftex-search ()
-  ;;jump to the notes for the paper pointed to at from reftex search
-  (interactive)
-  (org-open-link-from-string (format "[[notes:%s]]" (first (reftex-citation t)))))
+(setq +pretty-code-symbols
+  '(;; org
+    :html  ""
+    :author ""
+    :title "T"
+    :mail ""
+    :noweb ""
+    :language ""
+    :options ""
+    :tex      ""
+    :matlab ""
+    :octave ""
+    :python ""
+    ;; :emacs ""
+    ) )
 
-(setq org-link-abbrev-alist
-      '(("bib" . "~/docsThese/docs/memoire/bibliography.bib::%s")
-        ("bibpdf" . "~/these/leitura/bibliography/%s.pdf")
-("notes" . "~/research/org/notes.org::#%s")
-("papers" . "~/these/leitura/artigos/%s.pdf")))
-
+(set-pretty-symbols! 'org-mode
+  :def "function"
+  :html "#+HTML:"
+  :title "#+title:"
+  :title "#+TITLE:"
+  :author "#+author:"
+  :noweb ":noweb yes"
+  :mail "#+email:"
+  :mail "#+EMAIL:"
+  :author "#+AUTHOR:"
+  :options "#+OPTIONS:"
+  :author"#+author:"
+  :language "#+LANGUAGE:"
+  :language "#+language:"
+  :tex "#+LaTeX:"
+  :tex "latex:"
+  :tex "#+LaTeX_HEADER:"
+  :matlab "matlab"
+  :matlab "octave"
+  :python "python"
+  ;; :emacs "emacs-lisp"
+  )
 (require 'ox-extra)
 (ox-extras-activate '(ignore-headlines))
 (require 'ox-latex)
@@ -53,39 +119,10 @@
 (add-to-list 'org-latex-packages-alist '("" "amsmath"))
 (add-to-list 'org-latex-packages-alist '("" "tikz"))
 (add-to-list 'org-latex-packages-alist '("" "xcolor"))
-;; (add-to-list 'org-latex-packages-alist '("" "geometry"))
-
-(display-battery-mode)
-(setq org-latex-listings 'minted)
-(remove-hook 'prog-mode-hook 'hl-line-mode)
-(add-hook 'prog-mode-hook 'rainbow-mode t)
-(setq org-latex-pdf-process (list "latexmk -outdir=`dirname %f` -auxdir=`dirname %f` -pdflatex='pdflatex -output-directory=`dirname %f` -shell-escape -interaction nonstopmode' -pdf -f %f"))
-(add-to-list 'org-latex-minted-langs '(ipython "python"))
-(setq org-babel-python-command "python3")
-(setq org-export-allow-bind-keywords t)
-;; (autoload 'matlab-mode "matlab" "Matlab Editing Mode" t)
- (add-to-list
-  'auto-mode-alist
-  '("\\.m$" . octave-mode))
-(add-hook 'octave-mode-hook
-          (lambda ()
-            (progn (setq octave-comment-char ?%) (setq comment-start "% ") (setq comment-add 0))
-            (abbrev-mode 1)
-            (auto-fill-mode 1)
-            (if (eq window-system 'x)
-                (font-lock-mode 1)
-              )
-            )
-          )
-
-(use-package! gif-screencast
-  :bind
-  ("<f9>" . gif-screencast-start-or-stop)
-  )
-(setq gif-screencast-want-optimized nil)
- ;; (setq matlab-indent-function t)
-(after! org
-
+(setq org-ellipsis " ▼") ;;▼ ⤵
+(setq org-superstar-headline-bullets-list '("α" "β" "γ" "δ" "ε" "ζ" "η" "θ" "ι" "κ" "λ" "μ" "ν" "ξ" "ο" "π" "ρ" "σ" "τ" "υ" "φ" "χ" "ψ" "ω"))
+(setq org-babel-octave-shell-command "octave -q")
+(setq org-ditaa-jar-path "/usr/share/ditaa/ditaa.jar")
   (setq org-todo-keywords
         '((sequence
            "TODO(t)"  ; A task that needs doing & is ready to do
@@ -111,9 +148,6 @@
           ("WAIT" . +org-todo-onhold)
           ("HOLD" . +org-todo-onhold)
           ("PROJ" . +org-todo-project)))
-
-
-
 (setq +lookup-dictionary-prefer-offline nil)
   (add-to-list 'org-latex-classes
                '("ifac" "\\documentclass{../aux/ifacconf}"
@@ -157,132 +191,6 @@
 			(org-babel-process-file-name tmp-file 'noquote)))
 	       (org-babel-octave-import-elisp-from-file tmp-file))))))
 
-  (setq org-ellipsis " ▼") ;;▼ ⤵
-  ;; (setq org-bullets-bullet-list '("Α" "Β"  "Γ" "Δ" "Ε" "Ζ" "Η" "Θ" "Ι" "Κ" "Λ" "Μ" "Ν" "Ξ" "Ο" "Π" "Ρ" "Σ" "Τ" "Υ" "Φ" "Χ" "Ψ" "Ω" ))
-  (setq org-bullets-bullet-list '("α" "β" "γ" "δ" "ε" "ζ" "η" "θ" "ι" "κ" "λ" "μ" "ν" "ξ" "ο" "π" "ρ" "σ" "τ" "υ" "φ" "χ" "ψ" "ω"))
-  (setq org-babel-octave-shell-command "octave -q")
-  (setq org-ditaa-jar-path "/usr/share/ditaa/ditaa.jar")
-  (setq org-src-window-setup 'current-window
-        org-return-follows-link t
-        ;; org-babel-load-languages '((emacs-lisp . t)
-        ;;                            (python . t)
-        ;;                            (dot . t)
-        ;;                            (R . t))
-        org-confirm-babel-evaluate nil
-        ;; org-use-speed-commands t
-        ;; org-catch-invisible-edits 'show
-        org-preview-latex-image-directory "/tmp/ltximg/"
-        org-structure-template-alist '(("a" . "export ascii")
-                                       ("c" . "center")
-                                       ("C" . "comment")
-                                       ("e" . "example")
-                                       ("E" . "export")
-                                       ("h" . "export html")
-                                       ("l" . "export latex")
-                                       ("q" . "quote")
-                                       ("s" . "src")
-                                       ("v" . "verse")
-                                       ("el" . "src emacs-lisp")
-                                       ("d" . "definition")
-                                       ("t" . "theorem")))
-  ;; From Jethro
-;; (setq org-capture-templates
-;;         `(("i" "inbox" entry (file ,(concat jethro/org-agenda-directory "inbox.org"))
-;;            "* TODO %?")
-;;           ("e" "email" entry (file+headline ,(concat jethro/org-agenda-directory "emails.org") "Emails")
-;;                "* TODO [#A] Reply: %a :@home:@school:"
-;;                :immediate-finish t)
-;;           ("c" "org-protocol-capture" entry (file ,(concat jethro/org-agenda-directory "inbox.org"))
-;;                "* TODO [[%:link][%:description]]\n\n %i"
-;;                :immediate-finish t)
-;;           ("w" "Weekly Review" entry (file+olp+datetree ,(concat jethro/org-agenda-directory "reviews.org"))
-;;            (file ,(concat jethro/org-agenda-directory "templates/weekly_review.org")))
-;;           ("r" "Reading" todo ""
-;;                ((org-agenda-files '(,(concat jethro/org-agenda-directory "reading.org")))))))
-
-;; (setq org-todo-keywords
-;;       '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-;;         (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)")))
-
-  )
-(if (display-graphic-p)
-    ()
-  (load-theme 'doom-spacegrey t)
-  )
-
-(doom-themes-visual-bell-config)
-(doom-themes-neotree-config)
-(doom-themes-org-config)
-(set 'global-linum-mode 1)
-(setq display-line-numbers-type 'relative)
-
-;; Try use org-roam (zettelkasten)
-(after! deft
-    (setq deft-directory "~/org/")
-    (setq deft-recursive t)
-)
-
-;; (after! deft
-;; (defadvice deft (before changeDir )
-;;   ""
-;;   (if (null (projectile-project-root))
-;;       (setq deft-directory "~/org/notes")
-;;     (progn
-;;      ;; TODO create folder
-;;      (if (not(file-directory-p (concat (projectile-project-root) ".notes")))
-;;        (make-directory (concat (projectile-project-root) ".notes"))
-;;        )
-;;      (setq deft-directory (concat (projectile-project-root) ".notes"))
-;;      )
-;;       )
-;;         )
-;; (ad-activate 'deft)
-;; (setq deft-recursive t)
-;; )
-
-;; Actually start using templates
-(after! org-capture
-  (setq org-capture-templates
-        (append
-                '(
-                  ("a" "Agenda")
-                  ("aa" "All Day")
-                  ("aas" "Supelec" entry (file "~/org/fromSupelec.org")
-                   "* %?\n %^t\n"
-                   :kill-buffer t)
-                  ("aap" "Poli" entry (file "~/org/fromPoli.org")
-                   "* %?\n %^t\n"
-                   :kill-buffer t)
-                  ("aag" "Gmail" entry (file "~/org/fromGmail.org")
-                   "* %?\n %^t\n"
-                   :kill-buffer t)
-
-                  ("as" "Scheduled")
-                  ("ass" "Supelec" entry (file "~/org/fromSupelec.org")
-                   "* %?\n %^T--%^T\n"
-                   :kill-buffer t)
-                  ("asp" "Poli" entry (file "~/org/fromPoli.org")
-                   "* %?\n %^T--%^T\n"
-                   :kill-buffer t)
-                  ("asg" "Gmail" entry (file "~/org/fromGmail.org")
-                   "* %?\n %^T--%^T\n"
-                   :kill-buffer t)
-
-                  ("e" "Evelise" entry (file+headline "~/org/Eve.org" "Inbox")
-                   "** TODO %?\n%i%a "
-                   :kill-buffer t)
-                  )
-                org-capture-templates)
-        )
-
-)
-;;TODO verificar melhor isso aqui
-;; (add-hook 'org-capture-after-finalize-hook (lambda () (org-caldav-sync)))
-;; (add-hook 'org-capture-after-finalize-hook (lambda () (org-caldav-sync)))
-
-;; (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-post-at-point)))
-;;https://orgmode.org/org.html#Publishing
-;;https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html
 (setq org-publish-project-alist
       '(
 
@@ -343,26 +251,14 @@ and value is its relative level, as an integer."
 
 
 
-;; '(reftex-use-external-file-finders t)
-;; (setq reftex-external-file-finders
-;; '(("tex" . "/path/to/kpsewhich -format=.tex %f")
-;;   ("bib" . "/path/to/kpsewhich -format=.bib %f")))
-(setq +latex-viewers '(pdf-tools))
-;; (setq +latex-viewers '(zathura))
-(after! projectile
-(setq projectile-indexing-method 'native)
-)
-(after! ivy-posframe
-
-(setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center)))
-;; (setq ivy-posframe-parameters
-;;       '((left-fringe . 18)
-;;         (right-fringe . 18)))
-
-
 )
 
-(use-package! org-kanban
+(after! deft
+    (setq deft-directory "~/org/")
+    (setq deft-recursive t)
+)
+;; kanban
+(after! org-kanban
   :config
 (defun org-kanban//link-for-heading (heading file description)
   "Create a link for a HEADING optionally USE-FILE a FILE and DESCRIPTION."
@@ -371,156 +267,9 @@ and value is its relative level, as an integer."
     (error "Illegal state")))
   )
 
-
-(use-package! typewriter
-  :init
-  :config
-  (setq typewriter-play-command "mpv --vo=null")
-  ;; (setq typewriter-sound-default " ~/.emacs.d/.local/straight/repos/typewriter-mode/sounds/default.mp3")
-  (setq typewriter-sound-end "~/.emacs.d/.local/straight/repos/typewriter-mode/sounds/bell.mp3")
-  ;; (setq typewriter-sound-return "~/.emacs.d/.local/straight/repos/typewriter-mode/sounds/return.mp3")
-  ;; (setq typewriter-sound-space "~/.emacs.d/.local/straight/repos/typewriter-mode/sounds/space.mp3")
-  )
-
-(use-package! gnus
-  :config
-  (setq gnus-interactive-exit nil)
-  (setq gnus-select-method '(nnnil))
-  (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
-  ; email
-  (setq gnus-secondary-select-methods
-        '((nnmaildir "poli"
-                     (directory "~/.local/mail/messages/poli/"))
-          (nnmaildir "gmail"
-                     (directory "~/.local/mail/messages/gmail/"))
-          (nnmaildir "supelec"
-                     (directory "~/.local/mail/messages/supelec/"))
-          )
-        )
-
-(setq gnus-summary-line-format "%U%R%D %-5,5L    %-20,20n\s\s\s%B%-80,80S\n"
-      gnus-thread-sort-functions '(gnus-thread-sort-by-most-recent-date)
-      gnus-sum-thread-tree-false-root ""
-      gnus-sum-thread-tree-indent " "
-      gnus-sum-thread-tree-leaf-with-other "├► "
-      gnus-sum-thread-tree-root ""
-      gnus-sum-thread-tree-single-leaf "╰► "
-      gnus-sum-thread-tree-vertical "│"
-      )
-
-(eval-after-load 'gnus-topic
-  '(progn
-     (setq gnus-message-archive-group '((format-time-string "sent.%Y")))
-     (setq gnus-topic-topology '(("Gnus" visible)
-                                 (("misc" visible))
-                                 (("Email" visible)
-                                 (("hotmail" visible))
-                                 (("gmail" visible))
-                                 (("supelec" visible))
-                                 (("poli" visible))
-                                 )
-                                 ))
-
-     ;; key of topic is specified in my sample ".gnus.el"
-     (setq gnus-topic-alist '(("hotmail" ; the key of topic
-                               "nnimap+hotmail:Inbox"
-                               "nnimap+hotmail:Drafts"
-                               )
-                              ("poli" ; the key of topic
-                               "nnmaildir+poli:Inbox"
-                               "nnimap+gmail:[Gmail]/Sent Mail"
-                               "nnimap+gmail:[Gmail]/Drafts"
-                               )
-                              ("gmail" ; the key of topic
-                               "nnmaildir+gmail:Inbox"
-                               "nnimap+gmail:[Gmail]/Sent Mail"
-                               "nnimap+gmail:[Gmail]/Drafts"
-                               )
-                              ("supelec" ; the key of topic
-                               "nnmaildir+supelec:Inbox"
-                               )
-                              ("misc" ; the key of topic
-                               "nndraft:drafts")
-                              ("Gnus")))))
-
-(map! :desc "gnus" "<f12>" #'gnus)
-(setq my-email-addresses '(
-                           "raccacio@poli.ufrj.br"
-                           "raccacio2@gmail.com"
-                           "rafael-accacio.nogueira@centralesupelec.fr"
-                           )
-      )
-(setq message-alternative-emails
-      (regexp-opt my-email-addresses))
-
-;; Gnus from manipulation
-(setq gnus-from-selected-index 0)
-(defun gnus-loop-from ()
-  (interactive)
-  (setq gnus-article-current-point (point))
-  (goto-char (point-min))
-  (if (eq gnus-from-selected-index (length my-email-addresses))
-      (setq gnus-from-selected-index 0) nil)
-  (while (re-search-forward "^From:.*$" nil t)
-    (replace-match (concat "From: " user-full-name " <" (nth gnus-from-selected-index my-email-addresses) ">")))
-  (goto-char gnus-article-current-point)
-  (setq gnus-from-selected-index (+ gnus-from-selected-index 1)))
-
-(global-set-key (kbd "C-c f") 'gnus-loop-from)
-)
-
-;; From Jethro
-;; (use-package! notmuch
-;;   :commands (notmuch)
-  ;; :init
-  ;; (map! :desc "notmuch" "<f12>" #'notmuch)
-  ;; (map! :map notmuch-search-mode-map
-  ;;       :desc "toggle read" "t" #'+notmuch/toggle-read
-  ;;       :desc "Reply to thread" "r" #'notmuch-search-reply-to-thread
-  ;;       :desc "Reply to thread sender" "R" #'notmuch-search-reply-to-thread-sender)
-  ;; (map! :map notmuch-show-mode-map
-  ;;       :desc "Next link" "<tab>" #'org-next-link
-  ;;       :desc "Previous link" "<backtab>" #'org-previous-link
-  ;;       :desc "URL at point" "C-<return>" #'browse-url-at-point)
-  ;; (defun +notmuch/toggle-read ()
-  ;;   "toggle read status of message"
-  ;;   (interactive)
-  ;;   (if (member "unread" (notmuch-search-get-tags))
-  ;;       (notmuch-search-tag (list "-unread"))
-  ;;     (notmuch-search-tag (list "+unread"))))
-  ;; :config
-  ;; (defvar +notmuch-mail-folder "~/.local/mail/messages/"
-  ;; "Where your email folder is located (for use with gmailieer).")
-  ;;
-(setq mail-user-agen 'gnus-user-agent)
-  (setq message-auto-save-directory "~/.local/mail/messages/drafts/"
-        message-send-mail-function 'message-send-mail-with-sendmail
-        sendmail-program (executable-find "msmtp")
-        message-sendmail-envelope-from 'header
-        mail-envelope-from 'header
-        mail-specify-envelope-from t
-        message-sendmail-f-is-evil nil
-        message-kill-buffer-on-exit t
-        ;; notmuch-always-prompt-for-sender t
-        ;; notmuch-archive-tags '("-inbox" "-unread")
-        ;; notmuch-crypto-process-mime t
-        ;; notmuch-hello-sections '(notmuch-hello-insert-saved-searches)
-        ;; notmuch-labeler-hide-known-labels t
-        ;; notmuch-search-oldest-first nil
-        ;; notmuch-archive-tags '("-inbox" "-unread")
-        ;; notmuch-message-headers '("To" "Cc" "Subject" "Bcc")
-        ;; notmuch-saved-searches '((:name "unread" :query "tag:inbox and tag:unread")
-        ;;                          (:name "org-roam" :query "tag:inbox and tag:roam")
-        ;;                          (:name "personal" :query "tag:inbox and tag:personal")
-        ;;                          (:name "nushackers" :query "tag:inbox and tag:nushackers")
-        ;;                          (:name "nus" :query "tag:inbox and tag:nus")
-        ;;                          (:name "drafts" :query "tag:draft"))
-        ;; )
-  )
-
-
+;; Roam
 (after! org-roam
-  (setq org-roam-graph-viewer "qutebrowser")
+  ;; (setq org-roam-graph-viewer "qutebrowser")
   (setq org-roam-graph-executable "/usr/bin/neato")
   (setq org-roam-graph-extra-config '(("overlap" . "false")))
   (setq org-roam-graph-exclude-matcher '("private" "ledger" "elfeed"))
@@ -573,9 +322,52 @@ and value is its relative level, as an integer."
         (save-excursion
           (goto-char (point-max))
           (insert (concat "\n* Backlinks\n") links)))))
-(add-hook 'org-export-before-processing-hook 'my/org-export-preprocessor)
+)
+(after! org-capture
+  (setq org-capture-templates
+        (append
+                '(
+                  ("a" "Agenda")
+                  ("aa" "All Day")
+                  ("aas" "Supelec" entry (file "~/org/fromSupelec.org")
+                   "* %?\n %^t\n"
+                   :kill-buffer t)
+                  ("aap" "Poli" entry (file "~/org/fromPoli.org")
+                   "* %?\n %^t\n"
+                   :kill-buffer t)
+                  ("aag" "Gmail" entry (file "~/org/fromGmail.org")
+                   "* %?\n %^t\n"
+                   :kill-buffer t)
+
+                  ("as" "Scheduled")
+                  ("ass" "Supelec" entry (file "~/org/fromSupelec.org")
+                   "* %?\n %^T--%^T\n"
+                   :kill-buffer t)
+                  ("asp" "Poli" entry (file "~/org/fromPoli.org")
+                   "* %?\n %^T--%^T\n"
+                   :kill-buffer t)
+                  ("asg" "Gmail" entry (file "~/org/fromGmail.org")
+                   "* %?\n %^T--%^T\n"
+                   :kill-buffer t)
+
+                  ("e" "Evelise" entry (file+headline "~/org/Eve.org" "Inbox")
+                   "** TODO %?\n%i%a "
+                   :kill-buffer t)
+                  )
+                org-capture-templates)
+        )
 
 )
+
+
+
+;; org-ref
+(after! org-ref
+    (setq org-ref-default-bibliography '("~/docsThese/docs/memoire/bibliography.bib")
+          org-ref-pdf-directory "~/these/leitura/bibliography/")
+    )
+
+;; org-journal
 (use-package! org-journal
   :bind
   ("C-c n j" . org-journal-new-entry)
@@ -593,9 +385,9 @@ and value is its relative level, as an integer."
   (defun org-journal-today ()
     (interactive)
     (org-journal-new-entry t)))
-
-(use-package! org-noter
-  :config
+;; org-noter
+;; (use-package! org-noter
+;;   :config
   (setq org-noter-pdftools-markup-pointer-color "yellow" )
   (setq org-noter-notes-search-path '("~/org"))
   (setq org-noter-always-create-frame nil)
@@ -607,7 +399,7 @@ and value is its relative level, as an integer."
         (:prefix-map ("n" . "notes")
           :desc "Write notes"                    "w" #'org-noter)
         )
-  )
+  ;; )
 (use-package! org-pdftools
   :hook (org-load . org-pdftools-setup-link))
 
@@ -618,47 +410,13 @@ and value is its relative level, as an integer."
   (with-eval-after-load 'pdf-annot
     (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
 
-(after! org-ref
-    (setq org-ref-default-bibliography '("~/docsThese/docs/memoire/bibliography.bib")
-          org-ref-pdf-directory "~/these/leitura/bibliography/")
-    )
 
-(global-set-key (kbd "<f5>") 'revert-buffer)
-(setq frame-title-format "%b")
-(global-prettify-symbols-mode t)
-(setq truncate-lines t)
-;; (setq auto-hscroll-mode 'current-line)
-(setq auto-hscroll-mode t)
-(add-to-list 'auto-mode-alist '("mutt" . mail-mode))
+;; This determines the style of line numbers in effect. If set to `nil', line
+;; numbers are disabled. For relative line numbers, set this to `relative'.
+(setq display-line-numbers-type 'relative)
 
-(defun toggle-transparency ()
-   (interactive)
-   (let ((alpha (frame-parameter nil 'alpha)))
-     (set-frame-parameter
-      nil 'alpha
-      (if (eql (cond ((numberp alpha) alpha)
-                     ((numberp (cdr alpha)) (cdr alpha))
-                     ;; Also handle undocumented (<active> <inactive>) form.
-                     ((numberp (cadr alpha)) (cadr alpha)))
-               100)
-          '(85 . 50) '(100 . 100)))))
-(toggle-transparency)
-(map! :leader
-      (:prefix-map ("t" . "toggle")
-        :desc "Transparency"                 "T" 'toggle-transparency))
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
-(add-hook
-     'after-save-hook
-     'executable-make-buffer-file-executable-if-script-p)
 
-;; highlight word
-(use-package! idle-highlight-mode
-  :config
-  (progn  (add-hook 'prog-mode-hook (lambda () (idle-highlight-mode t)))
-          (set-face-background 'idle-highlight "#252")
-          (set-face-foreground 'idle-highlight "#fafafa")
-          ))
-
+;; Spell-check
 (let ((langs '("american" "fr_FR" "pt_BR")))
       (setq lang-ring (make-ring (length langs)))
       (dolist (elem langs) (ring-insert lang-ring elem)))
@@ -677,81 +435,68 @@ and value is its relative level, as an integer."
         (ispell-change-dictionary lang)
         (setq ispell-complete-word-dict (concat "/usr/share/dict/" dic))
         ))
-
 (global-set-key [f6] 'cycle-ispell-languages)
 
-(use-package! org
-:config
-
-(setq +pretty-code-symbols
-  '(;; org
-    :html  ""
-    :author ""
-    :title ""
-    :mail ""
-    :noweb ""
-    :language ""
-    :options ""
-    :tex      ""
-    :matlab ""
-    :octave ""
-    :python ""
-    ;; :emacs ""
-    ) )
-
-(set-pretty-symbols! 'org-mode
-  :def "function"
-  :html "#+HTML:"
-  :title "#+title:"
-  :title "#+TITLE:"
-  :author "#+author:"
-  :noweb ":noweb yes"
-  :mail "#+email:"
-  :mail "#+EMAIL:"
-  :author "#+AUTHOR:"
-  :options "#+OPTIONS:"
-  :author"#+author:"
-  :language "#+LANGUAGE:"
-  :language "#+language:"
-  :tex "#+LaTeX:"
-  :tex "latex:"
-  :tex "#+LaTeX_HEADER:"
-  :matlab "matlab"
-  :matlab "octave"
-  :python "python"
-  ;; :emacs "emacs-lisp"
-  )
-
-)
-
-(setq org-caldav-calendars
-      (list
-       (list :calendar-id "raccacio2@gmail.com"
-             :url 'google
-             :caldav-oauth2-client-id "998718790900-83pekdvg3h198chhn46n7dsdqdb44cgv.apps.googleusercontent.com"
-             :caldav-oauth2-client-secret (substring (shell-command-to-string "pass show agenda/gmail") 0 -1)
-             :inbox "~/org/fromGmail.org"
-             )
-       (list :calendar-id "raccacio@poli.ufrj.br"
-             :url 'google
-             :caldav-oauth2-client-id "998718790900-83pekdvg3h198chhn46n7dsdqdb44cgv.apps.googleusercontent.com"
-             :caldav-oauth2-client-secret (substring (shell-command-to-string "pass show agenda/gmail") 0 -1)
-             :inbox "~/org/fromPoli.org"
-             )
-       (list :calendar-id "nogueirar/Calendar/personal/"
-             :url "https://sogo.supelec.fr/SOGo/dav/"
-             :inbox "~/org/fromSupelec.org"
-             )
-       )
+;; LaTeX
+(eval-after-load "tex"
+  '(progn
+     (add-to-list
+      'TeX-command-list
+      '("escaped LaTeX"
+        "%`%l%(mode)%' -shell-escape -interaction nonstopmode %T"
+        TeX-run-TeX nil (latex-mode doctex-mode) :help "Run LaTeX shell escaped")
       )
+     ))
+(defun org-mode-reftex-setup ()
+  (load-library "reftex")
+  (and (buffer-file-name) (file-exists-p (buffer-file-name))
+       (progn
+ ;enable auto-revert-mode to update reftex when bibtex file changes on disk
+ (global-auto-revert-mode t)
+ ;; (reftex-parse-all)
+ ;add a custom reftex cite format to insert links
+ (reftex-set-cite-format
+  '((?b . "[[bib:%l][%l-bib]]")
+    (?n . "[[notes:%l][%l-notes]]")
+    (?p . "[[papers:%l][%l-paper]]")
+    (?t . "%t")
+    (?h . "** %t\n:PROPERTIES:\n:Custom_ID: %l\n:END:\n[[papers:%l][%l-paper]]")
+    (?c . "\\cite{%l}")
+      ))))
+  (define-key org-mode-map (kbd "C-c )") 'reftex-citation)
+  (define-key org-mode-map (kbd "C-c (") 'org-mode-reftex-search))
 
-(setq org-agenda-files
-      (list
-       "~/org/Eve.org"
-       "~/org/todo.org"
-       "~/org/todo_these.org"
-       "~/org/fromPoli.org"
-       "~/org/fromGmail.org"
-       "~/org/fromSupelec.org"
-       )
-      )
+
+;; Here are some additional functions/macros that could help you configure Doom:
+;;
+;; - `load!' for loading external *.el files relative to this one
+;; - `use-package' for configuring packages
+;; - `after!' for running code after a package has loaded
+;; - `add-load-path!' for adding directories to the `load-path', relative to
+;;   this file. Emacs searches the `load-path' when you load packages with
+;;   `require' or `use-package'.
+;; - `map!' for binding new keys
+;;
+;; To get information about any of these functions/macros, move the cursor over
+;; the highlighted symbol at press 'K' (non-evil users must press 'C-c g k').
+;; This will open documentation for it, including demos of how they are used.
+;;
+;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
+;; they are implemented.
+
+;; hooks
+(add-hook
+     'after-save-hook
+     'executable-make-buffer-file-executable-if-script-p)
+(add-hook
+ 'org-export-before-processing-hook
+ 'my/org-export-preprocessor)
+(add-hook 'prog-mode-hook (lambda () (idle-highlight-mode t)))
+(add-to-list 'auto-mode-alist '("mutt" . mail-mode))
+
+
+;; shortcuts
+(global-set-key (kbd "<f5>") 'revert-buffer)
+
+(setq frame-title-format "%b")
+(global-prettify-symbols-mode t)
