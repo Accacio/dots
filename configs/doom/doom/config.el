@@ -416,7 +416,7 @@ and value is its relative level, as an integer."
 (setq display-line-numbers-type 'relative)
 
 
-;; Spell-check
+;; Spell-check and grammar
 (let ((langs '("american" "fr_FR" "pt_BR")))
       (setq lang-ring (make-ring (length langs)))
       (dolist (elem langs) (ring-insert lang-ring elem)))
@@ -441,7 +441,7 @@ and value is its relative level, as an integer."
 ;; (add-to-list 'load-path "~/.emacs.d/lisp")
 
 (setq langtool-language-tool-jar
-      "~/Downloads/LanguageTool-4.9.1/languagetool-commandline.jar")
+      "/snap/languagetool/current/usr/bin/languagetool-commandline.jar")
 (setq langtool-user-arguments '("--languagemodel" "/usr/local/LanguageTool-n-gram/"))
 ;; (setq langtool-user-arguments '(("-l" "en-US") ("--languagemodel" "~/Downloads/ngrams"))
 (setq diction-command "diction -s -L")
