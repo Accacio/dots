@@ -468,7 +468,7 @@ function hotkeys:init(args)
 			{ description = "Open a terminal", group = "Main" }
 		},
 		{
-			{ env.mod }, "semicolon",
+			{ env.mod }, "z",
 			function()
 				local tag=awful.tag.selected()
 
@@ -617,7 +617,7 @@ function hotkeys:init(args)
 			{ description = "Select previous layout", group = "Layouts" }
 		},
 		{
-			{ env.mod, "Mod1" }, "l",
+			{ env.mod }, "semicolon",
 			function()
 				awful.screen.focus_relative( 1);
 				-- awful.spawn('bash -c "sleep 0.1;xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"')
@@ -625,7 +625,7 @@ function hotkeys:init(args)
 			{ description = "focus the next screen", group = "Screen" }
 		},
 		{
-			{ env.mod, "Mod1" }, "h",
+			{ env.mod }, "comma",
 			function()
 				awful.screen.focus_relative( -1);
 				-- awful.spawn('bash -c "sleep 0.1;xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"')
