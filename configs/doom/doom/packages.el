@@ -46,6 +46,7 @@
 ;; our package manager can't deal with; see raxod502/straight.el#279)
 ;(package! builtin-package :recipe (:branch "develop"))
 
+(package! matlab-mode)
 (package! rainbow-mode)
 (package! idle-highlight-mode)
 (package! org-journal)
