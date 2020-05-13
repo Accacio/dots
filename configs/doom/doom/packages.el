@@ -59,5 +59,3 @@
   :recipe (:host github :repo "weirdNox/org-noter"))
 (package! org-noter-pdftools
   :recipe (:host github :repo "fuxialexander/org-pdftools"))
-(package! emacs-langtool
-  :recipe (:host github :repo "mhayashi1120/Emacs-langtool"))
