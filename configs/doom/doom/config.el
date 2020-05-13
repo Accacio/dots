@@ -87,7 +87,7 @@
     :matlab ""
     :octave ""
     :python ""
-    ;; :emacs ""
+    :emacs ""
     ) )
 
 (set-pretty-symbols! 'org-mode
@@ -110,7 +110,7 @@
   :matlab "matlab"
   :matlab "octave"
   :python "python"
-  ;; :emacs "emacs-lisp"
+  :emacs "emacs-lisp"
   )
 (require 'ox-extra)
 (ox-extras-activate '(ignore-headlines))
