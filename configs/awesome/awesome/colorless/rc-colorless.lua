@@ -189,7 +189,7 @@ signals:init({ env = env })
 
 awful.spawn("compton")
 awful.spawn("nm-applet")
-awful.spawn("pasystray")
+awful.util.spawn_with_shell('test "$(pgrep pasystray)" = "" &&  pasystray')
 -- Keyboard settings
 awful.spawn("setxkbmap -option caps:escape")
 awful.spawn("setxkbmap -option compose:rctrl")
