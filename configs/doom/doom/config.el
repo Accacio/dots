@@ -502,6 +502,7 @@ and value is its relative level, as an integer."
  'org-export-before-processing-hook
  'my/org-export-preprocessor)
 (add-hook 'prog-mode-hook (lambda () (idle-highlight-mode t)))
+(add-hook 'org-mode-hook (lambda () (idle-highlight-mode t)))
 (add-to-list 'auto-mode-alist '("mutt" . mail-mode))
 
 
