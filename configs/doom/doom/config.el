@@ -115,6 +115,10 @@
 (require 'ox-extra)
 (ox-extras-activate '(ignore-headlines))
 (require 'ox-latex)
+(setq org-latex-listings t)
+(setq org-latex-listings 'minted)
+
+(setq org-latex-pdf-process (list "latexmk -outdir=`dirname %f` -auxdir=`dirname %f` -pdflatex='pdflatex -output-directory=`dirname %f` -shell-escape -interaction nonstopmode' -pdf -f %f"))
 (add-to-list 'org-latex-packages-alist '("cache=false" "minted"))
 (add-to-list 'org-latex-packages-alist '("" "amsmath"))
 (add-to-list 'org-latex-packages-alist '("" "tikz"))
