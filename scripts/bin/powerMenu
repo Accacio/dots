@@ -4,7 +4,9 @@ wallpaper=~/wallpapers/20170216_171846.jpg
 # menu_fun='dmenu'
 menu_fun='rofi -dmenu -theme menu'
 exec 3>&1;
-mode=$(echo -e "Lock\nprettyLock\nLoki\nShutdown\nQuick Logoff\nLogoff\nRestart"| $menu_fun -b -sb  seagreen -i -p "Power Menu")
+
+menu=('Shutdown' 'Restart' 'Lock' 'prettyLock' 'Loki' 'Quick Logoff' 'Logoff')
+mode=$(printf '%s\n' "${menu[@]}"|sed 's/^ //'|$menu_fun -b -sb seagreen -i -p "Power Menu")
 case $mode in
     Lock)
 	convert $wallpaper -resize $(xrandr | grep primary -A 1|tail -n 1|awk '{print $1}') \
