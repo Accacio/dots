@@ -4,7 +4,7 @@
 
 -- Grab environment
 local awful = require("awful")
-
+local naughty = require("naughty")
 local redflat = require("redflat")
 
 -- Initialize tables and vars for module
@@ -371,11 +371,11 @@ function hotkeys:init(args)
 			{ description = "Mute", group = "Audio" }
 		},
 		{
-			{env.mod, "Shift" }, "m", function() awful.util.spawn_with_shell("st -c mail neomutt") end,
+			{env.mod, "Shift" }, "m", function() awful.util.spawn_with_shell(env.terminal .. " -t mail --class mail -e neomutt") end,
 			{ description = "open Mail", group = "Mail" }
 		},
 		{
-			{env.mod, "Shift" }, "XF86AudioPlay", function() awful.util.spawn_with_shell("st -c ncmpcpp ncmpcpp") end,
+			{env.mod, "Shift" }, "XF86AudioPlay", function() awful.util.spawn_with_shell(env.terminal .. " -t ncmpcpp -e ncmpcpp") end,
 			{ description = "Open ncmpcpp", group = "Audio" }
 		},
 		{
@@ -470,8 +470,12 @@ function hotkeys:init(args)
 		{
 			{ env.mod }, "z",
 			function()
+				-- for s in screen do
+					-- naughty.notify({ text= "Oh, wow, we have screen " .. tostring(s)})
+				-- get tags in each screen	
+				-- end
 				local tag=awful.tag.selected()
-
+				
 				local screen = awful.screen.focused()
 				local current = client.focus or nil
 
@@ -486,6 +490,11 @@ function hotkeys:init(args)
 					client.focus:move_to_screen(screen)
 					client.focus:move_to_tag(tag)
 					awful.screen.focus(screen)
+
+					-- for t in screen do
+						-- naughty.notify({ text= "Oh, wow, we have screen " .. tostring(s)})
+						-- put tags in each screen	
+					-- end
 					tag:view_only()
 				end
 			end,
@@ -588,7 +597,7 @@ function hotkeys:init(args)
 		},
 
 		{
-			{ env.mod }, "Escape", function () awful.spawn("bash -c 'xset dpms 2 0 0;i3lock -n -c 2e2e2e;xset dpms 0 0 0'") end,
+			{ env.mod }, "Escape", function () awful.spawn("prettyLock") end,
 			{ description = "Quick Lock", group = "Main" }
 		},
 		-- {
