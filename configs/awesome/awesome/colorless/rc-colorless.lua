@@ -193,8 +193,8 @@ awful.spawn("compton")
 awful.spawn("nm-applet")
 awful.util.spawn_with_shell('test "$(pgrep pasystray)" = "" &&  pasystray')
 -- Keyboard settings
-awful.spawn("setxkbmap -option caps:escape")
-awful.spawn("setxkbmap -option compose:rctrl")
+-- awful.spawn("setxkbmap -option caps:escape")
+-- awful.spawn("setxkbmap -option compose:rctrl")
 -- Mouse configs
 awful.spawn("xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Scrolling Distance' -20 -20")
 awful.spawn("xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Two-Finger Scrolling' 1 0")

@@ -5,7 +5,7 @@ INITTY=/dev/tty[1-8]
 for tty in $INITTY; do 
     setleds -D +num < $tty 
 done
-emacs --daemon &
+# emacs --daemon &
 
-exec i3
+# exec i3
 # exec bspwm
