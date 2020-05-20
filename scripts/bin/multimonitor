@@ -96,8 +96,11 @@ case $mode in
     modes=('right' 'left' 'total')
     mode=$( printf '%s\n' "${modes[@]}"|sed 's/^ //'|dmenu -i  -p "Monitor" |sed "s|[0-9]-||" )
     # if right or left
-    xsetwacom set "Wacom Intuos PT S 2 Pen stylus" Rotate ccw;
-    xsetwacom set "Wacom Intuos PT S 2 Finger touch" Rotate ccw;
+    # xsetwacom set "Wacom Intuos PT S 2 Pen stylus" Rotate ccw;
+    # xsetwacom set "Wacom Intuos PT S 2 Finger touch" Rotate ccw;
+
+    xsetwacom set "Wacom Intuos PT S 2 Pen stylus" Rotate cw;
+    xsetwacom set "Wacom Intuos PT S 2 Finger touch" Rotate cw;
     xres=$(echo $res | sed -e "s,\([0-9]*\)x.*,\1,")
     yres=$(echo $res | sed -e "s,[0-9]*x\([0-9]*\)+.*,\1,")
     xpos=$(echo $res | sed -e "s,[0-9]*x[0-9]*+\([0-9]*\)+.*,\1,")
