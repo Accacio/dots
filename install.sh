@@ -21,6 +21,7 @@ stow -v -d configs/ -t ~/.local/ \
      mail
 
 stow -v -d configs/ -t ~/.config/ \
+     alacritty/  \
      awesome/  \
      bspwm/    \
      doom/     \
