@@ -56,6 +56,8 @@
   :recipe (:host github :repo "gizmomogwai/org-kanban"))
 (package! org-pdftools
   :recipe (:host github :repo "fuxialexander/org-pdftools"))
+(package! org-ref
+  :recipe (:host github :repo "jkitchin/org-ref"))
 (package! org-noter
   :recipe (:host github :repo "weirdNox/org-noter"))
 (package! org-noter-pdftools
