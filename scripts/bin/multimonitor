@@ -20,9 +20,11 @@ case $mode in
     monitor=$(printf '%s\n' "${monitors[@]}"|sed 's/^ //'|dmenu -i  -p "Monitor")
     [ $monitor = "" ] && notify-send exit && exit 0
     monitors=( ${monitors[@]/$monitor} )
-    other=`printf ' --output %s --off ' "${monitors[@]}" |sed "s|[0-9]-||"`
+    other=`printf ' --output %s --off ' "${monitors[@]}" |sed "s| [0-9]-| |g"`
     # turn off all others
     monitorres=$( xrandr | awk '/ connected|+/ {printf "%s\n",$1}' | grep "^$monitor" -A 1 | tail -n 1)
+    echo $other
+    # exit
     xrandr --output $monitor $monitorres $other
     ;;
     two)
@@ -50,7 +52,7 @@ case $mode in
         down=$( xrandr | awk '/ connected|+/ {printf "%s\n",$1}' | grep "^$downMonitor" -A 1 | tail -n 1)
         downY=$( xrandr | awk '/ connected|+/ {printf "%s\n",$1}' | grep "^$downMonitor" -A 1 | tail -n 1|sed "s,.*x,,")
         downX=$( xrandr | awk '/ connected|+/ {printf "%s\n",$1}' | grep "^$downMonitor" -A 1 | tail -n 1|sed "s,x.*,,")
-        xrandr --output $topMonitor --mode $top --pos 0x0 --output $downMonitor --mode $down --pos $((($topX-$downX)/2))x$topY
+        xrandr --output $topMonitor --auto --mode $top --pos 0x0 --output $downMonitor --auto --mode $down --pos $((($topX-$downX)/2))x$topY
         ;;
     esac
     ;;
@@ -67,7 +69,7 @@ case $mode in
         centerMonitor="$( echo $centerMonitor | sed "s|^[^-]*-||")"
         rightMonitor="$( echo $rightMonitor | sed "s|^[^-]*-||")"
         notify-send "$leftMonitor $rightMonitor"
-        xrandr --output $leftMonitor --left-of $centerMonitor --output $centerMonitor --left-of $rightMonitor --output $rightMonitor
+        xrandr --output $leftMonitor --auto --left-of $centerMonitor --output $centerMonitor --auto --left-of $rightMonitor --output $rightMonitor --auto
         ;;
         Stacked)
         topMonitor=$( printf '%s\n' "${monitors[@]}"|sed 's/^ //'|dmenu -i  -p "Top Monitor")
