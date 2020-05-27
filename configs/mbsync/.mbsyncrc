@@ -70,7 +70,7 @@ SubFolders Legacy
 Channel supelec
 Master :supelec-remote:
 Slave :supelec-local:
-Patterns "[Gmail]/Sent Mail" "INBOX"
+Patterns "Sent" "INBOX"
 Create Both
 SyncState *
 Sync All
