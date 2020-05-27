@@ -28,7 +28,7 @@
 ;;Visual
 ;;
 (after! ivy-posframe
-  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center)))
+  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
   )
 
 (remove-hook 'prog-mode-hook 'hl-line-mode)
