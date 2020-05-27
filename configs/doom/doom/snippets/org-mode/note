@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: note
+# key: note
+# condition: t
+# --
+@@beamer:\note{$0}@@
