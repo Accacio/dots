@@ -2,5 +2,6 @@
 set from      = 'raccacio2@gmail.com'
 set folder = "~/.local/mail/messages/gmail"
 set spoolfile = "+Inbox"
+mailboxes "+====== gmail ====="
 mailboxes =Inbox =[Gmail]/.Sent\ Mail
 set sendmail="msmtp -a gmail"
