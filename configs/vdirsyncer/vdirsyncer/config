@@ -1,0 +1,3 @@
+[general]
+status_path = "~/.config/vdirsyncer/status/"
+

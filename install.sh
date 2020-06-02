@@ -43,6 +43,7 @@ stow -v -d configs/ -t ~/.config/ \
      rofi/     \
      sxhkd/    \
      vimb/     \
+     vdirsyncer/     \
      zathura/ 
 
 # install custom .desktop files
