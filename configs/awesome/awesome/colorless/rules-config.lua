@@ -52,8 +52,20 @@ function rules:init(args)
 			properties = { floating = true }
 		},
 		{
+			rule  = { },
+			properties = { maximized = false}
+		},
+		{
+			rule_any   = { class = {"wpp"}},
+			properties = { floating = true, ontop=true , sticky=true,maximized = false}
+		},
+		{
+			rule_any   = { class = {"vimb"},name={"WhatsApp","http://web.whatsapp.com/"}},
+			properties = { floating = true, ontop=true , sticky=true}
+		},
+		{
 			rule_any   = { class = {"mpv"}},
-			properties = { floating = true, ontop=true , sticky=true, focusable=false}
+			properties = { floating = true, ontop=true , sticky=true}
 		},
 		{
 			rule_any   = { type = { "normal", "dialog" }},
