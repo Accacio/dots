@@ -1,0 +1,42 @@
+[calendars]
+
+[[supelec]]
+path = ~/.calendar/supelec/personal/
+color = light magenta
+
+[[poli]]
+path = ~/.calendar/poli/raccacio@poli.ufrj.br/
+color = light blue
+
+# [[poli_local]]
+# path = ~/.calendar/poli/raccacio@poli.ufrj.br/
+# color = light blue
+
+[[Eve]]
+path = ~/.calendar/gmail/eveliseantunes@gmail.com/
+readonly = True
+color = light green
+
+[[gmail]]
+path = ~/.calendar/gmail/raccacio2@gmail.com/
+color = light red
+
+[locale]
+timeformat = %H:%M
+dateformat = %d/%m/%Y
+longdateformat = %d/%m/%Y
+datetimeformat = %d/%m/%Y %H:%M
+longdatetimeformat = %d/%m/%Y %H:%M
+
+[default]
+highlight_event_days = True
+show_all_days = True
+timedelta = 14d
+
+[view]
+dynamic_days = False
+event_view_always_visible = True
+frame = color
+
+[highlight_days]
+color = ''

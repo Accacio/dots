@@ -26,7 +26,9 @@ stow -v -d configs/ -t ~/.config/ \
      bspwm/    \
      doom/     \
      dunst/    \
-     lf/ \
+     khal/     \
+     khard/    \
+     lf/       \
      mpd/      \
      mpv/      \
      msmtp/    \
@@ -40,6 +42,7 @@ stow -v -d configs/ -t ~/.config/ \
      ranger/   \
      rofi/     \
      sxhkd/    \
+     vimb/     \
      zathura/ 
 
 # install custom .desktop files
