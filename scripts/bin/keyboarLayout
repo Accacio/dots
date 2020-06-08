@@ -13,3 +13,4 @@ case $mode in
   xmodmap -e "keysym oe = Super_L"
   ;;
 esac
+setxkbmap -option compose:rctrl

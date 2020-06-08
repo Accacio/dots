@@ -34,15 +34,18 @@ case $mode in
         leftMonitor=$( printf '%s\n' "${monitors[@]}"|sed 's/^ //'|dmenu -i  -p "Left Monitor")
         monitors=( ${monitors[@]/$leftMonitor} )
         rightMonitor=$(printf '%s\n' "${monitors[@]}"|sed 's/^ //'|dmenu -i -p "Right Monitor")
+        monitors=( ${monitors[@]/$rightMonitor} )
         leftMonitor="$( echo $leftMonitor | sed "s|^[^-]*-||")"
         rightMonitor="$( echo $rightMonitor | sed "s|^[^-]*-||")"
         notify-send "$leftMonitor $rightMonitor"
-        xrandr --output $leftMonitor --left-of $rightMonitor --output $rightMonitor
+        other=`printf ' --output %s --off ' "${monitors[@]}" |sed "s| [0-9]-| |g"`
+        xrandr --output $leftMonitor --auto --left-of $rightMonitor --output $rightMonitor --auto $other
         ;;
         Stacked)
         topMonitor=$( printf '%s\n' "${monitors[@]}"|sed 's/^ //'|dmenu -i  -p "Top Monitor")
         monitors=( ${monitors[@]/$topMonitor} )
         downMonitor=$( printf '%s\n' "${monitors[@]}"|sed 's/^ //'|dmenu -i -p "Down Monitor")
+        monitors=( ${monitors[@]/$downMonitor} )
         topMonitor="$(echo $topMonitor | sed "s|^[^-]*-||")"
         downMonitor="$(echo $downMonitor | sed "s|^[^-]*-||")"
         notify-send $topMonitor $downMonitor
@@ -52,7 +55,8 @@ case $mode in
         down=$( xrandr | awk '/ connected|+/ {printf "%s\n",$1}' | grep "^$downMonitor" -A 1 | tail -n 1)
         downY=$( xrandr | awk '/ connected|+/ {printf "%s\n",$1}' | grep "^$downMonitor" -A 1 | tail -n 1|sed "s,.*x,,")
         downX=$( xrandr | awk '/ connected|+/ {printf "%s\n",$1}' | grep "^$downMonitor" -A 1 | tail -n 1|sed "s,x.*,,")
-        xrandr --output $topMonitor --auto --mode $top --pos 0x0 --output $downMonitor --auto --mode $down --pos $((($topX-$downX)/2))x$topY
+        other=`printf ' --output %s --off ' "${monitors[@]}" |sed "s| [0-9]-| |g"`
+        xrandr --output $topMonitor --auto --mode $top --pos 0x0 --output $downMonitor --auto --mode $down --pos $((($topX-$downX)/2))x$topY $other
         ;;
     esac
     ;;
