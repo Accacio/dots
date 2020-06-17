@@ -47,6 +47,8 @@
 ;(package! builtin-package :recipe (:branch "develop"))
 
 (package! matlab-mode)
+(package! gnuplot-mode)
+(package! gnuplot)
 (package! rainbow-mode)
 (package! idle-highlight-mode)
 (package! org-journal)
