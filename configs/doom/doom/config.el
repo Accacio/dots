@@ -330,7 +330,7 @@ and value is its relative level, as an integer."
 )
 (after! org-capture
   (setq org-capture-templates
-        (append
+        ;; (append
                 '(
                   ("a" "Agenda")
                   ("aa" "All Day")
@@ -355,11 +355,20 @@ and value is its relative level, as an integer."
                    "* %?\n %^T--%^T\n"
                    :kill-buffer t)
 
+                  ("t" "TODOS" )
+                  ("tp" "Todo Pessoal" entry (file+headline "~/org/todo.org" "Inbox")
+                   "** TODO %?\n%i%a "
+                   :kill-buffer t)
+
+                  ("tt" "Todo These" entry (file+headline "~/org/todo_these.org" "Inbox")
+                   "** TODO %?\n%i%a "
+                   :kill-buffer t)
+
                   ("e" "Evelise" entry (file+headline "~/org/Eve.org" "Inbox")
                    "** TODO %?\n%i%a "
                    :kill-buffer t)
                   )
-                org-capture-templates)
+                ;; org-capture-templates)
         )
 
 )
