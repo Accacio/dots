@@ -65,12 +65,12 @@
 (after! org
 (setq org-agenda-files
       (list
-       "~/org/Eve.org"
-       "~/org/todo.org"
-       "~/org/todo_these.org"
-       "~/org/fromPoli.org"
-       "~/org/fromGmail.org"
-       "~/org/fromSupelec.org"
+       "~/org/private/Eve.org"
+       "~/org/private/todo.org"
+       "~/org/private/todo_these.org"
+       "~/org/private/fromPoli.org"
+       "~/org/private/fromGmail.org"
+       "~/org/private/fromSupelec.org"
        )
       )
 
@@ -276,6 +276,7 @@ and value is its relative level, as an integer."
 (after! org-roam
   ;; (setq org-roam-graph-viewer "qutebrowser")
   (setq org-roam-graph-executable "/usr/bin/neato")
+  (setq org-roam-directory "~/org/")
   (setq org-roam-graph-extra-config '(("overlap" . "false")))
   (setq org-roam-graph-exclude-matcher '("private" "ledger" "elfeed"))
 
@@ -334,37 +335,37 @@ and value is its relative level, as an integer."
                 '(
                   ("a" "Agenda")
                   ("aa" "All Day")
-                  ("aas" "Supelec" entry (file "~/org/fromSupelec.org")
+                  ("aas" "Supelec" entry (file "~/org/private/fromSupelec.org")
                    "* %?\n %^t\n"
                    :kill-buffer t)
-                  ("aap" "Poli" entry (file "~/org/fromPoli.org")
+                  ("aap" "Poli" entry (file "~/org/private/fromPoli.org")
                    "* %?\n %^t\n"
                    :kill-buffer t)
-                  ("aag" "Gmail" entry (file "~/org/fromGmail.org")
+                  ("aag" "Gmail" entry (file "~/org/private/fromGmail.org")
                    "* %?\n %^t\n"
                    :kill-buffer t)
 
                   ("as" "Scheduled")
-                  ("ass" "Supelec" entry (file "~/org/fromSupelec.org")
+                  ("ass" "Supelec" entry (file "~/org/private/fromSupelec.org")
                    "* %?\n %^T--%^T\n"
                    :kill-buffer t)
-                  ("asp" "Poli" entry (file "~/org/fromPoli.org")
+                  ("asp" "Poli" entry (file "~/org/private/fromPoli.org")
                    "* %?\n %^T--%^T\n"
                    :kill-buffer t)
-                  ("asg" "Gmail" entry (file "~/org/fromGmail.org")
+                  ("asg" "Gmail" entry (file "~/org/private/fromGmail.org")
                    "* %?\n %^T--%^T\n"
                    :kill-buffer t)
 
                   ("t" "TODOS" )
-                  ("tp" "Todo Pessoal" entry (file+headline "~/org/todo.org" "Inbox")
+                  ("tp" "Todo Pessoal" entry (file+headline "~/org/private/todo.org" "Inbox")
                    "** TODO %?\n%i%a "
                    :kill-buffer t)
 
-                  ("tt" "Todo These" entry (file+headline "~/org/todo_these.org" "Inbox")
+                  ("tt" "Todo These" entry (file+headline "~/org/private/todo_these.org" "Inbox")
                    "** TODO %?\n%i%a "
                    :kill-buffer t)
 
-                  ("e" "Evelise" entry (file+headline "~/org/Eve.org" "Inbox")
+                  ("e" "Evelise" entry (file+headline "~/org/private/Eve.org" "Inbox")
                    "** TODO %?\n%i%a "
                    :kill-buffer t)
                   )
@@ -381,6 +382,7 @@ and value is its relative level, as an integer."
           org-ref-pdf-directory "~/these/leitura/bibliography/")
     )
 
+(use-package! org-roam-server)
 ;; org-journal
 (use-package! org-journal
   :bind
@@ -525,3 +527,20 @@ and value is its relative level, as an integer."
 
 (setq frame-title-format "%b")
 (global-prettify-symbols-mode t)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(safe-local-variable-values
+   (quote
+    ((ispell-complete-word-dict . "/usr/share/dict/american-english")
+     (ispell-dictionary . "en")
+     (ispell-complete-word-dict . "/usr/share/dict/french")
+     (ispell-dictionary . "fr")))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

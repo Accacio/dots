@@ -47,6 +47,7 @@
 ;(package! builtin-package :recipe (:branch "develop"))
 
 (package! matlab-mode)
+(package! org-roam-server)
 (package! gnuplot-mode)
 (package! gnuplot)
 (package! rainbow-mode)
