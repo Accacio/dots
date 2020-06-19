@@ -1,0 +1,58 @@
+#!/bin/bash
+
+# Bitmap file header
+# 00	0	2 bytes	The header field used to identify the BMP and DIB file is 0x42 0x4D in hexadecimal, same as BM in ASCII. The following entries are possible:
+# 02	2	4 bytes	The size of the BMP file in bytes
+# 06	6	2 bytes	Reserved; actual value depends on the application that creates the image
+# 08	8	2 bytes	Reserved; actual value depends on the application that creates the image
+# 0A	10	4 bytes	The offset, i.e. starting address, of the byte where the bitmap image data (pixel array) can be found.
+
+# H*N*B/8
+# 128bit => 16KiB = 4000
+# 128 128 4 colors colors
+printf "42 4d 36 44 00 00 00
+00 00 00 36 04 00 00 28 00
+00 00 80 00 00 00 80 00 00
+00 01 00 08 00 00 00 00 00
+00 40 00 00 12 0b 00 00 12
+0b 00 00 00 01 00 00 00 01
+00 00 00 00 00 "
+
+# colors palette
+printf "00 40 40 40
+00 bf bf bf 00 ff ff ff "
+
+# # close header
+printf '00 %.0s' {1..11}
+printf '00 %.0s' {1..998}
+
+# 1. Transformar em binário
+# 2. reordenar lsb e hsb atenção!!
+# 3. Transformar em hexa
+# 4. reordenar linhas e colunas
+# 5. adicionar 0
+
+# data here
+file=$(xxd -e -b $1 \
+  | cut -c 11-63 \
+  | tr '\n' ' ' \
+  | sed -E "s,(([0-1]{8} ){16}),\1\n,g;s,^ *$,,g;s,([0-1])([0-1]),\1 \2 ,g;s,  , ,g")
+for ((j=1; j<="64"; j++))
+do
+  file2=$(paste -d" " <(echo -e "$file2") <(echo -e "$file" | awk -v j=$j '{print $(j+64),$j}'))
+done
+
+file=$((echo "obase=16;ibase=2";\
+  echo -e "$file2" \
+  | sed -E "s,([0-1]) ([0-1]),\1\2,g" \
+  | tr ' ' '\n' | sed -e "/^\s*$/d"
+       ) | bc \
+         | tr '\n' ' ' | sed -E "s,(([0-3] ){64}),\1\n,g")
+
+(for ((i=1; i<="16"; i++))
+ do
+     (for ((j=1; j<="8"; j++))
+      do
+          echo -e "$file" | head -n $((16*$i)) | tail -n 16 | cut -d" " -f$((8*($j-1)+1))-$((8*($j))) | paste -s -d" "
+      done)
+ done) | tac | sed -E "s,([0-3]),0\1,g"
