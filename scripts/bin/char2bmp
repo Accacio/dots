@@ -30,7 +30,8 @@ printf '00 %.0s' {1..998}
 # 2. reordenar lsb e hsb atenção!!
 # 3. Transformar em hexa
 # 4. reordenar linhas e colunas
-# 5. adicionar 0
+# 5. inverter
+# 6. adicionar 0
 
 # data here
 file=$(xxd -e -b $1 \
