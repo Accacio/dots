@@ -1,0 +1,28 @@
+#!/bin/bash
+# xxd -c 128 -a -b background.chr | cut --complement -f 1 -d':' | cut --complement -f 9 -d' '
+# lines
+
+file=$(xxd -b -s$((16#436)) $1 \
+    | cut -c 11-63 \
+    | tr '\n' ' ' \
+    | sed -E "s,([0]{6}),,g"\
+    | sed -E "s,(([0-1]{2} ){128}),\1\n,g;" \
+    | sed "/^\s*$/d" \
+    | tac )
+
+file2=$((for ((i=1; i<="16"; i++))
+        do
+            (for ((j=1; j<="16"; j++))
+             do
+                 echo -e "$file" | head -n $((8*$i)) | tail -n 8 \
+                     | cut -d" " -f$((8*($j-1)+1))-$((8*($j))) | paste -s -d" "
+             done)
+         done) | sed -E "s,([0-1])([0-1]),\1 \2,g")
+
+file="$file2"
+file2=""
+file2=$(paste -d" " <(echo -e "$file2") <(echo -e "$file" \
+| awk '{ for (i=1;i<=NF;i+=2) $i="" }1' | sed "s, *, ,g"))
+file2=$(paste -d" " <(echo -e "$file2") <(echo -e "$file" \
+| awk '{ for (i=2;i<=NF;i+=2) $i="" }1' | sed "s, *, ,g"))
+(echo "obase=16;ibase=2";echo -e "$file2" | sed -E "s, *, ,g;s,^ ,,;s,(([0-1] ){4}),\1\n,g;s, ,,g") | bc | tr '\n' ' ' | sed -E "s,([0-9;A-F]) ([0-9;A-F]) ([0-9;A-F]) ([0-9;A-F]),\1\2\3\4 ,g" | xxd -p -r
