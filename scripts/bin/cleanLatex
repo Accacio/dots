@@ -1,7 +1,5 @@
 #!/bin/bash
-if [ "`basename $PWD`" = "src" ] || [ "$1" = "-f" ]
-  then
-    find .  -type f -not -name '*.tex'\
+files=$(find .  -type f -not -name '*.tex'\
      -not -name '*.org' \
      -not -name '*.dot' \
      -not -name '*.exe' \
@@ -16,9 +14,16 @@ if [ "`basename $PWD`" = "src" ] || [ "$1" = "-f" ]
      -not -name 'makefile'\
      -not -name '*.ist'\
      -not -name '*.bst'\
-     -not -wholename '*/auto/*'\
-     | xargs rm --
-       else
-         echo `basename $0`: folder \"`basename $PWD`\" may not be a tex project
-         exit
+     -not -wholename '*/auto/*')
+if [ "`basename $PWD`" = "src" ] || [ "$1" = "-f" ]
+  then
+    if [ "$2" = "-n" ]
+      then
+      echo -e "$files"
+    else
+      echo -e "$files" | xargs rm --
+    fi
+else
+  echo `basename $0`: folder \"`basename $PWD`\" may not be a tex project
+  exit
 fi
