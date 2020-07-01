@@ -110,7 +110,7 @@ case $mode in
         right)
         newres=$(echo $(echo "scale=0;$yres/1.5" | bc -l)x$yres+$( echo "scale=0;$xpos+$xres-$yres/1.5" |bc -l)+$ypos)
         ;;
-        *)
+        total)
         xsetwacom set "Wacom Intuos PT S 2 Pen stylus" Rotate none;
         xsetwacom set "Wacom Intuos PT S 2 Finger touch" Rotate none;
         newres=$res
