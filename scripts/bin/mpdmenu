@@ -2,7 +2,7 @@
 export MPD_HOST="$HOME/.config/mpd/socket"
 
 all_name='[ALL]'
-menu_fun='rofi -dmenu -theme menu'
+menu_fun='rofi -dmenu -theme menu -i'
 mode=library
 d_songs() {
     local artist="$1"
