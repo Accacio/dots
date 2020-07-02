@@ -1,2 +1,3 @@
 #!/bin/bash
-xdg-open $(locate -e --regex ^$HOME | grep -iv "\(_minted\|pycache\|\.emacs\.d\|trash\)" | rofi  -dmenu -theme arthur -i -p "Open File ") &
+# xdg-open $(locate -e --regex ^$HOME | grep -iv "\(_minted\|pycache\|.Android\|.bundle\|.cache\|.gradle\|.mozilla\|\.emacs\.d\|trash\)" | rofi  -dmenu -theme arthur -i -p "Open File ") &
+xdg-open $(locate -e --regex ^$HOME | grep -i "\(\.md$\|\.tex$\|\.org$\|.pdf$\|.png$\)" | rofi  -dmenu -theme arthur -i -p "Open File ") &
