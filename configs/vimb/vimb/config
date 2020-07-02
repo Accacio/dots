@@ -5,6 +5,7 @@ set input-autohide=true
 set hint-keys=dfjk
 set hint-match-element=false
 # set hint-follow-last=false
+nnoremap gc :sh! bash -c "capture '$VIMB_URI' '$VIMB_TITLE'"<CR>
 nnoremap J :sh! xdotool key --window $VIMB_XID ctrl+shift+l<CR><Esc>
 nnoremap K :sh! xdotool key --window $VIMB_XID ctrl+shift+h<CR><Esc>
 shortcut-add duck=https://duckduckgo.com/?q=$0
