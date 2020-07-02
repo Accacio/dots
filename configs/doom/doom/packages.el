@@ -48,6 +48,7 @@
 
 (package! matlab-mode)
 (package! org-roam-server)
+(package! org-roam-bibtex)
 (package! gnuplot-mode)
 (package! gnuplot)
 (package! rainbow-mode)
