@@ -1,5 +1,5 @@
 #!/bin/bash
-export DISPLAY=:0.0
+export DISPLAY=$(who | grep $(whoami) | sed -E "s, +,\ ,g" | cut -d" " -f 2)
 
 TEMPMAX=6500
 TEMPDEFAULT=6500

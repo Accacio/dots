@@ -13,7 +13,7 @@ command -v notify-send >/dev/null || echo "Note that \`libnotify\` or \`libnotif
 
 # Required to display notifications if run as a cronjob:
 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus
-export DISPLAY=:0.0
+export DISPLAY=$(who | grep $(whoami) | sed -E "s, +,\ ,g" | cut -d" " -f 2)
 
 # For individual configurations:
 [ -d "$HOME/.local/share/password-store" ] && export PASSWORD_STORE_DIR="$HOME/.local/share/password-store"
