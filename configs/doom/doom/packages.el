@@ -65,3 +65,7 @@
   :recipe (:host github :repo "weirdNox/org-noter"))
 (package! org-noter-pdftools
   :recipe (:host github :repo "fuxialexander/org-pdftools"))
+
+
+(package! org-caldav)
+(package! Oauth2)
