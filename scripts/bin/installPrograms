@@ -125,6 +125,7 @@ then
     popd
     sudo update-alternatives --install /usr/bin/x-www-browser x-www-browser ~/bin/qutebrowser 300
     sudo update-alternatives --install /usr/bin/qutebrowser x-www-browser ~/bin/qutebrowser 300
+    sudo update-alternatives --set x-www-browser /usr/bin/qutebrowser
 fi
 
 # custom install surf
