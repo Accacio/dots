@@ -280,9 +280,11 @@ and value is its relative level, as an integer."
   (setq org-roam-graph-extra-config '(("overlap" . "false")))
   (setq org-roam-graph-exclude-matcher '("private" "ledger" "elfeed"))
 
-    (setq bibtex-completion-bibliography
-          '("~/docsThese/docs/memoire/bibliography.bib"))
-    (setq bibtex-completion-library-path '("~/these/leitura/bibliography/"))
+    (setq bibtex-completion-bibliography '("~/docsThese/docs/memoire/bibliography.bib")
+          bibtex-completion-library-path '("~/these/leitura/bibliography/")
+          bibtex-completion-find-note-functions '(orb-find-note-file)
+          )
+
 
 
 
@@ -377,11 +379,34 @@ and value is its relative level, as an integer."
 
 
 ;; org-ref
+(use-package! org-ref)
 (after! org-ref
     (setq org-ref-default-bibliography '("~/docsThese/docs/memoire/bibliography.bib")
-          org-ref-pdf-directory "~/these/leitura/bibliography/")
+          org-ref-pdf-directory "~/these/leitura/bibliography/"
+          org-ref-note-title-format "* TODO %y - %t\n :PROPERTIES:\n  :Custom_ID: %k\n  :NOTER_DOCUMENT: %F\n :ROAM_KEY: cite:%k\n  :AUTHOR: %9a\n  :JOURNAL: %j\n  :YEAR: %y\n  :VOLUME: %v\n  :PAGES: %p\n  :DOI: %D\n  :URL: %U\n :END:\n\n"
+          org-ref-notes-directory "~/org/"
+          org-ref-notes-function 'orb-edit-notes)
     )
+(use-package! org-roam-bibtex
+  :after (org-roam)
+  :hook (org-roam-mode . org-roam-bibtex-mode)
+  :config
+  (setq orb-preformat-keywords
+   '("=key=" "title" "url" "file" "author-or-editor" "keywords"))
+  (setq orb-templates
+        '(("r" "ref" plain (function org-roam-capture--get-point)
+           ""
+           :file-name "${=key=}"
+           :head "#+TITLE: ${=key=}: ${title}\n#+ROAM_KEY: ${ref}
 
+- tags ::
+- keywords :: ${keywords}
+
+\n* ${title}\n  :PROPERTIES:\n  :Custom_ID: ${=key=}\n  :URL: ${url}\n  :AUTHOR: ${author-or-editor}\n  :NOTER_DOCUMENT: %(orb-process-file-field \"${=key=}\")\n  :NOTER_PAGE: \n  :END:\n\n"
+
+           :unnarrowed t))))
+
+  (org-roam-bibtex-mode)
 (use-package! org-roam-server)
 ;; org-journal
 (use-package! org-journal
@@ -402,20 +427,23 @@ and value is its relative level, as an integer."
     (interactive)
     (org-journal-new-entry t)))
 ;; org-noter
-;; (use-package! org-noter
-;;   :config
-  (setq org-noter-pdftools-markup-pointer-color "yellow" )
-  (setq org-noter-notes-search-path '("~/org"))
-  (setq org-noter-always-create-frame nil)
-  (setq org-noter-pdftools-free-pointer-icon "Note")
-  (setq org-noter-pdftools-free-pointer-color "red")
-  (setq org-noter-kill-frame-at-session-end nil)
+(use-package! org-noter
+  :config
+  (setq
+   org-noter-pdftools-markup-pointer-color "yellow"
+   org-noter-notes-search-path '("~/org")
+   org-noter-always-create-frame nil
+   org-noter-hide-other nil
+   org-noter-pdftools-free-pointer-icon "Note"
+   org-noter-pdftools-free-pointer-color "red"
+   org-noter-kill-frame-at-session-end nil
+   )
   (map! :map (pdf-view-mode)
         :leader
         (:prefix-map ("n" . "notes")
           :desc "Write notes"                    "w" #'org-noter)
         )
-  ;; )
+  )
 (use-package! org-pdftools
   :hook (org-load . org-pdftools-setup-link))
 
