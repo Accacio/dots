@@ -9,6 +9,10 @@
 (setq user-full-name "Rafael Accácio Nogueira"
       user-mail-address "raccacio@poli.ufrj.br")
 
+(blink-cursor-mode)
+(setq blink-cursor-interval .1)
+(setq blink-cursor-blinks 2)
+(tooltip-mode 1)
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
 ;;
