@@ -64,6 +64,7 @@
 (setq org-directory "~/org/")
 (after! org
 
+(setq org-hide-emphasis-markers t)
 (setq org-modules '(ol-bibtex org-habit))
 (org-load-modules-maybe t)
 (setq org-agenda-files
