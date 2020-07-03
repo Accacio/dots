@@ -1,5 +1,5 @@
 #!/bin/bash
-export DISPLAY=$(who | grep $(whoami) | sed -E "s, +,\ ,g" | cut -d" " -f 2)
+export DISPLAY=$(who | grep $(whoami) | sed "s,.*(\(.*\)).*,\1,g" | cut -d" " -f 2)
 exec 3>&1;
 mode=$(echo -e "🇧🇷\n🇫🇷"|rofi -dmenu -theme menu -sb seagreen -i -p "Layout")
 case $mode in
