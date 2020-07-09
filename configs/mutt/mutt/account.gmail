@@ -1,5 +1,5 @@
 
-set from      = 'raccacio2@gmail.com'
+set from      = 'Rafael Accácio <raccacio2@gmail.com>'
 set folder = "~/.local/mail/messages/gmail"
 set spoolfile = "+Inbox"
 set record = "=[Gmail]/.Sent\ Mail"
