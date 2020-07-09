@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo -e $(curl -s "https://ieeexplore.ieee.org/rest/search/citation/format?recordIds=$1&download-format=download-bibtex&lite=true" \
+    -H "Referer: https://ieeexplore.ieee.org/document/$1" | sed "s,{\"data\":\"\(.*\)\"},\1,") | tr '' ' '
