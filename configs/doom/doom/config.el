@@ -286,7 +286,7 @@ and value is its relative level, as an integer."
   (setq org-roam-graph-executable "/usr/bin/neato")
   (setq org-roam-directory "~/org/")
   (setq org-roam-graph-extra-config '(("overlap" . "false")))
-  (setq org-roam-graph-exclude-matcher '("private" "ledger" "elfeed"))
+  (setq org-roam-graph-exclude-matcher '("private" "ledger" "elfeed" "readinglist"))
 
     (setq bibtex-completion-bibliography '("~/docsThese/docs/memoire/bibliography.bib")
           bibtex-completion-library-path '("~/these/leitura/bibliography/")
