@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: roam-key
+# key: rkey
+# condition: t
+# --
+#+ROAM_KEY: $0
