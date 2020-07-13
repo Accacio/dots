@@ -399,19 +399,47 @@ and value is its relative level, as an integer."
   :after (org-roam)
   :hook (org-roam-mode . org-roam-bibtex-mode)
   :config
+  ;; (setq org-roam-server-host "172.16.3.168")
   (setq orb-preformat-keywords
    '("=key=" "title" "url" "file" "author-or-editor" "keywords"))
   (setq orb-templates
         '(("r" "ref" plain (function org-roam-capture--get-point)
            ""
            :file-name "${=key=}"
-           :head "#+TITLE: ${=key=}: ${title}\n#+ROAM_KEY: ${ref}
+           :head "#+TITLE: ${=key=}: ${title}
+#+ROAM_KEY: ${ref}
+#+ROAM_TAGS: article
 
 - tags ::
 - keywords :: ${keywords}
 
-\n* ${title}\n  :PROPERTIES:\n  :Custom_ID: ${=key=}\n  :URL: ${url}\n  :AUTHOR: ${author-or-editor}\n  :NOTER_DOCUMENT: %(file-relative-name (orb-process-file-field \"${=key=}\") (print org-directory))\n  :NOTER_PAGE: \n  :END:\n\n"
 
+* ${title}
+  :PROPERTIES:
+  :Custom_ID: ${=key=}
+  :URL: ${url}
+  :AUTHOR: ${author-or-editor}
+  :NOTER_DOCUMENT: %(file-relative-name (orb-process-file-field \"${=key=}\") (print org-directory))
+  :NOTER_PAGE:
+  :END:
+
+** CATALOG
+  :PROPERTIES:
+  :Custom_ID: ${=key=}
+  :URL: ${url}
+  :AUTHOR: ${author-or-editor}
+  :NOTER_DOCUMENT: %(file-relative-name (orb-process-file-field \"${=key=}\") (print org-directory))
+  :NOTER_PAGE:
+  :END:
+
+*** Motivation
+*** Model
+*** Remarks
+*** Applications
+*** References
+
+** NOTES
+"
            :unnarrowed t))))
 
   (org-roam-bibtex-mode)
@@ -440,6 +468,8 @@ and value is its relative level, as an integer."
   (setq
    org-noter-pdftools-markup-pointer-color "yellow"
    org-noter-notes-search-path '("~/org")
+   org-noter-doc-split-percentage (0.7 . 0.3)
+   org-noter-insert-note-no-questions t
    org-noter-always-create-frame nil
    org-noter-hide-other nil
    org-noter-pdftools-free-pointer-icon "Note"
