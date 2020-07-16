@@ -17,16 +17,23 @@ function proxyOn {
 function proxyOff {
     sed "s/.*proxy.*//" $HOME/.gitconfig > $HOME/.gitconfig
 }
-
-function emc {
-    emacsclient -c $1 &
-    disown
+function calc {
+    echo "scale=10;$1" | bc -l
 }
 
-function emct {
-    emacsclient -ct $1 &
-    disown
-}
+# function fotosEve {
+#   curl https://difoccus.auryn.com.br/galeria-de-fotos/RRO27DJXX2/picture/$1/3264 -H 'Cookie: PHPSESSID=osidb8q7igdc349ncnk1qdfa71; REMEMBERME=UG10VmN0XFVzZXJCdW5kbGVcU2VjdXJpdHlcVXNlclxXZWJzZXJ2aWNlVXNlcjpaWFpsYkdselpXRnVkSFZ1WlhOQVoyMWhhV3d1WTI5dDoxNjA2NTA0MDAwOmZjYzNiMDlhYmI1OWNiYWNlOGQzMDVlMjE1NzU3NWU4ZWVjZjBlZDUyZTZiZmU4MjE1YjA3YTc0NGI4ZDI2MjY%3D'>$1.jpg
+# }
+
+# function emc {
+#     emacsclient -c $1 &
+#     disown
+# }
+
+# function emct {
+#     emacsclient -ct $1 &
+#     disown
+# }
 
 function qrCli {
     temp=$(mktemp)
@@ -51,17 +58,19 @@ alias cls="printf '\ec'" \
       la='ls -Abh' \
       lals='ls -Abh --color | less' \
       clc='clear' \
+      zat='zathura' \
       lsip='ifconfig | grep "inet "' \
+      gl="git ls-tree --name-only HEAD|xargs ls -dCFbh --color" \
+      gll="gl -l" \
       ..='cd ..' \
       ....='cd ../..' \
       ......='cd ../../..' \
       emacsd="emacs -daemon" \
+      e="emacs -nw" \
       sc="sc-im" \
       accSite="surf 192.168.1.140:4000 &" \
-      jsl="cd $HOME/blog/;jekyll serve --livereload" \
-      music='tmux new-session "tmux source-file $HOME/dots/configs/ncmpcpp/ncmpcpp/tmux_session"' \
-      addBooksRecursive='find -name "*.pdf" -print0 |xargs -0 -I file cp file ~/books/TCC'
-
+      # jsl="cd $HOME/blog/;jekyll serve --livereload" \
+      deploySite="pushd ~/Blog;zola build;cp -r public/* ~/git/site/;pushd ~/git/site/;git add *;git commit -m `date +%F`;git push -u origin master"
 # alias u='xrandr -o normal'
 # alias d='xrandr -o inverted'
 
@@ -71,8 +80,8 @@ alias cls="printf '\ec'" \
 # socket=/tmp/nvim-$ID
 # nvr --servername $socket --remote $1
 # }
-alias vim='nvim'
-alias vi='nvim'
+# alias vim='nvim'
+# alias vi='nvim'
 
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
@@ -142,3 +151,39 @@ function encrypt {
 function decrypt {
     openssl aes-256-cbc -d -in $1 -out $2
 }
+
+alias org2dbox="rclone -l copy ~/org dbox:org"
+alias dbox2org="rclone -l copy dbox:org ~/org"
+alias these2dbox="rclone -l copy ~/these dbox:these"
+alias dbox2these="rclone -l copy dbox:these ~/these"
+
+alias org2dboxSync="rclone -l sync ~/org dbox:org"
+alias dbox2orgSync="rclone -l sync dbox:org ~/org"
+alias these2dboxSync="rclone -l sync ~/these dbox:these"
+alias dbox2theseSync="rclone -l sync dbox:these ~/these"
+
+alias presentToday="pdfpc ~/docsThese/docs/slides/`date +%F`.pdf"
+
+function webLedger {
+  pushd
+  cd ~/git/ledger2beancount
+  sed "s|/|-|g" ~/org/ledger/main.ledger | ./bin/ledger2beancount > /tmp/beancount
+  popd
+  fava /tmp/beancount
+}
+
+# pronunciation using shtooka project
+function pronunc {
+  curl `wget -qO- http://shtooka.net/search.php\?str\=$2\&lang\=$1 | grep onClick -m1 | sed "s/.*http\(.*\)',.*/http\1/"`| mpv --vo=null -
+}
+
+alias pronuncfr="pronunc fra"
+alias pronuncen="pronunc eng"
+alias pronuncde="pronunc deu"
+function lfcd {
+  lf -last-dir-path ~/.config/lf/lastdir
+  cd `cat ~/.config/lf/lastdir`
+}
+alias lf=lfcd
+alias passBKP="tar cfz  pass.tgz .password-store;rclone copy pass.tgz dbox:AccDoc/;rm pass.tgz"
+alias passRestore="rclone copy dbox:AccDoc/pass.tgz .;tar xfz pass.tgz;rm pass.tgz"

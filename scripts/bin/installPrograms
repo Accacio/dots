@@ -65,6 +65,7 @@ then
     cd st
     make
     sudo make install
+    sudo update-alternatives --install /usr/bin/st x-terminal-emulator /usr/local/bin/st 90
 fi
 
 # install emacs from ppa
@@ -74,6 +75,8 @@ then
     sudo add-apt-repository ppa:kelleyk/emacs
     sudo apt-get update
     sudo apt-get install emacs26
+    git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
+    ~/.emacs.d/bin/doom install
 fi
 
 # install ueberzug from ppa
@@ -82,6 +85,14 @@ then
     listPrograms=${listPrograms//"ueberzug"/}
     sudo apt-get install python3-pip
     sudo -H pip3 install ueberzug
+fi
+
+# install xournalpp from repo
+if [[ $listPrograms == *"xournalpp"* ]]
+then
+    listPrograms=${listPrograms//"xournalpp"/}
+    sudo add-apt-repository ppa:andreasbutti/xournalpp-master
+    sudo apt install xournalpp
 fi
 
 # install vivaldi from repo
@@ -103,6 +114,34 @@ then
     sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
 
+
+# custom install qutebrowser
+if [[ $listPrograms == *"qutebrowser"* ]]
+then
+    listPrograms=${listPrograms//"qutebrowser"/}
+    git clone https://github.com/qutebrowser/qutebrowser.git ~/git/qutebrowser/
+    pushd ~/git/qutebrowser/
+    sudo python3 scripts/mkvenv.py
+    popd
+    sudo update-alternatives --install /usr/bin/x-www-browser x-www-browser ~/bin/qutebrowser 300
+    sudo update-alternatives --install /usr/bin/qutebrowser x-www-browser ~/bin/qutebrowser 300
+    sudo update-alternatives --set x-www-browser /usr/bin/qutebrowser
+fi
+
+# custom install surf
+if [[ $listPrograms == *"surf"* ]]
+then
+    listPrograms=${listPrograms//"surf"/}
+    git clone https://git.suckless.org/surf
+    pushd ~/git/surf/
+    sudo apt install libwebkit2gtk-4.0-dev libgstreamer1.0-dev libgcr-3-dev libgstreamer-plugins-good1.0-dev gstreamer1.0-libab
+    sudo make clean install
+    popd
+    sudo update-alternatives --install /usr/bin/x-www-browser x-www-browser ~/bin/qutebrowser 300
+    sudo update-alternatives --install /usr/bin/qutebrowser x-www-browser ~/bin/qutebrowser 300
+fi
+
+
 # custom install polybar
 if [[ $listPrograms == *"polybar"* ]]
 then
@@ -121,6 +160,7 @@ then
 fi
 
 
+xdg-settings set default-web-browser browser.desktop
 # install all other programs
 sudo apt-get install  --no-install-recommends $(echo $listPrograms)
-sudo apt-get remove xterm gnome-terminal
+# sudo apt-get remove xterm gnome-terminal

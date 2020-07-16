@@ -13,6 +13,7 @@
 ** dspdfviewer
 ** dunst
 ** emacs
+** fasd
 ** feh
 ** ffmpeg
 ** fzy
@@ -48,6 +49,7 @@
 ** pinentry-qt
 ** polybar
 ** pulseaudio
+** qutebrowser
 ** ranger
 ** rhythmbox
 ** rofi
@@ -65,7 +67,7 @@
 ** xdotool
 ** xinit
 ** xinput
-** xournal
+** xournalpp
 ** xserver-xorg-input-all
 ** xserver-xorg-input-kbd
 ** xserver-xorg-input-synaptics

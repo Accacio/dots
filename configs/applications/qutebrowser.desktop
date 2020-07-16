@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=qutebrowser
+Exec=bash -c "~/bin/qutebrowser"
+Icon=/usr/share/icons/qutebrowser-128x128.png
+Type=Application
+Terminal=false
+MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;x-scheme-handler/chrome;video/webm;application/x-xpinstall;
+Categories=GNOME;GTK;Network;WebBrowser;

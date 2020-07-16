@@ -1,0 +1,12 @@
+#!/bin/sh
+echo "<html><head>
+<title>Files</title>
+</head>
+<body>
+<h1>Files</h1>
+<ol>
+$(find . -maxdepth 1 -name '*.mobi'  -printf "%f\n"| sort | awk '{print "<li><a href=" "\x22" $1 "\x22" ">" $1 "</a></li>"}')
+</ol></body></html>"
+
+
+# echo -e "<html><head>\n<title>Files</title>\n</head>\n<body>\n<h1>Files</h1>\n<ul>$(find . -maxdepth 1 -name '*.mobi'  -printf "%f\n" | awk '{print "<li><a

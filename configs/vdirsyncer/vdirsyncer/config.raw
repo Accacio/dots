@@ -1,0 +1,74 @@
+[general]
+status_path = "~/.config/vdirsyncer/status/"
+
+[pair supelecContacts]
+a = "supelecContacts_local"
+b = "supelecContacts_remote"
+collections = ["from a","from b"]
+conflict_resolution = "b wins"
+metadata = ["color"]
+
+[storage supelecContacts_local]
+type = "filesystem"
+path = "~/.contacts/supelec/"
+fileext= ".vcf"
+
+[storage supelecContacts_remote]
+type = "carddav"
+url = "https://sogo.supelec.fr/SOGo/dav/nogueirar/Contacts/personal/"
+username = "nogueirar"
+password.fetch = ["command", "pass", "Email/centralesupelec"]
+
+[pair calendar]
+a = "calendar_local"
+b = "calendar_remote"
+collections = ["from a","from b"]
+conflict_resolution = "b wins"
+metadata = ["color"]
+
+[storage calendar_local]
+type = "filesystem"
+path = "~/.calendar/supelec"
+fileext= ".ics"
+
+[storage calendar_remote]
+type = "caldav"
+url = "https://sogo.supelec.fr/SOGo/dav/nogueirar/Calendar/personal/"
+username = "nogueirar"
+password.fetch = ["command", "pass", "Email/centralesupelec"]
+
+[pair gmail]
+a = "gmail_local"
+b = "gmail_remote"
+collections = ["from a","from b"]
+conflict_resolution = "b wins"
+metadata = ["color"]
+
+[storage gmail_local]
+type = "filesystem"
+path = "~/.calendar/gmail/"
+fileext= ".ics"
+
+[storage gmail_remote]
+type = "google_calendar"
+token_file = "~/.config/vdirsyncer/google_token"
+client_id = "998718790900-83pekdvg3h198chhn46n7dsdqdb44cgv.apps.googleusercontent.com"
+client_secret = "CLIENT_SECRET"
+
+[pair poli]
+a = "poli_local"
+b = "poli_remote"
+collections = ["from a","from b"]
+conflict_resolution = "b wins"
+metadata = ["color"]
+
+[storage poli_local]
+type = "filesystem"
+path = "~/.calendar/poli/"
+fileext= ".ics"
+
+[storage poli_remote]
+type = "google_calendar"
+token_file = "~/.config/vdirsyncer/poli_token"
+client_id = "998718790900-83pekdvg3h198chhn46n7dsdqdb44cgv.apps.googleusercontent.com"
+client_secret = "CLIENT_SECRET"

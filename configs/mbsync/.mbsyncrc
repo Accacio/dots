@@ -1,0 +1,76 @@
+# Gmail
+IMAPAccount gmail
+Host imap.gmail.com
+User raccacio2@gmail.com
+PassCmd "pass Email/gmail"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore gmail-remote
+Account gmail
+
+MaildirStore gmail-local
+Path ~/.local/mail/messages/gmail/
+Inbox ~/.local/mail/messages/gmail/Inbox
+SubFolders Legacy
+
+Channel gmail
+Master :gmail-remote:
+Slave :gmail-local:
+Patterns "[Gmail]/Sent Mail" "INBOX"
+Create Both
+SyncState *
+Sync All
+Expunge Both
+
+# Polimail
+IMAPAccount poli
+Host imap.gmail.com
+User raccacio@poli.ufrj.br
+PassCmd "pass Email/polimail"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore poli-remote
+Account poli
+
+MaildirStore poli-local
+Path ~/.local/mail/messages/poli/
+Inbox ~/.local/mail/messages/poli/Inbox
+SubFolders Legacy
+
+Channel poli
+Master :poli-remote:
+Slave :poli-local:
+# Patterns * !\"[Gmail]/All Mail\"
+Patterns "[Gmail]/Sent Mail" "INBOX"
+Create Both
+SyncState *
+Sync All
+Expunge Both
+
+# Supelec
+IMAPAccount supelec
+Host imap.ecp.fr
+User nogueirar
+PassCmd "pass Email/centralesupelec"
+SSLType IMAPS
+# openssl s_client -connect some.imap.server:port -showcerts 2>&1 < /dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sed -ne '1,/-END CERTIFICATE-/p' > ~/.cert/some.imap.server.pem
+# CertificateFile /etc/ssl/certs/ca-certificates.crt
+CertificateFile ~/.cert/imap.ecp.fr.pem
+
+IMAPStore supelec-remote
+Account supelec
+
+MaildirStore supelec-local
+Path ~/.local/mail/messages/supelec/
+Inbox ~/.local/mail/messages/supelec/Inbox
+SubFolders Legacy
+
+Channel supelec
+Master :supelec-remote:
+Slave :supelec-local:
+Patterns "Sent" "INBOX"
+Create Both
+SyncState *
+Sync All

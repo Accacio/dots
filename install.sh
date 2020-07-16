@@ -1,33 +1,51 @@
+# bin scripts
 stow -v -t ~/ \
      scripts/
 
 # outside .config
 stow -v -d configs/ -t ~/ \
      bash/     \
-     tmux/     \
+     calcurse/ \
+     fonts/    \
      i3/       \
      i3blocks/ \
-     calcurse/ \
-     xconfigs/  \
+     mbsync/   \
      newsboat/ \
-     xournal/  \
-     fonts/    \
+     nvim/     \
      spacemacs \
-     nvim/
+     tmux/     \
+     xconfigs/ \
+     xournal/  \
+     xournalpp/
+
+stow -v -d configs/ -t ~/.local/ \
+     mail
 
 stow -v -d configs/ -t ~/.config/ \
-     mpv/      \
-     dunst/    \
-     zathura/  \
-     mpd/      \
-     ncmpcpp/  \
-     polybar/  \
-     rofi/     \
+     alacritty/  \
+     awesome/  \
      bspwm/    \
-     sxhkd/    \
-     ranger/   \
+     doom/     \
+     dunst/    \
+     khal/     \
+     khard/    \
+     lf/       \
+     mpd/      \
+     mpv/      \
+     msmtp/    \
+     mutt/     \
+     ncmpcpp/  \
+     notmuch/  \
      nvim/     \
-     pdfpc/
+     pdfpc/    \
+     polybar/  \
+     qutebrowser/ \
+     ranger/   \
+     rofi/     \
+     sxhkd/    \
+     vimb/     \
+     vdirsyncer/     \
+     zathura/ 
 
 # install custom .desktop files
 stow -v -d configs/ -t ~/.local/share/applications/ applications/

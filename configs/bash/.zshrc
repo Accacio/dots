@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/accacio/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -55,7 +55,7 @@ ZSH_THEME="accacio"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-ZSH_CUSTOM=/home/accacio/.customz
+ZSH_CUSTOM=~/.customz
 
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
@@ -68,26 +68,41 @@ ZSH_CUSTOM=/home/accacio/.customz
 # )
 
 
-source $ZSH/oh-my-zsh.sh
+[ -f $ZSH/oh-my-zsh.sh ] && source $ZSH/oh-my-zsh.sh
 source /etc/zsh_command_not_found
 ncmpcppShow() { ncmpcpp <$TTY; zle redisplay; }
 zle -N ncmpcppShow
 rangerShow() { ranger <$TTY; zle redisplay; }
 zle -N rangerShow
 
-bindkey '^[\' ncmpcppShow
-bindkey '^[r' rangerShow
 
 source ~/.bashrc.d/alias.bash
 source ~/.bashrc.d/variables.bash
 # source ~/.bashrc.d/prompt.bash
 
-source /home/accacio/.customz/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /home/accacio/.customz/zsh-autosuggestions/zsh-autosuggestions.zsh
+[ -f ~/.customz/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source ~/.customz/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[ -f ~/.customz/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source ~/.customz/zsh-autosuggestions/zsh-autosuggestions.zsh
+# [ -f ~/.customz/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh ] && source ~/.customz/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
+MODE_INDICATOR_VIINS='%F{15}<%F{8}INSERT<%f'
+MODE_INDICATOR_VICMD='%F{10}<%F{2}NORMAL<%f'
+MODE_INDICATOR_REPLACE='%F{9}<%F{1}REPLACE<%f'
+MODE_INDICATOR_SEARCH='%F{13}<%F{5}SEARCH<%f'
+MODE_INDICATOR_VISUAL='%F{12}<%F{4}VISUAL<%f'
+MODE_INDICATOR_VLINE='%F{12}<%F{4}V-LINE<%f'
+MODE_CURSOR_VICMD="green block"
+MODE_CURSOR_VIINS="#20d08a blinking bar"
+MODE_CURSOR_SEARCH="#ff00ff steady underline"
 
+bindkey '^[m' ncmpcppShow
+bindkey '^[r' rangerShow
+bindkey -s '^[l' 'lfcd\n'
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=3"
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-fpath=(/home/accacio/bin/ $fpath)
+fpath=($HOME/bin/ $fpath)
+
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+eval "$(fasd --init auto)"
 

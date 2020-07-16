@@ -1,0 +1,3 @@
+#!/bin/bash
+
+emacs $1 --batch --eval="(org-latex-export-to-latex nil nil nil t)" --kill

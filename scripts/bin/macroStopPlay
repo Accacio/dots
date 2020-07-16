@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ "$(pgrep cnee)" != "" ]
+then
+    killall cnee
+else
+    cnee --replay --mouse --keyboard -f /tmp/test.xns
+fi

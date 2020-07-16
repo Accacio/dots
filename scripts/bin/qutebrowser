@@ -1,0 +1,2 @@
+#!/bin/bash
+~/git/qutebrowser/.venv/bin/python3 -m qutebrowser $1

@@ -1,9 +1,9 @@
 #!/bin/bash
-export DISPLAY=:0
+export DISPLAY=$(who | grep $(whoami) | sed -E "s, +,\ ,g" | cut -d" " -f 2)
 
 batLevel=$(upower -i $(upower -e | grep '/battery') | grep --color=never -E "percentage"| awk '{print $2}'| sed -e 's/%//g')
 
-
+exit
 
 batState=$(upower -i $(upower -e | grep '/battery') | grep --color=never -E "state"| awk '{print $2}')
 # echo $batState

@@ -1,0 +1,39 @@
+#!/bin/bash
+[ -n ~/git ] || mkdir ~/git
+sudo apt install -y \
+    openssh-server git sct stow zsh curl make gcc libx11-dev libxft-dev pkgconf golang-go\
+    wportuguese wfrench aspell-fr aspell-pt-br fzy fasd pass ranger silversearcher-ag libglib2.0-0 libgl1 \
+    libfontconfig1 libx11-xcb1 libxi6 libxrender1 libdbus-1-3 python3-pip python3-venv xdotool jabref \
+	zathura zathura-ps steghide ncmpcpp mpc mpd pasystray i3lock scrot notmuch neomutt isync msmtp cnee vdirsyncer
+sudo snap install emacs --classic
+sudo snap install languagetool
+pip3 install requests-oauthlib
+export RUNZSH=no;
+sh -c "$(wget -qO- https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+rm -rf .bash_logout .bashrc* .profile rm .zshrc*
+pushd ~/Downloads
+[ ! -n ripgrep_11.0.2_amd64.deb ] || curl -sLO https://github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripgrep_11.0.2_amd64.deb
+sudo dpkg -i ripgrep_11.0.2_amd64.deb
+popd
+[ -n ~/dots ] || git clone https://github.com/Accacio/dots.git ~/dots/ --recurse-submodules
+pushd dots
+git submodule update --init --recursive
+./install.sh
+sed "s|\$HOME|$HOME|" ~/.config/notmuch/config.raw > ~/.config/notmuch/config
+popd
+
+[ -d ~/git/lf ] || git clone https://github.com/gokcehan/lf.git ~/git/lf
+pushd ~/git/lf
+go get -u github.com/gokcehan/lf
+go build
+sudo mv lf /usr/local/bin
+popd
+[ -n ~/git ] || git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install --no-bash --no-zsh --key-bindings --completion --update-rc
+curl -s https://rclone.org/install.sh | sudo bash
+
+
+
+sed "s,CLIENT_SECRET,$(pass show agenda/gmail),g" ~/.config/vdirsyncer/config.raw > ~/.config/vdirsyncer/config
+vdirsyncer discover
+vdirsyncer sync

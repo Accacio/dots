@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: roam article
+# key: rarticle
+# condition: t
+# --
+#+ROAM_TAGS: article$0

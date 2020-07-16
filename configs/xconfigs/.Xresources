@@ -2,8 +2,8 @@
 ! st.alpha: 240
 st.alpha: 240
 
-! *.font: mono:pixelsize=16:antialias=true:autohint=true
-*.font: Source Code Pro-12
+*.font: mono:pixelsize=16:antialias=true:autohint=true
+! *.font: Source Code Pro-12
 URxvt.font: xft:Source\ Code\ Pro:pixelsize=16,xft:Symbola,xft:siji
 URxvt.scrollBar: false
 
@@ -72,8 +72,6 @@ URxvt.color8: #002b36
 URxvt.color9: #cb4b16
 URxvt.color10: #586e75
 URxvt.color11: #657b83
-URxvt.color10: #b8bb26
-URxvt.color11: #fabd2f
 URxvt.color12: #83a598
 URxvt.color13: #d3869b
 URxvt.color14: #8ec07c
@@ -105,3 +103,11 @@ URxvt.depth:   32
 ! *.tabspaces:
 ! *.cwscale:
 ! *.chscale:
+
+! gnuplot settings
+ gnuplot*font: mbfont:-misc-fixed-medium-r-normal-*-*-*-100-100-*-*-iso10646-*
+ gnuplot*encoding: utf-8
+
+
+Xcursor.size: 16
+Xcursor.theme: Adwaita

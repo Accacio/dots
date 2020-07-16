@@ -18,21 +18,21 @@ super + F1
 
 
 super + {_, shift +} F9
-      mpc --host='/home/accacio/.config/mpd/socket' {seek -00:00:10;, prev; exec ~/bin/musicNotify}
+      mpc --host='$HOME/.config/mpd/socket' {seek -00:00:10;, prev; exec ~/bin/musicNotify}
 
 super + F10
-      mpc --host='/home/accacio/.config/mpd/socket' toggle;\
+      mpc --host='$HOME/.config/mpd/socket' toggle;\
       exec ~/bin/musicNotify
 
 super + F11
-      mpc --host='/home/accacio/.config/mpd/socket' stop; \
+      mpc --host='$HOME/.config/mpd/socket' stop; \
       exec ~/bin/musicNotify
 
 super + {_, shift +} F12
-      mpc --host='/home/accacio/.config/mpd/socket' {seek +00:00:10;, next; exec ~/bin/musicNotify}
+      mpc --host='$HOME/.config/mpd/socket' {seek +00:00:10;, next; exec ~/bin/musicNotify}
 
 XF86AudioPlay
-	mpc --host='/home/accacio/.config/mpd/socket' toggle;\
+	mpc --host='$HOME/.config/mpd/socket' toggle;\
 	exec ~/bin/musicNotify
 	
 

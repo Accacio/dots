@@ -4,12 +4,14 @@ wallpaper=~/wallpapers/20170216_171846.jpg
 # menu_fun='dmenu'
 menu_fun='rofi -dmenu -theme menu'
 exec 3>&1;
-mode=$(echo -e "Lock\nLoki\nShutdown\nLogoff\nRestart"| $menu_fun -b -sb  seagreen -i -p "Power Menu")
+
+menu=('Shutdown' 'Restart' 'Lock' 'prettyLock' 'Loki' 'Quick Logoff' 'Logoff')
+mode=$(printf '%s\n' "${menu[@]}"|sed 's/^ //'|$menu_fun -b -sb seagreen -i -p "Power Menu")
 case $mode in
     Lock)
 	convert $wallpaper -resize $(xrandr | grep primary -A 1|tail -n 1|awk '{print $1}') \
 		-size $(xrandr | grep primary -A 1|tail -n 1|awk '{print $1}') xc:black +swap  -gravity center -composite\
-		~/wallpapers/lock.png;mv ~/wallpapers/lock.png ~/wallpapers/lock;xset dpms 1 0 0;i3lock -i /home/accacio/wallpapers/lock -n -c 000000;xset dpms 0 0 0
+		~/wallpapers/lock.png;mv ~/wallpapers/lock.png ~/wallpapers/lock;xset dpms 2 0 0;i3lock -i $HOME/wallpapers/lock -n -c 2e2e2e;xset dpms 0 0 0
 	;;
     Loki)
 	TMPBG=/tmp/screen.png
@@ -19,14 +21,39 @@ case $mode in
 	i3lock -i $TMPBG -u
 	rm $TMPBG
 	;;
-    Shutdown)
-	shutdown now
+    prettyLock)
+	TMPBG=/tmp/screen.png
+	RES=$(xrandr | grep 'current' | sed -E 's/.*current\s([0-9]+)\sx\s([0-9]+).*/\1x\2/')
+	ffmpeg -f x11grab -video_size $RES -lavfi "boxblur=luma_radius=2:luma_power=4" -y -i $DISPLAY -vframes 1 $TMPBG -loglevel quiet
+    xset dpms 2 0 0;i3lock -n -i $TMPBG;xset dpms 0 0 0;
+	rm $TMPBG
 	;;
-    Logoff)
+    Shutdown)
+    notify-send "Saving Org Folder to Dropbox"
+    rclone -l copy ~/org dbox:org -P && notify-send "Finished Copying Dbox ⬅ Org"
+    notify-send "Saving These Folder to Dropbox"
+    rclone -l copy ~/these dbox:these -P && notify-send "Finished Copying Dbox ⬅ These"
+    shutdown now
+    ;;
+    "Quick Logoff")
 	i3-msg exit
 	bspc quit
+    echo "awesome.quit()" | awesome-client
+	;;
+    Logoff)
+    notify-send "Saving Org Folder to Dropbox"
+    rclone -l copy ~/org dbox:org -P && notify-send "Finished Copying Dbox ⬅ Org"
+    notify-send "Saving These Folder to Dropbox"
+    rclone -l copy ~/these dbox:these -P && notify-send "Finished Copying Dbox ⬅ These"
+	i3-msg exit
+	bspc quit
+    echo "awesome.quit()" | awesome-client
 	;;
     Restart)
+    notify-send "Saving Org Folder to Dropbox"
+    rclone -l copy ~/org dbox:org -P && notify-send "Finished Copying Dbox ⬅ Org"
+    notify-send "Saving These Folder to Dropbox"
+    rclone -l copy ~/these dbox:these -P && notify-send "Finished Copying Dbox ⬅ These"
 	shutdown -r now
 	;;
 esac

@@ -1,5 +1,5 @@
 #!/bin/bash
-export DISPLAY=:0.0
+export DISPLAY=$(who | grep $(whoami) | sed "s,.*(\(.*\)).*,\1,g" | cut -d" " -f 2)
 exec 3>&1;
 mode=$(echo -e "🇧🇷\n🇫🇷"|rofi -dmenu -theme menu -sb seagreen -i -p "Layout")
 case $mode in
@@ -13,3 +13,4 @@ case $mode in
   xmodmap -e "keysym oe = Super_L"
   ;;
 esac
+setxkbmap -option compose:rctrl

@@ -6,6 +6,3 @@ Exec=juntaRecibo %f
 Icon=/home/accacio/.local/share/applications/icons/junta.png
 Type=Application
 Terminal=false
-Categories=Development;TextEditor;
-StartupWMClass=Emacs
-Keywords=Text;Editor;
