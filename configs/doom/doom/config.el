@@ -425,19 +425,13 @@ and value is its relative level, as an integer."
   :END:
 
 ** CATALOG
-  :PROPERTIES:
-  :Custom_ID: ${=key=}
-  :URL: ${url}
-  :AUTHOR: ${author-or-editor}
-  :NOTER_DOCUMENT: %(file-relative-name (orb-process-file-field \"${=key=}\") (print org-directory))
-  :NOTER_PAGE:
-  :END:
 
-*** Motivation
-*** Model
+*** Motivation :springGreen:
+*** Model :lihgSkyblue:
 *** Remarks
 *** Applications
-*** References
+*** Expressions
+*** References :violet:
 
 ** NOTES
 "
