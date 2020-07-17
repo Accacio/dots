@@ -7,3 +7,4 @@ Repository for my "." files (.bash, .config and etc)
     - mpv (pip videos)
     - scrot
     - sct
+    - libclang-6.0-devel
