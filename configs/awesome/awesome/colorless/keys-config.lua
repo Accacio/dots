@@ -538,7 +538,8 @@ function hotkeys:init(args)
 			{ description = "Emacs", group = "Programs" }
 		},
 		{
-			{ env.mod  }, "b", function() awful.util.spawn_with_shell("tabbed -c surf -e") end,
+			-- { env.mod  }, "b", function() awful.util.spawn_with_shell("tabbed -c vimb -e") end,
+			{ env.mod  }, "b", function() awful.util.spawn_with_shell("vimb") end,
 			{ description = "Browser", group = "Programs" }
 		},
 		-- {
