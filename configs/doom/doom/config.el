@@ -68,9 +68,8 @@
 (setq org-directory "~/org/")
 (after! org
 
-(setq org-habit-show-habits-only-for-today nil)
 (setq org-hide-emphasis-markers t)
-(setq org-modules '(ol-bibtex org-habit))
+(setq org-modules '(ol-bibtex org-habit org-habit-plus))
 (org-load-modules-maybe t)
 (setq org-agenda-files
       (list
@@ -457,14 +456,15 @@ and value is its relative level, as an integer."
   (defun org-journal-today ()
     (interactive)
     (org-journal-new-entry t)))
+
 ;; org-noter
 (use-package! org-noter
   :config
   (setq
    org-noter-pdftools-markup-pointer-color "yellow"
    org-noter-notes-search-path '("~/org")
-   org-noter-doc-split-percentage (0.7 . 0.3)
-   org-noter-insert-note-no-questions t
+   ;; org-noter-insert-note-no-questions t
+   org-noter-doc-split-fraction '(0.7 . 03)
    org-noter-always-create-frame nil
    org-noter-hide-other nil
    org-noter-pdftools-free-pointer-icon "Note"
