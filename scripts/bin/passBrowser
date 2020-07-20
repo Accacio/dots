@@ -1,0 +1,27 @@
+#!/bin/bash
+#
+site=`dirname $1`
+site=${site#https://}
+site=`dirname $site`
+pushd ~/.password-store
+filename=`find -wholename "*site*$site*gpg"`
+if [ "$filename" = "" ]
+then
+    notify-send "Password not found"
+    exit 1
+fi
+echo $filename
+filename=${filename#./}
+filename=${filename%.gpg}
+login=`basename $filename`
+echo $login | xsel -i -p -s -b
+xdotool key i
+xdotool key ctrl+v
+xdotool key ctrl+v
+xdotool key Tab
+pass show -c $filename
+xdotool key ctrl+v
+xdotool key ctrl+v
+# notify-send "$login"
+# notify-send "$filename"
+popd
