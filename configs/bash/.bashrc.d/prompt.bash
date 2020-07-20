@@ -51,7 +51,7 @@ function color_my_prompt {
 	arrow=➜
     else
 	promptHost=$(hostname)
-	arrow="->"
+	arrow="~"
     fi
 
     local __host='\h'
@@ -59,7 +59,7 @@ function color_my_prompt {
     local __cur_location="\[\033[01;34m\]\w"
     local __git_branch_color="\[\033[31m\]"
     local __prompt_tail='\[\033[31m\]$arrow'
-    local __git='$(__git_ps1)'
+    # local __git='$(__git_ps1)'
 
     local __last_color="\[\033[00m\]"
 
