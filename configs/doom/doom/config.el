@@ -282,7 +282,8 @@ and value is its relative level, as an integer."
 
 ;; Roam
 (after! org-roam
-  ;; (setq org-roam-graph-viewer "qutebrowser")
+
+  (setq org-roam-graph-viewer (executable-find "vimb"))
   (setq org-roam-graph-executable "/usr/bin/neato")
   (setq org-roam-directory "~/org/")
   (setq org-roam-graph-extra-config '(("overlap" . "false")))
