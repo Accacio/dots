@@ -1,0 +1,4 @@
+#!/bin/sh
+# Tangle files with Org mode
+#
+emacs $1 --batch -f org-babel-tangle --kill

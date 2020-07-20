@@ -1,0 +1,11 @@
+#!/usr/bin/env python3
+config.load_autoconfig()
+config.bind('gyp', 'spawn sh -c "mpv --playlist=$HOME/.config/mpv/queue"')
+config.bind('gc', "open javascript:void(location.href='org-protocol://roam-ref?template=r&ref='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title))")
+config.bind('gyy', 'spawn mpv {url}')
+config.bind('gyQ', 'spawn sh -c "echo {url} > $HOME/.config/mpv/queue"')
+config.bind('gyq', 'spawn sh -c "echo {url} >> $HOME/.config/mpv/queue"')
+config.bind('gp', 'spawn passmenu')
+config.bind('gs', 'open javascript:void(location.href=%22https://ezproxy.universite-paris-saclay.fr/login?url=%22+location.href)')
+config.bind('zl', 'spawn --userscript qute-pass')
+config.bind('gbi', 'spawn getBibIEEE "{url}"')
