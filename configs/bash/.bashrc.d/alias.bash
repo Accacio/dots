@@ -152,13 +152,13 @@ function decrypt {
     openssl aes-256-cbc -d -in $1 -out $2
 }
 
-alias org2dbox="rclone -l copy ~/org dbox:org"
-alias dbox2org="rclone -l copy dbox:org ~/org"
+alias org2dbox="rclone --exclude .orgids --exclude org-roam.db -l copy ~/org dbox:org"
+alias dbox2org="rclone --exclude .orgids --exclude org-roam.db -l copy dbox:org ~/org"
 alias these2dbox="rclone -l copy ~/these dbox:these"
 alias dbox2these="rclone -l copy dbox:these ~/these"
 
-alias org2dboxSync="rclone -l sync ~/org dbox:org"
-alias dbox2orgSync="rclone -l sync dbox:org ~/org"
+alias org2dboxSync="rclone --exclude org-roam.db -l sync ~/org dbox:org"
+alias dbox2orgSync="rclone --exclude .orgids --exclude org-roam.db -l sync dbox:org ~/org"
 alias these2dboxSync="rclone -l sync ~/these dbox:these"
 alias dbox2theseSync="rclone -l sync dbox:these ~/these"
 
