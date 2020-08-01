@@ -187,3 +187,5 @@ function lfcd {
 alias lf=lfcd
 alias passBKP="tar cfz  pass.tgz .password-store;rclone copy pass.tgz dbox:AccDoc/;rm pass.tgz"
 alias passRestore="rclone copy dbox:AccDoc/pass.tgz .;tar xfz pass.tgz;rm pass.tgz"
+alias rcloneRestore="rclone copy dbox:AccDoc/rclone.conf ~/.config/rclone/ -P"
+alias rcloneBKP="rclone copy ~/.config/rclone/rclone.conf dbox:AccDoc/ -P"
