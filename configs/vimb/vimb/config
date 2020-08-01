@@ -3,11 +3,21 @@ set fullscreen=false
 set user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1.1 Safari/605.1.15
 set input-autohide=true
 set hint-keys=dfjk
+# set input-bg-normal=#464f52
+# set input-fg-normal=#fdf6e3
 set hint-match-element=false
 # set hint-follow-last=false
 # nnoremap d :quit<CR>
 nnoremap gyy :sh! bash -c "mpv '$VIMB_URI'"<CR>
 nnoremap gc :sh! bash -c "capture '$VIMB_URI' '$VIMB_TITLE'"<CR>
+nnoremap gyp: spawn sh -c "mpv --playlist=$HOME/.config/mpv/queue"
+nnoremap gyy: spawn mpv {url}
+nnoremap gyQ: spawn sh -c "echo {url} > $HOME/.config/mpv/queue"
+nnoremap gyq: spawn sh -c "echo {url} >> $HOME/.config/mpv/queue"
+nnoremap gc: open javascript:void(location.href='org-protocol://roam-ref?template=r&ref='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title))
+nnoremap gp: spawn passmenu
+nnoremap gs: open javascript:void(location.href=%22https://ezproxy.universite-paris-saclay.fr/login?url=%22+location.href)
+nnoremap zl: spawn --userscript qute-pass
 nnoremap J :sh! xdotool key --window $VIMB_XID ctrl+shift+l<CR><Esc>
 nnoremap K :sh! xdotool key --window $VIMB_XID ctrl+shift+h<CR><Esc>
 nnoremap zl :sh! bash -c "passBrowser $VIMB_URI"<CR>
