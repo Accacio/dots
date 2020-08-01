@@ -663,37 +663,37 @@ It is important to not disturb too strongly the reading of
 information and this can be made by setting a very light
 background color that is barely perceptible."
 :group 'elegance)
-(defun elegance-light ()
-    (setq frame-background-mode 'light)
-    (set-background-color "#ffffff")
-    (set-foreground-color "#333333")
-    (set-face-attribute 'default nil
-                        :foreground (face-foreground 'default)
-                        :background (face-background 'default))
-    (set-face-attribute 'face-critical nil :foreground "#ffffff"
-                                           :background "#ff6347")
-    (set-face-attribute 'face-popout nil :foreground "#ffa07a")
-    (set-face-attribute 'face-strong nil :foreground "#333333"
-                                         :weight 'regular)
-    (set-face-attribute 'face-salient nil :foreground "#00008b"
-                                          :weight 'light)
-    (set-face-attribute 'face-faded nil :foreground "#999999"
-                                        :weight 'light)
-    (set-face-attribute 'face-subtle nil :background "#f0f0f0")
+;; (defun elegance-light ()
+;;     (setq frame-background-mode 'light)
+;;     (set-background-color "#ffffff")
+;;     (set-foreground-color "#333333")
+;;     (set-face-attribute 'default nil
+;;                         :foreground (face-foreground 'default)
+;;                         :background (face-background 'default))
+;;     (set-face-attribute 'face-critical nil :foreground "#ffffff"
+;;                                            :background "#ff6347")
+;;     (set-face-attribute 'face-popout nil :foreground "#ffa07a")
+;;     (set-face-attribute 'face-strong nil :foreground "#339333"
+;;                                          :weight 'regular)
+;;     (set-face-attribute 'face-salient nil :foreground "#00008b"
+;;                                           :weight 'light)
+;;     (set-face-attribute 'face-faded nil :foreground "#999999"
+;;                                         :weight 'light)
+;;     (set-face-attribute 'face-subtle nil :background "#f0f0f0")
 
-    ;; (set-modeline-faces)
+;;     ;; (set-modeline-faces)
 
-    ;; (with-eval-after-load 'cus-edit (set-button-faces))
-    )
+;;     ;; (with-eval-after-load 'cus-edit (set-button-faces))
+;;     )
 
-;; Dark theme
+;; ;; Dark theme
 (defun elegance-dark ()
-    (setq frame-background-mode 'dark)
-    (set-background-color "#3f3f3f")
-    (set-foreground-color "#dcdccc")
-    (set-face-attribute 'default nil
-                        :foreground (face-foreground 'default)
-                        :background (face-background 'default))
+    ;; (setq frame-background-mode 'dark)
+    ;; (set-background-color "#3f3f3f")
+    ;; (set-foreground-color "#dcdccc")
+    ;; (set-face-attribute 'default nil
+    ;;                     :foreground (face-foreground 'default)
+    ;;                     :background (face-background 'default))
     (set-face-attribute 'face-critical nil :foreground "#385f38"
                                            :background "#f8f893")
     (set-face-attribute 'face-popout nil :foreground "#f0dfaf")
@@ -717,197 +717,209 @@ background color that is barely perceptible."
 (set-face 'highlight                                     'face-subtle)
 (set-face 'fixed-pitch                                       'default)
 (set-face 'fixed-pitch-serif                                 'default)
-(set-face 'variable-pitch                                    'default)
-(set-face 'cursor                                            'default)
+;; (set-face 'variable-pitch                                    'default)
+;; (set-face 'cursor                                            'default)
 
-;; Semantic
-;; (set-face 'shadow                                         'face-faded)
-;; (set-face 'success                                      'face-salient)
-;; (set-face 'warning                                       'face-popout)
-;; (set-face 'error                                       'face-critical)
+;; ;; Semantic
+;; ;; (set-face 'shadow                                         'face-faded)
+;; ;; (set-face 'success                                      'face-salient)
+;; ;; (set-face 'warning                                       'face-popout)
+;; ;; (set-face 'error                                       'face-critical)
 
-;; General
-(set-face 'buffer-menu-buffer                            'face-strong)
-(set-face 'minibuffer-prompt                             'face-strong)
-(set-face 'link                                         'face-salient)
-(set-face 'fringe                                         'face-faded)
-(set-face 'isearch                                       'face-strong)
-(set-face 'isearch-fail                                   'face-faded)
-(set-face 'lazy-highlight                                'face-subtle)
-(set-face 'trailing-whitespace                           'face-subtle)
-(set-face 'show-paren-match                              'face-popout)
-(set-face 'show-paren-mismatch                           'face-normal)
-(set-face-attribute 'tooltip nil                         :height 0.85)
+;; ;; General
+;; (set-face 'buffer-menu-buffer                            'face-strong)
+;; (set-face 'minibuffer-prompt                             'face-strong)
+;; (set-face 'link                                         'face-salient)
+;; (set-face 'fringe                                         'face-faded)
+;; (set-face 'isearch                                       'face-strong)
+;; (set-face 'isearch-fail                                   'face-faded)
+;; (set-face 'lazy-highlight                                'face-subtle)
+;; (set-face 'trailing-whitespace                           'face-subtle)
+;; (set-face 'show-paren-match                              'face-popout)
+;; (set-face 'show-paren-mismatch                           'face-normal)
+;; (set-face-attribute 'tooltip nil                         :height 0.85)
 
-;; Programmation mode
-(set-face 'font-lock-comment-face                         'face-faded)
-(set-face 'font-lock-doc-face                             'face-faded)
-(set-face 'font-lock-string-face                         'face-popout)
-(set-face 'font-lock-constant-face                      'face-salient)
-(set-face 'font-lock-warning-face                        'face-popout)
-(set-face 'font-lock-function-name-face                  'face-strong)
-(set-face 'font-lock-variable-name-face                  'face-strong)
-(set-face 'font-lock-builtin-face                       'face-salient)
-(set-face 'font-lock-type-face                          'face-salient)
-(set-face 'font-lock-keyword-face                       'face-salient)
+;; ;; Programmation mode
+;; (set-face 'font-lock-comment-face                         'face-faded)
+;; (set-face 'font-lock-doc-face                             'face-faded)
+;; (set-face 'font-lock-string-face                         'face-popout)
+;; (set-face 'font-lock-constant-face                      'face-salient)
+;; (set-face 'font-lock-warning-face                        'face-popout)
+;; (set-face 'font-lock-function-name-face                  'face-strong)
+;; (set-face 'font-lock-variable-name-face                  'face-strong)
+;; (set-face 'font-lock-builtin-face                       'face-salient)
+;; (set-face 'font-lock-type-face                          'face-salient)
+;; (set-face 'font-lock-keyword-face                       'face-salient)
 
-;; Documentation
-(with-eval-after-load 'info
-  (set-face 'info-menu-header                            'face-strong)
-  (set-face 'info-header-node                            'face-normal)
-  (set-face 'Info-quoted                                  'face-faded)
-  (set-face 'info-title-1                                'face-strong)
-  (set-face 'info-title-2                                'face-strong)
-  (set-face 'info-title-3                                'face-strong)
-  (set-face 'info-title-4                               'face-strong))
+;; ;; Documentation
+;; (with-eval-after-load 'info
+;;   (set-face 'info-menu-header                            'face-strong)
+;;   (set-face 'info-header-node                            'face-normal)
+;;   (set-face 'Info-quoted                                  'face-faded)
+;;   (set-face 'info-title-1                                'face-strong)
+;;   (set-face 'info-title-2                                'face-strong)
+;;   (set-face 'info-title-3                                'face-strong)
+;;   (set-face 'info-title-4                               'face-strong))
 
-;; Bookmarks
-(with-eval-after-load 'bookmark
-  (set-face 'bookmark-menu-heading                       'face-strong)
-  (set-face 'bookmark-menu-bookmark                    'face-salient))
+;; ;; Bookmarks
+;; (with-eval-after-load 'bookmark
+;;   (set-face 'bookmark-menu-heading                       'face-strong)
+;;   (set-face 'bookmark-menu-bookmark                    'face-salient))
 
-;; Message
-(with-eval-after-load 'message
-  (set-face 'message-cited-text                           'face-faded)
-  (set-face 'message-header-cc                               'default)
-  (set-face 'message-header-name                         'face-strong)
-  (set-face 'message-header-newsgroups                       'default)
-  (set-face 'message-header-other                            'default)
-  (set-face 'message-header-subject                     'face-salient)
-  (set-face 'message-header-to                          'face-salient)
-  (set-face 'message-header-xheader                          'default)
-  (set-face 'message-mml                                 'face-popout)
-  (set-face 'message-separator                           'face-faded))
+;; ;; Message
+;; (with-eval-after-load 'message
+;;   (set-face 'message-cited-text                           'face-faded)
+;;   (set-face 'message-header-cc                               'default)
+;;   (set-face 'message-header-name                         'face-strong)
+;;   (set-face 'message-header-newsgroups                       'default)
+;;   (set-face 'message-header-other                            'default)
+;;   (set-face 'message-header-subject                     'face-salient)
+;;   (set-face 'message-header-to                          'face-salient)
+;;   (set-face 'message-header-xheader                          'default)
+;;   (set-face 'message-mml                                 'face-popout)
+;;   (set-face 'message-separator                           'face-faded))
 
-;; Outline
-(with-eval-after-load 'outline
-  (set-face 'outline-1                                   'face-strong)
-  (set-face 'outline-2                                   'face-strong)
-  (set-face 'outline-3                                   'face-strong)
-  (set-face 'outline-4                                   'face-strong)
-  (set-face 'outline-5                                   'face-strong)
-  (set-face 'outline-6                                   'face-strong)
-  (set-face 'outline-7                                   'face-strong)
-  (set-face 'outline-8                                  'face-strong))
-
-;; Interface
-(with-eval-after-load 'cus-edit
-  (set-face 'widget-field                                'face-subtle)
-  (set-face 'widget-button                               'face-strong)
-  (set-face 'widget-single-line-field                    'face-subtle)
-  (set-face 'custom-group-subtitle                       'face-strong)
-  (set-face 'custom-group-tag                            'face-strong)
-  (set-face 'custom-group-tag-1                          'face-strong)
-  (set-face 'custom-comment                               'face-faded)
-  (set-face 'custom-comment-tag                           'face-faded)
-  (set-face 'custom-changed                             'face-salient)
-  (set-face 'custom-modified                            'face-salient)
-  (set-face 'custom-face-tag                             'face-strong)
-  (set-face 'custom-variable-tag                             'default)
-  (set-face 'custom-invalid                              'face-popout)
-  (set-face 'custom-visibility                          'face-salient)
-  (set-face 'custom-state                               'face-salient)
-  (set-face 'custom-link                               'face-salient))
-
-;; Package
-(with-eval-after-load 'package
-  (set-face 'package-description                             'default)
-  (set-face 'package-help-section-name                       'default)
-  (set-face 'package-name                               'face-salient)
-  (set-face 'package-status-avail-obso                    'face-faded)
-  (set-face 'package-status-available                        'default)
-  (set-face 'package-status-built-in                    'face-salient)
-  (set-face 'package-status-dependency                  'face-salient)
-  (set-face 'package-status-disabled                      'face-faded)
-  (set-face 'package-status-external                         'default)
-  (set-face 'package-status-held                             'default)
-  (set-face 'package-status-incompat                      'face-faded)
-  (set-face 'package-status-installed                   'face-salient)
-  (set-face 'package-status-new                              'default)
-  (set-face 'package-status-unsigned                         'default)
-
-  ;; Button face is hardcoded, we have to redefine the relevant
-  ;; function
-  (defun package-make-button (text &rest properties)
-    "Insert button labeled TEXT with button PROPERTIES at point.
-PROPERTIES are passed to `insert-text-button', for which this
-function is a convenience wrapper used by `describe-package-1'."
-    (let ((button-text (if (display-graphic-p)
-                           text (concat "[" text "]")))
-          (button-face (if (display-graphic-p)
-                           '(:box `(:line-width 1
-                             :color "#999999":style nil)
-                            :foreground "#999999"
-                            :background "#F0F0F0")
-                         'link)))
-      (apply #'insert-text-button button-text
-             'face button-face 'follow-link t properties)))
+;; ;; Outline
+(eval-after-load 'org-mode ( progn
+  (set-face-attribute 'org-level-1 nil :weight 'regular)
+  (set-face-attribute 'org-level-2 nil :weight 'regular)
+  (set-face-attribute 'org-level-3 nil :weight 'regular)
+  (set-face-attribute 'org-level-4 nil :weight 'regular)
+  (set-face-attribute 'org-level-5 nil :weight 'regular)
+  (set-face-attribute 'org-level-6 nil :weight 'regular)
+  (set-face-attribute 'org-level-7 nil :weight 'regular)
+  (set-face-attribute 'org-level-8 nil :weight 'regular)
+;;   (set-face 'outline-2                                   'face-strong)
+;;   (set-face 'outline-3                                   'face-strong)
+;;   (set-face 'outline-4                                   'face-strong)
+;;   (set-face 'outline-5                                   'face-strong)
+;;   (set-face 'outline-6                                   'face-strong)
+;;   (set-face 'outline-7                                   'face-strong)
+;;   (set-face 'outline-8                                  'face-strong)
   )
+)
+;; ;; Interface
+;; (with-eval-after-load 'cus-edit
+;;   (set-face 'widget-field                                'face-subtle)
+;;   (set-face 'widget-button                               'face-strong)
+;;   (set-face 'widget-single-line-field                    'face-subtle)
+;;   (set-face 'custom-group-subtitle                       'face-strong)
+;;   (set-face 'custom-group-tag                            'face-strong)
+;;   (set-face 'custom-group-tag-1                          'face-strong)
+;;   (set-face 'custom-comment                               'face-faded)
+;;   (set-face 'custom-comment-tag                           'face-faded)
+;;   (set-face 'custom-changed                             'face-salient)
+;;   (set-face 'custom-modified                            'face-salient)
+;;   (set-face 'custom-face-tag                             'face-strong)
+;;   (set-face 'custom-variable-tag                             'default)
+;;   (set-face 'custom-invalid                              'face-popout)
+;;   (set-face 'custom-visibility                          'face-salient)
+;;   (set-face 'custom-state                               'face-salient)
+;;   (set-face 'custom-link                               'face-salient))
 
-;; Ido
-(with-eval-after-load 'ido
-  (set-face 'ido-first-match                            'face-salient)
-  (set-face 'ido-only-match                               'face-faded)
-  (set-face 'ido-subdir                                 'face-strong))
+;; ;; Package
+;; (with-eval-after-load 'package
+;;   (set-face 'package-description                             'default)
+;;   (set-face 'package-help-section-name                       'default)
+;;   (set-face 'package-name                               'face-salient)
+;;   (set-face 'package-status-avail-obso                    'face-faded)
+;;   (set-face 'package-status-available                        'default)
+;;   (set-face 'package-status-built-in                    'face-salient)
+;;   (set-face 'package-status-dependency                  'face-salient)
+;;   (set-face 'package-status-disabled                      'face-faded)
+;;   (set-face 'package-status-external                         'default)
+;;   (set-face 'package-status-held                             'default)
+;;   (set-face 'package-status-incompat                      'face-faded)
+;;   (set-face 'package-status-installed                   'face-salient)
+;;   (set-face 'package-status-new                              'default)
+;;   (set-face 'package-status-unsigned                         'default)
 
-;; Diff
-(with-eval-after-load 'diff-mode
-  (set-face 'diff-header                                  'face-faded)
-  (set-face 'diff-file-header                            'face-strong)
-  (set-face 'diff-context                                    'default)
-  (set-face 'diff-removed                                 'face-faded)
-  (set-face 'diff-changed                                'face-popout)
-  (set-face 'diff-added                                 'face-salient)
-  (set-face 'diff-refine-added            '(face-salient face-strong))
-  (set-face 'diff-refine-changed                         'face-popout)
-  (set-face 'diff-refine-removed                          'face-faded)
-  (set-face-attribute     'diff-refine-removed nil :strike-through t))
+;;   ;; Button face is hardcoded, we have to redefine the relevant
+;;   ;; function
+;;   (defun package-make-button (text &rest properties)
+;;     "Insert button labeled TEXT with button PROPERTIES at point.
+;; PROPERTIES are passed to `insert-text-button', for which this
+;; function is a convenience wrapper used by `describe-package-1'."
+;;     (let ((button-text (if (display-graphic-p)
+;;                            text (concat "[" text "]")))
+;;           (button-face (if (display-graphic-p)
+;;                            '(:box `(:line-width 1
+;;                              :color "#999999":style nil)
+;;                             :foreground "#999999"
+;;                             :background "#F0F0F0")
+;;                          'link)))
+;;       (apply #'insert-text-button button-text
+;;              'face button-face 'follow-link t properties)))
+;;   )
 
-;; Term
-(with-eval-after-load 'term
-  ;; (setq eterm-256color-disable-bold nil)
-  (set-face 'term-bold                                   'face-strong)
-  (set-face-attribute 'term-color-black nil
-                                :foreground (face-foreground 'default)
-                               :background (face-foreground 'default))
-  (set-face-attribute 'term-color-white nil
-                              :foreground "white" :background "white")
-  (set-face-attribute 'term-color-blue nil
-                          :foreground "#42A5F5" :background "#BBDEFB")
-  (set-face-attribute 'term-color-cyan nil
-                          :foreground "#26C6DA" :background "#B2EBF2")
-  (set-face-attribute 'term-color-green nil
-                          :foreground "#66BB6A" :background "#C8E6C9")
-  (set-face-attribute 'term-color-magenta nil
-                          :foreground "#AB47BC" :background "#E1BEE7")
-  (set-face-attribute 'term-color-red nil
-                          :foreground "#EF5350" :background "#FFCDD2")
-  (set-face-attribute 'term-color-yellow nil
-                         :foreground "#FFEE58" :background "#FFF9C4"))
+;; ;; Ido
+;; (with-eval-after-load 'ido
+;;   (set-face 'ido-first-match                            'face-salient)
+;;   (set-face 'ido-only-match                               'face-faded)
+;;   (set-face 'ido-subdir                                 'face-strong))
 
-;; org-agende
-;; (with-eval-after-load 'org-agenda
-;;   (set-face 'org-agenda-calendar-event                    'default)
-;;   (set-face 'org-agenda-calendar-sexp                     'face-faded)
-;;   (set-face 'org-agenda-clocking                          'face-faded)
-;;   (set-face 'org-agenda-column-dateline                   'face-faded)
-;;   (set-face 'org-agenda-current-time                      'face-faded)
-;;   (set-face 'org-agenda-date                            'face-salient)
-;;   (set-face 'org-agenda-date-today        '(face-salient face-strong))
-;;   (set-face 'org-agenda-date-weekend                      'face-faded)
-;;   (set-face 'org-agenda-diary                             'face-faded)
-;;   (set-face 'org-agenda-dimmed-todo-face                  'face-faded)
-;;   (set-face 'org-agenda-done                              'face-faded)
-;;   (set-face 'org-agenda-filter-category                   'face-faded)
-;;   (set-face 'org-agenda-filter-effort                     'face-faded)
-;;   (set-face 'org-agenda-filter-regexp                     'face-faded)
-;;   (set-face 'org-agenda-filter-tags                       'face-faded)
-;;   (set-face 'org-agenda-property-face                     'face-faded)
-;;   (set-face 'org-agenda-restriction-lock                  'face-faded)
-;;   (set-face 'org-agenda-structure                        'face-faded))
+;; ;; Diff
+;; (with-eval-after-load 'diff-mode
+;;   (set-face 'diff-header                                  'face-faded)
+;;   (set-face 'diff-file-header                            'face-strong)
+;;   (set-face 'diff-context                                    'default)
+;;   (set-face 'diff-removed                                 'face-faded)
+;;   (set-face 'diff-changed                                'face-popout)
+;;   (set-face 'diff-added                                 'face-salient)
+;;   (set-face 'diff-refine-added            '(face-salient face-strong))
+;;   (set-face 'diff-refine-changed                         'face-popout)
+;;   (set-face 'diff-refine-removed                          'face-faded)
+;;   (set-face-attribute     'diff-refine-removed nil :strike-through t))
 
-;; org mode
-(with-eval-after-load 'org
+;; ;; Term
+;; (with-eval-after-load 'term
+;;   ;; (setq eterm-256color-disable-bold nil)
+;;   (set-face 'term-bold                                   'face-strong)
+;;   (set-face-attribute 'term-color-black nil
+;;                                 :foreground (face-foreground 'default)
+;;                                :background (face-foreground 'default))
+;;   (set-face-attribute 'term-color-white nil
+;;                               :foreground "white" :background "white")
+;;   (set-face-attribute 'term-color-blue nil
+;;                           :foreground "#42A5F5" :background "#BBDEFB")
+;;   (set-face-attribute 'term-color-cyan nil
+;;                           :foreground "#26C6DA" :background "#B2EBF2")
+;;   (set-face-attribute 'term-color-green nil
+;;                           :foreground "#66BB6A" :background "#C8E6C9")
+;;   (set-face-attribute 'term-color-magenta nil
+;;                           :foreground "#AB47BC" :background "#E1BEE7")
+;;   (set-face-attribute 'term-color-red nil
+;;                           :foreground "#EF5350" :background "#FFCDD2")
+;;   (set-face-attribute 'term-color-yellow nil
+;;                          :foreground "#FFEE58" :background "#FFF9C4"))
+
+;; ;; org-agende
+;; ;; (with-eval-after-load 'org-agenda
+;; ;;   (set-face 'org-agenda-calendar-event                    'default)
+;; ;;   (set-face 'org-agenda-calendar-sexp                     'face-faded)
+;; ;;   (set-face 'org-agenda-clocking                          'face-faded)
+;; ;;   (set-face 'org-agenda-column-dateline                   'face-faded)
+;; ;;   (set-face 'org-agenda-current-time                      'face-faded)
+;; ;;   (set-face 'org-agenda-date                            'face-salient)
+;; ;;   (set-face 'org-agenda-date-today        '(face-salient face-strong))
+;; ;;   (set-face 'org-agenda-date-weekend                      'face-faded)
+;; ;;   (set-face 'org-agenda-diary                             'face-faded)
+;; ;;   (set-face 'org-agenda-dimmed-todo-face                  'face-faded)
+;; ;;   (set-face 'org-agenda-done                              'face-faded)
+;; ;;   (set-face 'org-agenda-filter-category                   'face-faded)
+;; ;;   (set-face 'org-agenda-filter-effort                     'face-faded)
+;; ;;   (set-face 'org-agenda-filter-regexp                     'face-faded)
+;; ;;   (set-face 'org-agenda-filter-tags                       'face-faded)
+;; ;;   (set-face 'org-agenda-property-face                     'face-faded)
+;; ;;   (set-face 'org-agenda-restriction-lock                  'face-faded)
+;; ;;   (set-face 'org-agenda-structure                        'face-faded))
+
+;; ;; org mode
+;; ;;
+;; (after! org
+;;   ;; (with-eval-after-load 'org
+
+
   (set-face 'org-archived                                 'face-faded)
   (set-face 'org-block                                    'face-faded)
   (set-face 'org-block-begin-line                         'face-faded)
@@ -957,44 +969,45 @@ function is a convenience wrapper used by `describe-package-1'."
   (set-face 'org-upcoming-deadline                        'face-faded)
   (set-face 'org-verbatim                                 'face-faded)
   (set-face 'org-verse                                    'face-faded)
-  (set-face 'org-warning                                'face-popout))
+  (set-face 'org-warning                                'face-popout)
+;;   )
 
-;; Mu4e
-(with-eval-after-load 'mu4e
-  (set-face 'mu4e-attach-number-face                     'face-strong)
-  (set-face 'mu4e-cited-1-face                            'face-faded)
-  (set-face 'mu4e-cited-2-face                            'face-faded)
-  (set-face 'mu4e-cited-3-face                            'face-faded)
-  (set-face 'mu4e-cited-4-face                            'face-faded)
-  (set-face 'mu4e-cited-5-face                            'face-faded)
-  (set-face 'mu4e-cited-6-face                            'face-faded)
-  (set-face 'mu4e-cited-7-face                            'face-faded)
-  (set-face 'mu4e-compose-header-face                     'face-faded)
-  (set-face 'mu4e-compose-separator-face                  'face-faded)
-  (set-face 'mu4e-contact-face                          'face-salient)
-  (set-face 'mu4e-context-face                            'face-faded)
-  (set-face 'mu4e-draft-face                              'face-faded)
-  (set-face 'mu4e-flagged-face                            'face-faded)
-  (set-face 'mu4e-footer-face                             'face-faded)
-  (set-face 'mu4e-forwarded-face                          'face-faded)
-  (set-face 'mu4e-header-face                                'default)
-  (set-face 'mu4e-header-highlight-face                  'face-subtle)
-  (set-face 'mu4e-header-key-face                        'face-strong)
-  (set-face 'mu4e-header-marks-face                       'face-faded)
-  (set-face 'mu4e-header-title-face                      'face-strong)
-  (set-face 'mu4e-header-value-face                          'default)
-  (set-face 'mu4e-highlight-face                         'face-popout)
-  (set-face 'mu4e-link-face                             'face-salient)
-  (set-face 'mu4e-modeline-face                           'face-faded)
-  (set-face 'mu4e-moved-face                              'face-faded)
-  (set-face 'mu4e-ok-face                                 'face-faded)
-  (set-face 'mu4e-region-code                             'face-faded)
-  (set-face 'mu4e-replied-face                          'face-salient)
-  (set-face 'mu4e-special-header-value-face                  'default)
-  (set-face 'mu4e-system-face                             'face-faded)
-  (set-face 'mu4e-title-face                             'face-strong)
-  (set-face 'mu4e-trashed-face                            'face-faded)
-  (set-face 'mu4e-unread-face                            'face-strong)
-  (set-face 'mu4e-url-number-face                         'face-faded)
-  (set-face 'mu4e-view-body-face                             'default)
-  (set-face 'mu4e-warning-face                            'face-faded))
+;; ;; Mu4e
+;; (with-eval-after-load 'mu4e
+;;   (set-face 'mu4e-attach-number-face                     'face-strong)
+;;   (set-face 'mu4e-cited-1-face                            'face-faded)
+;;   (set-face 'mu4e-cited-2-face                            'face-faded)
+;;   (set-face 'mu4e-cited-3-face                            'face-faded)
+;;   (set-face 'mu4e-cited-4-face                            'face-faded)
+;;   (set-face 'mu4e-cited-5-face                            'face-faded)
+;;   (set-face 'mu4e-cited-6-face                            'face-faded)
+;;   (set-face 'mu4e-cited-7-face                            'face-faded)
+;;   (set-face 'mu4e-compose-header-face                     'face-faded)
+;;   (set-face 'mu4e-compose-separator-face                  'face-faded)
+;;   (set-face 'mu4e-contact-face                          'face-salient)
+;;   (set-face 'mu4e-context-face                            'face-faded)
+;;   (set-face 'mu4e-draft-face                              'face-faded)
+;;   (set-face 'mu4e-flagged-face                            'face-faded)
+;;   (set-face 'mu4e-footer-face                             'face-faded)
+;;   (set-face 'mu4e-forwarded-face                          'face-faded)
+;;   (set-face 'mu4e-header-face                                'default)
+;;   (set-face 'mu4e-header-highlight-face                  'face-subtle)
+;;   (set-face 'mu4e-header-key-face                        'face-strong)
+;;   (set-face 'mu4e-header-marks-face                       'face-faded)
+;;   (set-face 'mu4e-header-title-face                      'face-strong)
+;;   (set-face 'mu4e-header-value-face                          'default)
+;;   (set-face 'mu4e-highlight-face                         'face-popout)
+;;   (set-face 'mu4e-link-face                             'face-salient)
+;;   (set-face 'mu4e-modeline-face                           'face-faded)
+;;   (set-face 'mu4e-moved-face                              'face-faded)
+;;   (set-face 'mu4e-ok-face                                 'face-faded)
+;;   (set-face 'mu4e-region-code                             'face-faded)
+;;   (set-face 'mu4e-replied-face                          'face-salient)
+;;   (set-face 'mu4e-special-header-value-face                  'default)
+;;   (set-face 'mu4e-system-face                             'face-faded)
+;;   (set-face 'mu4e-title-face                             'face-strong)
+;;   (set-face 'mu4e-trashed-face                            'face-faded)
+;;   (set-face 'mu4e-unread-face                            'face-strong)
+;;   (set-face 'mu4e-url-number-face                         'face-faded)
+;;   (set-face 'mu4e-view-body-face                             'default)
+;;   (set-face 'mu4e-warning-face                            'face-faded))
