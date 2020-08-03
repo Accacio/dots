@@ -10,14 +10,14 @@ set hint-match-element=false
 # nnoremap d :quit<CR>
 nnoremap gyy :sh! bash -c "mpv '$VIMB_URI'"<CR>
 nnoremap gc :sh! bash -c "capture '$VIMB_URI' '$VIMB_TITLE'"<CR>
-nnoremap gyp: spawn sh -c "mpv --playlist=$HOME/.config/mpv/queue"
-nnoremap gyy: spawn mpv {url}
-nnoremap gyQ: spawn sh -c "echo {url} > $HOME/.config/mpv/queue"
-nnoremap gyq: spawn sh -c "echo {url} >> $HOME/.config/mpv/queue"
+# nnoremap gyp: spawn sh -c "mpv --playlist=$HOME/.config/mpv/queue"
+# nnoremap gyy: spawn mpv {url}
+# nnoremap gyQ: spawn sh -c "echo {url} > $HOME/.config/mpv/queue"
+# nnoremap gyq: spawn sh -c "echo {url} >> $HOME/.config/mpv/queue"
 nnoremap gc: open javascript:void(location.href='org-protocol://roam-ref?template=r&ref='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title))
-nnoremap gp: spawn passmenu
+# nnoremap gp: spawn passmenu
 nnoremap gs: open javascript:void(location.href=%22https://ezproxy.universite-paris-saclay.fr/login?url=%22+location.href)
-nnoremap zl: spawn --userscript qute-pass
+# nnoremap zl: spawn --userscript qute-pass
 nnoremap J :sh! xdotool key --window $VIMB_XID ctrl+shift+l<CR><Esc>
 nnoremap K :sh! xdotool key --window $VIMB_XID ctrl+shift+h<CR><Esc>
 nnoremap zl :sh! bash -c "passBrowser $VIMB_URI"<CR>
@@ -28,4 +28,18 @@ shortcut-add dict=http://dict.cc/?s=$0
 shortcut-add g=https://encrypted.google.com/search?q=$0
 shortcut-add y=http://www.youtube.com/results?search_query=$0
 shortcut-add s=https://www.startpage.com/do/dsearch?query=$0
+shortcut-add conj= https://la-conjugaison.nouvelobs.com/rechercher/index.php?l=fr&q=$0
+shortcut-add doc= https://devdocs.io#q=$0
+shortcut-add ieee= https://ieeexplore-ieee-org.ezproxy.universite-paris-saclay.fr/search/searchresult.jsp?newsearch=true&queryText=$0
+shortcut-add lingueefr= https://www.linguee.fr/francais-anglais/search?source=auto&query=$0
+shortcut-add matlab= https://fr.mathworks.com/help/search.html?qdoc=$0
+shortcut-add matplotlib= https://matplotlib.org/search.html?q=$0&check_keywords=yes&area=default
+shortcut-add numpy= https://docs.scipy.org/doc/numpy/search.html?q=$0&check_keywords=yes&area=default
+shortcut-add octave= https://octave.sourceforge.io/list_functions.php?q=$0
+shortcut-add pronuncen= http://shtooka.net/search.php?str=$0&lang=eng
+shortcut-add pronuncfr= http://shtooka.net/search.php?str=$0&lang=fra
+shortcut-add scholar= https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=$0
+shortcut-add science= https://www-sciencedirect-com.ezproxy.universite-paris-saclay.fr/search/advanced?qs=$0
+shortcut-add scipy= https://docs.scipy.org/doc/scipy/reference/search.html?q=$0&check_keywords=yes&area=default
+shortcut-add y= https://www.youtube.com/results?search_query=$0
 shortcut-default d
