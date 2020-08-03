@@ -427,7 +427,7 @@ and value is its relative level, as an integer."
 ** CATALOG
 
 *** Motivation :springGreen:
-*** Model :lihgSkyblue:
+*** Model :lightSkyblue:
 *** Remarks
 *** Applications
 *** Expressions
