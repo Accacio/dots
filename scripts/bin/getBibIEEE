@@ -5,4 +5,4 @@ bib=$(echo -e $(curl -s "https://ieeexplore.ieee.org/rest/search/citation/format
     -H "Referer: https://ieeexplore.ieee.org/document/$article" | sed "s,{\"data\":\"\(.*\)\"},\1,") | tr '' ' ')
 echo "$bib"
 notify-send "$bib"
-echo "$bib" | xclip -i
+echo "$bib" | xclip -i -selection clipboard
