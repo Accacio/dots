@@ -14,9 +14,9 @@ nnoremap gc :sh! bash -c "capture '$VIMB_URI' '$VIMB_TITLE'"<CR>
 # nnoremap gyy: spawn mpv {url}
 # nnoremap gyQ: spawn sh -c "echo {url} > $HOME/.config/mpv/queue"
 # nnoremap gyq: spawn sh -c "echo {url} >> $HOME/.config/mpv/queue"
-nnoremap gc: open javascript:void(location.href='org-protocol://roam-ref?template=r&ref='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title))
+# nnoremap gc: open javascript:void(location.href='org-protocol://roam-ref?template=r&ref='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title))
 # nnoremap gp: spawn passmenu
-nnoremap gs: open javascript:void(location.href=%22https://ezproxy.universite-paris-saclay.fr/login?url=%22+location.href)
+nnoremap gs :eval! javascript:void(location.href='https://ezproxy.universite-paris-saclay.fr/login?url='+location.href)<CR>
 # nnoremap zl: spawn --userscript qute-pass
 nnoremap J :sh! xdotool key --window $VIMB_XID ctrl+shift+l<CR><Esc>
 nnoremap K :sh! xdotool key --window $VIMB_XID ctrl+shift+h<CR><Esc>
