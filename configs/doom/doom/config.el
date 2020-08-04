@@ -81,6 +81,25 @@
        "~/org/private/fromSupelec.org"
        )
       )
+(setq org-agenda-custom-commands
+      '(
+        ("n" "Agenda and all TODOs" ((agenda "") (alltodo "")) nil ("~/org/private/agenda.html"))
+        )
+      )
+;;         ;; ("Y" alltodo "" nil ("~/org/private/todo.html" "~/org/private/todo.txt"))
+;;         ("Y" alltodo "" nil ("~/org/private/todo.html"))
+;;         ;; ("h" "Agenda and Home-related tasks"
+;;         ;;  ((agenda "")
+;;         ;;   (tags-todo "home")
+;;         ;;   (tags "garden"))
+;;         ;;  nil
+;;         ;;  ("~/views/home.html"))
+;;         ;; ("o" "Agenda and Office-related tasks"
+;;         ;;  ((agenda)
+;;         ;;   (tags-todo "work")
+;;         ;;   (tags "office"))
+;;         ;;  nil
+;;         ;;  ("~/views/office.ps" "~/calendars/office.ics"))
 
 (setq +pretty-code-symbols
   '(;; org
