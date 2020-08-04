@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: only
+# key: only
+# condition: t                       
+# --
+@@beamer:\only<$1>{$0}@@
