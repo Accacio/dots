@@ -2,7 +2,7 @@
 #
 site=`dirname $1`
 site=${site#https://}
-site=`dirname $site`
+site=${site%%/*}
 pushd ~/.password-store
 filename=`find -wholename "*site*$site*gpg"`
 if [ "$filename" = "" ]
