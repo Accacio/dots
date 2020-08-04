@@ -43,3 +43,11 @@ shortcut-add science= https://www-sciencedirect-com.ezproxy.universite-paris-sac
 shortcut-add scipy= https://docs.scipy.org/doc/scipy/reference/search.html?q=$0&check_keywords=yes&area=default
 shortcut-add y= https://www.youtube.com/results?search_query=$0
 shortcut-default d
+set webgl=true
+set incsearch=true
+set download-path=~/Downloads/lixo/
+set accelerated-2d-canvas=true
+set hardware-acceleration-policy=ondemand
+set html5-database=true
+set editor-command=st -e vim %s
+set media-playback-requires-user-gesture=true
