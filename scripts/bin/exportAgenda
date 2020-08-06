@@ -1,0 +1,9 @@
+#!/bin/bash
+emacs -D -Q \
+    --eval="(add-to-list 'load-path \"~/.emacs.d/.local/straight/repos/emacs-doom-themes/\")" \
+    --eval="(load-file \"~/.emacs.d/.local/straight/repos/emacs-doom-themes/themes/doom-one-theme.el\")" \
+    --eval="(setq org-modules '(ol-bibtex org-habit org-habit-plus))" \
+    -l ~/.emacs.d/.local/straight/repos/emacs-htmlize/htmlize.el \
+    --eval='(setq org-agenda-files (list "~/org/private/Eve.org" "~/org/private/todo.org" "~/org/private/todo_these.org" "~/org/private/fromPoli.org" "~/org/private/fromGmail.org" "~/org/private/fromSupelec.org"))' \
+    --eval="(setq org-agenda-custom-commands '((\"n\" \"Agenda and all TODOs\" ((agenda \"\") (alltodo "")) nil (\"~/org/private/agenda.html\"))))" \
+    --eval="(org-batch-store-agenda-views)" --kill
