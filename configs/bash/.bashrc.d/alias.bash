@@ -152,10 +152,10 @@ function decrypt {
     openssl aes-256-cbc -d -in $1 -out $2
 }
 
-alias org2dbox="rclone --exclude .orgids --exclude org-roam.db -l copy ~/org dbox:org"
-alias dbox2org="rclone --exclude .orgids --exclude org-roam.db -l copy dbox:org ~/org"
-alias these2dbox="rclone -l copy ~/these dbox:these"
-alias dbox2these="rclone -l copy dbox:these ~/these"
+alias org2dbox="rclone --exclude .orgids --exclude org-roam.db -l -u copy ~/org dbox:org"
+alias dbox2org="rclone --exclude .orgids --exclude org-roam.db -l -u copy dbox:org ~/org"
+alias these2dbox="rclone -l -u copy ~/these dbox:these"
+alias dbox2these="rclone -l -u copy dbox:these ~/these"
 
 alias org2dboxSync="rclone --exclude org-roam.db -l sync ~/org dbox:org"
 alias dbox2orgSync="rclone --exclude .orgids --exclude org-roam.db -l sync dbox:org ~/org"
@@ -185,7 +185,7 @@ function lfcd {
   cd `cat ~/.config/lf/lastdir`
 }
 alias lf=lfcd
-alias passBKP="tar cfz  pass.tgz .password-store;rclone copy pass.tgz dbox:AccDoc/;rm pass.tgz"
-alias passRestore="rclone copy dbox:AccDoc/pass.tgz .;tar xfz pass.tgz;rm pass.tgz"
-alias rcloneRestore="rclone copy dbox:AccDoc/rclone.conf ~/.config/rclone/ -P"
-alias rcloneBKP="rclone copy ~/.config/rclone/rclone.conf dbox:AccDoc/ -P"
+alias passBKP="tar cfz  pass.tgz .password-store;rclone copy -u pass.tgz dbox:AccDoc/;rm pass.tgz"
+alias passRestore="rclone copy -u dbox:AccDoc/pass.tgz .;tar xfz pass.tgz;rm pass.tgz"
+alias rcloneRestore="rclone copy -u dbox:AccDoc/rclone.conf ~/.config/rclone/ -P"
+alias rcloneBKP="rclone copy -u ~/.config/rclone/rclone.conf dbox:AccDoc/ -P"
