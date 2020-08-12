@@ -1,3 +1,5 @@
 #!/bin/bash
-notify-send "Capturing $2" "Title: $1"
-emacsclient "org-protocol://roam-ref?template=r&ref=$(echo $1|sed 's,/,%2f,g;s,\?,%3f,;s,=,%3d,')&title=$2"
+notify-send "Capturing $1" "Title: $2"
+ref=$(echo $1|sed 's,&,%26,g;s,/,%2f,g;s,\?,%3f,g;s,=,%3d,g')
+title=$(echo $2|sed 's,&,%26,g;s,/,%2f,g;s,\?,%3f,g;s,=,%3d,g')
+emacsclient "org-protocol://roam-ref?template=r&ref=$ref&title=$title"
