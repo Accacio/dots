@@ -148,6 +148,7 @@
         +roam
         +present
         +pomodoro
+        +pretty
         )
        ;;perl              ; write code no one else can comprehend
        ;;php               ; perl's insecure younger brother
