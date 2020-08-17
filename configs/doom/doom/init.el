@@ -25,6 +25,7 @@
        (ivy +childframe)               ; a search engine for love and life
 
        :ui
+       minimap
        deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
        ;; doom-dashboard    ; a nifty splash screen for Emacs
@@ -148,6 +149,7 @@
         +roam
         +present
         +pomodoro
+        +pretty
         )
        ;;perl              ; write code no one else can comprehend
        ;;php               ; perl's insecure younger brother

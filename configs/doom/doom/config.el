@@ -153,6 +153,7 @@
 (add-to-list 'org-latex-packages-alist '("" "xcolor"))
 (setq org-ellipsis " ▼") ;;▼ ⤵
 (setq org-superstar-headline-bullets-list '("α" "β" "γ" "δ" "ε" "ζ" "η" "θ" "ι" "κ" "λ" "μ" "ν" "ξ" "ο" "π" "ρ" "σ" "τ" "υ" "φ" "χ" "ψ" "ω"))
+(add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
 (setq org-babel-octave-shell-command "octave -q")
 (setq org-ditaa-jar-path "/usr/share/ditaa/ditaa.jar")
   (setq org-todo-keywords
