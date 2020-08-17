@@ -48,6 +48,10 @@ function rules:init(args)
 			properties = args.base_properties or self.base_properties
 		},
 		{
+			rule_any   = { type = { "normal", "dialog" }},
+			properties = { titlebars_enabled = true}
+		},
+		{
 			rule_any   = args.floating_any or self.floating_any,
 			properties = { floating = true }
 		},
@@ -66,10 +70,6 @@ function rules:init(args)
 		{
 			rule_any   = { class = {"mpv"}},
 			properties = { floating = true, ontop=true , sticky=true}
-		},
-		{
-			rule_any   = { type = { "normal", "dialog" }},
-			properties = { titlebars_enabled = false}
 		},
 	}
 

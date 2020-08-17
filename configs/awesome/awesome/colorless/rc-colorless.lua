@@ -180,9 +180,82 @@ rules:init({ hotkeys = hotkeys})
 
 -- Titlebar setup
 -----------------------------------------------------------------------------------------------------------------------
-local titlebar = require("colorless.titlebar-config") -- load file with titlebar configuration
-titlebar:init()
+-- local titlebar = require("colorless.titlebar-config") -- load file with titlebar configuration
+-- titlebar:init()
 
+local gears = require("gears")
+
+-- from https://www.reddit.com/r/awesomewm/comments/hv2k4b/show_title_bars_only_when_floating/
+-- turn titlebar on when client is floating
+-------------------------------------------------------------------------------
+client.connect_signal("property::floating", function(c)
+  if c.floating then
+    awful.titlebar.show(c)
+  else
+    awful.titlebar.hide(c)
+  end
+end)
+
+client.connect_signal("manage", function(c)
+    if c.floating or c.first_tag.layout.name == "floating" then
+        awful.titlebar.show(c)
+    else
+        awful.titlebar.hide(c)
+    end
+end)
+tag.connect_signal("property::layout", function(t)
+    local clients = t:clients()
+    for k,c in pairs(clients) do
+        if c.floating or c.first_tag.layout.name == "floating" then
+            awful.titlebar.show(c)
+        else
+            awful.titlebar.hide(c)
+        end
+    end
+end)
+
+
+client.connect_signal("request::titlebars", function(c)
+    -- buttons for the titlebar
+    local buttons = gears.table.join(
+        awful.button({ }, 1, function()
+            client.focus = c
+            c:raise()
+            awful.mouse.client.move(c)
+        end),
+        awful.button({ }, 3, function()
+            client.focus = c
+            c:raise()
+            awful.mouse.client.resize(c)
+        end)
+    )
+
+
+    awful.titlebar(c) : setup {
+        { -- Left
+            awful.titlebar.widget.iconwidget(c),
+            buttons = buttons,
+            layout  = wibox.layout.fixed.horizontal
+        },
+        { -- Middle
+            { -- Title
+                align  = "center",
+                widget = awful.titlebar.widget.titlewidget(c)
+            },
+            buttons = buttons,
+            layout  = wibox.layout.flex.horizontal
+        },
+        -- { -- Right
+        --     awful.titlebar.widget.floatingbutton (c),
+        --     awful.titlebar.widget.maximizedbutton(c),
+        --     awful.titlebar.widget.stickybutton   (c),
+        --     awful.titlebar.widget.ontopbutton    (c),
+        --     awful.titlebar.widget.closebutton    (c),
+        --     layout = wibox.layout.fixed.horizontal()
+        -- },
+        layout = wibox.layout.align.horizontal
+    }
+end)
 
 -- Base signal set for awesome wm
 -----------------------------------------------------------------------------------------------------------------------

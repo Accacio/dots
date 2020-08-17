@@ -18,7 +18,7 @@ local current = redflat.widget.tasklist.filter.currenttags
 local allscr = redflat.widget.tasklist.filter.allscreen
 local laybox = redflat.widget.layoutbox
 local redtip = redflat.float.hotkeys
-local redtitle = redflat.titlebar
+-- local redtitle = redflat.titlebar
 
 -- Key support functions
 -----------------------------------------------------------------------------------------------------------------------
@@ -558,28 +558,10 @@ function hotkeys:init(args)
 			{ env.mod, "Control" }, "i", function() redflat.widget.minitray:toggle() end,
 			{ description = "Show minitray", group = "Widgets" }
 		},
-		-- {
-		-- 	{ env.mod }, "F3", function() redflat.float.qlaunch:show() end,
-		-- 	{ description = "Application quick launcher", group = "Main" }
-		-- },
-
 		{
-			{ env.mod }, "t", function() redtitle.toggle(client.focus) end,
+			{ env.mod }, "t", function() awful.titlebar.toggle(client.focus) end,
 			{ description = "Show/hide titlebar for focused client", group = "Titlebar" }
 		},
-		{
-			{ env.mod, "Control" }, "t", function() redtitle.switch(client.focus) end,
-			{ description = "Switch titlebar view for focused client", group = "Titlebar" }
-		},
-		{
-			{ env.mod, "Shift" }, "t", function() redtitle.toggle_all() end,
-			{ description = "Show/hide titlebar for all clients", group = "Titlebar" }
-		},
-		{
-			{ env.mod, "Control", "Shift" }, "t", function() redtitle.global_switch() end,
-			{ description = "Switch titlebar view for all clients", group = "Titlebar" }
-		},
-
 		{
 			{ env.mod }, "a", nil, function() appswitcher:show({ filter = current }) end,
 			{ description = "Switch to next with current tag", group = "Application switcher" }
