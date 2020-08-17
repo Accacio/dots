@@ -108,24 +108,7 @@ end
 --------------------------------------------------------------------------------
 local function get_icon_visual(icon_db, c, size)
 	local surface, buf
-
-	if icon_db[string.lower(c.class)] then
-		local icon = icon_db[string.lower(c.class)]
-
-		if type(icon) == "string" and string.match(icon, "%.svg") and is_pixbuf_loaded then
-			if svgcache[icon] then
-				buf = svgcache[icon]
-			else
-				buf = pixbuf.Pixbuf.new_from_file_at_scale(icon, size, size, true)
-				svgcache[icon] = buf
-			end
-		else
-			surface = gears.surface(icon)
-		end
-	else
 		surface = c.icon and gears.surface(c.icon) or _empty_surface
-	end
-
 	return surface, buf
 end
 
