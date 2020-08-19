@@ -60,7 +60,7 @@ function rules:init(args)
 			properties = { maximized = false}
 		},
 		{
-			rule_any   = { class = {"wpp"}},
+			rule_any   = { class = {"wpp"},name = {"Gnuplot"}, class = {"nvim-qt"}},
 			properties = { floating = true, ontop=true , sticky=true,maximized = false}
 		},
 		{
