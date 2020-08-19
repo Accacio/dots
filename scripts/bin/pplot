@@ -1,0 +1,2 @@
+#!/bin/bash
+gnuplot -e "set parametric;set trange [0:2*pi];plot $1;pause mouse key"

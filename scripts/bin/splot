@@ -1,0 +1,2 @@
+#!/bin/bash
+gnuplot -e "splot $1;pause mouse key"
