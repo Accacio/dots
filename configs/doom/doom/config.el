@@ -102,7 +102,8 @@
 ;;         ;;  nil
 ;;         ;;  ("~/views/office.ps" "~/calendars/office.ics"))
 
-(setq +pretty-code-symbols
+
+(append +pretty-code-symbols
   '(;; org
     :html  ""
     :author ""
