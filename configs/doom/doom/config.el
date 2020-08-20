@@ -10,6 +10,7 @@
       user-mail-address "raccacio@poli.ufrj.br")
 
 (blink-cursor-mode)
+(show-smartparens-global-mode 1)
 (setq blink-cursor-interval .1)
 (setq blink-cursor-blinks 2)
 (tooltip-mode 1)
