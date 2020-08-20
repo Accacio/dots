@@ -71,6 +71,10 @@
 
 (setq org-hide-emphasis-markers t)
 (setq org-modules '(ol-bibtex org-habit org-habit-plus))
+(setq +org-habit-graph-padding 2)
+(setq +org-habit-min-width 30)
+(setq +org-habit-graph-window-ratio 0.2)
+
 (org-load-modules-maybe t)
 (setq org-agenda-files
       (list
