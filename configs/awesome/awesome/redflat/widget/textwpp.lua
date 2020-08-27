@@ -43,7 +43,7 @@ function textclock.new(args, style)
 	-- Initialize vars
 	--------------------------------------------------------------------------------
 	args = args or {}
-	local timeout = args.timeout or 60
+	local timeout = args.timeout or 10
 	style = redutil.table.merge(default_style(), style or {})
 
 	-- Create widget
