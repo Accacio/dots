@@ -69,6 +69,7 @@
 (setq org-directory "~/org/")
 (after! org
 
+(add-to-list 'org-file-apps '("\\.pdf\\'" . emacs))
 (setq org-hide-emphasis-markers t)
 (setq org-modules '(ol-bibtex org-habit org-habit-plus))
 (setq +org-habit-graph-padding 2)
