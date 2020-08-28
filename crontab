@@ -14,6 +14,6 @@
 0 19-23 * * * $HOME/bin/setColorTemperature >/dev/null 2>&1
 */5 * * * * $HOME/bin/mailsync >/dev/null 2>&1
 */5 * * * * vdirsyncer sync >/dev/null 2>&1
-*/5 * * * * rclone --exclude .orgids --exclude org-roam.db -l -u copy dbox:org ~/org >/dev/null 2>&1
-*/5 * * * * rclone --exclude .orgids --exclude org-roam.db -l -u copy ~/org dbox:org >/dev/null 2>&1
+*/5 * * * * rclone --exclude .git/ --exclude '*.html' --exclude .orgids --exclude org-roam.db -l -u copy dbox:org ~/org >/dev/null 2>&1
+*/5 * * * * rclone --exclude .git/ --exclude '*.html' --exclude .orgids --exclude org-roam.db -l -u copy ~/org dbox:org >/dev/null 2>&1
 * * * * * $HOME/bin/batteryNotify >/dev/null 2>&1
