@@ -37,6 +37,9 @@
   )
 
 (remove-hook 'prog-mode-hook 'hl-line-mode)
+(remove-hook 'text-mode-hook 'hl-line-mode)
+(remove-hook 'special-mode-hook 'hl-line-mode)
+(remove-hook 'conf-mode-hook 'hl-line-mode)
 (use-package! idle-highlight-mode
   :config
   (progn
