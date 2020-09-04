@@ -319,8 +319,8 @@ and value is its relative level, as an integer."
   (setq org-roam-graph-extra-config '(("overlap" . "false")))
   (setq org-roam-graph-exclude-matcher '("private" "ledger" "elfeed" "readinglist"))
 
-    (setq bibtex-completion-bibliography '("~/docsThese/docs/memoire/bibliography.bib")
-          bibtex-completion-library-path '("~/these/leitura/bibliography/")
+    (setq bibtex-completion-bibliography '("~/docsThese/bibliography.bib")
+          bibtex-completion-library-path '("~/docsThese/bibliography/")
           bibtex-completion-find-note-functions '(orb-find-note-file)
           )
 
@@ -420,8 +420,8 @@ and value is its relative level, as an integer."
 ;; org-ref
 (use-package! org-ref)
 (after! org-ref
-    (setq org-ref-default-bibliography '("~/docsThese/docs/memoire/bibliography.bib")
-          org-ref-pdf-directory "~/these/leitura/bibliography/"
+    (setq org-ref-default-bibliography '("~/docsThese/bibliography.bib")
+          org-ref-pdf-directory "~/docsThese/bibliography/"
           org-ref-note-title-format "* TODO %y - %t\n :PROPERTIES:\n  :Custom_ID: %k\n  :NOTER_DOCUMENT: %F\n :ROAM_KEY: cite:%k\n  :AUTHOR: %9a\n  :JOURNAL: %j\n  :YEAR: %y\n  :VOLUME: %v\n  :PAGES: %p\n  :DOI: %D\n  :URL: %U\n :END:\n\n"
           org-ref-notes-directory "~/org/"
           org-ref-notes-function 'orb-edit-notes)
