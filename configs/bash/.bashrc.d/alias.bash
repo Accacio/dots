@@ -142,6 +142,11 @@ function loadZ {
     sudo mount -t cifs -o username=$user,password=$pass,uid=1000,gid=1000 $1 /home/accacio/Z/
 }
 
+function loadash {
+    echo "password"
+    read -s pass
+    sudo mount -t cifs -o username=nogueirar,workgroup=supelec-rennes,password=$pass,uid=1000,gid=1000 //idefix/ash/Rafael_Nogueira $HOME/these_ash/
+}
 alias unloadZ="cd; sudo umount ~/Z"
 
 function encrypt {
