@@ -139,7 +139,7 @@ function loadZ {
     read user
     echo "password"
     read -s pass
-    sudo mount -t cifs -o username=$user,password=$pass,uid=1000,gid=1000 $1 /home/accacio/Z/
+    sudo mount -t cifs -o username=$user,password=$pass,uid=1000,gid=1000 $1 $HOME/Z/
 }
 
 function loadash {
