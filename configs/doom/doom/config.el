@@ -416,7 +416,15 @@ and value is its relative level, as an integer."
 )
 
 
-
+(use-package! emojify
+  :hook (after-init . global-emojify-mode)
+  :config
+  (setq emojify-display-style 'image)
+  (setq emojify-emoji-styles '(unicode github))
+  (setq emojify-point-entered-behaviour 'uncover)
+  (setq emojify-company-tooltips-p t)
+  (setq emojify-composed-text-p t)
+  )
 ;; org-ref
 (use-package! org-ref)
 (after! org-ref
