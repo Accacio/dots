@@ -62,8 +62,10 @@ ex=🎯:\
 
 mpd
 
-#setxkbmap -option caps:escape
-#setxkbmap -option compose:rctrl
+setxkbmap fr latin9
+xmodmap -e "keysym oe = Super_L"
+setxkbmap -option caps:escape
+setxkbmap -option compose:rctrl
 
 #notify-send "Loading Org Folder from Dropbox"
 #(rclone -l copy dbox:org ~/org -P && notify-send "Finished Copying Dbox ➡ Org" )&
