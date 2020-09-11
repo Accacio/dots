@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: minimize
+# key: minimize
+# condition: t
+# --
+\begin{equation}
+\begin{matrix}
+\underset{${1:\vec\{U\}_i(k)}}{\mathrm{${2:minimize}}}& ${3:J_i=\frac\{1\}\{2\}\{\vec\{U\}_i(k)\}^T H_i\vec\{U\}_i(k)+\{\vec\{f\}_i(k)\}^T\vec\{U\}_i(k)}\\\\
+\mathrm{s.t.}&${4:\vec\\{U\}_i(k)=\vec\{\theta\}_i}\\\\
+\end{matrix}
+\label{eq:$5}
+\end{equation}
+$0
