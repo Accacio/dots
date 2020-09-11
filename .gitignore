@@ -10,7 +10,15 @@ configs/mpd/mpd/database
 configs/*/*/*.pid
 configs/*/*/*.log
 configs/*/*/*.example
-
+**/vdirsyncer/*token
+**/vdirsyncer/status
+**/vdirsyncer/config
+**log**
+**autosave**
+**metadata**
+pid
+lastdir
+queue
 configs/mail/mail/messages/**
 configs/mail/mail/.notmuch/xapian/
 configs/notmuch/notmuch/config
