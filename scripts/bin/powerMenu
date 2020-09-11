@@ -30,10 +30,10 @@ case $mode in
     rm $TMPBG
     ;;
     Shutdown)
-    notify-send "Saving Org Folder to Dropbox"
-    rclone -l copy ~/org dbox:org -P && notify-send "Finished Copying Dbox ⬅ Org"
-    notify-send "Saving These Folder to Dropbox"
-    rclone -l copy ~/these dbox:these -P && notify-send "Finished Copying Dbox ⬅ These"
+    # notify-send "Saving Org Folder to Dropbox"
+    # rclone -l copy ~/org dbox:org -P && notify-send "Finished Copying Dbox ⬅ Org"
+    # notify-send "Saving These Folder to Dropbox"
+    # rclone -l copy ~/these dbox:these -P && notify-send "Finished Copying Dbox ⬅ These"
     shutdown now
     ;;
     "Quick Logoff")
@@ -42,19 +42,19 @@ case $mode in
     echo "awesome.quit()" | awesome-client
     ;;
     Logoff)
-    notify-send "Saving Org Folder to Dropbox"
-    rclone -l copy ~/org dbox:org -P && notify-send "Finished Copying Dbox ⬅ Org"
-    notify-send "Saving These Folder to Dropbox"
-    rclone -l copy ~/these dbox:these -P && notify-send "Finished Copying Dbox ⬅ These"
+    # notify-send "Saving Org Folder to Dropbox"
+    # rclone -l copy ~/org dbox:org -P && notify-send "Finished Copying Dbox ⬅ Org"
+    # notify-send "Saving These Folder to Dropbox"
+    # rclone -l copy ~/these dbox:these -P && notify-send "Finished Copying Dbox ⬅ These"
     i3-msg exit
     bspc quit
     echo "awesome.quit()" | awesome-client
     ;;
     Restart)
-    notify-send "Saving Org Folder to Dropbox"
-    rclone -l copy ~/org dbox:org -P && notify-send "Finished Copying Dbox ⬅ Org"
-    notify-send "Saving These Folder to Dropbox"
-    rclone -l copy ~/these dbox:these -P && notify-send "Finished Copying Dbox ⬅ These"
+    # notify-send "Saving Org Folder to Dropbox"
+    # rclone -l copy ~/org dbox:org -P && notify-send "Finished Copying Dbox ⬅ Org"
+    # notify-send "Saving These Folder to Dropbox"
+    # rclone -l copy ~/these dbox:these -P && notify-send "Finished Copying Dbox ⬅ These"
     shutdown -r now
     ;;
 esac
