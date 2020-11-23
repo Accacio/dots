@@ -2,8 +2,8 @@
 # name: read
 # uuid:
 # key: readArticle
-# condition: t                                                      
+# condition: t                                                                              
 # --
 * TOREAD cite:${1:bibtex Key}
-[[file:~/org/$1.org][org]] [[file:~/these/leitura/bibliography/$1.pdf][pdf]] [[file:~/these/leitura/bibliography/$1.mobi][mobi]] [[file:~/these/leitura/bibliography/$1.epub][epub]]
+[[file:~/org/$1.org][org]] [[file:~/docsThese/bibliography/$1.pdf][pdf]] [[file:~/docsThese/bibliography/$1.mobi][mobi]] [[file:~/docsThese/bibliography/$1.epub][epub]]
 $0
