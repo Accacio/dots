@@ -68,11 +68,25 @@
   (setq doom-theme 'doom-spacegrey)
   )
 
+(defun org-babel-execute:matlab (body params)
+  "Execute a block of matlab code with Babel."
+  (with-temp-buffer
+    (insert (org-babel-execute:octave body params 'matlab))
+    (beginning-of-buffer)
+    (re-search-forward org-babel-octave-eoe-indicator nil t)
+    (beginning-of-line)
+    (let ((beg (point)))
+      (end-of-buffer)
+      (delete-region beg (point)))
+    (buffer-string)))
+
+
+
 ;; Org
 (setq org-directory "~/org/")
 (after! org
 
-(add-to-list 'org-file-apps '("\\.pdf\\'" . emacs))
+  (add-to-list 'org-file-apps '("\\.pdf\\'" . emacs))
 (setq org-hide-emphasis-markers t)
 (setq org-modules '(ol-bibtex org-habit org-habit-plus))
 (setq +org-habit-graph-padding 2)
@@ -90,6 +104,7 @@
        "~/org/private/fromSupelec.org"
        )
       )
+
 (setq org-agenda-custom-commands
       '(
         ("n" "Agenda and all TODOs" ((agenda "") (alltodo "")) nil ("~/org/private/agenda.html"))
@@ -110,46 +125,53 @@
 ;;         ;;  nil
 ;;         ;;  ("~/views/office.ps" "~/calendars/office.ics"))
 
+;; (setq +ligatures-extra-symbols
+;;   '(;; org
+;;     :html  "🌐"
+;;     :author "📛"
+;;     :title "T"
+;;     :date "📅"
+;;     :mail "✉"
+;;     :noweb "🕸"
+;;     :language "🌎"
+;;     :options "🔧"
+;;     :tex      ""
+;;     :matlab ""
+;;     :octave ""
+;;     :python "🐍"
+;;     :emacs ""
+;;     ) )
 
-(append +pretty-code-symbols
-  '(;; org
-    :html  ""
-    :author ""
-    :title "T"
-    :mail ""
-    :noweb ""
-    :language ""
-    :options ""
-    :tex      ""
-    :matlab ""
-    :octave ""
-    :python ""
-    :emacs ""
-    ) )
-
-(set-pretty-symbols! 'org-mode
-  :def "function"
-  :html "#+HTML:"
-  :title "#+title:"
-  :title "#+TITLE:"
-  :author "#+author:"
-  :noweb ":noweb yes"
-  :mail "#+email:"
-  :mail "#+EMAIL:"
-  :author "#+AUTHOR:"
-  :options "#+OPTIONS:"
-  :author"#+author:"
-  :language "#+LANGUAGE:"
-  :language "#+language:"
-  :tex "#+LaTeX:"
-  :tex "latex:"
-  :tex "#+BEAMER_header:"
-  :tex "#+LATEX_HEADER:"
-  :matlab "matlab"
-  :matlab "octave"
-  :python "python"
-  :emacs "emacs-lisp"
-  )
+;; (set-ligatures! 'org-mode
+;;   :def "function"
+;;   :html "#+HTML:"
+;;   :title "#+title:"
+;;   :title "#+TITLE:"
+;;   :author "#+author:"
+;;   :noweb ":noweb yes"
+;;   :mail "#+email:"
+;;   :mail "#+EMAIL:"
+;;   :date "#+DATE:"
+;;   :date "#+Date:"
+;;   :date "#+date:"
+;;   :author "#+AUTHOR:"
+;;   :author "#+Author:"
+;;   :author "#+author:"
+;;   :options "#+OPTIONS:"
+;;   :options "#+Options:"
+;;   :options "#+options:"
+;;   :author"#+author:"
+;;   :language "#+LANGUAGE:"
+;;   :language "#+language:"
+;;   :tex "#+LaTeX:"
+;;   :tex "latex:"
+;;   :tex "#+BEAMER_header:"
+;;   :tex "#+LATEX_HEADER:"
+;;   :matlab "matlab"
+;;   :matlab "octave"
+;;   :python "python"
+;;   :emacs "emacs-lisp"
+;;   )
 (require 'ox-extra)
 (ox-extras-activate '(ignore-headlines))
 (require 'ox-latex)
@@ -193,14 +215,15 @@
           ("PROJ" . +org-todo-project)))
 (setq +lookup-dictionary-prefer-offline nil)
   (add-to-list 'org-latex-classes
-               '("ifac" "\\documentclass{../aux/ifacconf}"
+               '("ifac" "\\documentclass{../../aux/ifacconf}"
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
-                 )
-               '("cdc" "\\documentclass{../aux/ieeeconf}"
+                 ))
+  (add-to-list 'org-latex-classes
+               '("cdc" "\\documentclass{../../aux/ieeeconf}"
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -213,26 +236,28 @@
   ;; (setq matlab-shell-command "matlab -noFigureWindows")
   (setq org-babel-octave-shell-command "octave -q ")
   ;; (setq org-babel-octave-shell-command "octave -q -W")
-  (setq org-babel-matlab-shell-command "matlab -nosplash -nodisplay -nodesktop -nojvm")
+  (setq org-babel-matlab-shell-command "matlab -nosplash -nodesktop ")
 
-(defun org-babel-octave-evaluate-external-process (body result-type matlabp)
-  "Evaluate BODY in an external octave process."
-  (let ((cmd (if matlabp
-		 org-babel-matlab-shell-command
-	       org-babel-octave-shell-command)))
-    (pcase result-type
-      (`output
-(if matlabp
-		 (org-babel-eval "sed -E '1,11d;s,(>> )+$,,'" (org-babel-eval cmd body))
-	       (org-babel-eval cmd body))
-       )
-      (`value (let ((tmp-file (org-babel-temp-file "octave-")))
-	       (org-babel-eval
-		cmd
-		(format org-babel-octave-wrapper-method body
-			(org-babel-process-file-name tmp-file 'noquote)
-			(org-babel-process-file-name tmp-file 'noquote)))
-	       (org-babel-octave-import-elisp-from-file tmp-file))))))
+
+
+  ;; (defun org-babel-octave-evaluate-external-process (body result-type matlabp)
+  ;;   "Evaluate BODY in an external octave process."
+  ;;   (let ((cmd (if matlabp
+  ;;                  org-babel-matlab-shell-command
+  ;;                org-babel-octave-shell-command)))
+  ;;     (pcase result-type
+  ;;       (`output
+  ;;        (if matlabp
+  ;;            (org-babel-eval "sed -E '1,11d;s,(>> )+$,,'" (org-babel-eval cmd body))
+  ;;          (org-babel-eval cmd body))
+  ;;        )
+  ;;       (`value (let ((tmp-file (org-babel-temp-file "octave-")))
+  ;;                 (org-babel-eval
+  ;;                  cmd
+  ;;                  (format org-babel-octave-wrapper-method body
+  ;;                          (org-babel-process-file-name tmp-file 'noquote)
+  ;;                          (org-babel-process-file-name tmp-file 'noquote)))
+  ;;                 (org-babel-octave-import-elisp-from-file tmp-file))))))
 
 (setq org-publish-project-alist
       '(
@@ -425,6 +450,11 @@ and value is its relative level, as an integer."
   (setq emojify-company-tooltips-p t)
   (setq emojify-composed-text-p t)
   )
+
+(use-package! org-krita
+  :config
+  (add-hook 'org-mode-hook 'org-krita-mode))
+
 ;; org-ref
 (use-package! org-ref)
 (after! org-ref

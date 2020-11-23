@@ -48,8 +48,20 @@
 
 (package! emojify)
 (package! matlab-mode)
+
+(package! org-krita
+  :recipe (:host github
+           :repo "lepisma/org-krita"
+           :files ("resources" "resources" "*.el" "*.el")))
+
 (package! org-roam-server)
-(package! org-roam-bibtex)
+(package! org-roam-bibtex
+  :recipe (:host github :repo "org-roam/org-roam-bibtex"))
+;; When using org-roam via the `+roam` flag
+(unpin! org-roam company-org-roam)
+
+;; When using bibtex-completion via the `biblio` module
+(unpin! bibtex-completion helm-bibtex ivy-bibtex)
 (package! gnuplot-mode)
 (package! gnuplot)
 (package! rainbow-mode)
