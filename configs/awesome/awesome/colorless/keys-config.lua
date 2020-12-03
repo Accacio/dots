@@ -344,27 +344,27 @@ function hotkeys:init(args)
 		},
 		{
 			{ }, "Print", function() awful.util.spawn_with_shell("sleep 0.5;scrot -s '%Y%m%d_%H%M_$wx$h.png' -e 'xclip -selection c -t image/png $f && rm $f'") end,
-			{ description = "ScreenShot", group = "Main" }
+			{ description = "ScreenShot Area clipboard", group = "Screenshot" }
 		},
 		{
 			{ "Shift" }, "Print", function() awful.util.spawn_with_shell("sleep 0.5;scrot -s '%Y%m%d_%H%M_$wx$h.png' -e 'xclip -selection c -t image/png $f && mv $f ~/Downloads/lixo/'") end,
-			{ description = "ScreenShot", group = "Main" }
+			{ description = "ScreenShot Area disk", group = "Screenshot" }
 		},
 		{
 			{ env.mod }, "Print", function() awful.util.spawn_with_shell("sleep 0.5;scrot  '%Y%m%d_%H%M_$wx$h.png' -e 'xclip -selection c -t image/png $f && rm $f'") end,
-			{ description = "ScreenShot", group = "Main" }
+			{ description = "ScreenShot Desktop clipboard", group = "Screenshot" }
 		},
 		{
 			{ env.mod , "Shift" }, "Print", function() awful.util.spawn_with_shell("sleep 0.5;scrot '%Y%m%d_%H%M_$wx$h.png' -e 'xclip -selection c -t image/png $f && mv $f ~/Downloads/lixo/'") end,
-			{ description = "ScreenShot", group = "Main" }
+			{ description = "ScreenShot Desktop disk", group = "Screenshot" }
 		},
 		{
 			{ "Control" }, "Print", function() awful.util.spawn_with_shell("sleep 0.5;scrot -u '%Y%m%d_%H%M_$wx$h.png' -e 'xclip -selection c -t image/png $f && rm $f'") end,
-			{ description = "ScreenShot", group = "Main" }
+			{ description = "ScreenShot Window clipboard", group = "Screenshot" }
 		},
 		{
 			{ "Control", "Shift" }, "Print", function() awful.util.spawn_with_shell("sleep 0.5;scrot -u '%Y%m%d_%H%M_$wx$h.png' -e 'xclip -selection c -t image/png $f && mv $f ~/Downloads/lixo/'") end,
-			{ description = "ScreenShot", group = "Main" }
+			{ description = "ScreenShot Window save", group = "Screenshot" }
 		},
 		{
 			{ }, "XF86AudioMute", function() awful.spawn("amixer -D pulse sset Master toggle") end,
@@ -522,7 +522,7 @@ function hotkeys:init(args)
 		},
 		{
 			{ env.mod }, "Tab", focus_to_previous,
-			{ description = "Go to previos client", group = "Client focus" }
+			{ description = "Go to previous client", group = "Client focus" }
 		},
 
 		{
