@@ -453,7 +453,7 @@ function hotkeys:init(args)
 		},
 		{
 			{ env.mod }, "c", function() awful.spawn("org-capture") end,
-			{ description = "User key sequence", group = "Main" }
+			{ description = "Org Capture idea", group = "Main" }
 		},
 		-- {
 		-- 	{ env.mod }, "c", function() redflat.float.keychain:activate(keyseq, "User") end,
