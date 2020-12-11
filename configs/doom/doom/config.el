@@ -57,7 +57,8 @@
                      ;; Also handle undocumented (<active> <inactive>) form.
                      ((numberp (cadr alpha)) (cadr alpha)))
                100)
-          '(85 . 50) '(100 . 100)))))
+          '(95 . 80) '(100 . 100)))))
+(toggle-transparency)
 (toggle-transparency)
 (map! :leader
       (:prefix-map ("t" . "toggle")
