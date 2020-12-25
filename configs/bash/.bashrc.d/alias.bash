@@ -194,3 +194,6 @@ alias passBKP="tar cfz  pass.tgz .password-store;rclone copy -u pass.tgz dbox:Ac
 alias passRestore="rclone copy -u dbox:AccDoc/pass.tgz .;tar xfz pass.tgz;rm pass.tgz"
 alias rcloneRestore="rclone copy -u dbox:AccDoc/rclone.conf ~/.config/rclone/ -P"
 alias rcloneBKP="rclone copy -u ~/.config/rclone/rclone.conf dbox:AccDoc/ -P"
+alias delmon="xrandr --delmonitor DP-0-1"
+alias addmon="xrandr --setmonitor DP-0-1 1920/594x1080/334+0+0 DP-0"
+
