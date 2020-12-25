@@ -4,53 +4,60 @@
   <property name="pressureSensitivity" value="true"/>
   <property name="zoomGesturesEnabled" value="true"/>
   <property name="selectedToolbar" value="Accacio"/>
-  <property name="lastSavePath" value="file:///home/nogueirar/these/notes"/>
-  <property name="lastOpenPath" value="/home/nogueirar/these/notes"/>
+  <property name="lastSavePath" value="file:///home/accacio/these/notes"/>
+  <property name="lastOpenPath" value="/home/accacio/these/notes"/>
   <property name="lastImagePath" value=""/>
-  <property name="zoomStep" value="10.00000000"/>
+  <property name="zoomStep" value="1.10000000"/>
   <property name="zoomStepScroll" value="2.00000000"/>
   <property name="displayDpi" value="72"/>
-  <property name="mainWndWidth" value="1912"/>
-  <property name="mainWndHeight" value="1036"/>
+  <property name="mainWndWidth" value="1280"/>
+  <property name="mainWndHeight" value="522"/>
   <property name="maximized" value="false"/>
+  <property name="showToolbar" value="true"/>
   <property name="showSidebar" value="false"/>
   <property name="sidebarWidth" value="50"/>
   <property name="sidebarOnRight" value="false"/>
   <property name="scrollbarOnLeft" value="false"/>
   <property name="menubarVisible" value="true"/>
   <property name="numColumns" value="1"/>
-  <property name="numRows" value="2"/>
-  <property name="viewFixedRows" value="false"/>
+  <property name="numRows" value="1"/>
+  <property name="viewFixedRows" value="true"/>
   <property name="showPairedPages" value="false"/>
   <property name="layoutVertical" value="false"/>
   <property name="layoutRightToLeft" value="false"/>
   <property name="layoutBottomToTop" value="false"/>
-  <property name="numPairsOffset" value="1"/>
+  <property name="numPairsOffset" value="0"/>
   <property name="presentationMode" value="false"/>
   <!--Which gui elements are hidden if you are in Fullscreen mode, separated by a colon (,)-->
-  <property name="fullscreenHideElements" value="mainMenubar"/>
+  <property name="fullscreenHideElements" value="mainMenubar,sidebarContents"/>
   <!--Which gui elements are hidden if you are in Presentation mode, separated by a colon (,)-->
   <property name="presentationHideElements" value="mainMenubar,sidebarContents"/>
-  <property name="showBigCursor" value="false"/>
+  <!--The cursor icon used with a stylus, allowed values are "none", "dot", "big"-->
+  <property name="stylusCursorType" value="dot"/>
   <property name="highlightPosition" value="false"/>
+  <property name="cursorHighlightColor" value="2164260608"/>
+  <property name="cursorHighlightBorderColor" value="2147483903"/>
+  <property name="cursorHighlightRadius" value="30.00000000"/>
+  <property name="cursorHighlightBorderWidth" value="0.00000000"/>
   <property name="darkTheme" value="false"/>
-  <property name="disableScrollbarFadeout" value="false"/>
+  <property name="disableScrollbarFadeout" value="true"/>
   <property name="scrollbarHideType" value="none"/>
   <!--Hides scroolbars in the main window, allowed values: "none", "horizontal", "vertical", "both"-->
   <property name="autoloadPdfXoj" value="true"/>
   <property name="defaultSaveName" value="%Y-%m"/>
   <property name="autosaveEnabled" value="true"/>
   <property name="autosaveTimeout" value="3"/>
-  <property name="addHorizontalSpace" value="false"/>
-  <property name="addHorizontalSpaceAmount" value="150"/>
-  <property name="addVerticalSpace" value="false"/>
-  <property name="addVerticalSpaceAmount" value="150"/>
-  <property name="drawDirModsEnabled" value="false"/>
-  <property name="drawDirModsRadius" value="50"/>
+  <property name="addHorizontalSpace" value="true"/>
+  <property name="addHorizontalSpaceAmount" value="0"/>
+  <property name="addVerticalSpace" value="true"/>
+  <property name="addVerticalSpaceAmount" value="0"/>
+  <property name="drawDirModsEnabled" value="true"/>
+  <property name="drawDirModsRadius" value="30"/>
   <property name="snapRotation" value="true"/>
   <property name="snapRotationTolerance" value="0.20000000"/>
   <property name="snapGrid" value="true"/>
   <property name="snapGridTolerance" value="0.25000000"/>
+  <property name="snapGridSize" value="14.17000000"/>
   <property name="touchWorkaround" value="false"/>
   <property name="selectionBorderColor" value="-65536"/>
   <property name="backgroundColor" value="-2303275"/>
@@ -58,25 +65,29 @@
   <!--The count of rendered PDF pages which will be cached.-->
   <!--Config for new pages-->
   <property name="pdfPageCacheSize" value="10"/>
-  <property name="pageTemplate" value="xoj/template&#10;copyLastPageSize=false&#10;copyLastPageSettings=true&#10;size=595,000000x841,000000&#10;backgroundType=graph&#10;backgroundColor=#ffffffff&#10;"/>
-  <property name="sizeUnit" value=""/>
-  <property name="audioFolder" value="file:///home/nogueirar/Downloads/lixo"/>
-  <property name="audioInputDevice" value="0"/>
+  <property name="pageTemplate" value="xoj/template&#10;copyLastPageSize=false&#10;copyLastPageSettings=true&#10;size=907,086614x510,236220&#10;backgroundType=plain&#10;backgroundColor=#ff000000&#10;"/>
+  <property name="sizeUnit" value="cm"/>
+  <property name="audioFolder" value=""/>
+  <property name="audioInputDevice" value="-1"/>
   <property name="audioOutputDevice" value="-1"/>
   <property name="audioSampleRate" value="44100.00000000"/>
   <property name="audioGain" value="1.00000000"/>
   <property name="defaultSeekTime" value="5"/>
-  <property name="pluginEnabled" value=""/>
+  <property name="pluginEnabled" value="ToggleGrid"/>
   <property name="pluginDisabled" value=""/>
   <property name="strokeFilterIgnoreTime" value="150"/>
   <property name="strokeFilterIgnoreLength" value="1.00000000"/>
   <property name="strokeFilterSuccessiveTime" value="500"/>
-  <property name="strokeFilterEnabled" value="false"/>
-  <property name="doActionOnStrokeFiltered" value="false"/>
-  <property name="trySelectOnStrokeFiltered" value="false"/>
+  <property name="strokeFilterEnabled" value="true"/>
+  <property name="doActionOnStrokeFiltered" value="true"/>
+  <property name="trySelectOnStrokeFiltered" value="true"/>
+  <property name="numIgnoredStylusEvents" value="0"/>
   <property name="newInputSystemEnabled" value="false"/>
   <property name="inputSystemTPCButton" value="false"/>
   <property name="inputSystemDrawOutsideWindow" value="true"/>
+  <property name="latexSettings.autoCheckDependencies" value="true"/>
+  <property name="latexSettings.globalTemplatePath" value="/usr/share/xournalpp/resources/default_template.tex"/>
+  <property name="latexSettings.genCmd" value="pdflatex -interaction=nonstopmode '{}'"/>
   <property name="font" font="Sans" size="12.00000000"/>
   <data name="buttonConfig">
     <data name="default">
@@ -86,7 +97,7 @@
       <attribute name="tool" type="string" value="pen"/>
     </data>
     <data name="eraser">
-      <attribute name="tool" type="string" value="selectRegion"/>
+      <attribute name="tool" type="string" value="none"/>
     </data>
     <data name="middle">
       <attribute name="eraserMode" type="string" value="none"/>
@@ -94,30 +105,42 @@
       <attribute name="tool" type="string" value="eraser"/>
     </data>
     <data name="right">
-      <attribute name="tool" type="string" value="none"/>
+      <attribute name="tool" type="string" value="selectRect"/>
     </data>
     <data name="stylus">
       <attribute name="eraserMode" type="string" value="deleteStroke"/>
-      <attribute name="size" type="string" value="medium"/>
+      <attribute name="size" type="string" value="none"/>
       <attribute name="tool" type="string" value="eraser"/>
     </data>
     <data name="stylus2">
       <attribute name="tool" type="string" value="selectRegion"/>
     </data>
     <data name="touch">
-      <attribute name="device" type="string" value=""/>
-      <attribute name="disableDrawing" type="boolean" value="true"/>
+      <attribute name="device" type="string" value="Wacom Intuos PT S 2 Finger touch"/>
+      <attribute name="disableDrawing" type="boolean" value="false"/>
       <attribute name="tool" type="string" value="hand"/>
     </data>
   </data>
   <data name="deviceClasses">
-    <data name="DELL0820:00 044E:121F Mouse">
-      <attribute name="deviceClass" type="int" value="4"/>
+    <data name="  Mini Keyboard Consumer Control">
+      <attribute name="deviceClass" type="int" value="1"/>
       <attribute name="deviceSource" type="int" value="0"/>
     </data>
-    <data name="DELL0820:00 044E:121F Touchpad">
+    <data name="  Mini Keyboard Mouse">
+      <attribute name="deviceClass" type="int" value="1"/>
+      <attribute name="deviceSource" type="int" value="0"/>
+    </data>
+    <data name="HID 0db0:b7bd Consumer Control">
+      <attribute name="deviceClass" type="int" value="1"/>
+      <attribute name="deviceSource" type="int" value="0"/>
+    </data>
+    <data name="Logitech K270">
+      <attribute name="deviceClass" type="int" value="1"/>
+      <attribute name="deviceSource" type="int" value="0"/>
+    </data>
+    <data name="USB OPTICAL MOUSE">
       <attribute name="deviceClass" type="int" value="4"/>
-      <attribute name="deviceSource" type="int" value="6"/>
+      <attribute name="deviceSource" type="int" value="0"/>
     </data>
     <data name="Wacom Intuos PT S 2 Finger touch">
       <attribute name="deviceClass" type="int" value="4"/>
@@ -152,14 +175,14 @@
     </data>
     <data name="eraser">
       <attribute name="drawingType" type="string" value="default"/>
-      <attribute name="size" type="string" value="MEDIUM"/>
+      <attribute name="size" type="string" value="THIN"/>
       <attribute name="type" type="string" value="deleteStroke"/>
     </data>
     <data name="hand">
       <attribute name="drawingType" type="string" value="default"/>
     </data>
     <data name="hilighter">
-      <attribute name="color" type="hex" value="ffff00"/>
+      <attribute name="color" type="hex" value="ffffff"/>
       <attribute name="drawingType" type="string" value="default"/>
       <attribute name="fill" type="int" value="0"/>
       <attribute name="fillAlpha" type="int" value="128"/>
@@ -169,11 +192,11 @@
       <attribute name="drawingType" type="string" value="default"/>
     </data>
     <data name="pen">
-      <attribute name="color" type="hex" value="000000"/>
-      <attribute name="drawingType" type="string" value="default"/>
+      <attribute name="color" type="hex" value="00ff00"/>
+      <attribute name="drawingType" type="string" value="strokeRecognizer"/>
       <attribute name="fill" type="int" value="0"/>
       <attribute name="fillAlpha" type="int" value="128"/>
-      <attribute name="size" type="string" value="MEDIUM"/>
+      <attribute name="size" type="string" value="BIG"/>
       <attribute name="style" type="string" value="plain"/>
     </data>
     <data name="playObject">

@@ -16,35 +16,35 @@ stow -v -d configs/ -t ~/ \
      tmux/     \
      xconfigs/ \
      xournal/  \
-     xournalpp/
 
 stow -v -d configs/ -t ~/.local/ \
      mail
 
 stow -v -d configs/ -t ~/.config/ \
-     alacritty/  \
-     awesome/  \
-     bspwm/    \
-     doom/     \
-     dunst/    \
-     khal/     \
-     khard/    \
-     lf/       \
-     mpd/      \
-     mpv/      \
-     msmtp/    \
-     mutt/     \
-     ncmpcpp/  \
-     notmuch/  \
-     nvim/     \
-     pdfpc/    \
-     polybar/  \
+     alacritty/   \
+     awesome/     \
+     bspwm/       \
+     doom/        \
+     dunst/       \
+     khal/        \
+     khard/       \
+     lf/          \
+     mpd/         \
+     mpv/         \
+     msmtp/       \
+     mutt/        \
+     ncmpcpp/     \
+     notmuch/     \
+     nvim/        \
+     pdfpc/       \
+     polybar/     \
      qutebrowser/ \
-     ranger/   \
-     rofi/     \
-     sxhkd/    \
-     vimb/     \
-     vdirsyncer/     \
+     ranger/      \
+     rofi/        \
+     sxhkd/       \
+     vdirsyncer/  \
+     vimb/        \
+     xournalpp/   \
      zathura/ 
 
 # install custom .desktop files
