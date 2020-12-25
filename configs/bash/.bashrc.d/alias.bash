@@ -197,3 +197,12 @@ alias rcloneBKP="rclone copy -u ~/.config/rclone/rclone.conf dbox:AccDoc/ -P"
 alias delmon="xrandr --delmonitor DP-0-1"
 alias addmon="xrandr --setmonitor DP-0-1 1920/594x1080/334+0+0 DP-0"
 
+function envRec {
+  addmon; # use 16/9 monitor ratio
+  crontab ~/dots/crontabRecording;
+}
+
+function envNorm {
+  delmon # reset monitor
+  crontab ~/dots/crontab;
+}
