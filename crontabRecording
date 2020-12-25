@@ -1,0 +1,12 @@
+
+# ┌─────────────── minute (0 - 59)
+# │ ┌───────────── hour (0 - 23)
+# │ │ ┌─────────── day of month (1 - 31)
+# │ │ │ ┌───────── month (1 - 12)
+# │ │ │ │ ┌─────── day of week (0 - 6) (Sunday to Saturday;
+# │ │ │ │ │                             7 is also Sunday on some systems)
+# │ │ │ │ │
+# │ │ │ │ │
+# * * * * *  command to execute
+0 */4 */4 * * rm -rd $HOME/Downloads/lixo/* >/dev/null 2>&1
+*/5 * * * * $HOME/bin/changeWallpaper $HOME/wallpapers/walpaper_1.png >/dev/null 2>&1
