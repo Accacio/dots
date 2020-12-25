@@ -350,15 +350,14 @@ and value is its relative level, as an integer."
           bibtex-completion-find-note-functions '(orb-find-note-file)
           )
 
-
-
-
-(setq org-roam-dailies-capture-templates
-  '(("d" "daily" plain (function org-roam-capture--get-point)
-     ""
-     :immediate-finish t
-     :file-name "private-%<%Y-%m-%d>"
-     :head "#+TITLE: %<%Y-%m-%d>")))
+  (setq org-roam-dailies-capture-templates
+        '(("d" "daily" plain (function org-roam-capture--get-point)
+           ""
+           :immediate-finish t
+           :file-name "private-%<%Y-%m-%d>"
+           :head "#+TITLE: %<%Y-%m-%d>")
+          )
+        )
 
 (defun my/org-roam--backlinks-list-with-content (file)
   (with-temp-buffer
