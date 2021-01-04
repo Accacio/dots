@@ -199,10 +199,23 @@ alias addmon="xrandr --setmonitor DP-0-1 1920/594x1080/334+0+0 DP-0"
 
 function envRec {
   addmon; # use 16/9 monitor ratio
+  export ENVREC=1;
   crontab ~/dots/crontabRecording;
+
+  mv -nT ~/.config/doom ~/.config/doom.bkp
+  mv -nT ~/.emacs.d ~/.emacs.d.bkp
+
+  mv -nT ~/.doom.d.youtube ~/.doom.d;
+  mv -nT ~/.emacs.d.youtube ~/.emacs.d
 }
 
 function envNorm {
   delmon # reset monitor
   crontab ~/dots/crontab;
+
+  mv  -nT ~/.doom.d ~/.doom.d.youtube;
+  mv  -nT ~/.emacs.d ~/.emacs.d.youtube;
+
+  mv -nT ~/.config/doom.bkp ~/.config/doom
+  mv -nT ~/.emacs.d.bkp ~/.emacs.d
 }
