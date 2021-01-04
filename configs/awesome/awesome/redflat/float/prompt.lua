@@ -81,7 +81,7 @@ function floatprompt:run()
 		prompt = self.prompt,
 		textbox = self.widget,
 		exe_callback = function(input)
-			local result = awful.spawn(input)
+			local result = awful.util.spawn_with_shell("bash -ic " .. input)
 			if type(result) == "string" then
 				local notify_args = redutil.table.merge({ title = "Prompt", text = result }, self.style.naughty)
 				naughty.notify(notify_args)
