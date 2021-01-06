@@ -32,7 +32,7 @@ HIGHLIGHT_STYLE='pablo'
 handle_mime() {
     local mimetype="${1}"
     case "${mimetype}" in
-	#text/html) w3m -dump "${FILE_PATH}" ;;
+	text/html) w3m -dump "${FILE_PATH}" ;;
 	text/troff) man ./ "${FILE_PATH}" | col -b ;;
 	text/* | */xml)
             less "${FILE_PATH}"
@@ -48,13 +48,14 @@ handle_mime() {
             highlight --replace-tabs="${HIGHLIGHT_TABWIDTH}" --out-format="${highlight_format}" \
                 --style="${HIGHLIGHT_STYLE}" --force -- "${FILE_PATH}" ;;
 	application/zip) atool --list -- "${FILE_PATH}" ;;
-        image/*) chafa --fill=block --symbols=block -c 256 -s 100x"${HEIGHT}" "${FILE_PATH}" || exit 1;;
+        image/*) chafa --fill=block --symbols=block -c 256 -s "50x${HEIGHT}" "${FILE_PATH}" || exit 1;;
         video/* | audio/*|application/octet-stream) mediainfo "${FILE_PATH}" || exit 1;;
         */pdf) pdftotext -l 10 -nopgbrk -q -- "${FILE_PATH}" - ;;
         *opendocument*) odt2txt "${FILE_PATH}" ;;
     esac
 }
 
-MIMETYPE="$( file --dereference --brief --mime-type -- "${FILE_PATH}" )"
+# MIMETYPE="$( file --dereference --brief --mime-type -- "${FILE_PATH}" )"
+MIMETYPE="$( mimetype "${FILE_PATH}" | cut -d ' ' -f 2)"
 handle_mime "${MIMETYPE}"
 exit 1
