@@ -85,6 +85,8 @@ textclock.widget = redflat.widget.textclock({ timeformat = "%H:%M %Y-%m-%d", dat
 local textwpp = {}
 textwpp.widget = redflat.widget.textwpp({ })
 
+local textMusic = {}
+textMusic.widget = redflat.widget.textMusic({ })
 -- local wpp= awful.spawn("surf")
 -- wpp:raise()
 -- -- Battery widget
@@ -146,7 +148,7 @@ awful.screen.connect_for_each_screen(
 				env.wrapper(taglist[s], "taglist"),
 				env.wrapper(layoutbox[s], "layoutbox", layoutbox.buttons),
 				-- separator,
-				s.mypromptbox,
+				env.wrapper(textMusic.widget, "textMusic"),
 			},
 			{ -- middle widget
 				layout = wibox.layout.align.horizontal,
@@ -161,7 +163,7 @@ awful.screen.connect_for_each_screen(
 				-- separator,
 				-- separator,
                 --
-               
+
 				env.wrapper(textwpp.widget, "textwpp"),
 				env.wrapper(textclock.widget, "textclock"),
 				env.wrapper(battery.widget, "battery"),

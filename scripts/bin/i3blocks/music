@@ -1,7 +1,6 @@
 #!/bin/bash
 
-status=$(echo $(mpc --host='$HOME/.config/mpd/socket' status|sed -n 2p|cut -d " " -f 1))
-
+status=$(echo $(mpc --host="$HOME/.config/mpd/socket" status|sed -n 2p|cut -d " " -f 1))
 titleName=$(ncmpcpp -q --current-song='%t')
 titleName=${titleName}
 # echo "$titleName"
@@ -31,8 +30,11 @@ esac
 
 #full text
 case $status  in
-    "[playing]"| "[paused]")
-	echo   "$first" - "$second"
+    "[playing]")
+	echo ▶ "$first" - "$second"
+    ;;
+    "[paused]")
+	echo  ⏸ "$first" - "$second"
 	;;
     *)
 	echo ⏹
