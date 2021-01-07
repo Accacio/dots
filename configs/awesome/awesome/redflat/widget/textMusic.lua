@@ -1,3 +1,4 @@
+
 -----------------------------------------------------------------------------------------------------------------------
 --                                               RedFlat clock widget                                                --
 -----------------------------------------------------------------------------------------------------------------------
@@ -16,9 +17,10 @@ local gears = require("gears")
 
 local tooltip = require("redflat.float.tooltip")
 local redutil = require("redflat.util")
+
 -- Initialize tables and vars for module
 -----------------------------------------------------------------------------------------------------------------------
-local textclock = { mt = {} }
+local textMusic = { mt = {} }
 
 -- Generate default theme vars
 -----------------------------------------------------------------------------------------------------------------------
@@ -28,7 +30,7 @@ local function default_style()
 		tooltip = {},
 		color = { text = "#aaaaaa" }
 	}
-	return redutil.table.merge(style, redutil.table.check(beautiful, "widget.textclock") or {})
+	return redutil.table.merge(style, redutil.table.check(beautiful, "widget.textMusic") or {})
 end
 
 -- Create a textclock widget. It draws the time it is in a textbox.
@@ -36,13 +38,12 @@ end
 -- @param timeout How often update the time. Default is 60.
 -- @return A textbox widget
 -----------------------------------------------------------------------------------------------------------------------
-function textclock.new(args, style)
+function textMusic.new(args, style)
 
 	-- Initialize vars
 	--------------------------------------------------------------------------------
 	args = args or {}
-	local timeformat = args.timeformat or " %a %b %d, %H:%M "
-	local timeout = args.timeout or 60
+	local timeout = args.timeout or 1
 	style = redutil.table.merge(default_style(), style or {})
 
 	-- Create widget
@@ -59,12 +60,13 @@ function textclock.new(args, style)
 	--------------------------------------------------------------------------------
 	local timer = gears.timer({ timeout = timeout })
 	timer:connect_signal("timeout",
-		function()
-			local handle = io.popen('ncal -3h')
-			local result = handle:read("*a")
-			widg:set_markup('<span color="' .. style.color.text .. '">' .. os.date(timeformat) .. "</span>")
-			if args.dateformat then tp:set_text(os.date(args.dateformat) .. "\n\n" .. result) end
-		end)
+                         function()
+                           local handle = io.popen('music')
+                           local result = handle:read("*a")
+                           handle:close()
+                           widg:set_markup('<span color="' .. style.color.text .. '">'
+                                             .. "" .. result  .. "</span>")
+                           end)
 	timer:start()
 	timer:emit_signal("timeout")
 
@@ -74,8 +76,8 @@ end
 
 -- Config metatable to call textclock module as function
 -----------------------------------------------------------------------------------------------------------------------
-function textclock.mt:__call(...)
-	return textclock.new(...)
+function textMusic.mt:__call(...)
+	return textMusic.new(...)
 end
 
-return setmetatable(textclock, textclock.mt)
+return setmetatable(textMusic, textMusic.mt)

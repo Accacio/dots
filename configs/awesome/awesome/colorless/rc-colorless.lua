@@ -80,13 +80,17 @@ taglist.buttons = awful.util.table.join(
 -- Textclock widget
 --------------------------------------------------------------------------------
 local textclock = {}
-textclock.widget = redflat.widget.textclock({ timeformat = "%H:%M %Y-%m-%d", dateformat = "%b  %d  %a" })
+textclock.widget = redflat.widget.textclock({ timeformat = "%H:%M", dateformat = " %Y-%m-%d %a" })
 
 local textwpp = {}
 textwpp.widget = redflat.widget.textwpp({ })
 
 local textMusic = {}
 textMusic.widget = redflat.widget.textMusic({ })
+
+local textSound = {}
+textSound.widget = redflat.widget.textSound({ })
+
 -- local wpp= awful.spawn("surf")
 -- wpp:raise()
 -- -- Battery widget
@@ -167,6 +171,7 @@ awful.screen.connect_for_each_screen(
 				env.wrapper(textwpp.widget, "textwpp"),
 				env.wrapper(textclock.widget, "textclock"),
 				env.wrapper(battery.widget, "battery"),
+				env.wrapper(textSound.widget, "textSound"),
 
 				-- separator,
 				env.wrapper(tray.widget, "tray", tray.buttons),
