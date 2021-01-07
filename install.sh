@@ -24,6 +24,7 @@ stow -v -d configs/ -t ~/.config/ \
      alacritty/   \
      awesome/     \
      bspwm/       \
+     compton/     \
      doom/        \
      dunst/       \
      khal/        \
