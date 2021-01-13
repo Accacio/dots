@@ -23,13 +23,13 @@
   <property name="numRows" value="1"/>
   <property name="viewFixedRows" value="true"/>
   <property name="showPairedPages" value="false"/>
-  <property name="layoutVertical" value="false"/>
+  <property name="layoutVertical" value="true"/>
   <property name="layoutRightToLeft" value="false"/>
   <property name="layoutBottomToTop" value="false"/>
   <property name="numPairsOffset" value="0"/>
   <property name="presentationMode" value="false"/>
   <!--Which gui elements are hidden if you are in Fullscreen mode, separated by a colon (,)-->
-  <property name="fullscreenHideElements" value="mainMenubar,sidebarContents"/>
+  <property name="fullscreenHideElements" value="mainMenubar"/>
   <!--Which gui elements are hidden if you are in Presentation mode, separated by a colon (,)-->
   <property name="presentationHideElements" value="mainMenubar,sidebarContents"/>
   <!--The cursor icon used with a stylus, allowed values are "none", "dot", "big"-->

@@ -97,18 +97,15 @@ font:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    family: Source Code Pro
-    # family: DejaVu Sans Mono
-    # family: Ubuntu Mono
-    # family: Bitstream Vera Sans Mono
-    # family: Noto Sans Mono
-    # family: FreeMono
-    # family: Nimbus Mono
-    # family: Liberation Mono
-    # family: Linux Libertine Mono O
+    family: Glass TTY VT220
+    # family: Fira Code
 
     # The `style` can be specified to pick a specific face.
     #style: Regular
+  # Point size
+  # size: 20
+  size: 15
+  # size: 14
 
   # Bold font face
   #bold:
@@ -143,8 +140,6 @@ font:
     # The `style` can be specified to pick a specific face.
     #style: Bold Italic
 
-  # Point size
-  size: 12
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
