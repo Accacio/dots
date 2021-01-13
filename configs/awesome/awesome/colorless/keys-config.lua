@@ -653,6 +653,10 @@ function hotkeys:init(args)
 			{ env.mod }, "m", function(c) c.maximized = not c.maximized; c:raise() end,
 			{ description = "Maximize", group = "Client keys" }
 		},
+		{
+			{ env.mod }, "s", function(c) c.sticky = not c.sticky; c:raise() end,
+			{ description = "Sticky", group = "Client keys" }
+		},
 	}
 
 	self.keys.root = redflat.util.key.build(self.raw.root)
