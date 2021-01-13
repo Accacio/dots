@@ -53,40 +53,77 @@ theme.wallpaper = theme.path .. "/wallpaper/primary.png" -- wallpaper file
 
 -- Fonts
 ------------------------------------------------------------
+-- theme.fonts = {
+-- 	main     = "sans 12",      -- main font
+-- 	menu     = "sans 12",      -- main menu font
+-- 	tooltip  = "sans 12",      -- tooltip font
+-- 	notify   = "sans bold 14", -- redflat notify popup font
+-- 	clock    = "sans bold 12", -- textclock widget font
+-- 	qlaunch  = "sans bold 14", -- quick launch key label font
+-- 	title    = "sans bold 12", -- widget titles font
+-- 	tiny     = "sans bold 10", -- smallest font for widgets
+-- 	keychain = "sans bold 14", -- key sequence tip font
+-- 	titlebar = "sans bold 12", -- client titlebar font
+-- 	hotkeys = {
+-- 		main  = "sans 12",      -- hotkeys helper main font
+-- 		key   = "mono 12",      -- hotkeys helper key font (use monospace for align)
+-- 		title = "sans bold 14", -- hotkeys helper group title font
+-- 	},
+-- 	player   = {
+-- 		main = "sans bold 12", -- player widget main font
+-- 		time = "sans bold 14", -- player widget current time font
+-- 	},
+-- }
+
+-- theme.cairo_fonts = {
+-- 	tag         = { font = "Sans", size = 16, face = 1 }, -- tag widget font
+-- 	appswitcher = { font = "Sans", size = 22, face = 1 }, -- appswitcher widget font
+-- 	navigator   = {
+-- 		title = { font = "Sans", size = 28, face = 1, slant = 0 }, -- window navigation title font
+-- 		main  = { font = "Sans", size = 22, face = 1, slant = 0 }  -- window navigation  main font
+-- 	},
+
+-- 	desktop = {
+-- 		textbox = { font = "Sans", size = 24, face = 1 },
+-- 	},
+-- }
+
 theme.fonts = {
-	main     = "sans 12",      -- main font
-	menu     = "sans 12",      -- main menu font
-	tooltip  = "sans 12",      -- tooltip font
-	notify   = "sans bold 14", -- redflat notify popup font
-	clock    = "sans bold 12", -- textclock widget font
-	qlaunch  = "sans bold 14", -- quick launch key label font
-	title    = "sans bold 12", -- widget titles font
-	tiny     = "sans bold 10", -- smallest font for widgets
-	keychain = "sans bold 14", -- key sequence tip font
-	titlebar = "sans bold 12", -- client titlebar font
+	main     = "Glass TTY VT220 12",      -- main font
+	menu     = "Glass TTY VT220 12",      -- main menu font
+	tooltip  = "Glass TTY VT220 12",      -- tooltip font
+	notify   = "Glass TTY VT220 bold 14", -- redflat notify popup font
+	clock    = "Glass TTY VT220 bold 12", -- textclock widget font
+	qlaunch  = "Glass TTY VT220 bold 14", -- quick launch key label font
+	title    = "Glass TTY VT220 15", -- widget titles font
+	tiny     = "Glass TTY VT220 10", -- smallest font for widgets
+	keychain = "Glass TTY VT220 bold 14", -- key sequence tip font
+	titlebar = "Glass TTY VT220 bold 12", -- client titlebar font
 	hotkeys = {
-		main  = "sans 12",      -- hotkeys helper main font
-		key   = "mono 12",      -- hotkeys helper key font (use monospace for align)
-		title = "sans bold 14", -- hotkeys helper group title font
+		main  = "Glass TTY VT220 12",      -- hotkeys helper main font
+		key   = "Glass TTY VT220 12",      -- hotkeys helper key font (use monospace for align)
+		title = "Glass TTY VT220 bold 14", -- hotkeys helper group title font
 	},
 	player   = {
-		main = "sans bold 12", -- player widget main font
-		time = "sans bold 14", -- player widget current time font
+		main = "Glass TTY VT220 bold 12", -- player widget main font
+		time = "Glass TTY VT220 bold 14", -- player widget current time font
 	},
 }
 
 theme.cairo_fonts = {
-	tag         = { font = "Sans", size = 16, face = 1 }, -- tag widget font
-	appswitcher = { font = "Sans", size = 22, face = 1 }, -- appswitcher widget font
+	tag         = { font = "Glass TTY VT220", size = 16, face = 1 }, -- tag widget font
+	appswitcher = { font = "Glass TTY VT220", size = 22, face = 1 }, -- appswitcher widget font
 	navigator   = {
-		title = { font = "Sans", size = 28, face = 1, slant = 0 }, -- window navigation title font
-		main  = { font = "Sans", size = 22, face = 1, slant = 0 }  -- window navigation  main font
+		title = { font = "Glass TTY VT220", size = 28, face = 1, slant = 0 }, -- window navigation title font
+		main  = { font = "Glass TTY VT220", size = 22, face = 1, slant = 0 }  -- window navigation  main font
 	},
 
 	desktop = {
-		textbox = { font = "Sans", size = 24, face = 1 },
+		textbox = { font = "Glass TTY VT220", size = 24, face = 1 },
 	},
 }
+
+
 
 -- Shared icons
 --------------------------------------------------------------------------------
