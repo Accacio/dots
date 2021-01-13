@@ -193,31 +193,59 @@
 (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
 (setq org-babel-octave-shell-command "octave -q")
 (setq org-ditaa-jar-path "/usr/share/ditaa/ditaa.jar")
-  (setq org-todo-keywords
-        '((sequence
-           "TODO(t)"  ; A task that needs doing & is ready to do
-           "PROJ(p)"  ; A project, which usually contains other tasks
-           "TOREAD(r)"  ; A project, which usually contains other tasks
-           "STRT(s)"  ; A task that is in progress
-           "WAIT(w)"  ; Something external is holding up this task
-           "HOLD(h)"  ; This task is paused/on hold because of me
-           "|"
-           "DONE(d)"  ; Task successfully completed
-           "READ(R)"  ; A project, which usually contains other tasks
-           "KILL(k)") ; Task was cancelled, aborted or is no longer applicable
-          (sequence
-           "[ ](T)"   ; A task that needs doing
-           "[-](S)"   ; Task is in progress
-           "[?](W)"   ; Task is being held up or paused
-           "|"
-           "[X](D)")) ; Task was completed
-        org-todo-keyword-faces
-        '(("[-]"  . +org-todo-active)
-          ("STRT" . +org-todo-active)
-          ("[?]"  . +org-todo-onhold)
-          ("WAIT" . +org-todo-onhold)
-          ("HOLD" . +org-todo-onhold)
-          ("PROJ" . +org-todo-project)))
+
+;; todos and others
+(after! hl-todo
+  (setq hl-todo-highlight-punctuation ":("
+        hl-todo-keyword-faces
+        `(;; For things that need to be done, just not today.
+          ("TODO" warning bold)
+          ;; For problems that will become bigger problems later if not
+          ;; fixed ASAP.
+          ("FIXME" error bold)
+          ;; For tidbits that are unconventional and not intended uses of the
+          ;; constituent parts, and may break in a future update.
+          ("HACK" font-lock-constant-face bold)
+          ;; For things that were done hastily and/or hasn't been thoroughly
+          ;; tested. It may not even be necessary!
+          ("REVIEW" font-lock-keyword-face bold)
+          ;; For especially important gotchas with a given implementation,
+          ;; directed at another user other than the author.
+          ("NOTE" success bold)
+          ;; For things that just gotta go and will soon be gone.
+          ("DEPRECATED" font-lock-doc-face bold)
+          ;; For a known bug that needs a workaround
+          ("BUG" error bold)
+          ;; For warning about a problematic or misguiding code
+          ("XXX" font-lock-constant-face bold))
+        )
+  )
+;; TODO(accacio)
+(setq org-todo-keywords
+      '((sequence
+         "TODO(t)"  ; A task that needs doing & is ready to do
+         "PROJ(p)"  ; A project, which usually contains other tasks
+         "TOREAD(r)"  ; A project, which usually contains other tasks
+         "STRT(s)"  ; A task that is in progress
+         "WAIT(w)"  ; Something external is holding up this task
+         "HOLD(h)"  ; This task is paused/on hold because of me
+         "|"
+         "DONE(d)"  ; Task successfully completed
+         "READ(R)"  ; A project, which usually contains other tasks
+         "KILL(k)") ; Task was cancelled, aborted or is no longer applicable
+        (sequence
+         "[ ](T)"   ; A task that needs doing
+         "[-](S)"   ; Task is in progress
+         "[?](W)"   ; Task is being held up or paused
+         "|"
+         "[X](D)")) ; Task was completed
+      org-todo-keyword-faces
+      '(("[-]"  . +org-todo-active)
+        ("STRT" . +org-todo-active)
+        ("[?]"  . +org-todo-onhold)
+        ("WAIT" . +org-todo-onhold)
+        ("HOLD" . +org-todo-onhold)
+        ("PROJ" . +org-todo-project)))
 (setq +lookup-dictionary-prefer-offline nil)
   (add-to-list 'org-latex-classes
                '("ifac" "\\documentclass{../../aux/ifacconf}"
