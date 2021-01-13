@@ -472,6 +472,14 @@ and value is its relative level, as an integer."
 
 )
 
+ ;; generate tables for c
+(defun orgtbl-to-c (table params)
+  "Convert the orgtbl-mode TABLE to c."
+  (orgtbl-to-generic
+   table
+   (org-combine-plists
+    '(:hline "t" :hsep "sd" :tstart "{" :tend "}" :lstart "{" :lend "}," :sep ",")
+    params)))
 
 (use-package! emojify
   :hook (after-init . global-emojify-mode)
