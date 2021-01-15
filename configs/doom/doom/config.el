@@ -604,7 +604,12 @@ and value is its relative level, as an integer."
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type 'relative)
-
+(custom-set-faces!
+  (set-face-foreground 'line-number "#308030")
+  (set-face-foreground 'line-number-current-line "#e0e000")
+  ;; (set-face-foreground 'line-number "#308030")
+  ;; (set-face-foreground 'line-number-current-line "#735A7E")
+)
 
 ;; Spell-check and grammar
 (let ((langs '("american" "fr_FR" "pt_BR")))
