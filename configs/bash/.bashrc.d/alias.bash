@@ -202,9 +202,14 @@ function envRec {
   export ENVREC=1;
   crontab ~/dots/crontabRecording;
 
+  screenkey --ignore "Super" --mods-mode emacs --key-mode translated -t 1 --opacity .3&
+  mv -nT ~/.config/gtk-3.0/settings.ini ~/.config/gtk-3.0/settings.ini.bkp
+  mv -nT ~/.config/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml.bkp
   mv -nT ~/.config/doom ~/.config/doom.bkp
   mv -nT ~/.emacs.d ~/.emacs.d.bkp
 
+  mv -nT ~/.config/gtk-3.0/settings.ini.youtube ~/.config/gtk-3.0/settings.ini
+  mv -nT  ~/.config/alacritty/alacritty.yml.youtube ~/.config/alacritty/alacritty.yml
   mv -nT ~/.doom.d.youtube ~/.doom.d;
   mv -nT ~/.emacs.d.youtube ~/.emacs.d
 }
@@ -213,9 +218,14 @@ function envNorm {
   delmon # reset monitor
   crontab ~/dots/crontab;
 
+  killall screenkey
+  mv -nT ~/.config/gtk-3.0/settings.ini ~/.config/gtk-3.0/settings.ini.youtube
+  mv -nT ~/.config/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml.youtube
   mv  -nT ~/.doom.d ~/.doom.d.youtube;
   mv  -nT ~/.emacs.d ~/.emacs.d.youtube;
 
+  mv -nT ~/.config/gtk-3.0/settings.ini.bkp ~/.config/gtk-3.0/settings.ini
+  mv -nT ~/.config/alacritty/alacritty.yml.bkp ~/.config/alacritty/alacritty.yml
   mv -nT ~/.config/doom.bkp ~/.config/doom
   mv -nT ~/.emacs.d.bkp ~/.emacs.d
 }
