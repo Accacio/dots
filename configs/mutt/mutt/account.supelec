@@ -2,7 +2,8 @@
 set from      = 'Rafael Accácio <rafael-accacio.nogueira@centralesupelec.fr>'
 set folder = "~/.local/mail/messages/supelec"
 set spoolfile = "+Inbox"
-set record = "=Sent"
+set record = "=Inbox/.Sent"
+set postponed = "=Inbox/.Drafts"
 mailboxes "+===== supelec ===="
-mailboxes =Inbox =Sent
+mailboxes =Inbox =Inbox/.Sent =Inbox/.Drafts =Junk =Inbox/.Trash
 set sendmail="msmtp -a supelec"

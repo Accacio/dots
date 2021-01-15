@@ -3,6 +3,7 @@ set from      = 'Rafael Accácio <raccacio@poli.ufrj.br>'
 set folder = "~/.local/mail/messages/poli"
 set spoolfile = "+Inbox"
 set record = "=[Gmail]/.Sent\ Mail"
+set postponed = "=[Gmail]/.Drafts"
 mailboxes "+======= poli ======"
-mailboxes =Inbox =[Gmail]/.Sent\ Mail
+mailboxes =Inbox =[Gmail]/.Sent\ Mail =[Gmail]/.Spam =[Gmail]/.Drafts
 set sendmail="msmtp -a poli"

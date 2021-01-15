@@ -65,8 +65,8 @@ bind editor <Tab> complete-query
 macro index,pager a "<enter-command>set my_pipe_decode=\$pipe_decode pipe_decode<return><pipe-message>$(which khard) add-email<return><enter-command>set pipe_decode=\$my_pipe_decode; unset my_pipe_decode<return>" "add the sender address to abook"
 #macro index,pager a "<enter-command>set my_pipe_decode=\$pipe_decode pipe_decode<return><pipe-message>khard add-email<return><enter-command>set pipe_decode=\$my_pipe_decode; unset my_pipe_decode<return>" "add the sender address to abook"
 macro index \Cr "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
-macro index O "<shell-escape>mbsync -a<enter>" "run mbsync to sync all mail"
-macro index \Cf "<enter-command>unset wait_key<enter><shell-escape>read -p 'Enter a search term to find with notmuch: ' x; echo \$x >~/.cache/mutt_terms<enter><limit>~i \"\`notmuch search --output=messages \$(cat ~/.cache/mutt_terms) | head -n 600 | perl -le '@a=<>;s/\^id:// for@a;$,=\"|\";print@a' | perl -le '@a=<>; chomp@a; s/\\+/\\\\+/ for@a;print@a' \`\"<enter>" "show only messages matching a notmuch pattern"
+macro index O "<shell-escape>clear;mbsync -a;notmuch new<enter>" "run mbsync to sync all mail"
+macro index \Cf "<enter-command>unset wait_key<enter><shell-escape>clear;read -p 'Enter a search term to find with notmuch: ' x; echo \$x >~/.cache/mutt_terms<enter><limit>~i \"\`notmuch search --output=messages \$(cat ~/.cache/mutt_terms) | head -n 600 | perl -le '@a=<>;s/\^id:// for@a;$,=\"|\";print@a' | perl -le '@a=<>; chomp@a; s/\\+/\\\\+/ for@a;print@a' \`\"<enter>" "show only messages matching a notmuch pattern"
 macro index A "<limit>all\n" "show all messages (undo limit)"
 
 # Sidebar mappings
@@ -159,16 +159,7 @@ color body red default "([a-z][a-z0-9+-]*://(((([a-z0-9_.!~*'();:&=+$,-]|%[0-9a-
 macro index 'c' '<change-folder>?<change-dir><home>^K=<enter>'
 set sendmail  = "msmtp"
 
-source ~/.config/mutt/account.poli
+source ~/.config/mutt/account.supelec
 macro index <f2> '<enter-command>unmailboxes *<enter><enter-command>source ~/.config/mutt/account.poli<enter><change-folder>!<enter>'
 macro index <f3> '<enter-command>unmailboxes *<enter><enter-command>source ~/.config/mutt/account.gmail<enter><change-folder>!<enter>'
 macro index <f4> '<enter-command>unmailboxes *<enter><enter-command>source ~/.config/mutt/account.supelec<enter><change-folder>!<enter>'
-
-# use tab to switch between accounts, inspired by
-#  http://msmtp.sourceforge.net/doc/msmtp.html#Using-msmtp-with-Mutt
-macro generic \Cx| "<enter-command>unmailboxes *<enter><enter-command>source"
-macro generic \Cx& "<enter-command>macro index \\t \"\\Cx"
-macro index <tab> "\Cx0"    # default change to account 1, this will be redefined once pressed
-macro generic \Cx0 "\Cx| ~/.config/mutt/account.poli\"\n\Cx&1\"<enter><change-folder>!<enter>"
-macro generic \Cx1 "\Cx| ~/.config/mutt/account.gmail\"\n\Cx&0\"<enter><change-folder>!<enter>"
-macro generic \Cx1 "\Cx| ~/.config/mutt/account.supelec\"\n\Cx&0\"<enter><change-folder>!<enter>"

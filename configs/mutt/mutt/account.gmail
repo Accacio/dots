@@ -3,6 +3,7 @@ set from      = 'Rafael Accácio <raccacio2@gmail.com>'
 set folder = "~/.local/mail/messages/gmail"
 set spoolfile = "+Inbox"
 set record = "=[Gmail]/.Sent\ Mail"
+set postponed = "=[Gmail]/.Drafts"
 mailboxes "+====== gmail ====="
-mailboxes =Inbox =[Gmail]/.Sent\ Mail
+mailboxes =Inbox =[Gmail]/.Sent\ Mail =[Gmail]/.Spam =[Gmail]/.Drafts
 set sendmail="msmtp -a gmail"
