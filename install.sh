@@ -27,6 +27,7 @@ stow -v -d configs/ -t ~/.config/ \
      compton/     \
      doom/        \
      dunst/       \
+     htop/        \
      khal/        \
      khard/       \
      lf/          \
