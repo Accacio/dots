@@ -27,7 +27,7 @@ rules.floating_any = {
 		"Arandr", "Gpick", "Kruler", "MessageWin", "Sxiv", "wpp", "Wpa_gui", "pinentry", "mail", "veromix",
 		"xtightvncviewer"
 	},
-	name = { "Event Tester", "WhatsApp" },
+	name = { "Event Tester", "WhatsApp" , "mail", "ncmpcpp"},
 	role = { "AlarmWindow", "pop-up", }
 }
 
