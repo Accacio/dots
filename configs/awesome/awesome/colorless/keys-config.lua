@@ -113,7 +113,7 @@ function hotkeys:init(args)
 
 	-- Layouts
 	--------------------------------------------------------------------------------
-	-- this is exaple for layouts hotkeys setup, see other color configs for more
+	-- this is example for layouts hotkeys setup, see other color configs for more
 
 	-- local layout_tile = {
 	-- 	{
@@ -369,6 +369,10 @@ function hotkeys:init(args)
 		{
 			{ }, "XF86AudioMute", function() awful.spawn("amixer -D pulse sset Master toggle") end,
 			{ description = "Mute", group = "Audio" }
+		},
+		{
+			{"Control", "Shift" }, "Escape", function() awful.util.spawn_with_shell(env.terminal .. " -t htop --class htop --position 100 100 -d 160 40 -e htop") end,
+			{ description = "open Htop", group = "MGMT" }
 		},
 		{
 			{env.mod, "Shift" }, "m", function() awful.util.spawn_with_shell("VISUAL='emacsclient -c -a \"vim\" ';" .. env.terminal .. " -t mail --class mail --position 100 100 -d 160 40 -e neomutt") end,

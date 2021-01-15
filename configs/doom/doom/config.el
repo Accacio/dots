@@ -266,7 +266,11 @@
                )
 (customize-set-value 'org-latex-with-hyperref nil)
   (setq org-indirect-buffer-display 'other-window)
-  ;; (setq matlab-shell-command "matlab -noFigureWindows")
+  (setq matlab-shell-command "matlab")
+
+  (add-hook! 'matlab-mode-hook 'display-line-numbers-mode)
+
+  (setq matlab-shell-command-switches `("-nosplash" "-nodesktop"))
   (setq org-babel-octave-shell-command "octave -q ")
   ;; (setq org-babel-octave-shell-command "octave -q -W")
   (setq org-babel-matlab-shell-command "matlab -nosplash -nodesktop ")
