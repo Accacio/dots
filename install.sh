@@ -15,7 +15,6 @@ stow -v -d configs/ -t ~/ \
      spacemacs \
      tmux/     \
      xconfigs/ \
-     xournal/  \
 
 stow -v -d configs/ -t ~/.local/ \
      mail
