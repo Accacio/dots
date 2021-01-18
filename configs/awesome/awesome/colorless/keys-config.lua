@@ -375,11 +375,11 @@ function hotkeys:init(args)
 			{ description = "open Htop", group = "MGMT" }
 		},
 		{
-			{env.mod, "Shift" }, "m", function() awful.util.spawn_with_shell("VISUAL='emacsclient -c -a \"vim\" ';" .. env.terminal .. " -t mail --class mail --position 100 100 -d 160 40 -e neomutt") end,
+			{env.mod, "Shift" }, "m", function() awful.util.spawn_with_shell("VISUAL='emacsclient -tc -a \"emacs -nw\" ';" .. env.terminal .. " -t mail --class mail -d 160 40 -e neomutt") end,
 			{ description = "open Mail", group = "Mail" }
 		},
 		{
-			{env.mod, "Shift" }, "XF86AudioPlay", function() awful.util.spawn_with_shell(env.terminal .. " --class music --position 100 100 -d 160 40 -t ncmpcpp -e ncmpcpp") end,
+			{env.mod, "Shift" }, "XF86AudioPlay", function() awful.util.spawn_with_shell(env.terminal .. " --class music  -d 160 40 -t ncmpcpp -e ncmpcpp") end,
 			{ description = "Open ncmpcpp", group = "Audio" }
 		},
 		{
