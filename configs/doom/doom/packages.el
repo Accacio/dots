@@ -86,3 +86,4 @@
 
 (package! org-caldav)
 (package! Oauth2)
+(package! solaire-mode :disable t)
