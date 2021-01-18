@@ -7,3 +7,6 @@ set postponed = "=Inbox/.Drafts"
 mailboxes "+===== supelec ===="
 mailboxes =Inbox =Inbox/.Sent =Inbox/.Drafts =Junk =Inbox/.Trash
 set sendmail="msmtp -a supelec"
+set sig_dashes=no
+set sig_on_top=yes
+set signature="~/.config/mutt/signature.supelec"
