@@ -29,6 +29,22 @@ local focus_switch_byd = function(dir)
 		if client.focus then client.focus:raise() end
 	end
 end
+local swap_switch_byd = function(dir)
+	return function()
+		awful.client.swap.bydirection(dir)
+		awful.spawn('bash -c "sleep 0.1;xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"')
+		if client.focus then client.focus:raise() end
+	end
+end
+
+local move_screen_switch_byd = function(dir)
+	return function()
+		local c = client.focus
+		-- awful.client.move_to_screen()
+		-- awful.spawn('bash -c "sleep 0.1;xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"')
+		if client.focus then client.focus:raise() end
+	end
+end
 
 local function minimize_all()
 	for _, c in ipairs(client.get()) do
@@ -505,16 +521,32 @@ function hotkeys:init(args)
 			{ description = "Whatsapp", group = "Main" }
 		},
 		{
+			{ env.mod, "Shift" }, "l", swap_switch_byd("right"),
+			{ description = "Go to right client", group = "Client focus" }
+		},
+		{
 			{ env.mod }, "l", focus_switch_byd("right"),
 			{ description = "Go to right client", group = "Client focus" }
+		},
+		{
+			{ env.mod, "Shift" }, "h", swap_switch_byd("left"),
+			{ description = "Go to left client", group = "Client focus" }
 		},
 		{
 			{ env.mod }, "h", focus_switch_byd("left"),
 			{ description = "Go to left client", group = "Client focus" }
 		},
 		{
+			{ env.mod, "Shift" }, "k", swap_switch_byd("up"),
+			{ description = "Go to upper client", group = "Client focus" }
+		},
+		{
 			{ env.mod }, "k", focus_switch_byd("up"),
 			{ description = "Go to upper client", group = "Client focus" }
+		},
+		{
+			{ env.mod,"Shift" }, "j", swap_switch_byd("down"),
+			{ description = "Go to lower client", group = "Client focus" }
 		},
 		{
 			{ env.mod }, "j", focus_switch_byd("down"),
@@ -613,17 +645,37 @@ function hotkeys:init(args)
 			{ description = "Select previous layout", group = "Layouts" }
 		},
 		{
+			{ env.mod , "Shift"}, "semicolon",
+			-- function()
+				move_screen_switch_byd("right")
+				-- awful.screen.focus_relative( 1);
+				-- awful.spawn('bash -c "sleep 0.1;xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"')
+			-- end
+			,
+			{ description = "focus the next screen", group = "Screen" }
+		},
+		{
 			{ env.mod }, "semicolon",
 			function()
-				awful.screen.focus_relative( 1);
+				awful.screen.focus_bydirection("right");
 				-- awful.spawn('bash -c "sleep 0.1;xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"')
 			end,
 			{ description = "focus the next screen", group = "Screen" }
 		},
 		{
+			{ env.mod, "Shift" }, "comma",
+			-- function()
+				move_screen_switch_byd("left")
+				-- awful.screen.focus_relative( -1);
+				-- awful.spawn('bash -c "sleep 0.1;xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"')
+			-- end
+			,
+			{ description = "focus the previous screen", group = "Screen" }
+		},
+		{
 			{ env.mod }, "comma",
 			function()
-				awful.screen.focus_relative( -1);
+				awful.screen.focus_bydirection("left");
 				-- awful.spawn('bash -c "sleep 0.1;xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"')
 			end,
 			{ description = "focus the previous screen", group = "Screen" }
