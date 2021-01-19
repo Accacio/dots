@@ -75,7 +75,7 @@ mode "apps"
 	bindsym m exec "i3-sensible-terminal -c neomutt -e  bash -l -c neomutt"; mode "default";exec "kill $(pidof feh)"
 	bindsym n exec "i3-sensible-terminal -e  newsboat"; mode "default";exec "kill $(pidof feh)"
 	bindsym r exec "i3-sensible-terminal -e  ranger"; mode "default";exec "kill $(pidof feh)"
-	bindsym e exec "emacsclient -c"; mode "default";exec "kill $(pidof feh)"
+	bindsym e exec "emacsclient -s $HOME/.emacs.d/server/server -c"; mode "default";exec "kill $(pidof feh)"
 	bindsym z exec "zathura"; mode "default";exec "kill $(pidof feh)"
 
         bindsym Escape mode "default";exec "kill $(pidof feh)"

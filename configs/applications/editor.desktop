@@ -2,7 +2,7 @@
 Name=Text Editor
 GenericName=Text Editor
 Comment=Text Editor
-Exec=emacsclient -c %f -a emacs
+Exec=emacsclient -s $HOME/.emacs.d/server/server -c %f -a emacs
 Type=Application
 Icon=emacs26
 Terminal=false

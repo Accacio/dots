@@ -26,12 +26,12 @@ function calc {
 # }
 
 # function emc {
-#     emacsclient -c $1 &
+#     emacsclient -s $HOME/.emacs.d/server/server -c $1 &
 #     disown
 # }
 
 # function emct {
-#     emacsclient -ct $1 &
+#     emacsclient -s $HOME/.emacs.d/server/server -ct $1 &
 #     disown
 # }
 

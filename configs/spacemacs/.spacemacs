@@ -479,7 +479,7 @@ you should place your code here."
     )
   (with-eval-after-load 'reftex
     ;; Code
-   (progn  (defcustom tex-my-viewer "zathura --fork -s -x \"emacsclient --eval '(progn (switch-to-buffer  (file-name-nondirectory \"'\"'\"%{input}\"'\"'\")) (goto-line %{line}))'\""
+   (progn  (defcustom tex-my-viewer "zathura --fork -s -x \"emacsclient -s $HOME/.emacs.d/server/server --eval '(progn (switch-to-buffer  (file-name-nondirectory \"'\"'\"%{input}\"'\"'\")) (goto-line %{line}))'\""
   "PDF Viewer for TeX documents. You may want to fork the viewer
   so that it detects when the same document is launched twice, and
   persists when Emacs gets closed.
@@ -490,7 +490,7 @@ you should place your code here."
 
   We can use
 
-    emacsclient --eval '(progn (switch-to-buffer  (file-name-nondirectory \"%{input}\")) (goto-line %{line}))'
+    emacsclient -s $HOME/.emacs.d/server/server --eval '(progn (switch-to-buffer  (file-name-nondirectory \"%{input}\")) (goto-line %{line}))'
 
   to reverse-search a pdf using SyncTeX. Note that the quotes and double-quotes matter and must be escaped appropriately."
   :safe 'stringp)

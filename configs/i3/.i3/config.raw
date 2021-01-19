@@ -7,7 +7,7 @@ SCHEME
 set $mod Mod4
 set $alt Mod1
 set $term st
-# set $editor "emacsclient -c"
+# set $editor "emacsclient -s $HOME/.emacs.d/server/server -c"
 set $editor "emacs"
 # set $editor "gvim"
 focus_follows_mouse yes

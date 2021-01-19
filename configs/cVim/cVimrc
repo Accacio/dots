@@ -1,5 +1,5 @@
 " file:/home/accacio/dots/configs/cVim/cVimrc
-let vimcommand = 'emacsclient -c'
+let vimcommand = 'emacsclient -s $HOME/.emacs.d/server/server -c'
 iunmapAll
 
 " source cVimrc

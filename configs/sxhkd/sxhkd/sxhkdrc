@@ -41,7 +41,7 @@ super + Return
 	st
 
 super + shift + Return
-      emacsclient -c
+      emacsclient -s $HOME/.emacs.d/server/server -c
 
 # super + p
 #       ~/dots/scripts/multimonitor
