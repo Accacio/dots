@@ -1,15 +1,17 @@
 #!/bin/bash
-emacs -Q \
-    --eval="(add-to-list 'load-path \"~/.emacs.d/.local/straight/repos/emacs-doom-themes/\")" \
-    --eval="(load-file \"~/.emacs.d/.local/straight/repos/emacs-doom-themes/themes/doom-one-theme.el\")" \
-    --eval="(setq org-modules '(ol-bibtex org-habit org-habit-plus))" \
-    -l ~/.emacs.d/.local/straight/repos/emacs-htmlize/htmlize.el \
-    --eval="(defvar +org-habit-graph-padding 2)" \
-    --eval="(defvar +org-habit-min-width 60)" \
-    --eval="(defvar +org-habit-graph-window-ratio 0.2)" \
-    --eval="(defun +org-init-habit-h () (add-hook 'org-agenda-mode-hook (defun +org-habit-resize-graph-h () (when (featurep 'org-habit) (let* ((total-days (float (+ org-habit-preceding-days org-habit-following-days))) (preceding-days-ratio (/ org-habit-preceding-days total-days)) (graph-width (floor (* (window-width) +org-habit-graph-window-ratio))) (preceding-days (floor (* graph-width preceding-days-ratio))) (following-days (- graph-width preceding-days)) (graph-column (- (window-width) (+ preceding-days following-days))) (graph-column-adjusted (if (> graph-column +org-habit-min-width) (- graph-column +org-habit-graph-padding) nil))) (setq-local org-habit-preceding-days preceding-days) (setq-local org-habit-following-days following-days) (setq-local org-habit-graph-column graph-column-adjusted))))))" \
-    --eval='(setq org-agenda-files (list "~/org/private/Eve.org" "~/org/private/todo.org" "~/org/private/todo_these.org" "~/org/private/fromPoli.org" "~/org/private/fromGmail.org" "~/org/private/fromSupelec.org"))' \
-    --eval="(+org-init-habit-h)" \
-    --eval="(setq org-agenda-custom-commands '((\"n\" \"Agenda and all TODOs\" ((agenda \"\") (alltodo "")) nil (\"~/org/private/agenda.html\"))))" \
-    --eval="(org-agenda nil \"n\")" \
-    --eval="(org-agenda nil \"e\")" --kill
+export DISPLAY=$(who | grep $(whoami) | sed "s,.*(\(.*\)).*,\1,g" | cut -d" " -f 2)
+# emacs -Q \
+#     --eval="(add-to-list 'load-path \"~/.emacs.d/.local/straight/repos/emacs-doom-themes/\")" \
+#     --eval="(load-file \"~/.emacs.d/.local/straight/repos/emacs-doom-themes/themes/doom-one-theme.el\")" \
+#     --eval="(setq org-modules '(ol-bibtex org-habit org-habit-plus))" \
+#     -l ~/.emacs.d/.local/straight/repos/emacs-htmlize/htmlize.el \
+#     --eval="(defvar +org-habit-graph-padding 2)" \
+#     --eval="(defvar +org-habit-min-width 60)" \
+#     --eval="(defvar +org-habit-graph-window-ratio 0.2)" \
+#     --eval="(defun +org-init-habit-h () (add-hook 'org-agenda-mode-hook (defun +org-habit-resize-graph-h () (when (featurep 'org-habit) (let* ((total-days (float (+ org-habit-preceding-days org-habit-following-days))) (preceding-days-ratio (/ org-habit-preceding-days total-days)) (graph-width (floor (* (window-width) +org-habit-graph-window-ratio))) (preceding-days (floor (* graph-width preceding-days-ratio))) (following-days (- graph-width preceding-days)) (graph-column (- (window-width) (+ preceding-days following-days))) (graph-column-adjusted (if (> graph-column +org-habit-min-width) (- graph-column +org-habit-graph-padding) nil))) (setq-local org-habit-preceding-days preceding-days) (setq-local org-habit-following-days following-days) (setq-local org-habit-graph-column graph-column-adjusted))))))" \
+#     --eval='(setq org-agenda-files (list "~/org/private/Eve.org" "~/org/private/todo.org" "~/org/private/todo_these.org" "~/org/private/fromPoli.org" "~/org/private/fromGmail.org" "~/org/private/fromSupelec.org"))' \
+#     --eval="(+org-init-habit-h)" \
+#     --eval="(setq org-agenda-custom-commands '((\"n\" \"Agenda and all TODOs\" ((agenda \"\") (alltodo "")) nil (\"~/org/private/agenda.html\"))))" \
+#     --eval="(org-agenda nil \"n\")" \
+#     --eval="(org-agenda nil \"e\")" --kill
+emacsclient -e '(org-agenda nil "e")'
