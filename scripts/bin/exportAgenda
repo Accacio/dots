@@ -14,4 +14,4 @@ export DISPLAY=$(who | grep $(whoami) | sed "s,.*(\(.*\)).*,\1,g" | cut -d" " -f
 #     --eval="(setq org-agenda-custom-commands '((\"n\" \"Agenda and all TODOs\" ((agenda \"\") (alltodo "")) nil (\"~/org/private/agenda.html\"))))" \
 #     --eval="(org-agenda nil \"n\")" \
 #     --eval="(org-agenda nil \"e\")" --kill
-emacsclient -e '(org-agenda nil "e")'
+emacsclient -e '(org-agenda nil "e")' -s $HOME/.emacs.d/server/server

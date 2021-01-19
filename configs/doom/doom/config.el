@@ -8,7 +8,7 @@
 ;; clients, file templates and snippets.
 (setq user-full-name "Rafael Accácio Nogueira"
       user-mail-address "raccacio@poli.ufrj.br")
-
+(setq server-socket-dir "~/.emacs.d/server")
 (blink-cursor-mode -1)
 (show-smartparens-global-mode 1)
 (setq blink-cursor-interval .1)
