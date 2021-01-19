@@ -68,11 +68,17 @@
       (:prefix-map ("t" . "toggle")
         :desc "Transparency"                 "T" 'toggle-transparency))
 
-(if (display-graphic-p)
-  (setq doom-theme 'doom-one)
-  (setq doom-theme 'doom-spacegrey)
-  )
 
+
+(setq doom-theme 'doom-one)
+
+(custom-theme-set-faces! 'doom-one
+  `(font-lock-comment-face :foreground "#8080a7")
+  )
+;; (after! doom-theme
+;; (set-face-attribute 'font-lock-comment-face nil :foreground "#8080f7")
+
+;;   )
 (defun org-babel-execute:matlab (body params)
   "Execute a block of matlab code with Babel."
   (with-temp-buffer
