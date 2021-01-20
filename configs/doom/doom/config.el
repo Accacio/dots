@@ -488,7 +488,7 @@ and value is its relative level, as an integer."
   (orgtbl-to-generic
    table
    (org-combine-plists
-    '(:hline "t" :hsep "sd" :tstart "{" :tend "}" :lstart "{" :lend "}," :sep ",")
+    '(:hline "t" :hsep "sd" :tstart "{" :tend "};" :lstart "{" :lend "}," :sep ",")
     params)))
 
 (use-package! emojify
