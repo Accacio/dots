@@ -1,4 +1,4 @@
-handler-add org-protocol=emacsclient -s $HOME/.emacs.d/server/server %s
+handler-add org-protocol=org-protocol %s
 set fullscreen=false
 set user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1.1 Safari/605.1.15
 set input-autohide=true

@@ -1,0 +1,2 @@
+#!/bin/bash
+emacsclient -a emacs -s /home/nogueirar/.emacs.d/server/server $1
