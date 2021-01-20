@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Org-Protocol
-Exec=emacsclient -s $HOME/.emacs.d/server/server %u
+Exec=org-protocol %f
 Icon=emacs-icon
 Type=Application
 Terminal=false
