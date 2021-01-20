@@ -23,11 +23,7 @@ case $mode in
     rm $TMPBG
     ;;
     prettyLock)
-    TMPBG=/tmp/screen.png
-    RES=$(xrandr | grep 'current' | sed -E 's/.*current\s([0-9]+)\sx\s([0-9]+).*/\1x\2/')
-    ffmpeg -f x11grab -video_size $RES -lavfi "boxblur=luma_radius=2:luma_power=4" -y -i $DISPLAY -vframes 1 $TMPBG -loglevel quiet
-    xset dpms 2 0 0;i3lock -n -i $TMPBG;xset dpms 0 0 0;
-    rm $TMPBG
+    prettyLock
     ;;
     Shutdown)
     # notify-send "Saving Org Folder to Dropbox"

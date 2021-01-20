@@ -2,7 +2,7 @@
 
 TMPBG=/tmp/screen.png
 RES=$(xrandr | grep 'current' | sed -E 's/.*current\s([0-9]+)\sx\s([0-9]+).*/\1x\2/')
-ffmpeg -f x11grab -video_size $RES -lavfi "boxblur=luma_radius=2:luma_power=4" -y -i $DISPLAY -vframes 1 $TMPBG -loglevel quiet
+ffmpeg -f x11grab -video_size $RES -lavfi "boxblur=luma_radius=4:luma_power=8" -y -i $DISPLAY -vframes 1 $TMPBG -loglevel quiet
 xset dpms 2 0 0;i3lock -n -i $TMPBG;xset dpms 0 0 0;
 kill -SIGHUP $(ps aux | grep gpg-agent -m 1 | cut -d " " -f 3)
 rm $TMPBG
