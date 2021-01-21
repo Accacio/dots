@@ -387,7 +387,7 @@ function hotkeys:init(args)
 			{ description = "Mute", group = "Audio" }
 		},
 		{
-			{"Control", "Shift" }, "Escape", function() awful.util.spawn_with_shell(env.terminal .. " -t htop --class htop --position 100 100 -d 160 40 -e htop") end,
+			{"Control", "Shift" }, "Escape", function() awful.util.spawn_with_shell(env.terminal .. " -t htop --class htop -d 160 40 -e htop") end,
 			{ description = "open Htop", group = "MGMT" }
 		},
 		{
