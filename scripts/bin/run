@@ -1,0 +1,2 @@
+#!/bin/bash
+rofi -show run -show-icons -theme sidebar

@@ -574,7 +574,8 @@ function hotkeys:init(args)
 			{ description = "Show main menu", group = "Widgets" }
 		},
 		{
-			{ env.mod }, "r", function() apprunner:show() end,
+			{ env.mod }, "r", function() awful.spawn("drun") end,
+			-- { env.mod }, "r", function() apprunner:show() end,
 			{ description = "Application launcher", group = "Widgets" }
 		},
 		{
@@ -595,7 +596,8 @@ function hotkeys:init(args)
 			{ description = "Show the prompt box", group = "Widgets" }
 		},
 		{
-			{ env.mod  }, "o", function() redflat.float.prompt:run() end,
+			{ env.mod }, "o", function() awful.spawn("run") end,
+			-- { env.mod  }, "o", function() redflat.float.prompt:run() end,
 			{ description = "Show the prompt box", group = "Widgets" }
 		},
 		{
