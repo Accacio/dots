@@ -1,0 +1,22 @@
+#!/bin/bash
+
+pushd /tmp/
+temp=$(basename $(mktemp -u latex_XXXX))
+# echo $temp
+# exit
+menu_fun='rofi -dmenu -theme sidebar'
+Text="$($menu_fun -b -sb seagreen -i -p "Function:")"
+colors=('black' 'white' 'red')
+color="$(printf '%s\n' "${colors[@]}"|sed 's/^ //'| $menu_fun -b -sb seagreen -i -p "color:")"
+echo "\documentclass[border=0.05cm,convert={density=1200}]{standalone}\
+\usepackage{xcolor}\
+\begin{document}\
+\color{${color}}
+$ ${Text} $\
+\end{document}" > $temp.tex
+cat /tmp/$temp.tex
+pdflatex -shell-escape -output-directory /tmp $temp.tex >> /dev/null
+zathura "/tmp/$temp".pdf &
+# [-f "/tmp/$temp".pdf] && zathura "/tmp/$temp".pdf &
+xclip -i -selection c -t image/png "/tmp/$temp".png
+popd
