@@ -1,3 +1,3 @@
 #!/bin/bash
 # TODO test $2 and $3
-gnuplot -e "set parametric;set trange [0:2*pi];set urange [0:pi];splot $1;pause mouse key"
+gnuplot  -e "set parametric;set trange [0:2*pi];set urange [0:pi];splot $1;pause mouse close"

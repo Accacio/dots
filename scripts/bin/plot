@@ -1,2 +1,22 @@
 #!/bin/bash
-gnuplot -e "plot $1;pause mouse key"
+
+# menu_fun='dmenu'
+menu_fun='rofi -dmenu -theme sidebar'
+menu=('2D x**2' '3D x**2-y**2' '2D Parametric t,t' '3D Parametric u,v,u*v')
+echo ${menu[0]}
+mode=$(printf '%s\n' "${menu[@]}"|sed 's/^ //'|$menu_fun -b -sb seagreen -i -p "Type")
+plotFun="$($menu_fun -b -sb seagreen -i -p "Function:")"
+case $mode in
+    "${menu[0]}")
+        gnuplot -e "plot $plotFun;pause mouse close"
+        ;;
+    "${menu[1]}")
+        gnuplot -e "splot $plotFun;pause mouse close"
+        ;;
+    "${menu[2]}")
+        gnuplot  -e "set parametric;set trange [0:2*pi];plot ${plotFun};pause mouse close"
+        ;;
+    "${menu[3]}")
+        gnuplot  -e "set parametric;set trange [0:2*pi];set urange [0:pi];splot ${plotFun} ;pause mouse close"
+        ;;
+esac

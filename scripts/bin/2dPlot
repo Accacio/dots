@@ -1,0 +1,2 @@
+#!/bin/bash
+gnuplot -e "plot "$1";pause mouse close"
