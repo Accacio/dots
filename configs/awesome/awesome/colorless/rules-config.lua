@@ -22,7 +22,7 @@ rules.base_properties = {
 }
 
 rules.floating_any = {
-	instance = { "DTA", "copyq", },
+	instance = { "DTA", "copyq", "Telegram"},
 	class = {
 		"Arandr", "Gpick", "Kruler", "MessageWin", "Sxiv", "wpp", "Wpa_gui", "pinentry", "mail", "veromix",
 		"xtightvncviewer"

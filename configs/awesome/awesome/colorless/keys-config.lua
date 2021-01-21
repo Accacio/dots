@@ -490,35 +490,43 @@ function hotkeys:init(args)
 		{
 			{ env.mod }, "z",
 			function()
-				-- for s in screen do
-					-- naughty.notify({ text= "Oh, wow, we have screen " .. tostring(s)})
-				-- get tags in each screen	
-				-- end
 				local tag=awful.tag.selected()
-				
 				local screen = awful.screen.focused()
 				local current = client.focus or nil
+				
+				local matcher = function (c)
+					-- return awful.rules.match(c, {instance= 'wpp'})
+					return awful.rules.match(c, {class= 'Telegram'})
+				end
 
-				if current ~= nil and current.instance == 'wpp'
-				then
-					current.minimized = true
-				else
-					local matcher = function (c)
-						return awful.rules.match(c, {instance= 'wpp'})
-					end
-					awful.client.run_or_raise('bash -c "vimb web.whatsapp.com& export APP_PID=$!;sleep 2;xprop -id `xdotool search --pid $APP_PID|tail -n 1` -f WM_CLASS 8s -set WM_CLASS "wpp""', matcher)
+
+				if current then
+					if current.instance == 'Telegram' then
+						current.minimized = true
+					else
+
+					awful.client.run_or_raise('Telegram', matcher)
+					-- awful.client.run_or_raise('bash -c "vimb web.whatsapp.com& export APP_PID=$!;sleep 2;xprop -id `xdotool search --pid $APP_PID|tail -n 1` -f WM_CLASS 8s -set WM_CLASS "wpp""', matcher)
+					-- awful.client.run_or_raise('bash -c "surf web.whatsapp.com& export APP_PID=$!;sleep 2;xprop -id `xdotool search --pid $APP_PID|tail -n 1` -f WM_CLASS 8s -set WM_CLASS "wpp""', matcher)
 					client.focus:move_to_screen(screen)
 					client.focus:move_to_tag(tag)
 					awful.screen.focus(screen)
 
-					-- for t in screen do
-						-- naughty.notify({ text= "Oh, wow, we have screen " .. tostring(s)})
-						-- put tags in each screen	
-					-- end
+					tag:view_only()
+					end
+				end
+				if current == nil then
+					awful.client.run_or_raise('Telegram',matcher)
+					-- awful.client.run_or_raise('bash -c "vimb web.whatsapp.com& export APP_PID=$!;sleep 2;xprop -id `xdotool search --pid $APP_PID|tail -n 1` -f WM_CLASS 8s -set WM_CLASS "wpp""', matcher)
+					-- awful.client.run_or_raise('bash -c "surf web.whatsapp.com& export APP_PID=$!;sleep 2;xprop -id `xdotool search --pid $APP_PID|tail -n 1` -f WM_CLASS 8s -set WM_CLASS "wpp""', matcher)
+					client.focus:move_to_screen(screen)
+					client.focus:move_to_tag(tag)
+					awful.screen.focus(screen)
 					tag:view_only()
 				end
+
 			end,
-			{ description = "Whatsapp", group = "Main" }
+			{ description = "Telegram", group = "Main" }
 		},
 		{
 			{ env.mod, "Shift" }, "l", swap_switch_byd("right"),
