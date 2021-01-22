@@ -6,8 +6,17 @@ temp=$(basename $(mktemp -u latex_XXXX))
 # exit
 menu_fun='rofi -dmenu -theme sidebar'
 Text="$($menu_fun -b -sb seagreen -i -p "Function:")"
+if [ "$Text" == "" ] ;
+then
+   exit
+fi
 colors=('black' 'white' 'red')
 color="$(printf '%s\n' "${colors[@]}"|sed 's/^ //'| $menu_fun -b -sb seagreen -i -p "color:")"
+echo $color
+if [ "$color" == "" ] ;
+then
+   exit
+fi
 echo "\documentclass[border=0.05cm,convert={density=1200}]{standalone}\
 \usepackage{xcolor}\
 \begin{document}\
