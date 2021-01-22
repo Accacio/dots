@@ -91,7 +91,7 @@ case $mode in
     wacom)
     Monitor=$( printf '%s\n' "${monitors[@]}"|sed 's/^ //'|dmenu -i  -p "Monitor" |sed "s|[0-9]-||" )
     res=$(xrandr | grep ^$Monitor | sed "s,.* \([0-9]*x[0-9]*+[0-9]*+[0-9]*\).*,\1,")
-    modes=('right' '➲right' 'left' '➲left' 'total')
+    modes=('right' '➲right' 'left' '➲left' 'total' 'calibrate')
     mode=$( printf '%s\n' "${modes[@]}"|sed 's/^ //'|dmenu -i  -p "Monitor" |sed "s|[0-9]-||" )
     # if right or left
     # xsetwacom set "Wacom Intuos PT S 2 Pen stylus" Rotate ccw;
@@ -129,6 +129,12 @@ case $mode in
         xsetwacom set "Wacom Intuos PT S 2 Pen stylus" Rotate none;
         xsetwacom set "Wacom Intuos PT S 2 Finger touch" Rotate none;
         newres=$res
+        ;;
+        calibrate)
+        xsetwacom set "Wacom Intuos PT S 2 Pen stylus" Rotate none;
+        xsetwacom set "Wacom Intuos PT S 2 Finger touch" Rotate none;
+
+        newres=$(echo $(echo "scale=0;$yres*3/2" | bc -l)x$yres+$( echo "scale=0;$xpos+$xres-$yres*1/3" |bc -l)+$ypos)
         ;;
     esac
     xsetwacom set "Wacom Intuos PT S 2 Pen stylus" MapToOutput $newres
