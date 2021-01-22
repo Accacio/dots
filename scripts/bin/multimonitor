@@ -134,6 +134,14 @@ case $mode in
         xsetwacom set "Wacom Intuos PT S 2 Pen stylus" Rotate none;
         xsetwacom set "Wacom Intuos PT S 2 Finger touch" Rotate none;
 
+        mode=$( dmenu -i  -p "topLeft")
+        topLeft=$(xdotool getmouselocation | cut -d" " -f 1-2 | sed "s,[xy]:,,g")
+        mode=$( dmenu -i  -p "bottomLeft" )
+        bottomLeft=$(xdotool getmouselocation | cut -d" " -f 1-2 | sed "s,[xy]:,,g")
+        mode=$( dmenu -i  -p "topRight" )
+        topRight=$(xdotool getmouselocation | cut -d" " -f 1-2 | sed "s,[xy]:,,g")
+        mode=$( dmenu -i  -p "bottomRight" )
+        topRight=$(xdotool getmouselocation | cut -d" " -f 1-2 | sed "s,[xy]:,,g")
         newres=$(echo $(echo "scale=0;$yres*3/2" | bc -l)x$yres+$( echo "scale=0;$xpos+$xres-$yres*1/3" |bc -l)+$ypos)
         ;;
     esac
