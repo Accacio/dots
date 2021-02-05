@@ -378,6 +378,42 @@ and value is its relative level, as an integer."
     (error "Illegal state")))
   )
 
+  (map! :map doom-leader-map "n R" 'elfeed)
+(after! elfeed
+
+  (setq elfeed-feeds '(
+                     ("https://news.ycombinator.com/rss" hacker)
+                     ("https://www.sthu.org/blog/atom.xml")
+                     ("https://www.reddit.com/r/controlengineering.rss" control)
+                     ("https://ciechanow.ski/atom.xml")
+                     ("http://rss.sciencedirect.com/publication/science/01676911" S&CL control)
+                     ("https://www.aimsciences.org/rss/A0000-0000_current.xml" EE&CT control)
+                     ("https://ieeexplore.ieee.org/rss/TOC6509490.XML" TOCNS control)
+                     ("https://ieeexplore.ieee.org/rss/TOC9.XML" TOAC control)
+                     ("https://onlinelibrary.wiley.com/feed/19346093/most-recent" control)
+                     ))
+
+(add-hook 'elfeed-new-entry-hook
+          (elfeed-make-tagger :before "2 weeks ago"
+                              :remove 'unread))
+
+(setq-default elfeed-search-filter "@1-month-ago +unread ")
+
+(elfeed-update)
+(defface control-elfeed-entry
+  '((t :foreground "##2ba"))
+  "Marks an control Elfeed entry.")
+(set-face-attribute 'elfeed-search-unread-title-face nil
+                    :bold t :strike-through nil :underline nil :foreground "#bbb")
+
+(set-face-attribute 'elfeed-search-title-face nil
+                    :bold nil :strike-through t)
+
+(set-face-attribute 'control-elfeed-entry nil
+                    :foreground "#2ba")
+(push '(control control-elfeed-entry) elfeed-search-face-alist)
+
+)
 ;; Roam
 (after! org-roam
 
