@@ -1,4 +1,21 @@
-browser "i3 exec 'mpv'"
+auto-reload yes
+max-items 50
+
+# unbind keys
+unbind-key ENTER
+unbind-key j
+unbind-key k
+unbind-key J
+unbind-key K
+
+
+# bind keys - vim style
+bind-key j down
+bind-key k up
+bind-key l open
+bind-key h quit
+
+browser "x-www-browser %u 2>/dev/null&"
 color background          white  black
 color listnormal          white  black
 color listfocus           black  white   bold
@@ -6,8 +23,8 @@ color listnormal_unread   red    black
 color listfocus_unread    green  white   bold
 color info                black  color70 bold
 color article             white  black
-macro q set browser "echo %u >> ~/.config/mpv/queue; notify-send 'Added %u to queue'" ; open-in-browser-and-mark-read ; set browser "elinks %u"
-macro c set browser "rm  ~/.config/mpv/queue; notify-send 'Clean queue'"; open-in-browser ; set browser "i3 exec 'mpv'"
+# macro q set browser "echo %u >> ~/.config/mpv/queue; notify-send 'Added %u to queue'" ; open-in-browser-and-mark-read ; set browser "elinks %u"
+# macro c set browser "rm  ~/.config/mpv/queue; notify-send 'Clean queue'"; open-in-browser ; set browser "i3 exec 'mpv'"
 # macro v set browser "i3 exec 'mpv --geometry=25%-20+20'"; open-in-browser ; set browser vivaldi
 podcast-auto-enqueue yes
 player "mpc play"
