@@ -79,6 +79,9 @@ taglist.buttons = awful.util.table.join(
 
 -- Textclock widget
 --------------------------------------------------------------------------------
+local weather = {}
+weather.widget = redflat.widget.weather({ timeformat = "%H:%M", dateformat = " %Y-%m-%d %a" })
+
 local textclock = {}
 textclock.widget = redflat.widget.textclock({ timeformat = "%H:%M", dateformat = " %Y-%m-%d %a" })
 
@@ -168,7 +171,7 @@ awful.screen.connect_for_each_screen(
 				-- separator,
                 --
 
-				env.wrapper(textwpp.widget, "textwpp"),
+				env.wrapper(weather.widget, "weather"),
 				env.wrapper(textclock.widget, "textclock"),
 				env.wrapper(battery.widget, "battery"),
 				env.wrapper(textSound.widget, "textSound"),
