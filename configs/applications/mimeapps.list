@@ -12,4 +12,4 @@ text/plain=editor.desktop
 text/html=qutebrowser.desktop
 text/x-lua=editor.desktop
 application/x-shellscript=editor.desktop
-
+text/x-bibtex=editor.desktop
