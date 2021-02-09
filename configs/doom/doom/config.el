@@ -391,6 +391,7 @@ and value is its relative level, as an integer."
                      ("https://ieeexplore.ieee.org/rss/TOC6509490.XML" TOCNS control)
                      ("https://ieeexplore.ieee.org/rss/TOC9.XML" TOAC control)
                      ("https://onlinelibrary.wiley.com/feed/19346093/most-recent" control)
+                     ("https://xkcd.com/rss.xml" comics)
                      ))
 
 (defun elfeed-tag-selection-as (mytag)
