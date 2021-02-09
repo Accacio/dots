@@ -393,6 +393,36 @@ and value is its relative level, as an integer."
                      ("https://onlinelibrary.wiley.com/feed/19346093/most-recent" control)
                      ))
 
+(defun elfeed-tag-selection-as (mytag)
+    "Returns a function that tags an elfeed entry or selection as
+MYTAG"
+    (interactive ) (lambda ()
+      "Toggle a tag on an Elfeed search selection"
+      (interactive)
+      (elfeed-search-toggle-all mytag)))
+
+(defun accacio-copy-link (entry)
+  "Copy to kill ring a link to the article"
+  (let ((link ()))
+    (kill-new link)
+    (print link)
+    ;; (message link)
+    )
+  )
+
+(defun accacio-elfeed-show-copy-article ()
+  (interactive)
+  (let ((entries (elfeed-search-selected)) (links ""))
+  (cl-loop for entry in entries
+           when (elfeed-entry-link entry)
+           do (setq links (concat links (concat "- " (org-make-link-string  (elfeed-entry-link entry) (elfeed-entry-title entry)) "\n" )))
+           )
+  (kill-new links)
+  )
+  )
+
+(evil-define-key 'normal elfeed-search-mode-map "R" (elfeed-tag-selection-as 'readlater))
+
 (add-hook 'elfeed-new-entry-hook
           (elfeed-make-tagger :before "2 weeks ago"
                               :remove 'unread))
