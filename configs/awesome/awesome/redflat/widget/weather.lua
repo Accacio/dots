@@ -60,7 +60,7 @@ function textclock.new(args, style)
 	local timer = gears.timer({ timeout = timeout })
 	timer:connect_signal("timeout",
 		function()
-			local handle = io.popen("curl -s wttr.in  | tr -dc '[[:print:][:space:]]' | sed 's,\\[\\([0-9]*;\\)*[0-9]*m,,g' | tac | sed 1d | tac ")
+			local handle = io.popen("curl -s wttr.in/cesson-sevigne  | tr -dc '[[:print:][:space:]]' | sed 's,\\[\\([0-9]*;\\)*[0-9]*m,,g' | tac | sed 1,3d | tac ")
 			local result = handle:read("*a")
 			local umiHandle = io.popen("curl -s wttr.in | sed '16q;d'  | grep -wo '[0-9]*%' | sort -rn | sed 's,^,🌧\\ ,g;1q' | tr -d '\\n'")
 			local umiResult = umiHandle:read("*a")
