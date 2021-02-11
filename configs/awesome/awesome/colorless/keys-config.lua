@@ -399,16 +399,32 @@ function hotkeys:init(args)
 			{ description = "Open ncmpcpp", group = "Audio" }
 		},
 		{
+			{env.mod,"Shift"}, "F10", function() awful.util.spawn_with_shell("mpdMenuImage $HOME/Music") end,
+			{ description = "Select what to play", group = "Audio" }
+		},
+		{
 			{env.mod }, "XF86AudioPlay", function() awful.util.spawn_with_shell("mpdMenuImage $HOME/Music") end,
 			{ description = "Select what to play", group = "Audio" }
+		},
+		{
+			{env.mod }, "F11", function() awful.util.spawn_with_shell("mpc toggle; $SCRIPTSFOLDER/musicNotify") end,
+			{ description = "Play/Pause", group = "Audio" }
 		},
 		{
 			{ }, "XF86AudioPlay", function() awful.util.spawn_with_shell("mpc toggle; $SCRIPTSFOLDER/musicNotify") end,
 			{ description = "Play/Pause", group = "Audio" }
 		},
 		{
+			{ env.mod }, "F10", function() awful.util.spawn_with_shell("mpc prev; $SCRIPTSFOLDER/musicNotify") end,
+			{ description = "Previous", group = "Audio" }
+		},
+		{
 			{ }, "XF86AudioPrev", function() awful.util.spawn_with_shell("mpc prev; $SCRIPTSFOLDER/musicNotify") end,
 			{ description = "Previous", group = "Audio" }
+		},
+		{
+			{ env.mod }, "F12", function() awful.util.spawn_with_shell("mpc next; $SCRIPTSFOLDER/musicNotify") end,
+			{ description = "Next", group = "Audio" }
 		},
 		{
 			{ }, "XF86AudioNext", function() awful.util.spawn_with_shell("mpc next; $SCRIPTSFOLDER/musicNotify") end,
