@@ -3,7 +3,6 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
-
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 (setq user-full-name "Rafael Accácio Nogueira"
@@ -314,7 +313,7 @@
          :with-tags nil
          :with-toc nil
          :section-numbers nil
-         :exlclude "*slide*.org"
+         :exclude ".*slide.*.org"
          ;; :publishing-function org-html-publish-to-html
          :publishing-function org-html-publish-to-html
          :headline-levels 4             ; Just the default for this project.
@@ -324,7 +323,7 @@
          :base-directory "~/docsThese/docs/org/"
          :base-extension "org"
          :publishing-directory "~/docsThese/docs/etudes/"
-         :exlclude "*slide*.org"
+         :exclude ".*slide.*.org"
          :recursive t
          :exclude-tags ("html")
          :with-tags nil
