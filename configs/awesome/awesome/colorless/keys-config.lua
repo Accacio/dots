@@ -542,7 +542,7 @@ function hotkeys:init(args)
 				end
 
 			end,
-			{ description = "Telegram", group = "Main" }
+			{ description = "Telegram", group = "IM" }
 		},
 		{
 			{ env.mod, "Shift" }, "l", swap_switch_byd("right"),
