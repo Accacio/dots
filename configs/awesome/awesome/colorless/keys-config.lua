@@ -671,32 +671,12 @@ function hotkeys:init(args)
 			{ description = "Select previous layout", group = "Layouts" }
 		},
 		{
-			{ env.mod , "Shift"}, "semicolon",
-			-- function()
-				move_screen_switch_byd("right")
-				-- awful.screen.focus_relative( 1);
-				-- awful.spawn('bash -c "sleep 0.1;xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"')
-			-- end
-			,
-			{ description = "focus the next screen", group = "Screen" }
-		},
-		{
 			{ env.mod }, "semicolon",
 			function()
 				awful.screen.focus_bydirection("right");
 				-- awful.spawn('bash -c "sleep 0.1;xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"')
 			end,
 			{ description = "focus the next screen", group = "Screen" }
-		},
-		{
-			{ env.mod, "Shift" }, "comma",
-			-- function()
-				move_screen_switch_byd("left")
-				-- awful.screen.focus_relative( -1);
-				-- awful.spawn('bash -c "sleep 0.1;xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"')
-			-- end
-			,
-			{ description = "focus the previous screen", group = "Screen" }
 		},
 		{
 			{ env.mod }, "comma",
@@ -711,6 +691,28 @@ function hotkeys:init(args)
 	-- Client keys
 	--------------------------------------------------------------------------------
 	self.raw.client = {
+		-- from https://github.com/awesomeWM/awesome/issues/2437
+		{
+			{ env.mod, "Shift"   }, "comma",
+			function (c)
+				local geo = c.screen.geometry
+				if geo.x > 0 then
+					c:move_to_screen(c.screen.index-1)
+				end
+			end,
+			{description = "move to screen on left", group = "screen"}
+		},
+		{
+			{ env.mod, "Shift"   }, "semicolon",
+			function (c)
+				local geo = c.screen.geometry
+				local width = root:size(1)
+				if geo.x + geo.width < width then
+					c:move_to_screen()
+				end
+			end,
+			{description = "move to screen on right", group = "screen"}
+		},
 		{
 			{ env.mod }, "f", function(c) c.fullscreen = not c.fullscreen; c:raise() end,
 			{ description = "Toggle fullscreen", group = "Client keys" }
