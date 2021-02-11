@@ -395,11 +395,15 @@ function hotkeys:init(args)
 			{ description = "open Mail", group = "Mail" }
 		},
 		{
+			{env.mod, "Ctrl" }, "F11", function() awful.util.spawn_with_shell(env.terminal .. " --class music  -d 160 40 -t ncmpcpp -e ncmpcpp") end,
+			{ description = "Open ncmpcpp", group = "Audio" }
+		},
+		{
 			{env.mod, "Shift" }, "XF86AudioPlay", function() awful.util.spawn_with_shell(env.terminal .. " --class music  -d 160 40 -t ncmpcpp -e ncmpcpp") end,
 			{ description = "Open ncmpcpp", group = "Audio" }
 		},
 		{
-			{env.mod,"Shift"}, "F10", function() awful.util.spawn_with_shell("mpdMenuImage $HOME/Music") end,
+			{env.mod,"Shift"}, "F11", function() awful.util.spawn_with_shell("mpdMenuImage $HOME/Music") end,
 			{ description = "Select what to play", group = "Audio" }
 		},
 		{
