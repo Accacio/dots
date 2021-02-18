@@ -391,6 +391,10 @@ function hotkeys:init(args)
 			{ description = "open Htop", group = "MGMT" }
 		},
 		{
+			{env.mod, "Shift" }, "c", function() awful.util.spawn_with_shell("VISUAL='emacsclient -s $HOME/.emacs.d/server/server -tc -a \"emacs -nw\" ';" .. env.terminal .. " -t calendar --class calendar -d 160 40 -e ikhal") end,
+			{ description = "open calendar", group = "Calendar" }
+		},
+		{
 			{env.mod, "Shift" }, "m", function() awful.util.spawn_with_shell("VISUAL='emacsclient -s $HOME/.emacs.d/server/server -tc -a \"emacs -nw\" ';" .. env.terminal .. " -t mail --class mail -d 160 40 -e neomutt") end,
 			{ description = "open Mail", group = "Mail" }
 		},
