@@ -49,9 +49,12 @@ shortcut-default d
 set webgl=true
 set incsearch=true
 set download-path=~/Downloads/lixo/
-set accelerated-2d-canvas=true
-set hardware-acceleration-policy=ondemand
+# set accelerated-2d-canvas=true
+set hardware-acceleration-policy=always
 set html5-database=true
 set editor-command=st -e vim %s
 set media-playback-requires-user-gesture=true
 set minimum-font-size=16
+set strict-ssl=false
+set cookie-accept=origin
+set caret=true
