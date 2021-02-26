@@ -23,8 +23,9 @@ set include			# include message in replies
 set mail_check=60 # to avoid lags using IMAP with some email providers (yahoo for example)
 auto_view text/html		# automatically show html (mailcap uses w3m)
 auto_view application/pdf		# automatically show html (mailcap uses w3m)
+auto_view text/calendar     # automatically show html (mailcap uses w3m)
 auto_view application/pgp-encrypted
-alternative_order text/plain text/enriched text/html
+alternative_order text/plain text/enriched text/html text/*
 bind index,pager i noop
 bind index,pager g noop
 bind index \Cf noop
@@ -33,6 +34,7 @@ bind index \Cf noop
 bind index j next-entry
 bind index k previous-entry
 bind attach <return> view-mailcap
+macro attach c "|khal import<enter>"
 bind attach l view-mailcap
 bind editor <space> noop
 bind index G last-entry
