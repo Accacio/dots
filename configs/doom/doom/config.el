@@ -385,8 +385,9 @@ and value is its relative level, as an integer."
                        ("https://www.reddit.com/r/controlengineering.rss" control)
                        ("https://news.ycombinator.com/rss" hacker)
                        ;; blogs
-                       ("https://www.sthu.org/blog/atom.xml")
-                       ("https://ciechanow.ski/atom.xml")
+                       ("https://www.sthu.org/blog/atom.xml" blogs)
+                       ("https://ciechanow.ski/atom.xml" blogs)
+                       ("https://lepisma.xyz/journal/atom.xml" blogs)
                        ;; control journals
                        ("http://rss.sciencedirect.com/publication/science/01676911" S&CL control) ;; ScienceDirect Publication: Systems & Control Letters
                        ("https://www.aimsciences.org/rss/A0000-0000_current.xml" EE&CT control) ;; Evolution Equations & Control Theory
