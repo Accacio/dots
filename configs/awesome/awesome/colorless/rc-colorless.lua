@@ -282,6 +282,8 @@ signals:init({ env = env })
 
 awful.spawn("compton")
 awful.spawn("nm-applet")
+awful.util.spawn_with_shell("$HOME/Downloads/davmail/davmail $HOME/Downloads/davmail/davmail.properties")
+
 awful.util.spawn_with_shell('test "$(pgrep pasystray)" = "" &&  pasystray')
 -- Keyboard settings
 -- awful.spawn("setxkbmap -option caps:escape")

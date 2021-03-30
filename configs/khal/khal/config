@@ -1,5 +1,9 @@
 [calendars]
 
+[[supelec-office]]
+path = ~/.calendar/supelec-office/calendar/
+color = light green
+
 [[supelec]]
 path = ~/.calendar/supelec/personal/
 color = light magenta
