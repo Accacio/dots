@@ -10,11 +10,13 @@
 set -e
 
 cleanup() {
-  emacsclient -s $HOME/.emacs.d/server/server --eval '(let (kill-emacs-hook) (kill-emacs))'
+  # emacsclient -s $HOME/.emacs.d/server/server --eval '(let (kill-emacs-hook) (kill-emacs))'
+  emacsclient --eval '(let (kill-emacs-hook) (kill-emacs))'
 }
 
 # If emacs isn't running, we start a temporary daemon, solely for this window.
-if ! emacsclient -s $HOME/.emacs.d/server/server -e nil; then
+if ! emacsclient -e nil; then
+# if ! emacsclient -s $HOME/.emacs.d/server/server -e nil; then
   emacs --daemon
   trap cleanup EXIT INT TERM
   daemon=1
@@ -32,12 +34,13 @@ shift $((OPTIND-1))
 str="$*"
 
 if [ $daemon ]; then
-  emacsclient -s $HOME/.emacs.d/server/server -a "" \
+  # emacsclient -s $HOME/.emacs.d/server/server -a "" \
+  emacsclient -a "" \
     -c -F '((name . "org-capture") (width . 70) (height . 25) (transient . t))' \
     -e "(+org-capture/open-frame \"$str\" ${key:-nil})"
 else
   # Non-daemon servers flicker a lot if frames are created from terminal, so we
   # do it internally instead.
-  emacsclient -s $HOME/.emacs.d/server/server -a "" \
+  emacsclient -a "" \
     -e "(+org-capture/open-frame \"$str\" ${key:-nil})"
 fi

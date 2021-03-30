@@ -5,12 +5,14 @@ export PRINTER=HP-LaserJet-Pro-MFP-M127fn
 export MPD_HOST="$HOME/.config/mpd/socket"
 export SCRIPTSFOLDER="$HOME/bin"
 export SUDO_ASKPASS=$SCRIPTSFOLDER/askPass
-export ALTERNATE_EDITOR="emacsclient -s $HOME/.emacs.d/server/server -t"
+# export ALTERNATE_EDITOR="emacsclient -s $HOME/.emacs.d/server/server -t"
+export ALTERNATE_EDITOR="emacsclient -t"
 # export TERMINAL="st"
 export TERMINAL="alacritty"
 export EDITOR="emacs -nw"
 export VISUAL="st -e nvim"
-export EDITOR="emacsclient -ct -s $HOME/.emacs.d/server/server"
+# export EDITOR="emacsclient -ct -s $HOME/.emacs.d/server/server"
+export EDITOR="emacsclient -ct"
 export VISUAL="emacs"
 
 export NOTMUCH_CONFIG="$HOME/.config/notmuch/config"
