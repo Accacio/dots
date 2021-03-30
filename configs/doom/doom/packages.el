@@ -54,7 +54,8 @@
            :repo "lepisma/org-krita"
            :files ("resources" "resources" "*.el" "*.el")))
 
-(package! org-roam-server)
+(package! org-roam-server
+  :recipe (:host github :repo "org-roam/org-roam-server"))
 (package! org-roam-bibtex
   :recipe (:host github :repo "org-roam/org-roam-bibtex"))
 ;; When using org-roam via the `+roam` flag
