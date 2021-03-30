@@ -602,6 +602,18 @@ MYTAG"
           org-ref-notes-directory "~/org/"
           org-ref-notes-function 'orb-edit-notes)
     )
+(setq org-ref-bibliography-entry-format
+      '(
+        ("article" . "%a, %t, <i>%j</i>, <b>%v(%n)</b>, %p (%y). <a href=\"%U\">link</a>. <a href=\"http://dx.doi.org/%D\">doi</a>.")
+        ("book" . "%a, %t, %u (%y).")
+        ("thesis" . "%a, %t, %s (%y).  <a href=\"%U\">link</a>. <a href=\"http://dx.doi.org/%D\">doi</a>.")
+        ("misc" . "%a, %t (%y).  <a href=\"%U\">link</a>. <a href=\"http://dx.doi.org/%D\">doi</a>.")
+        ("inbook" . "%a, %t, %b (pp. %p), %u (%y), <a href=\"%U\">link</a>. <a href=\"http://dx.doi.org/%D\">doi</a>.")
+        ("techreport" . "%a, %t, %i, %u (%y).")
+        ("proceedings" . "%e, %t in %S, %u (%y).")
+        ("inproceedings" . "%a, %t, %p, in %b, edited by %e, %u (%y)"))
+      )
+)
 (use-package! org-roam-bibtex
   :after (org-roam)
   :hook (org-roam-mode . org-roam-bibtex-mode)
