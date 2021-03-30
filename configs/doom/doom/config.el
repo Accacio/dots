@@ -453,17 +453,21 @@ MYTAG"
 
 (elfeed-update)
 (defface control-elfeed-entry
-  '((t :foreground "##2ba"))
+  '((t :foreground "#2ba"))
   "Marks an control Elfeed entry.")
+
+(defface readlater-elfeed-entry
+  '((t :foreground "#Eec900"))
+  "Marks a readlater Elfeed entry.")
+
 (set-face-attribute 'elfeed-search-unread-title-face nil
                     :bold t :strike-through nil :underline nil :foreground "#bbb")
 
 (set-face-attribute 'elfeed-search-title-face nil
                     :bold nil :strike-through t)
 
-(set-face-attribute 'control-elfeed-entry nil
-                    :foreground "#2ba")
 (push '(control control-elfeed-entry) elfeed-search-face-alist)
+(push '(readlater readlater-elfeed-entry) elfeed-search-face-alist)
 
 )
 ;; Roam
