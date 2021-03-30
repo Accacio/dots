@@ -19,6 +19,7 @@ nnoremap gc :sh! bash -c "capture '$VIMB_URI' '$VIMB_TITLE'"<CR>
 # nnoremap gc: open javascript:void(location.href='org-protocol://roam-ref?template=r&ref='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title))
 # nnoremap gp: spawn passmenu
 nnoremap gs :eval! javascript:void(location.href='https://ezproxy.universite-paris-saclay.fr/login?url='+location.href)<CR>
+nnoremap gi :sh! bash -c "getIEEE '$VIMB_URI' 'NbhwZ6x6TriMd7p' "<CR>
 nnoremap gp :eval! javascript:void(location.href='http://pilgrim.are.na/'+encodeURIComponent(window.location.href))<CR>
 # nnoremap zl: spawn --userscript qute-pass
 nnoremap J :sh! xdotool key --window $VIMB_XID ctrl+shift+l<CR><Esc>
