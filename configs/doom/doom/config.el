@@ -614,6 +614,7 @@ MYTAG"
         ("inproceedings" . "%a, %t, %p, in %b, edited by %e, %u (%y)"))
       )
 )
+
 (use-package! org-roam-bibtex
   :after (org-roam)
   :hook (org-roam-mode . org-roam-bibtex-mode)
@@ -625,7 +626,7 @@ MYTAG"
         '(("r" "ref" plain (function org-roam-capture--get-point)
            ""
            :file-name "${=key=}"
-           :head "#+TITLE: ${=key=}: ${title}
+           :head "#+TITLE: ${=key=}
 #+ROAM_KEY: ${ref}
 #+ROAM_TAGS: article
 
