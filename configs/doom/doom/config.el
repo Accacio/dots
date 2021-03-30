@@ -658,7 +658,10 @@ MYTAG"
 
 ** NOTES
 "
-           :unnarrowed t))))
+           :unnarrowed t)))
+  (setq orb-autokey-format "%A[3]%y")
+
+  )
 
   (org-roam-bibtex-mode)
 (use-package! org-roam-server
