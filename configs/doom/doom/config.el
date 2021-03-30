@@ -231,13 +231,13 @@
       '((sequence
          "TODO(t)"  ; A task that needs doing & is ready to do
          "PROJ(p)"  ; A project, which usually contains other tasks
-         "TOREAD(r)"  ; A project, which usually contains other tasks
+         "TOREAD(r)"
          "STRT(s)"  ; A task that is in progress
          "WAIT(w)"  ; Something external is holding up this task
          "HOLD(h)"  ; This task is paused/on hold because of me
          "|"
          "DONE(d)"  ; Task successfully completed
-         "READ(R)"  ; A project, which usually contains other tasks
+         "READ(R)"
          "KILL(k)") ; Task was cancelled, aborted or is no longer applicable
         (sequence
          "[ ](T)"   ; A task that needs doing
