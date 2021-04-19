@@ -103,7 +103,7 @@ BEGIN {
     emailaddress = ENVIRON["EMAIL"] != "" ? ENVIRON["EMAIL"] : "raccacio@poli.ufjr.br"
 
     # calendar/category name for display in org-mode
-    calendarname = ENVIRON["CALENDAR"] != "" ? ENVIRON["CALENDAR"] : "unknown"
+    calendarname = ENVIRON["CALENDAR"] != "" ? ENVIRON["CALENDAR"] : "General"
 
     # any tags for this calendar (e.g. "WORK" or "PERSONAL")
     filetags = ENVIRON["FILETAGS"] != "" ? ENVIRON["FILETAGS"] : "unknown"
