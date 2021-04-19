@@ -89,7 +89,6 @@
     (buffer-string)))
 
 
-
 ;; Org
 (setq org-directory "~/org/")
 (after! org
@@ -872,7 +871,9 @@ MYTAG"
   :after org-noter
   :config
   (with-eval-after-load 'pdf-annot
-    (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
+    (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)
+    )
+  )
 
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
@@ -928,7 +929,8 @@ MYTAG"
         "%`%l%(mode)%' -shell-escape -interaction nonstopmode %T"
         TeX-run-TeX nil (latex-mode doctex-mode) :help "Run LaTeX shell escaped")
       )
-     ))
+     )
+  )
 (defun org-mode-reftex-setup ()
   (load-library "reftex")
   (and (buffer-file-name) (file-exists-p (buffer-file-name))
