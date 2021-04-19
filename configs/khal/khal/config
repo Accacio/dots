@@ -19,7 +19,11 @@ color = light blue
 [[Eve]]
 path = ~/.calendar/gmail/eveliseantunes@gmail.com/
 readonly = True
-color = light green
+color = dark green
+
+[[casa]]
+path = ~/.calendar/gmail/tvetli47mccf9m0ueq11prc2bo@group.calendar.google.com/
+color = yellow
 
 [[gmail]]
 path = ~/.calendar/gmail/raccacio2@gmail.com/
