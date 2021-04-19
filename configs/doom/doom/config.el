@@ -511,7 +511,7 @@ inlinetask within the section."
 
   )
 (after! deft
-    (setq deft-directory "~/org/")
+    (setq deft-directory "~/hippokamp/")
     (setq deft-recursive t)
 )
 ;; kanban
@@ -619,25 +619,68 @@ MYTAG"
 ;; Roam
 (after! org-roam
 
-  (setq org-roam-graph-viewer (executable-find "vimb"))
+  (setq org-roam-graph-viewer (executable-find "vivaldi"))
+  ;; (setq org-roam-graph-viewer (executable-find "vimb"))
   (setq org-roam-graph-executable "/usr/bin/neato")
-  (setq org-roam-directory "~/org/")
+  (setq org-roam-directory "~/hippokamp/brain/")
   (setq org-roam-graph-extra-config '(("overlap" . "false")))
   (setq org-roam-graph-exclude-matcher '("private" "ledger" "elfeed" "readinglist"))
+  (setq org-roam-tag-sources '(prop last-directory))
+  (setq org-roam-buffer-width .3)
 
     (setq bibtex-completion-bibliography '("~/docsThese/bibliography.bib")
           bibtex-completion-library-path '("~/docsThese/bibliography/")
           bibtex-completion-find-note-functions '(orb-find-note-file)
           )
+    (setq bibtex-completion-notes-template-multiple-files "#+TITLE: ${=key=}
+#+ROAM_KEY: ${ref}
+#+ROAM_TAGS: article
 
-  (setq org-roam-dailies-capture-templates
-        '(("d" "daily" plain (function org-roam-capture--get-point)
-           ""
-           :immediate-finish t
-           :file-name "private-%<%Y-%m-%d>"
-           :head "#+TITLE: %<%Y-%m-%d>")
+- tags ::
+- keywords :: ${keywords}
+
+
+* ${title}
+  :PROPERTIES:
+  :Custom_ID: ${=key=}
+  :URL: ${url}
+  :AUTHOR: ${author-or-editor}
+  :NOTER_DOCUMENT: %(file-relative-name (orb-process-file-field \"${=key=}\") (print org-roam-directory))
+  :NOTER_PAGE:
+  :END:
+
+** CATALOG
+
+*** Motivation :springGreen:
+*** Model :lightSkyblue:
+*** Remarks
+*** Applications
+*** Expressions
+*** References :violet:
+
+** NOTES
+"
           )
-        )
+(setq org-roam-capture-ref-templates
+  '(("r" "ref" plain #'org-roam-capture--get-point
+     "%?"
+     :file-name "${slug}"
+     :head "#+title: ${title}\n#+roam_key: ${ref}\n\n${ref}\n\n"
+     :unnarrowed t)))
+
+    (setq org-roam-dailies-capture-templates
+          '(("d" "default" entry #'org-roam-capture--get-point "* %?"
+             :file-name "daily/%<%Y-%m-%d>" :head "#+TITLE: %<%Y-%m-%d>\n#+roam_tags: \n\n"))
+          )
+
+  ;; (setq org-roam-dailies-capture-templates
+  ;;       '(("d" "daily" plain (function org-roam-capture--get-point)
+  ;;          ""
+  ;;          :immediate-finish t
+  ;;          :file-name "private-%<%Y-%m-%d>"
+  ;;          :head "#+TITLE: %<%Y-%m-%d>")
+  ;;         )
+  ;;       )
 
 (defun my/org-roam--backlinks-list-with-content (file)
   (with-temp-buffer
@@ -677,45 +720,39 @@ MYTAG"
 )
 (after! org-capture
   (setq org-capture-templates
-        ;; (append
-                '(
-                  ("a" "Agenda")
-                  ("aa" "All Day")
-                  ("aas" "Supelec" entry (file "~/org/private/fromSupelec.org")
-                   "* %?\n %^t\n"
-                   :kill-buffer t)
-                  ("aap" "Poli" entry (file "~/org/private/fromPoli.org")
-                   "* %?\n %^t\n"
-                   :kill-buffer t)
-                  ("aag" "Gmail" entry (file "~/org/private/fromGmail.org")
-                   "* %?\n %^t\n"
-                   :kill-buffer t)
 
-                  ("as" "Scheduled")
-                  ("ass" "Supelec" entry (file "~/org/private/fromSupelec.org")
-                   "* %?\n %^T--%^T\n"
-                   :kill-buffer t)
-                  ("asp" "Poli" entry (file "~/org/private/fromPoli.org")
-                   "* %?\n %^T--%^T\n"
-                   :kill-buffer t)
-                  ("asg" "Gmail" entry (file "~/org/private/fromGmail.org")
-                   "* %?\n %^T--%^T\n"
-                   :kill-buffer t)
-
-                  ("t" "TODOS" )
-                  ("tp" "Todo Pessoal" entry (file+headline "~/org/private/todo.org" "Inbox")
-                   "** TODO %?\n%i%a "
-                   :kill-buffer t)
-
-                  ("tt" "Todo These" entry (file+headline "~/org/private/todo_these.org" "Inbox")
-                   "** TODO %?\n%i%a "
-                   :kill-buffer t)
-
-                  ("e" "Evelise" entry (file+headline "~/org/private/Eve.org" "Inbox")
-                   "** TODO %?\n%i%a "
-                   :kill-buffer t)
-                  )
-                ;; org-capture-templates)
+        '(
+          ("t" "TODOS" )
+         ("tp" "Personal todo" entry
+          (file+headline "~/org/private/todo.org" "Inbox")
+          "** TODO %?\n%i\n%a" :prepend t)
+         ("tt" "These todo" entry
+          (file+headline "~/org/private/todo_these.org" "Inbox")
+          "** TODO %?\n%i\n%a" :prepend t)
+         ("e" "Evelise" entry
+          (file+headline "~/org/private/Eve.org" "Inbox")
+          "** TODO %?\n%i\n%a" :prepend t)
+         ("p" "Templates for projects")
+         ("pt" "Project-local todo" entry
+          (file+headline +org-capture-project-todo-file "Inbox")
+          "* TODO %?\n%i\n%a" :prepend t)
+         ("pn" "Project-local notes" entry
+          (file+headline +org-capture-project-notes-file "Inbox")
+          "* %U %?\n%i\n%a" :prepend t)
+         ("pc" "Project-local changelog" entry
+          (file+headline +org-capture-project-changelog-file "Unreleased")
+          "* %U %?\n%i\n%a" :prepend t)
+         ("o" "Centralized templates for projects")
+         ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
+         ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
+         ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t)
+         )
+  ;;               '(
+  ;;                 ("e" "Evelise" entry (file+headline "~/org/private/Eve.org" "Inbox")
+  ;;                  "** TODO %?\n%i%a "
+  ;;                  :kill-buffer t)
+  ;;                 )
+  ;;               ;; org-capture-templates)
         )
 
 )
@@ -748,10 +785,9 @@ MYTAG"
 (after! org-ref
     (setq org-ref-default-bibliography '("~/docsThese/bibliography.bib")
           org-ref-pdf-directory "~/docsThese/bibliography/"
-          org-ref-note-title-format "* TODO %y - %t\n :PROPERTIES:\n  :Custom_ID: %k\n  :NOTER_DOCUMENT: %F\n :ROAM_KEY: cite:%k\n  :AUTHOR: %9a\n  :JOURNAL: %j\n  :YEAR: %y\n  :VOLUME: %v\n  :PAGES: %p\n  :DOI: %D\n  :URL: %U\n :END:\n\n"
-          org-ref-notes-directory "~/org/"
+          org-ref-notes-directory "~/hippokamp/brain/"
           org-ref-notes-function 'orb-edit-notes)
-    )
+
 (setq org-ref-bibliography-entry-format
       '(
         ("article" . "%a, %t, <i>%j</i>, <b>%v(%n)</b>, %p (%y). <a href=\"%U\">link</a>. <a href=\"http://dx.doi.org/%D\">doi</a>.")
@@ -789,7 +825,7 @@ MYTAG"
   :Custom_ID: ${=key=}
   :URL: ${url}
   :AUTHOR: ${author-or-editor}
-  :NOTER_DOCUMENT: %(file-relative-name (orb-process-file-field \"${=key=}\") (print org-directory))
+  :NOTER_DOCUMENT: %(file-relative-name (orb-process-file-field \"${=key=}\") (print org-roam-directory))
   :NOTER_PAGE:
   :END:
 
@@ -831,24 +867,24 @@ MYTAG"
   ("C-c n t" . org-journal-today)
   :config
   (setq org-journal-date-prefix "#+TITLE: "
+        org-journal-date-format "%Y-%m-%d\n"
         org-journal-time-prefix "* "
-        org-journal-file-format "private-%Y-%m-%d.org"
-        org-journal-dir "~/org/"
-        org-journal-carryover-items nil
-        org-journal-date-format "%Y-%m-%d")
+        org-journal-file-format "%Y-%m-%d.org"
+        org-journal-dir "~/hippokamp/brain/daily/"
+        )
   ;; do not create title for dailies
-  (set-file-template! "/private-.*\\.org$"    :trigger ""    :mode 'org-mode)
-  (print +file-templates-alist)
-  (defun org-journal-today ()
-    (interactive)
-    (org-journal-new-entry t)))
+  ;; (set-file-template! "daily/.*\\.org$"    :trigger ""    :mode 'org-mode)
+  ;; (defun org-journal-today ()
+  ;;   (interactive)
+  ;;   (org-journal-new-entry t))
+    )
 
 ;; org-noter
 (use-package! org-noter
   :config
   (setq
    org-noter-pdftools-markup-pointer-color "yellow"
-   org-noter-notes-search-path '("~/org")
+   org-noter-notes-search-path '("~/hippokamp/brain/")
    ;; org-noter-insert-note-no-questions t
    org-noter-doc-split-fraction '(0.7 . 03)
    org-noter-always-create-frame nil
