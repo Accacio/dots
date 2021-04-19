@@ -75,10 +75,7 @@
 (custom-theme-set-faces! 'doom-one
   `(font-lock-comment-face :foreground "#8080a7")
   )
-;; (after! doom-theme
-;; (set-face-attribute 'font-lock-comment-face nil :foreground "#8080f7")
 
-;;   )
 (defun org-babel-execute:matlab (body params)
   "Execute a block of matlab code with Babel."
   (with-temp-buffer
@@ -103,7 +100,8 @@
 (setq +org-habit-graph-padding 2)
 (setq +org-habit-min-width 30)
 (setq +org-habit-graph-window-ratio 0.2)
-
+(setq org-indent-indentation-per-level 1)
+(setq org-adapt-indentation nil)
 (org-load-modules-maybe t)
 (setq org-agenda-files
       (list
