@@ -392,7 +392,7 @@ function hotkeys:init(args)
 		},
 		{
 			-- {env.mod, "Shift" }, "c", function() awful.util.spawn_with_shell("VISUAL='emacsclient -s $HOME/.emacs.d/server/server -tc -a \"emacs -nw\" ';" .. env.terminal .. " -t calendar --class calendar -d 160 40 -e ikhal") end,
-			{env.mod, "Shift" }, "c", function() awful.util.spawn_with_shell("VISUAL='emacsclient -tc -a \"emacs -nw\" ';" .. env.terminal .. " -t calendar --class calendar -d 160 40 -e ikhal") end,
+			{env.mod, "Shift" }, "c", function() awful.util.spawn_with_shell("VISUAL='emacsclient -tc -a \"emacs -nw\" ';" .. env.terminal .. " -t calendar --class calendar -d 160 40 -e ~/.local/bin/ikhal") end,
 			{ description = "open calendar", group = "Calendar" }
 		},
 		{
