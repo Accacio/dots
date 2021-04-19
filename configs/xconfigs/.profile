@@ -10,10 +10,10 @@ export ALTERNATE_EDITOR="emacsclient -t"
 # export TERMINAL="st"
 export TERMINAL="alacritty"
 export EDITOR="emacs -nw"
-export VISUAL="st -e nvim"
+# export VISUAL="st -e nvim"
 # export EDITOR="emacsclient -ct -s $HOME/.emacs.d/server/server"
 export EDITOR="emacsclient -ct"
-export VISUAL="emacs"
+export VISUAL="emacsclient -a '$TERMINAL -e vim'"
 
 export NOTMUCH_CONFIG="$HOME/.config/notmuch/config"
 
