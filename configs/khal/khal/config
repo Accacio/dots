@@ -12,18 +12,18 @@ color = light magenta
 path = ~/.calendar/poli/raccacio@poli.ufrj.br/
 color = light blue
 
-# [[poli_local]]
-# path = ~/.calendar/poli/raccacio@poli.ufrj.br/
-# color = light blue
+[[Org-mode]]
+path = ~/.calendar/gmail/
+color = 150
 
 [[Eve]]
 path = ~/.calendar/gmail/eveliseantunes@gmail.com/
 readonly = True
-color = dark green
+color = 204
 
 [[casa]]
 path = ~/.calendar/gmail/tvetli47mccf9m0ueq11prc2bo@group.calendar.google.com/
-color = yellow
+color = 228
 
 [[gmail]]
 path = ~/.calendar/gmail/raccacio2@gmail.com/
