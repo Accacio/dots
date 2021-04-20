@@ -1,0 +1,4 @@
+#!/usr/bin/R -f
+
+library("bibliometrix")
+biblioshiny()
