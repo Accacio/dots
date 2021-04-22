@@ -284,7 +284,8 @@ BEGIN {
     # get the d, w, m or y value
     freq = tolower(gensub(/.*FREQ=(.).*/, "\\1", 1, $0))
     # get the interval, and use 1 if none specified
-    interval =  $2 ~ /INTERVAL=/ ? gensub(/.*INTERVAL=([0-9]+);.*/, "\\1", 1, $2) : 1
+    # interval = gensub(/.*INTERVAL=([0-9]+);.*/, "\\1", 1, $2)
+    interval = gensub(/.*INTERVAL=([0-9]+).*/, "\\1", 1, $2)
     # get the enddate of the rule and use "" if none specified
     rrend = $2 ~ /UNTIL=/ ? datestring(gensub(/.*UNTIL=([0-9]{8}).*/, "\\1", 1, $2)) : ""
     rrend_raw = $2 ~ /UNTIL=/ ? gensub(/.*UNTIL=([0-9]{8}).*/, "\\1", 1, $2) : ""
