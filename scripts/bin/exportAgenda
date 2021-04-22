@@ -16,4 +16,10 @@ export XDG_RUNTIME_DIR='/run/user/1000'
 #     --eval="(org-agenda nil \"n\")" \
 #     --eval="(org-agenda nil \"e\")" --kill
 # emacsclient -e '(org-agenda nil "e")' -s $HOME/.emacs.d/server/server
+# emacsclient -e '(org-agenda nil "e")'
 emacsclient -e '(org-agenda nil "e")'
+emacsclient -e ' (let ((new-buffer-name (find-buffer-visiting  "~/org/private/gcal-orgmode.org") ))
+  (set-buffer new-buffer-name )
+  (set-visited-file-name "~/org/private/gcal-orgmode.org")
+  (org-icalendar-export-to-ics )
+  )'
