@@ -362,9 +362,9 @@ and value is its relative level, as an integer."
 )
 (after! ox-icalendar
 
-(setq org-icalendar-with-timestamps 'active)
-(setq org-icalendar-use-scheduled '(event-if-not-todo))
-(setq org-icalendar-store-UID t)
+(setq org-icalendar-with-timestamps nil)
+(setq org-icalendar-use-scheduled '(event-if-not-todo event-if-todo-not-done))
+(setq org-icalendar-store-UID nil)
 (defun org-icalendar-entry (entry contents info)
   "Transcode ENTRY element into iCalendar format.
 
