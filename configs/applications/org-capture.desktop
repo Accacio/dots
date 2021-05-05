@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=org-capture
+Exec=org-link-capture %f
+Icon=emacs-icon
+Type=Application
+Terminal=false
+MimeType=x-scheme-handler/org-protocol
