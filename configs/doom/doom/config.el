@@ -32,7 +32,9 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 14))
 ;; (setq doom-font (font-spec :family "Glass TTY VT220" :size 20))
 ;; (setq doom-font (font-spec :family "Source Code Pro" :size 16))
-(setq doom-font (font-spec :family "Fira Code" :size 16))
+(setq doom-font (font-spec :family "Roboto Mono" :size 16))
+;; (setq doom-font (font-spec :family "Fira Code" :size 16))
+
 
 ;;Visual
 ;;
