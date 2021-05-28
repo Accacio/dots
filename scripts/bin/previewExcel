@@ -1,0 +1,3 @@
+#!/bin/bash
+localc --convert-to csv "$1" 2&>/dev/null
+csv2html "${1%.*}".csv | w3m -T text/html -dump

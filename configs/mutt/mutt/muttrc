@@ -25,6 +25,7 @@ auto_view text/html		# automatically show html (mailcap uses w3m)
 auto_view application/pdf		# automatically show html (mailcap uses w3m)
 auto_view text/calendar     # automatically show html (mailcap uses w3m)
 auto_view application/pgp-encrypted
+auto_view application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
 alternative_order text/plain text/enriched text/html text/*
 bind index,pager i noop
 bind index,pager g noop
