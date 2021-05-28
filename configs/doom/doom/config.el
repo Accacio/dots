@@ -70,7 +70,8 @@
 
 
 
-(setq doom-theme 'doom-one)
+;; (setq doom-theme 'doom-one)
+(setq doom-theme 'doom-nord)
 
 (custom-theme-set-faces! 'doom-one
   `(font-lock-comment-face :foreground "#8080a7")
