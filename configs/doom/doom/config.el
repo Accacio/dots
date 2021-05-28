@@ -365,7 +365,61 @@ and value is its relative level, as an integer."
 
 (setq org-icalendar-with-timestamps nil)
 (setq org-icalendar-use-scheduled '(event-if-not-todo event-if-todo-not-done))
+(setq org-icalendar-use-deadline '(event-if-not-todo event-if-todo-not-done))
 (setq org-icalendar-store-UID nil)
+(defun org-icalendar--vtodo
+  (entry uid summary location description categories timezone class)
+  "Create a VTODO component.
+
+ENTRY is either a headline or an inlinetask element.  UID is the
+unique identifier for the task.  SUMMARY defines a short summary
+or subject for the task.  LOCATION defines the intended venue for
+the task.  DESCRIPTION provides the complete description of the
+task.  CATEGORIES defines the categories the task belongs to.
+TIMEZONE specifies a time zone for this TODO only.
+
+Return VTODO component as a string."
+  (let ((start (or (and (memq 'todo-start org-icalendar-use-scheduled)
+			(org-element-property :scheduled entry))
+		   ;; If we can't use a scheduled time for some
+		   ;; reason, start task now.
+		   (let ((now (decode-time)))
+		     (list 'timestamp
+			   (list :type 'active
+				 :minute-start (nth 1 now)
+				 :hour-start (nth 2 now)
+				 :day-start (nth 3 now)
+				 :month-start (nth 4 now)
+				 :year-start (nth 5 now)))))))
+    (org-icalendar-fold-string
+     (concat "BEGIN:VTODO\n"
+	     "UID:" uid "\n"
+	     (org-icalendar-dtstamp) "\n"
+	     (org-icalendar-convert-timestamp start "DTSTART" nil timezone) "\n"
+	     (and (memq 'todo-due org-icalendar-use-deadline)
+		  (org-element-property :deadline entry)
+		  (concat (org-icalendar-convert-timestamp
+			   (org-element-property :deadline entry) "DUE" nil timezone)
+			  "\n"))
+	     "SUMMARY:" summary "\n"
+	     (and (org-string-nw-p location) (format "LOCATION:%s\n" location))
+	     (and (org-string-nw-p class) (format "CLASS:%s\n" class))
+	     (and (org-string-nw-p description)
+		  (format "DESCRIPTION:%s\n" description))
+	     "CATEGORIES:" categories "\n"
+	     "SEQUENCE:1\n"
+	     (format "PRIORITY:%d\n"
+		     (let ((pri (or (org-element-property :priority entry)
+				    org-priority-default)))
+		       (floor (- 9 (* 8. (/ (float (- org-priority-lowest pri))
+					    (- org-priority-lowest
+					       org-priority-highest)))))))
+	     (format "STATUS:%s\n"
+		     (if (eq (org-element-property :todo-type entry) 'todo)
+			 "NEEDS-ACTION"
+		       "COMPLETED"))
+	     "END:VTODO"))))
+
 (defun org-icalendar-entry (entry contents info)
   "Transcode ENTRY element into iCalendar format.
 
