@@ -93,7 +93,7 @@
 ;; Org
 (setq org-directory "~/org/")
 (after! org
-
+(defalias '+org--restart-mode-h #'ignore) ;;https://github.com/hlissner/doom-emacs/issues/4832#issuecomment-822845907
   (add-to-list 'org-file-apps '("\\.pdf\\'" . emacs))
 (setq org-hide-emphasis-markers t)
 (setq org-modules '(ol-bibtex org-habit org-habit-plus))
