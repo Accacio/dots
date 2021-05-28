@@ -387,25 +387,25 @@ function hotkeys:init(args)
 			{ description = "Mute", group = "Audio" }
 		},
 		{
-			{"Control", "Shift" }, "Escape", function() awful.util.spawn_with_shell(env.terminal .. " -t htop --class htop -d 160 40 -e htop") end,
+			{"Control", "Shift" }, "Escape", function() awful.util.spawn_with_shell(env.terminal .. " -t htop --class htop -o window.dimensions.columns=160 -o window.dimensions.lines=30 -e htop") end,
 			{ description = "open Htop", group = "MGMT" }
 		},
 		{
-			-- {env.mod, "Shift" }, "c", function() awful.util.spawn_with_shell("VISUAL='emacsclient -s $HOME/.emacs.d/server/server -tc -a \"emacs -nw\" ';" .. env.terminal .. " -t calendar --class calendar -d 160 40 -e ikhal") end,
-			{env.mod, "Shift" }, "c", function() awful.util.spawn_with_shell("VISUAL='emacsclient -tc -a \"emacs -nw\" ';" .. env.terminal .. " -t calendar --class calendar -d 160 40 -e ~/.local/bin/ikhal") end,
+			-- {env.mod, "Shift" }, "c", function() awful.util.spawn_with_shell("VISUAL='emacsclient -s $HOME/.emacs.d/server/server -tc -a \"emacs -nw\" ';" .. env.terminal .. " -t calendar --class calendar -o window.dimensions.columns=160 -o window.dimensions.lines=30 -e ikhal") end,
+			{env.mod, "Shift" }, "c", function() awful.util.spawn_with_shell("VISUAL='emacsclient -tc -a \"emacs -nw\" ';" .. env.terminal .. " -t calendar --class calendar -o window.dimensions.columns=160 -o window.dimensions.lines=30 -e ~/.local/bin/ikhal") end,
 			{ description = "open calendar", group = "Calendar" }
 		},
 		{
-			-- {env.mod, "Shift" }, "m", function() awful.util.spawn_with_shell("VISUAL='emacsclient -s $HOME/.emacs.d/server/server -tc -a \"emacs -nw\" ';" .. env.terminal .. " -t mail --class mail -d 160 40 -e neomutt") end,
-			{env.mod, "Shift" }, "m", function() awful.util.spawn_with_shell("VISUAL='emacsclient -tc -a \"emacs -nw\" ';" .. env.terminal .. " -t mail --class mail -d 160 40 -e neomutt") end,
+			-- {env.mod, "Shift" }, "m", function() awful.util.spawn_with_shell("VISUAL='emacsclient -s $HOME/.emacs.d/server/server -tc -a \"emacs -nw\" ';" .. env.terminal .. " -t mail --class mail -o window.dimensions.columns=160 -o window.dimensions.lines=30 -e neomutt") end,
+			{env.mod, "Shift" }, "m", function() awful.util.spawn_with_shell("VISUAL='emacsclient -tc -a \"emacs -nw\" ';" .. env.terminal .. " -t mail --class mail -o window.dimensions.columns=160 -o window.dimensions.lines=30 -e neomutt") end,
 			{ description = "open Mail", group = "Mail" }
 		},
 		{
-			{env.mod, "Ctrl" }, "F11", function() awful.util.spawn_with_shell(env.terminal .. " --class music  -d 160 40 -t ncmpcpp -e ncmpcpp") end,
+			{env.mod, "Ctrl" }, "F11", function() awful.util.spawn_with_shell(env.terminal .. " --class music  -o window.dimensions.columns=160 -o window.dimensions.lines=30 -t ncmpcpp -e ncmpcpp") end,
 			{ description = "Open ncmpcpp", group = "Audio" }
 		},
 		{
-			{env.mod, "Shift" }, "XF86AudioPlay", function() awful.util.spawn_with_shell(env.terminal .. " --class music  -d 160 40 -t ncmpcpp -e ncmpcpp") end,
+			{env.mod, "Shift" }, "XF86AudioPlay", function() awful.util.spawn_with_shell(env.terminal .. " --class music  -o window.dimensions.columns=160 -o window.dimensions.lines=30 -t ncmpcpp -e ncmpcpp") end,
 			{ description = "Open ncmpcpp", group = "Audio" }
 		},
 		{
