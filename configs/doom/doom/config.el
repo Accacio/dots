@@ -555,35 +555,33 @@ inlinetask within the section."
                        ("https://xkcd.com/rss.xml" comics)
                        ))
 
-(defun elfeed-tag-selection-as (tag)
-    "Returns a function that tags an elfeed entry or selection as
-MYTAG"
-    (interactive )
-    (lambda ()
-    (interactive )
-    (elfeed-search-toggle-all tag))
-    )
-
+(evil-define-key 'normal elfeed-search-mode-map "i" (lambda () (interactive)(elfeed-search-toggle-all 'important 'readlater)))
+(evil-define-key 'visual elfeed-search-mode-map "i" (lambda () (interactive)(elfeed-search-toggle-all 'important 'readlater)))
 (evil-define-key 'normal elfeed-search-mode-map "t" (elfeed-tag-selection-as 'readlater))
 (evil-define-key 'visual elfeed-search-mode-map "t" (elfeed-tag-selection-as 'readlater))
+(evil-define-key 'visual elfeed-search-mode-map "i" (elfeed-tag-selection-as 'important))
 
-(defun accacio-copy-link (entry)
-  "Copy to kill ring a link to the article"
-  (let ((link ()))
-    (kill-new link)
-    (print link)
-    ;; (message link)
-    )
-  )
+(evil-define-key 'normal elfeed-show-mode-map "U" 'elfeed-show-tag--unread)
+(evil-define-key 'normal elfeed-show-mode-map "t" (elfeed-expose #'elfeed-show-tag 'readlater))
+(evil-define-key 'normal elfeed-show-mode-map "i" (elfeed-expose #'elfeed-show-tag 'important))
+
+(defun elfeed-search-show-entry (entry)
+  "Display the currently selected item in a buffer."
+  (interactive (list (elfeed-search-selected :ignore-region)))
+  (require 'elfeed-show)
+  (when (elfeed-entry-p entry)
+    ;; (elfeed-untag entry 'unread)
+    (elfeed-search-update-entry entry)
+    ;; (unless elfeed-search-remain-on-entry (forward-line))
+    (elfeed-show-entry entry)))
 
 (defun accacio/elfeed-show-copy-article ()
   (interactive)
   (let ( (entries (elfeed-search-selected)) (links ""))
-               (elfeed-search-untag-all 'readlater)
-               (elfeed-search-untag-all 'unread)
+               (elfeed-search-untag-all 'readlater 'unread)
   (cl-loop for entry in entries
            when (elfeed-entry-link entry)
-           do (progn (setq links (concat links (concat "- [ ] " (if (elfeed-tagged-p 'important entry) " ! " "") (org-make-link-string  (concat "https://ezproxy.universite-paris-saclay.fr/login?url=" (elfeed-entry-link entry)) (elfeed-entry-title entry)) "\n" )))
+           do (progn (setq links (concat links (concat "- [ ] " (if (elfeed-tagged-p 'important entry) " * " "") (org-make-link-string  (concat "https://ezproxy.universite-paris-saclay.fr/login?url=" (elfeed-entry-link entry)) (elfeed-entry-title entry)) "\n" )))
                )
            )
   (kill-new links)
@@ -598,6 +596,9 @@ MYTAG"
 (setq-default elfeed-search-filter "@1-month-ago +unread -readlater")
 
 (elfeed-update)
+(defface important-elfeed-entry
+  '((t :foreground "#a00"))
+  "Marks an control Elfeed entry.")
 (defface control-elfeed-entry
   '((t :foreground "#2ba"))
   "Marks an control Elfeed entry.")
@@ -614,6 +615,7 @@ MYTAG"
 
 (push '(control control-elfeed-entry) elfeed-search-face-alist)
 (push '(readlater readlater-elfeed-entry) elfeed-search-face-alist)
+(push '(important important-elfeed-entry) elfeed-search-face-alist)
 
 )
 ;; Roam
