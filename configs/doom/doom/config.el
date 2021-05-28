@@ -961,10 +961,13 @@ MYTAG"
       '("Detex"
         "cat \"%t\"  |  perl -pe \"s:[ \\~]*\\\\\\(eqref|ref|cite)(\\[.*?\\])*\\{.*?\\}: [1]:g\" | detex -lnr -e table,algorithm,figure,equation | sed -e \"/^\\s\*\$/N;/^\\s\*\\n\\s\*\$/D\""
         TeX-run-command nil t :help "Run LaTeX shell escaped")
-      '("escaped LaTeX"
+     t )
+     (add-to-list
+      'TeX-command-list
+      '("LaTeX escaped "
         "%`%l%(mode)%' -shell-escape -interaction nonstopmode %T"
         TeX-run-TeX nil (latex-mode doctex-mode) :help "Run LaTeX shell escaped")
-      )
+      t )
      )
   )
 (defun org-mode-reftex-setup ()
