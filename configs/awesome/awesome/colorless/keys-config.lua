@@ -498,7 +498,7 @@ function hotkeys:init(args)
 			{ description = "Reload awesome", group = "Main" }
 		},
 		{
-			{ env.mod }, "c", function() awful.spawn("org-capture") end,
+			{ env.mod }, "c", function() awful.spawn("org-capture '' '' ") end,
 			{ description = "Org Capture idea", group = "Main" }
 		},
 		-- {
