@@ -1,9 +1,8 @@
 # -*- mode: snippet -*-
-# name: read
+# name: article To Read
 # uuid:
-# key: readArticle
+# key: article
 # condition: t                                                                              
 # --
-* TOREAD cite:${1:bibtex Key}
-[[file:~/org/$1.org][org]] [[file:~/docsThese/bibliography/$1.pdf][pdf]] [[file:~/docsThese/bibliography/$1.mobi][mobi]] [[file:~/docsThese/bibliography/$1.epub][epub]]
+*** LER ${1:bibtex Key} | [[note:$1][org]] [[pdf:$1][pdf]] [[mobi:$1][mobi]] [[epub:$1][epub]]
 $0

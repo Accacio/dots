@@ -1,0 +1,11 @@
+#!/bin/bash
+# 6786504
+# NbhwZ6x6TriMd7p
+article=$(echo "$1" | sed -e "s,[a-zA-Z\/.:-]*\([0-9]*\)[a-zA-Z\/.:-]*,\1,")
+notify-send "$article"
+
+bib=$(echo -e $(curl -s "https://ieeexplore.ieee.org/rest/search/citation/format?recordIds=$article&download-format=download-bibtex&lite=true" \
+  -H "Referer: https://ieeexplore.ieee.org/document/$article" | sed "s,{\"data\":\"\(.*\)\"},\1,") | tr '' ' ')
+echo $bib | cat >> "$HOME/docsThese/bibliography.bib"
+curl "https://ieeexplore-ieee-org.ezproxy.universite-paris-saclay.fr/stampPDF/getPDF.jsp?tp=&arnumber=$article" \
+  -H "Cookie: ezproxyl=$2;" --output - > "$HOME/docsThese/bibliography/$article.pdf"

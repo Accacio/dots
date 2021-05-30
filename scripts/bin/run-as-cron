@@ -1,0 +1,4 @@
+#!/bin/sh
+
+. "$1"
+exec setsid /usr/bin/env -i "$SHELL" -c "set -a; . $1; $2" </dev/null

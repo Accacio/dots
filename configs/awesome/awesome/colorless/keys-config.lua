@@ -387,28 +387,54 @@ function hotkeys:init(args)
 			{ description = "Mute", group = "Audio" }
 		},
 		{
-			{"Control", "Shift" }, "Escape", function() awful.util.spawn_with_shell(env.terminal .. " -t htop --class htop -d 160 40 -e htop") end,
+			{"Control", "Shift" }, "Escape", function() awful.util.spawn_with_shell(env.terminal .. " -t htop --class htop -o window.dimensions.columns=160 -o window.dimensions.lines=30 -e htop") end,
 			{ description = "open Htop", group = "MGMT" }
 		},
 		{
-			{env.mod, "Shift" }, "m", function() awful.util.spawn_with_shell("VISUAL='emacsclient -s $HOME/.emacs.d/server/server -tc -a \"emacs -nw\" ';" .. env.terminal .. " -t mail --class mail -d 160 40 -e neomutt") end,
+			-- {env.mod, "Shift" }, "c", function() awful.util.spawn_with_shell("VISUAL='emacsclient -s $HOME/.emacs.d/server/server -tc -a \"emacs -nw\" ';" .. env.terminal .. " -t calendar --class calendar -o window.dimensions.columns=160 -o window.dimensions.lines=30 -e ikhal") end,
+			{env.mod, "Shift" }, "c", function() awful.util.spawn_with_shell("VISUAL='emacsclient -tc -a \"emacs -nw\" ';" .. env.terminal .. " -t calendar --class calendar -o window.dimensions.columns=160 -o window.dimensions.lines=30 -e ~/.local/bin/ikhal") end,
+			{ description = "open calendar", group = "Calendar" }
+		},
+		{
+			-- {env.mod, "Shift" }, "m", function() awful.util.spawn_with_shell("VISUAL='emacsclient -s $HOME/.emacs.d/server/server -tc -a \"emacs -nw\" ';" .. env.terminal .. " -t mail --class mail -o window.dimensions.columns=160 -o window.dimensions.lines=30 -e neomutt") end,
+			{env.mod, "Shift" }, "m", function() awful.util.spawn_with_shell("VISUAL='emacsclient -tc -a \"emacs -nw\" ';" .. env.terminal .. " -t mail --class mail -o window.dimensions.columns=160 -o window.dimensions.lines=30 -e neomutt") end,
 			{ description = "open Mail", group = "Mail" }
 		},
 		{
-			{env.mod, "Shift" }, "XF86AudioPlay", function() awful.util.spawn_with_shell(env.terminal .. " --class music  -d 160 40 -t ncmpcpp -e ncmpcpp") end,
+			{env.mod, "Ctrl" }, "F11", function() awful.util.spawn_with_shell(env.terminal .. " --class music  -o window.dimensions.columns=160 -o window.dimensions.lines=30 -t ncmpcpp -e ncmpcpp") end,
 			{ description = "Open ncmpcpp", group = "Audio" }
+		},
+		{
+			{env.mod, "Shift" }, "XF86AudioPlay", function() awful.util.spawn_with_shell(env.terminal .. " --class music  -o window.dimensions.columns=160 -o window.dimensions.lines=30 -t ncmpcpp -e ncmpcpp") end,
+			{ description = "Open ncmpcpp", group = "Audio" }
+		},
+		{
+			{env.mod,"Shift"}, "F11", function() awful.util.spawn_with_shell("mpdMenuImage $HOME/Music") end,
+			{ description = "Select what to play", group = "Audio" }
 		},
 		{
 			{env.mod }, "XF86AudioPlay", function() awful.util.spawn_with_shell("mpdMenuImage $HOME/Music") end,
 			{ description = "Select what to play", group = "Audio" }
 		},
 		{
+			{env.mod }, "F11", function() awful.util.spawn_with_shell("mpc toggle; $SCRIPTSFOLDER/musicNotify") end,
+			{ description = "Play/Pause", group = "Audio" }
+		},
+		{
 			{ }, "XF86AudioPlay", function() awful.util.spawn_with_shell("mpc toggle; $SCRIPTSFOLDER/musicNotify") end,
 			{ description = "Play/Pause", group = "Audio" }
 		},
 		{
+			{ env.mod }, "F10", function() awful.util.spawn_with_shell("mpc prev; $SCRIPTSFOLDER/musicNotify") end,
+			{ description = "Previous", group = "Audio" }
+		},
+		{
 			{ }, "XF86AudioPrev", function() awful.util.spawn_with_shell("mpc prev; $SCRIPTSFOLDER/musicNotify") end,
 			{ description = "Previous", group = "Audio" }
+		},
+		{
+			{ env.mod }, "F12", function() awful.util.spawn_with_shell("mpc next; $SCRIPTSFOLDER/musicNotify") end,
+			{ description = "Next", group = "Audio" }
 		},
 		{
 			{ }, "XF86AudioNext", function() awful.util.spawn_with_shell("mpc next; $SCRIPTSFOLDER/musicNotify") end,
@@ -472,7 +498,7 @@ function hotkeys:init(args)
 			{ description = "Reload awesome", group = "Main" }
 		},
 		{
-			{ env.mod }, "c", function() awful.spawn("org-capture") end,
+			{ env.mod }, "c", function() awful.spawn("org-capture '' '' ") end,
 			{ description = "Org Capture idea", group = "Main" }
 		},
 		-- {
@@ -526,7 +552,7 @@ function hotkeys:init(args)
 				end
 
 			end,
-			{ description = "Telegram", group = "Main" }
+			{ description = "Telegram", group = "IM" }
 		},
 		{
 			{ env.mod, "Shift" }, "l", swap_switch_byd("right"),
@@ -655,32 +681,12 @@ function hotkeys:init(args)
 			{ description = "Select previous layout", group = "Layouts" }
 		},
 		{
-			{ env.mod , "Shift"}, "semicolon",
-			-- function()
-				move_screen_switch_byd("right")
-				-- awful.screen.focus_relative( 1);
-				-- awful.spawn('bash -c "sleep 0.1;xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"')
-			-- end
-			,
-			{ description = "focus the next screen", group = "Screen" }
-		},
-		{
 			{ env.mod }, "semicolon",
 			function()
 				awful.screen.focus_bydirection("right");
 				-- awful.spawn('bash -c "sleep 0.1;xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"')
 			end,
 			{ description = "focus the next screen", group = "Screen" }
-		},
-		{
-			{ env.mod, "Shift" }, "comma",
-			-- function()
-				move_screen_switch_byd("left")
-				-- awful.screen.focus_relative( -1);
-				-- awful.spawn('bash -c "sleep 0.1;xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"')
-			-- end
-			,
-			{ description = "focus the previous screen", group = "Screen" }
 		},
 		{
 			{ env.mod }, "comma",
@@ -695,6 +701,28 @@ function hotkeys:init(args)
 	-- Client keys
 	--------------------------------------------------------------------------------
 	self.raw.client = {
+		-- from https://github.com/awesomeWM/awesome/issues/2437
+		{
+			{ env.mod, "Shift"   }, "comma",
+			function (c)
+				local geo = c.screen.geometry
+				if geo.x > 0 then
+					c:move_to_screen(c.screen.index-1)
+				end
+			end,
+			{description = "move to screen on left", group = "screen"}
+		},
+		{
+			{ env.mod, "Shift"   }, "semicolon",
+			function (c)
+				local geo = c.screen.geometry
+				local width = root:size(1)
+				if geo.x + geo.width < width then
+					c:move_to_screen()
+				end
+			end,
+			{description = "move to screen on right", group = "screen"}
+		},
 		{
 			{ env.mod }, "f", function(c) c.fullscreen = not c.fullscreen; c:raise() end,
 			{ description = "Toggle fullscreen", group = "Client keys" }

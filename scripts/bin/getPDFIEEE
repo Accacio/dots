@@ -1,0 +1,7 @@
+#!/bin/bash
+# 6786504
+# NbhwZ6x6TriMd7p
+article=$(echo "$1" | sed -e "s,[a-zA-Z\/.:-]*\([0-9]*\)[a-zA-Z\/.:-]*,\1,")
+notify-send "$article"
+curl "https://ieeexplore-ieee-org.ezproxy.universite-paris-saclay.fr/stampPDF/getPDF.jsp?tp=&arnumber=$article" \
+  -H "Cookie: ezproxyl=$2;" --output - > "$HOME/$article.pdf"

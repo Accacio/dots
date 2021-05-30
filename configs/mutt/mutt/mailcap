@@ -2,8 +2,11 @@
 text/plain; $EDITOR %s ;
 text/html; openfile %s ; nametemplate=%s.html
 text/html; lynx -assume_charset=%{charset} -display_charset=utf-8 -dump %s; nametemplate=%s.html; copiousoutput;
+text/calendar; ics2text %s;copiousoutput
 image/*; openfile %s ;
 video/*; setsid mpv --quiet %s &; copiousoutput
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; openfile %s
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; previewExcel %s;copiousoutput
 application/pdf; openfile %s ;
 application/pdf; pdftotext -l 10 -nopgbrk -q -- %s - ; copiousoutput
 application/pgp-encrypted; gpg -d '%s'; copiousoutput;

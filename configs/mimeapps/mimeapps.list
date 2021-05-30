@@ -1,0 +1,37 @@
+[Default Applications]
+application/pdf=pdfViewer.desktop
+application/ppdf=FoxitReader.desktop
+application/octet-stream=FoxitReader.desktop
+application/lrf=calibre-lrfviewer.desktop
+
+image/png=imageViewer.desktop
+image/jpg=imageViewer.desktop
+
+text/plain=editor.desktop
+text/html=qutebrowser.desktop
+text/x-lua=editor.desktop
+application/x-shellscript=editor.desktop
+text/x-bibtex=editor.desktop
+
+text/html=vimb.desktop
+x-scheme-handler/http=browser.desktop
+x-scheme-handler/https=browser.desktop
+x-scheme-handler/about=browser.desktop
+x-scheme-handler/unknown=browser.desktop
+x-scheme-handler/msteams=teams.desktop
+x-scheme-handler/org-protocol=org-protocol.desktop
+x-scheme-handler/org-capture=org-capture.desktop
+
+application/pdf=zathura.desktop
+application/x-colpkg=anki.desktop
+application/x-apkg=anki.desktop
+application/x-ankiaddon=anki.desktop
+
+[Added Associations]
+application/pdf=zathura-pdf-poppler.desktop;
+text/latex=emacs26.desktop;
+text/markdown=emacs26.desktop;
+application/epub+zip=calibre-ebook-edit.desktop;org.gnome.FileRoller.desktop;
+application/x-mobipocket-ebook=calibre-ebook-viewer.desktop;
+text/x-bibtex=nvim-qt.desktop;vim.desktop;
+video/mpeg=mpv.desktop;

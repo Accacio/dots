@@ -3,12 +3,12 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
-
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 (setq user-full-name "Rafael Accácio Nogueira"
       user-mail-address "raccacio@poli.ufrj.br")
-(setq server-socket-dir "~/.emacs.d/server")
+;; (setq server-socket-dir "~/.emacs.d/server")
+
 (blink-cursor-mode -1)
 (show-smartparens-global-mode 1)
 (setq blink-cursor-interval .1)
@@ -32,7 +32,9 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 14))
 ;; (setq doom-font (font-spec :family "Glass TTY VT220" :size 20))
 ;; (setq doom-font (font-spec :family "Source Code Pro" :size 16))
-(setq doom-font (font-spec :family "Fira Code" :size 16))
+(setq doom-font (font-spec :family "Roboto Mono" :size 16))
+;; (setq doom-font (font-spec :family "Fira Code" :size 16))
+
 
 ;;Visual
 ;;
@@ -70,15 +72,13 @@
 
 
 
-(setq doom-theme 'doom-one)
+;; (setq doom-theme 'doom-one)
+(setq doom-theme 'doom-nord)
 
 (custom-theme-set-faces! 'doom-one
   `(font-lock-comment-face :foreground "#8080a7")
   )
-;; (after! doom-theme
-;; (set-face-attribute 'font-lock-comment-face nil :foreground "#8080f7")
 
-;;   )
 (defun org-babel-execute:matlab (body params)
   "Execute a block of matlab code with Babel."
   (with-temp-buffer
@@ -92,29 +92,29 @@
     (buffer-string)))
 
 
-
 ;; Org
 (setq org-directory "~/org/")
 (after! org
-
+(defalias '+org--restart-mode-h #'ignore) ;;https://github.com/hlissner/doom-emacs/issues/4832#issuecomment-822845907
   (add-to-list 'org-file-apps '("\\.pdf\\'" . emacs))
 (setq org-hide-emphasis-markers t)
 (setq org-modules '(ol-bibtex org-habit org-habit-plus))
 (setq +org-habit-graph-padding 2)
 (setq +org-habit-min-width 30)
 (setq +org-habit-graph-window-ratio 0.2)
-
+(setq org-indent-indentation-per-level 1)
+(setq org-adapt-indentation nil)
 (org-load-modules-maybe t)
 (setq org-agenda-files
       (list
        "~/org/private/Eve.org"
        "~/org/private/todo.org"
        "~/org/private/todo_these.org"
-       "~/org/private/fromPoli.org"
-       "~/org/private/fromGmail.org"
-       "~/org/private/fromSupelec.org"
+       "~/org/private/gcal-orgmode.org"
        )
       )
+
+
 
 (setq org-agenda-custom-commands
       '(
@@ -231,13 +231,13 @@
       '((sequence
          "TODO(t)"  ; A task that needs doing & is ready to do
          "PROJ(p)"  ; A project, which usually contains other tasks
-         "TOREAD(r)"  ; A project, which usually contains other tasks
+         "TOREAD(r)"
          "STRT(s)"  ; A task that is in progress
          "WAIT(w)"  ; Something external is holding up this task
          "HOLD(h)"  ; This task is paused/on hold because of me
          "|"
          "DONE(d)"  ; Task successfully completed
-         "READ(R)"  ; A project, which usually contains other tasks
+         "READ(R)"
          "KILL(k)") ; Task was cancelled, aborted or is no longer applicable
         (sequence
          "[ ](T)"   ; A task that needs doing
@@ -314,7 +314,7 @@
          :with-tags nil
          :with-toc nil
          :section-numbers nil
-         :exlclude "*slide*.org"
+         :exclude ".*slide.*.org"
          ;; :publishing-function org-html-publish-to-html
          :publishing-function org-html-publish-to-html
          :headline-levels 4             ; Just the default for this project.
@@ -324,7 +324,7 @@
          :base-directory "~/docsThese/docs/org/"
          :base-extension "org"
          :publishing-directory "~/docsThese/docs/etudes/"
-         :exlclude "*slide*.org"
+         :exclude ".*slide.*.org"
          :recursive t
          :exclude-tags ("html")
          :with-tags nil
@@ -363,9 +363,212 @@ and value is its relative level, as an integer."
 
 
 )
+(after! ox-icalendar
 
+(setq org-icalendar-with-timestamps nil)
+(setq org-icalendar-use-scheduled '(event-if-not-todo event-if-todo-not-done))
+(setq org-icalendar-use-deadline '(event-if-not-todo event-if-todo-not-done))
+(setq org-icalendar-store-UID nil)
+(defun org-icalendar--vtodo
+  (entry uid summary location description categories timezone class)
+  "Create a VTODO component.
+
+ENTRY is either a headline or an inlinetask element.  UID is the
+unique identifier for the task.  SUMMARY defines a short summary
+or subject for the task.  LOCATION defines the intended venue for
+the task.  DESCRIPTION provides the complete description of the
+task.  CATEGORIES defines the categories the task belongs to.
+TIMEZONE specifies a time zone for this TODO only.
+
+Return VTODO component as a string."
+  (let ((start (or (and (memq 'todo-start org-icalendar-use-scheduled)
+			(org-element-property :scheduled entry))
+		   ;; If we can't use a scheduled time for some
+		   ;; reason, start task now.
+		   (let ((now (decode-time)))
+		     (list 'timestamp
+			   (list :type 'active
+				 :minute-start (nth 1 now)
+				 :hour-start (nth 2 now)
+				 :day-start (nth 3 now)
+				 :month-start (nth 4 now)
+				 :year-start (nth 5 now)))))))
+    (org-icalendar-fold-string
+     (concat "BEGIN:VTODO\n"
+	     "UID:" uid "\n"
+	     (org-icalendar-dtstamp) "\n"
+	     (org-icalendar-convert-timestamp start "DTSTART" nil timezone) "\n"
+	     (and (memq 'todo-due org-icalendar-use-deadline)
+		  (org-element-property :deadline entry)
+		  (concat (org-icalendar-convert-timestamp
+			   (org-element-property :deadline entry) "DUE" nil timezone)
+			  "\n"))
+	     "SUMMARY:" summary "\n"
+	     (and (org-string-nw-p location) (format "LOCATION:%s\n" location))
+	     (and (org-string-nw-p class) (format "CLASS:%s\n" class))
+	     (and (org-string-nw-p description)
+		  (format "DESCRIPTION:%s\n" description))
+	     "CATEGORIES:" categories "\n"
+	     "SEQUENCE:1\n"
+	     (format "PRIORITY:%d\n"
+		     (let ((pri (or (org-element-property :priority entry)
+				    org-priority-default)))
+		       (floor (- 9 (* 8. (/ (float (- org-priority-lowest pri))
+					    (- org-priority-lowest
+					       org-priority-highest)))))))
+	     (format "STATUS:%s\n"
+		     (if (eq (org-element-property :todo-type entry) 'todo)
+			 "NEEDS-ACTION"
+		       "COMPLETED"))
+	     "END:VTODO"))))
+
+(defun org-icalendar-entry (entry contents info)
+  "Transcode ENTRY element into iCalendar format.
+
+ENTRY is either a headline or an inlinetask.  CONTENTS is
+ignored.  INFO is a plist used as a communication channel.
+
+This function is called on every headline, the section below
+it (minus inlinetasks) being its contents.  It tries to create
+VEVENT and VTODO components out of scheduled date, deadline date,
+plain timestamps, diary sexps.  It also calls itself on every
+inlinetask within the section."
+  (unless (org-element-property :footnote-section-p entry)
+    (let* ((type (org-element-type entry))
+	   ;; Determine contents really associated to the entry.  For
+	   ;; a headline, limit them to section, if any.  For an
+	   ;; inlinetask, this is every element within the task.
+	   (inside
+	    (if (eq type 'inlinetask)
+		(cons 'org-data (cons nil (org-element-contents entry)))
+	      (let ((first (car (org-element-contents entry))))
+		(and (eq (org-element-type first) 'section)
+		     (cons 'org-data
+			   (cons nil (org-element-contents first))))))))
+      (concat
+       (let ((todo-type (org-element-property :todo-type entry))
+	     (uid (or (org-element-property :ID entry) (org-id-new)))
+	     (summary (org-icalendar-cleanup-string
+		       (or (org-element-property :SUMMARY entry)
+			   (org-export-data
+			    (org-element-property :title entry) info))))
+	     (loc (org-icalendar-cleanup-string
+		   (org-export-get-node-property
+		    :LOCATION entry
+		    (org-property-inherit-p "LOCATION"))))
+	     (class (org-icalendar-cleanup-string
+		     (org-export-get-node-property
+		      :CLASS entry
+		      (org-property-inherit-p "CLASS"))))
+	     ;; Build description of the entry from associated section
+	     ;; (headline) or contents (inlinetask).
+	     (desc
+	      (org-icalendar-cleanup-string
+	       (or (org-element-property :DESCRIPTION entry)
+		   (let ((contents (org-export-data inside info)))
+		     (cond
+		      ((not (org-string-nw-p contents)) nil)
+		      ((wholenump org-icalendar-include-body)
+		       (let ((contents (org-trim contents)))
+			 (substring
+			  contents 0 (min (length contents)
+					  org-icalendar-include-body))))
+		      (org-icalendar-include-body (org-trim contents)))))))
+	     (cat (org-icalendar-get-categories entry info))
+	     (tz (org-export-get-node-property
+		  :TIMEZONE entry
+		  (org-property-inherit-p "TIMEZONE"))))
+	 (concat
+	  ;; Events: Delegate to `org-icalendar--vevent' to generate
+	  ;; "VEVENT" component from scheduled, deadline, or any
+	  ;; timestamp in the entry.
+	  (let ((deadline (org-element-property :deadline entry))
+		(use-deadline (plist-get info :icalendar-use-deadline)))
+	    (and deadline
+		 (pcase todo-type
+		   (`todo (or (memq 'event-if-todo-not-done use-deadline)
+			      (memq 'event-if-todo use-deadline)))
+		   (`done (memq 'event-if-todo use-deadline))
+		   (_ (memq 'event-if-not-todo use-deadline)))
+		 (org-icalendar--vevent
+		  entry deadline (concat "" uid)
+		  (concat "" summary) loc desc cat tz class)))
+	  (let ((scheduled (org-element-property :scheduled entry))
+		(use-scheduled (plist-get info :icalendar-use-scheduled)))
+	    (and scheduled
+		 (pcase todo-type
+		   (`todo (or (memq 'event-if-todo-not-done use-scheduled)
+			      (memq 'event-if-todo use-scheduled)))
+		   (`done (memq 'event-if-todo use-scheduled))
+		   (_ (memq 'event-if-not-todo use-scheduled)))
+		 (org-icalendar--vevent
+		  entry scheduled (concat "" uid)
+		  (concat "" summary) loc desc cat tz class)))
+	  ;; When collecting plain timestamps from a headline and its
+	  ;; title, skip inlinetasks since collection will happen once
+	  ;; ENTRY is one of them.
+	  (let ((counter 0))
+	    (mapconcat
+	     #'identity
+	     (org-element-map (cons (org-element-property :title entry)
+				    (org-element-contents inside))
+		 'timestamp
+	       (lambda (ts)
+		 (when (let ((type (org-element-property :type ts)))
+			 (cl-case (plist-get info :with-timestamps)
+			   (active (memq type '(active active-range)))
+			   (inactive (memq type '(inactive inactive-range)))
+			   ((t) t)))
+		   (let ((uid uid))
+		     (org-icalendar--vevent
+		      entry ts uid summary loc desc cat tz class))))
+	       info nil (and (eq type 'headline) 'inlinetask))
+	     ""))
+	  ;; Task: First check if it is appropriate to export it.  If
+	  ;; so, call `org-icalendar--vtodo' to transcode it into
+	  ;; a "VTODO" component.
+	  (when (and todo-type
+		     (cl-case (plist-get info :icalendar-include-todo)
+		       (all t)
+		       (unblocked
+			(and (eq type 'headline)
+			     (not (org-icalendar-blocked-headline-p
+				   entry info))))
+		       ((t) (eq todo-type 'todo))))
+	    (org-icalendar--vtodo entry uid summary loc desc cat tz class))
+	  ;; Diary-sexp: Collect every diary-sexp element within ENTRY
+	  ;; and its title, and transcode them.  If ENTRY is
+	  ;; a headline, skip inlinetasks: they will be handled
+	  ;; separately.
+	  (when org-icalendar-include-sexps
+	    (let ((counter 0))
+	      (mapconcat #'identity
+			 (org-element-map
+			     (cons (org-element-property :title entry)
+				   (org-element-contents inside))
+			     'diary-sexp
+			   (lambda (sexp)
+			     (org-icalendar-transcode-diary-sexp
+			      (org-element-property :value sexp)
+			      (format "%s" uid)
+			      summary))
+			   info nil (and (eq type 'headline) 'inlinetask))
+			 "")))))
+       ;; If ENTRY is a headline, call current function on every
+       ;; inlinetask within it.  In agenda export, this is independent
+       ;; from the mark (or lack thereof) on the entry.
+       (when (eq type 'headline)
+	 (mapconcat #'identity
+		    (org-element-map inside 'inlinetask
+		      (lambda (task) (org-icalendar-entry task nil info))
+		      info) ""))
+       ;; Don't forget components from inner entries.
+       contents))))
+
+
+  )
 (after! deft
-    (setq deft-directory "~/org/")
+    (setq deft-directory "~/hippokamp/")
     (setq deft-recursive t)
 )
 ;; kanban
@@ -382,91 +585,161 @@ and value is its relative level, as an integer."
 (after! elfeed
 
   (setq elfeed-feeds '(
-                     ("https://news.ycombinator.com/rss" hacker)
-                     ("https://www.sthu.org/blog/atom.xml")
-                     ("https://www.reddit.com/r/controlengineering.rss" control)
-                     ("https://ciechanow.ski/atom.xml")
-                     ("http://rss.sciencedirect.com/publication/science/01676911" S&CL control)
-                     ("https://www.aimsciences.org/rss/A0000-0000_current.xml" EE&CT control)
-                     ("https://ieeexplore.ieee.org/rss/TOC6509490.XML" TOCNS control)
-                     ("https://ieeexplore.ieee.org/rss/TOC9.XML" TOAC control)
-                     ("https://onlinelibrary.wiley.com/feed/19346093/most-recent" control)
-                     ("https://xkcd.com/rss.xml" comics)
-                     ))
+                       ;;reddit HN etc
+                       ("https://www.reddit.com/r/controlengineering.rss" control)
+                       ("https://news.ycombinator.com/rss" hacker)
+                       ;; blogs
+                       ("https://www.sthu.org/blog/atom.xml" blogs)
+                       ("https://ciechanow.ski/atom.xml" blogs)
+                       ("https://lepisma.xyz/journal/atom.xml" blogs)
+                       ;; control journals
+                       ("http://rss.sciencedirect.com/publication/science/01676911" S&CL control) ;; ScienceDirect Publication: Systems & Control Letters
+                       ("https://www.aimsciences.org/rss/A0000-0000_current.xml" EE&CT control) ;; Evolution Equations & Control Theory
+                       ("https://ieeexplore.ieee.org/rss/TOC6509490.XML" TOCNS control) ;; IEEE Transaction on Control of Network Systems
+                       ("https://ieeexplore.ieee.org/rss/TOC9.XML" TOAC control) ;; IEEE Transaction on Automatic Control
+                       ("https://onlinelibrary.wiley.com/feed/19346093/most-recent" AJC control) ;; Wiley Asian Journal of Control
+                       ("https://ietresearch.onlinelibrary.wiley.com/feed/17518652/most-recent" IETCT&A control) ;; The Institution of Engineering and Techonology Control Theory & Applications
+                       ("https://www.tandfonline.com/feed/rss/tcon20" T&FJOC control) ;; Taylor and Francis International Journal of Control
+                       ("http://rss.sciencedirect.com/publication/science/09473580" EJC control) ;; ScienceDirect Publication: European Journal of Control
+                       ("http://rss.sciencedirect.com/publication/science/00051098" Automatica control) ;; ScienceDirect Publication: Automatica
+                       ("http://rss.sciencedirect.com/publication/science/09670661" CEP control) ;; ScienceDirect Publication: Control Engineering Practice
+                       ("http://rss.sciencedirect.com/publication/science/09591524" JPC control) ;; ScienceDirect Publication: Journal of Process Control
+                       ("http://rss.sciencedirect.com/publication/science/00190578" ISATran control) ;; ScienceDirect Publication: ISA Transactions
+                       ("http://rss.sciencedirect.com/publication/science/1751570X" NAHS control) ;; ScienceDirect Publication: Nonlinear Analysis: Hybrid Systems
+                       ("http://rss.sciencedirect.com/publication/science/00160032" JFI control) ;; ScienceDirect Publication: Journal of the Franklin Institute
+                       ("https://onlinelibrary.wiley.com/feed/10991239/most-recent" IJRNC control ) ;; Wiley Internation Journal of Robust and Nonlinear Control
+                       ;; comics
+                       ("https://xkcd.com/rss.xml" comics)
+                       ))
 
-(defun elfeed-tag-selection-as (mytag)
-    "Returns a function that tags an elfeed entry or selection as
-MYTAG"
-    (interactive ) (lambda ()
-      "Toggle a tag on an Elfeed search selection"
-      (interactive)
-      (elfeed-search-toggle-all mytag)))
+(evil-define-key 'normal elfeed-search-mode-map "i" (lambda () (interactive)(elfeed-search-toggle-all 'important 'readlater)))
+(evil-define-key 'visual elfeed-search-mode-map "i" (lambda () (interactive)(elfeed-search-toggle-all 'important 'readlater)))
+(evil-define-key 'normal elfeed-search-mode-map "t" (elfeed-tag-selection-as 'readlater))
+(evil-define-key 'visual elfeed-search-mode-map "t" (elfeed-tag-selection-as 'readlater))
+(evil-define-key 'visual elfeed-search-mode-map "i" (elfeed-tag-selection-as 'important))
 
-(defun accacio-copy-link (entry)
-  "Copy to kill ring a link to the article"
-  (let ((link ()))
-    (kill-new link)
-    (print link)
-    ;; (message link)
-    )
-  )
+(evil-define-key 'normal elfeed-show-mode-map "U" 'elfeed-show-tag--unread)
+(evil-define-key 'normal elfeed-show-mode-map "t" (elfeed-expose #'elfeed-show-tag 'readlater))
+(evil-define-key 'normal elfeed-show-mode-map "i" (elfeed-expose #'elfeed-show-tag 'important))
 
-(defun accacio-elfeed-show-copy-article ()
+(defun elfeed-search-show-entry (entry)
+  "Display the currently selected item in a buffer."
+  (interactive (list (elfeed-search-selected :ignore-region)))
+  (require 'elfeed-show)
+  (when (elfeed-entry-p entry)
+    ;; (elfeed-untag entry 'unread)
+    (elfeed-search-update-entry entry)
+    ;; (unless elfeed-search-remain-on-entry (forward-line))
+    (elfeed-show-entry entry)))
+
+(defun accacio/elfeed-show-copy-article ()
   (interactive)
-  (let ((entries (elfeed-search-selected)) (links ""))
+  (let ( (entries (elfeed-search-selected)) (links ""))
+               (elfeed-search-untag-all 'readlater 'unread)
   (cl-loop for entry in entries
            when (elfeed-entry-link entry)
-           do (setq links (concat links (concat "- " (org-make-link-string  (elfeed-entry-link entry) (elfeed-entry-title entry)) "\n" )))
+           do (progn (setq links (concat links (concat "- [ ] " (if (elfeed-tagged-p 'important entry) " * " "") (org-make-link-string  (concat "https://ezproxy.universite-paris-saclay.fr/login?url=" (elfeed-entry-link entry)) (elfeed-entry-title entry)) "\n" )))
+               )
            )
   (kill-new links)
   )
   )
 
-(evil-define-key 'normal elfeed-search-mode-map "R" (elfeed-tag-selection-as 'readlater))
 
 (add-hook 'elfeed-new-entry-hook
           (elfeed-make-tagger :before "2 weeks ago"
                               :remove 'unread))
 
-(setq-default elfeed-search-filter "@1-month-ago +unread ")
+(setq-default elfeed-search-filter "@1-month-ago +unread -readlater")
 
 (elfeed-update)
-(defface control-elfeed-entry
-  '((t :foreground "##2ba"))
+(defface important-elfeed-entry
+  '((t :foreground "#a00"))
   "Marks an control Elfeed entry.")
+(defface control-elfeed-entry
+  '((t :foreground "#2ba"))
+  "Marks an control Elfeed entry.")
+
+(defface readlater-elfeed-entry
+  '((t :foreground "#Eec900"))
+  "Marks a readlater Elfeed entry.")
+
 (set-face-attribute 'elfeed-search-unread-title-face nil
                     :bold t :strike-through nil :underline nil :foreground "#bbb")
 
 (set-face-attribute 'elfeed-search-title-face nil
                     :bold nil :strike-through t)
 
-(set-face-attribute 'control-elfeed-entry nil
-                    :foreground "#2ba")
 (push '(control control-elfeed-entry) elfeed-search-face-alist)
+(push '(readlater readlater-elfeed-entry) elfeed-search-face-alist)
+(push '(important important-elfeed-entry) elfeed-search-face-alist)
 
 )
 ;; Roam
 (after! org-roam
 
-  (setq org-roam-graph-viewer (executable-find "vimb"))
+  (setq org-roam-graph-viewer (executable-find "vivaldi"))
+  ;; (setq org-roam-graph-viewer (executable-find "vimb"))
   (setq org-roam-graph-executable "/usr/bin/neato")
-  (setq org-roam-directory "~/org/")
+  (setq org-roam-directory "~/hippokamp/brain/")
   (setq org-roam-graph-extra-config '(("overlap" . "false")))
   (setq org-roam-graph-exclude-matcher '("private" "ledger" "elfeed" "readinglist"))
+  (setq org-roam-tag-sources '(prop last-directory))
+  (setq org-roam-buffer-width .3)
 
     (setq bibtex-completion-bibliography '("~/docsThese/bibliography.bib")
           bibtex-completion-library-path '("~/docsThese/bibliography/")
           bibtex-completion-find-note-functions '(orb-find-note-file)
           )
+    (setq bibtex-completion-notes-template-multiple-files "#+TITLE: ${=key=}
+#+ROAM_KEY: ${ref}
+#+ROAM_TAGS: article
 
-  (setq org-roam-dailies-capture-templates
-        '(("d" "daily" plain (function org-roam-capture--get-point)
-           ""
-           :immediate-finish t
-           :file-name "private-%<%Y-%m-%d>"
-           :head "#+TITLE: %<%Y-%m-%d>")
+- tags ::
+- keywords :: ${keywords}
+
+
+* ${title}
+  :PROPERTIES:
+  :Custom_ID: ${=key=}
+  :URL: ${url}
+  :AUTHOR: ${author-or-editor}
+  :NOTER_DOCUMENT: %(file-relative-name (orb-process-file-field \"${=key=}\") (print org-roam-directory))
+  :NOTER_PAGE:
+  :END:
+
+** CATALOG
+
+*** Motivation :springGreen:
+*** Model :lightSkyblue:
+*** Remarks
+*** Applications
+*** Expressions
+*** References :violet:
+
+** NOTES
+"
           )
-        )
+(setq org-roam-capture-ref-templates
+  '(("r" "ref" plain #'org-roam-capture--get-point
+     "%?"
+     :file-name "${slug}"
+     :head "#+title: ${title}\n#+roam_key: ${ref}\n\n${ref}\n\n"
+     :unnarrowed t)))
+
+    (setq org-roam-dailies-capture-templates
+          '(("d" "default" entry #'org-roam-capture--get-point "* %?"
+             :file-name "daily/%<%Y-%m-%d>" :head "#+TITLE: %<%Y-%m-%d>\n#+roam_tags: \n\n"))
+          )
+
+  ;; (setq org-roam-dailies-capture-templates
+  ;;       '(("d" "daily" plain (function org-roam-capture--get-point)
+  ;;          ""
+  ;;          :immediate-finish t
+  ;;          :file-name "private-%<%Y-%m-%d>"
+  ;;          :head "#+TITLE: %<%Y-%m-%d>")
+  ;;         )
+  ;;       )
 
 (defun my/org-roam--backlinks-list-with-content (file)
   (with-temp-buffer
@@ -506,45 +779,39 @@ MYTAG"
 )
 (after! org-capture
   (setq org-capture-templates
-        ;; (append
-                '(
-                  ("a" "Agenda")
-                  ("aa" "All Day")
-                  ("aas" "Supelec" entry (file "~/org/private/fromSupelec.org")
-                   "* %?\n %^t\n"
-                   :kill-buffer t)
-                  ("aap" "Poli" entry (file "~/org/private/fromPoli.org")
-                   "* %?\n %^t\n"
-                   :kill-buffer t)
-                  ("aag" "Gmail" entry (file "~/org/private/fromGmail.org")
-                   "* %?\n %^t\n"
-                   :kill-buffer t)
 
-                  ("as" "Scheduled")
-                  ("ass" "Supelec" entry (file "~/org/private/fromSupelec.org")
-                   "* %?\n %^T--%^T\n"
-                   :kill-buffer t)
-                  ("asp" "Poli" entry (file "~/org/private/fromPoli.org")
-                   "* %?\n %^T--%^T\n"
-                   :kill-buffer t)
-                  ("asg" "Gmail" entry (file "~/org/private/fromGmail.org")
-                   "* %?\n %^T--%^T\n"
-                   :kill-buffer t)
-
-                  ("t" "TODOS" )
-                  ("tp" "Todo Pessoal" entry (file+headline "~/org/private/todo.org" "Inbox")
-                   "** TODO %?\n%i%a "
-                   :kill-buffer t)
-
-                  ("tt" "Todo These" entry (file+headline "~/org/private/todo_these.org" "Inbox")
-                   "** TODO %?\n%i%a "
-                   :kill-buffer t)
-
-                  ("e" "Evelise" entry (file+headline "~/org/private/Eve.org" "Inbox")
-                   "** TODO %?\n%i%a "
-                   :kill-buffer t)
-                  )
-                ;; org-capture-templates)
+        '(
+          ("t" "TODOS" )
+         ("tp" "Personal todo" entry
+          (file+headline "~/org/private/todo.org" "Inbox")
+          "** TODO %?\n%i\n%a" :prepend t)
+         ("tt" "These todo" entry
+          (file+headline "~/org/private/todo_these.org" "Inbox")
+          "** TODO %?\n%i\n%a" :prepend t)
+         ("e" "Evelise" entry
+          (file+headline "~/org/private/Eve.org" "Inbox")
+          "** TODO %?\n%i\n%a" :prepend t)
+         ("p" "Templates for projects")
+         ("pt" "Project-local todo" entry
+          (file+headline +org-capture-project-todo-file "Inbox")
+          "* TODO %?\n%i\n%a" :prepend t)
+         ("pn" "Project-local notes" entry
+          (file+headline +org-capture-project-notes-file "Inbox")
+          "* %U %?\n%i\n%a" :prepend t)
+         ("pc" "Project-local changelog" entry
+          (file+headline +org-capture-project-changelog-file "Unreleased")
+          "* %U %?\n%i\n%a" :prepend t)
+         ("o" "Centralized templates for projects")
+         ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
+         ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
+         ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t)
+         )
+  ;;               '(
+  ;;                 ("e" "Evelise" entry (file+headline "~/org/private/Eve.org" "Inbox")
+  ;;                  "** TODO %?\n%i%a "
+  ;;                  :kill-buffer t)
+  ;;                 )
+  ;;               ;; org-capture-templates)
         )
 
 )
@@ -577,10 +844,22 @@ MYTAG"
 (after! org-ref
     (setq org-ref-default-bibliography '("~/docsThese/bibliography.bib")
           org-ref-pdf-directory "~/docsThese/bibliography/"
-          org-ref-note-title-format "* TODO %y - %t\n :PROPERTIES:\n  :Custom_ID: %k\n  :NOTER_DOCUMENT: %F\n :ROAM_KEY: cite:%k\n  :AUTHOR: %9a\n  :JOURNAL: %j\n  :YEAR: %y\n  :VOLUME: %v\n  :PAGES: %p\n  :DOI: %D\n  :URL: %U\n :END:\n\n"
-          org-ref-notes-directory "~/org/"
+          org-ref-notes-directory "~/hippokamp/brain/"
           org-ref-notes-function 'orb-edit-notes)
-    )
+
+(setq org-ref-bibliography-entry-format
+      '(
+        ("article" . "%a, %t, <i>%j</i>, <b>%v(%n)</b>, %p (%y). <a href=\"%U\">link</a>. <a href=\"http://dx.doi.org/%D\">doi</a>.")
+        ("book" . "%a, %t, %u (%y).")
+        ("thesis" . "%a, %t, %s (%y).  <a href=\"%U\">link</a>. <a href=\"http://dx.doi.org/%D\">doi</a>.")
+        ("misc" . "%a, %t (%y).  <a href=\"%U\">link</a>. <a href=\"http://dx.doi.org/%D\">doi</a>.")
+        ("inbook" . "%a, %t, %b (pp. %p), %u (%y), <a href=\"%U\">link</a>. <a href=\"http://dx.doi.org/%D\">doi</a>.")
+        ("techreport" . "%a, %t, %i, %u (%y).")
+        ("proceedings" . "%e, %t in %S, %u (%y).")
+        ("inproceedings" . "%a, %t, %p, in %b, edited by %e, %u (%y)"))
+      )
+)
+
 (use-package! org-roam-bibtex
   :after (org-roam)
   :hook (org-roam-mode . org-roam-bibtex-mode)
@@ -592,7 +871,7 @@ MYTAG"
         '(("r" "ref" plain (function org-roam-capture--get-point)
            ""
            :file-name "${=key=}"
-           :head "#+TITLE: ${=key=}: ${title}
+           :head "#+TITLE: ${=key=}
 #+ROAM_KEY: ${ref}
 #+ROAM_TAGS: article
 
@@ -605,7 +884,7 @@ MYTAG"
   :Custom_ID: ${=key=}
   :URL: ${url}
   :AUTHOR: ${author-or-editor}
-  :NOTER_DOCUMENT: %(file-relative-name (orb-process-file-field \"${=key=}\") (print org-directory))
+  :NOTER_DOCUMENT: %(file-relative-name (orb-process-file-field \"${=key=}\") (print org-roam-directory))
   :NOTER_PAGE:
   :END:
 
@@ -620,10 +899,26 @@ MYTAG"
 
 ** NOTES
 "
-           :unnarrowed t))))
+           :unnarrowed t)))
+  (setq orb-autokey-format "%A[3]%y")
+
+  )
 
   (org-roam-bibtex-mode)
-(use-package! org-roam-server)
+(use-package! org-roam-server
+  :config
+  (setq org-roam-server-host "127.0.0.1"
+        org-roam-server-port 8080
+        org-roam-server-authenticate nil
+        org-roam-server-export-inline-images t
+        org-roam-server-serve-files t
+        org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
+        org-roam-server-network-poll t
+        org-roam-server-network-arrows nil
+        org-roam-server-network-label-truncate t
+        org-roam-server-network-label-truncate-length 60
+        org-roam-server-network-label-wrap-length 20))
+
 ;; org-journal
 (use-package! org-journal
   :bind
@@ -631,24 +926,24 @@ MYTAG"
   ("C-c n t" . org-journal-today)
   :config
   (setq org-journal-date-prefix "#+TITLE: "
+        org-journal-date-format "%Y-%m-%d\n"
         org-journal-time-prefix "* "
-        org-journal-file-format "private-%Y-%m-%d.org"
-        org-journal-dir "~/org/"
-        org-journal-carryover-items nil
-        org-journal-date-format "%Y-%m-%d")
+        org-journal-file-format "%Y-%m-%d.org"
+        org-journal-dir "~/hippokamp/brain/daily/"
+        )
   ;; do not create title for dailies
-  (set-file-template! "/private-.*\\.org$"    :trigger ""    :mode 'org-mode)
-  (print +file-templates-alist)
-  (defun org-journal-today ()
-    (interactive)
-    (org-journal-new-entry t)))
+  ;; (set-file-template! "daily/.*\\.org$"    :trigger ""    :mode 'org-mode)
+  ;; (defun org-journal-today ()
+  ;;   (interactive)
+  ;;   (org-journal-new-entry t))
+    )
 
 ;; org-noter
 (use-package! org-noter
   :config
   (setq
    org-noter-pdftools-markup-pointer-color "yellow"
-   org-noter-notes-search-path '("~/org")
+   org-noter-notes-search-path '("~/hippokamp/brain/")
    ;; org-noter-insert-note-no-questions t
    org-noter-doc-split-fraction '(0.7 . 03)
    org-noter-always-create-frame nil
@@ -671,7 +966,9 @@ MYTAG"
   :after org-noter
   :config
   (with-eval-after-load 'pdf-annot
-    (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
+    (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)
+    )
+  )
 
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
@@ -720,11 +1017,18 @@ MYTAG"
   '(progn
      (add-to-list
       'TeX-command-list
-      '("escaped LaTeX"
+      '("Detex"
+        "cat \"%t\"  |  perl -pe \"s:[ \\~]*\\\\\\(eqref|ref|cite)(\\[.*?\\])*\\{.*?\\}: [1]:g\" | detex -lnr -e table,algorithm,figure,equation | sed -e \"/^\\s\*\$/N;/^\\s\*\\n\\s\*\$/D\""
+        TeX-run-command nil t :help "Run LaTeX shell escaped")
+     t )
+     (add-to-list
+      'TeX-command-list
+      '("LaTeX escaped "
         "%`%l%(mode)%' -shell-escape -interaction nonstopmode %T"
         TeX-run-TeX nil (latex-mode doctex-mode) :help "Run LaTeX shell escaped")
-      )
-     ))
+      t )
+     )
+  )
 (defun org-mode-reftex-setup ()
   (load-library "reftex")
   (and (buffer-file-name) (file-exists-p (buffer-file-name))
@@ -798,406 +1102,3 @@ MYTAG"
  )
 
 
-;; elegance
-(defun set-face (face style)
-  "Reset a face and make it inherit style."
-  (set-face-attribute face nil
-   :foreground 'unspecified :background 'unspecified
-   :family     'unspecified :slant      'unspecified
-   :weight     'unspecified :height     'unspecified
-   :underline  'unspecified :overline   'unspecified
-   :box        'unspecified :inherit    style))
-;;
-;; Light theme
-(defface face-critical nil
-"Critical face is for information that requires immediate action.
-It should be of high constrast when compared to other faces. This
-can be realized (for example) by setting an intense background
-color, typically a shade of red. It must be used scarcely."
-:group 'elegance)
-
-(defface face-popout nil
-"Popout face is used for information that needs attention.
-To achieve such effect, the hue of the face has to be
-sufficiently different from other faces such that it attracts
-attention through the popout effect."
-:group 'elegance)
-
-(defface face-strong nil
-"Strong face is used for information of a structural nature.
-It has to be the same color as the default color and only the
-weight differs by one level (e.g., light/regular or
-regular/bold). IT is generally used for titles, keywords,
-directory, etc."
-:group 'elegance)
-
-(defface face-salient nil
-"Salient face is used for information that are important.
-To suggest the information is of the same nature but important,
-the face uses a different hue with approximately the same
-intensity as the default face. This is typically used for links."
-
-:group 'elegance)
-
-(defface face-faded nil
-"Faded face is for information that are less important.
-It is made by using the same hue as the default but with a lesser
-intensity than the default. It can be used for comments,
-secondary information and also replace italic (which is generally
-abused anyway)."
-:group 'elegance)
-
-(defface face-subtle nil
-"Subtle face is used to suggest a physical area on the screen.
-It is important to not disturb too strongly the reading of
-information and this can be made by setting a very light
-background color that is barely perceptible."
-:group 'elegance)
-;; (defun elegance-light ()
-;;     (setq frame-background-mode 'light)
-;;     (set-background-color "#ffffff")
-;;     (set-foreground-color "#333333")
-;;     (set-face-attribute 'default nil
-;;                         :foreground (face-foreground 'default)
-;;                         :background (face-background 'default))
-;;     (set-face-attribute 'face-critical nil :foreground "#ffffff"
-;;                                            :background "#ff6347")
-;;     (set-face-attribute 'face-popout nil :foreground "#ffa07a")
-;;     (set-face-attribute 'face-strong nil :foreground "#339333"
-;;                                          :weight 'regular)
-;;     (set-face-attribute 'face-salient nil :foreground "#00008b"
-;;                                           :weight 'light)
-;;     (set-face-attribute 'face-faded nil :foreground "#999999"
-;;                                         :weight 'light)
-;;     (set-face-attribute 'face-subtle nil :background "#f0f0f0")
-
-;;     ;; (set-modeline-faces)
-
-;;     ;; (with-eval-after-load 'cus-edit (set-button-faces))
-;;     )
-
-;; ;; Dark theme
-(defun elegance-dark ()
-    ;; (setq frame-background-mode 'dark)
-    ;; (set-background-color "#3f3f3f")
-    ;; (set-foreground-color "#dcdccc")
-    ;; (set-face-attribute 'default nil
-    ;;                     :foreground (face-foreground 'default)
-    ;;                     :background (face-background 'default))
-    (set-face-attribute 'face-critical nil :foreground "#385f38"
-                                           :background "#f8f893")
-    (set-face-attribute 'face-popout nil :foreground "#f0dfaf")
-    (set-face-attribute 'face-strong nil :foreground "#dcdccc"
-                                         :weight 'regular)
-    (set-face-attribute 'face-salient nil :foreground "seagreen4"
-                                          :weight 'bold)
-    (set-face-attribute 'face-faded nil :foreground "#777767"
-                                        :weight 'light)
-    (set-face-attribute 'face-subtle nil :background "#4f4f4f")
-    ;; (set-modeline-faces)
-    ;; (with-eval-after-load 'cus-edit (set-button-faces))
-    )
-
-;; Set theme
-(elegance-dark)
-(set-face 'bold                                          'face-strong)
-(set-face 'italic                                         'face-faded)
-(set-face 'bold-italic                                   'face-strong)
-(set-face 'region                                        'face-subtle)
-(set-face 'highlight                                     'face-subtle)
-(set-face 'fixed-pitch                                       'default)
-(set-face 'fixed-pitch-serif                                 'default)
-;; (set-face 'variable-pitch                                    'default)
-;; (set-face 'cursor                                            'default)
-
-;; ;; Semantic
-;; ;; (set-face 'shadow                                         'face-faded)
-;; ;; (set-face 'success                                      'face-salient)
-;; ;; (set-face 'warning                                       'face-popout)
-;; ;; (set-face 'error                                       'face-critical)
-
-;; ;; General
-;; (set-face 'buffer-menu-buffer                            'face-strong)
-;; (set-face 'minibuffer-prompt                             'face-strong)
-;; (set-face 'link                                         'face-salient)
-;; (set-face 'fringe                                         'face-faded)
-;; (set-face 'isearch                                       'face-strong)
-;; (set-face 'isearch-fail                                   'face-faded)
-;; (set-face 'lazy-highlight                                'face-subtle)
-;; (set-face 'trailing-whitespace                           'face-subtle)
-;; (set-face 'show-paren-match                              'face-popout)
-;; (set-face 'show-paren-mismatch                           'face-normal)
-;; (set-face-attribute 'tooltip nil                         :height 0.85)
-
-;; ;; Programmation mode
-;; (set-face 'font-lock-comment-face                         'face-faded)
-;; (set-face 'font-lock-doc-face                             'face-faded)
-;; (set-face 'font-lock-string-face                         'face-popout)
-;; (set-face 'font-lock-constant-face                      'face-salient)
-;; (set-face 'font-lock-warning-face                        'face-popout)
-;; (set-face 'font-lock-function-name-face                  'face-strong)
-;; (set-face 'font-lock-variable-name-face                  'face-strong)
-;; (set-face 'font-lock-builtin-face                       'face-salient)
-;; (set-face 'font-lock-type-face                          'face-salient)
-;; (set-face 'font-lock-keyword-face                       'face-salient)
-
-;; ;; Documentation
-;; (with-eval-after-load 'info
-;;   (set-face 'info-menu-header                            'face-strong)
-;;   (set-face 'info-header-node                            'face-normal)
-;;   (set-face 'Info-quoted                                  'face-faded)
-;;   (set-face 'info-title-1                                'face-strong)
-;;   (set-face 'info-title-2                                'face-strong)
-;;   (set-face 'info-title-3                                'face-strong)
-;;   (set-face 'info-title-4                               'face-strong))
-
-;; ;; Bookmarks
-;; (with-eval-after-load 'bookmark
-;;   (set-face 'bookmark-menu-heading                       'face-strong)
-;;   (set-face 'bookmark-menu-bookmark                    'face-salient))
-
-;; ;; Message
-;; (with-eval-after-load 'message
-;;   (set-face 'message-cited-text                           'face-faded)
-;;   (set-face 'message-header-cc                               'default)
-;;   (set-face 'message-header-name                         'face-strong)
-;;   (set-face 'message-header-newsgroups                       'default)
-;;   (set-face 'message-header-other                            'default)
-;;   (set-face 'message-header-subject                     'face-salient)
-;;   (set-face 'message-header-to                          'face-salient)
-;;   (set-face 'message-header-xheader                          'default)
-;;   (set-face 'message-mml                                 'face-popout)
-;;   (set-face 'message-separator                           'face-faded))
-
-;; ;; Outline
-(eval-after-load 'org-mode ( progn
-  (set-face-attribute 'org-level-1 nil :weight 'regular)
-  (set-face-attribute 'org-level-2 nil :weight 'regular)
-  (set-face-attribute 'org-level-3 nil :weight 'regular)
-  (set-face-attribute 'org-level-4 nil :weight 'regular)
-  (set-face-attribute 'org-level-5 nil :weight 'regular)
-  (set-face-attribute 'org-level-6 nil :weight 'regular)
-  (set-face-attribute 'org-level-7 nil :weight 'regular)
-  (set-face-attribute 'org-level-8 nil :weight 'regular)
-;;   (set-face 'outline-2                                   'face-strong)
-;;   (set-face 'outline-3                                   'face-strong)
-;;   (set-face 'outline-4                                   'face-strong)
-;;   (set-face 'outline-5                                   'face-strong)
-;;   (set-face 'outline-6                                   'face-strong)
-;;   (set-face 'outline-7                                   'face-strong)
-;;   (set-face 'outline-8                                  'face-strong)
-  )
-)
-;; ;; Interface
-;; (with-eval-after-load 'cus-edit
-;;   (set-face 'widget-field                                'face-subtle)
-;;   (set-face 'widget-button                               'face-strong)
-;;   (set-face 'widget-single-line-field                    'face-subtle)
-;;   (set-face 'custom-group-subtitle                       'face-strong)
-;;   (set-face 'custom-group-tag                            'face-strong)
-;;   (set-face 'custom-group-tag-1                          'face-strong)
-;;   (set-face 'custom-comment                               'face-faded)
-;;   (set-face 'custom-comment-tag                           'face-faded)
-;;   (set-face 'custom-changed                             'face-salient)
-;;   (set-face 'custom-modified                            'face-salient)
-;;   (set-face 'custom-face-tag                             'face-strong)
-;;   (set-face 'custom-variable-tag                             'default)
-;;   (set-face 'custom-invalid                              'face-popout)
-;;   (set-face 'custom-visibility                          'face-salient)
-;;   (set-face 'custom-state                               'face-salient)
-;;   (set-face 'custom-link                               'face-salient))
-
-;; ;; Package
-;; (with-eval-after-load 'package
-;;   (set-face 'package-description                             'default)
-;;   (set-face 'package-help-section-name                       'default)
-;;   (set-face 'package-name                               'face-salient)
-;;   (set-face 'package-status-avail-obso                    'face-faded)
-;;   (set-face 'package-status-available                        'default)
-;;   (set-face 'package-status-built-in                    'face-salient)
-;;   (set-face 'package-status-dependency                  'face-salient)
-;;   (set-face 'package-status-disabled                      'face-faded)
-;;   (set-face 'package-status-external                         'default)
-;;   (set-face 'package-status-held                             'default)
-;;   (set-face 'package-status-incompat                      'face-faded)
-;;   (set-face 'package-status-installed                   'face-salient)
-;;   (set-face 'package-status-new                              'default)
-;;   (set-face 'package-status-unsigned                         'default)
-
-;;   ;; Button face is hardcoded, we have to redefine the relevant
-;;   ;; function
-;;   (defun package-make-button (text &rest properties)
-;;     "Insert button labeled TEXT with button PROPERTIES at point.
-;; PROPERTIES are passed to `insert-text-button', for which this
-;; function is a convenience wrapper used by `describe-package-1'."
-;;     (let ((button-text (if (display-graphic-p)
-;;                            text (concat "[" text "]")))
-;;           (button-face (if (display-graphic-p)
-;;                            '(:box `(:line-width 1
-;;                              :color "#999999":style nil)
-;;                             :foreground "#999999"
-;;                             :background "#F0F0F0")
-;;                          'link)))
-;;       (apply #'insert-text-button button-text
-;;              'face button-face 'follow-link t properties)))
-;;   )
-
-;; ;; Ido
-;; (with-eval-after-load 'ido
-;;   (set-face 'ido-first-match                            'face-salient)
-;;   (set-face 'ido-only-match                               'face-faded)
-;;   (set-face 'ido-subdir                                 'face-strong))
-
-;; ;; Diff
-;; (with-eval-after-load 'diff-mode
-;;   (set-face 'diff-header                                  'face-faded)
-;;   (set-face 'diff-file-header                            'face-strong)
-;;   (set-face 'diff-context                                    'default)
-;;   (set-face 'diff-removed                                 'face-faded)
-;;   (set-face 'diff-changed                                'face-popout)
-;;   (set-face 'diff-added                                 'face-salient)
-;;   (set-face 'diff-refine-added            '(face-salient face-strong))
-;;   (set-face 'diff-refine-changed                         'face-popout)
-;;   (set-face 'diff-refine-removed                          'face-faded)
-;;   (set-face-attribute     'diff-refine-removed nil :strike-through t))
-
-;; ;; Term
-;; (with-eval-after-load 'term
-;;   ;; (setq eterm-256color-disable-bold nil)
-;;   (set-face 'term-bold                                   'face-strong)
-;;   (set-face-attribute 'term-color-black nil
-;;                                 :foreground (face-foreground 'default)
-;;                                :background (face-foreground 'default))
-;;   (set-face-attribute 'term-color-white nil
-;;                               :foreground "white" :background "white")
-;;   (set-face-attribute 'term-color-blue nil
-;;                           :foreground "#42A5F5" :background "#BBDEFB")
-;;   (set-face-attribute 'term-color-cyan nil
-;;                           :foreground "#26C6DA" :background "#B2EBF2")
-;;   (set-face-attribute 'term-color-green nil
-;;                           :foreground "#66BB6A" :background "#C8E6C9")
-;;   (set-face-attribute 'term-color-magenta nil
-;;                           :foreground "#AB47BC" :background "#E1BEE7")
-;;   (set-face-attribute 'term-color-red nil
-;;                           :foreground "#EF5350" :background "#FFCDD2")
-;;   (set-face-attribute 'term-color-yellow nil
-;;                          :foreground "#FFEE58" :background "#FFF9C4"))
-
-;; ;; org-agende
-;; ;; (with-eval-after-load 'org-agenda
-;; ;;   (set-face 'org-agenda-calendar-event                    'default)
-;; ;;   (set-face 'org-agenda-calendar-sexp                     'face-faded)
-;; ;;   (set-face 'org-agenda-clocking                          'face-faded)
-;; ;;   (set-face 'org-agenda-column-dateline                   'face-faded)
-;; ;;   (set-face 'org-agenda-current-time                      'face-faded)
-;; ;;   (set-face 'org-agenda-date                            'face-salient)
-;; ;;   (set-face 'org-agenda-date-today        '(face-salient face-strong))
-;; ;;   (set-face 'org-agenda-date-weekend                      'face-faded)
-;; ;;   (set-face 'org-agenda-diary                             'face-faded)
-;; ;;   (set-face 'org-agenda-dimmed-todo-face                  'face-faded)
-;; ;;   (set-face 'org-agenda-done                              'face-faded)
-;; ;;   (set-face 'org-agenda-filter-category                   'face-faded)
-;; ;;   (set-face 'org-agenda-filter-effort                     'face-faded)
-;; ;;   (set-face 'org-agenda-filter-regexp                     'face-faded)
-;; ;;   (set-face 'org-agenda-filter-tags                       'face-faded)
-;; ;;   (set-face 'org-agenda-property-face                     'face-faded)
-;; ;;   (set-face 'org-agenda-restriction-lock                  'face-faded)
-;; ;;   (set-face 'org-agenda-structure                        'face-faded))
-
-;; ;; org mode
-;; ;;
-;; (after! org
-;;   ;; (with-eval-after-load 'org
-
-
-  (set-face 'org-archived                                 'face-faded)
-  (set-face 'org-block                                    'face-faded)
-  (set-face 'org-block-begin-line                         'face-faded)
-  (set-face 'org-block-end-line                           'face-faded)
-  (set-face 'org-checkbox                                 'face-faded)
-  (set-face 'org-checkbox-statistics-done                 'face-faded)
-  (set-face 'org-checkbox-statistics-todo                 'face-faded)
-  (set-face 'org-clock-overlay                            'face-faded)
-  (set-face 'org-code                                     'face-faded)
-  (set-face 'org-column                                   'face-faded)
-  (set-face 'org-column-title                             'face-faded)
-  (set-face 'org-date                                     'face-faded)
-  (set-face 'org-date-selected                            'face-faded)
-  (set-face 'org-default                                  'face-faded)
-  (set-face 'org-document-info                            'face-faded)
-  (set-face 'org-document-info-keyword                    'face-faded)
-  (set-face 'org-document-title                           'face-faded)
-  (set-face 'org-done                                        'default)
-  (set-face 'org-drawer                                   'face-faded)
-  (set-face 'org-ellipsis                                 'face-faded)
-  (set-face 'org-footnote                                 'face-faded)
-  (set-face 'org-formula                                  'face-faded)
-  (set-face 'org-headline-done                            'face-faded)
-;;  (set-face 'org-hide                                     'face-faded)
-;;  (set-face 'org-indent                                   'face-faded)
-  (set-face 'org-latex-and-related                        'face-faded)
-  (set-face 'org-link                                   'face-salient)
-  (set-face 'org-list-dt                                  'face-faded)
-  (set-face 'org-macro                                    'face-faded)
-  (set-face 'org-meta-line                                'face-faded)
-  (set-face 'org-mode-line-clock                          'face-faded)
-  (set-face 'org-mode-line-clock-overrun                  'face-faded)
-  (set-face 'org-priority                                 'face-faded)
-  (set-face 'org-property-value                           'face-faded)
-  (set-face 'org-quote                                    'face-faded)
-  (set-face 'org-scheduled                                'face-faded)
-  (set-face 'org-scheduled-previously                     'face-faded)
-  (set-face 'org-scheduled-today                          'face-faded)
-  (set-face 'org-sexp-date                                'face-faded)
-  (set-face 'org-special-keyword                          'face-faded)
-  (set-face 'org-table                                    'face-faded)
-  (set-face 'org-tag                                      'face-faded)
-  (set-face 'org-tag-group                                'face-faded)
-  (set-face 'org-target                                   'face-faded)
-  (set-face 'org-time-grid                                'face-faded)
-  (set-face 'org-todo                                    'face-popout)
-  (set-face 'org-upcoming-deadline                        'face-faded)
-  (set-face 'org-verbatim                                 'face-faded)
-  (set-face 'org-verse                                    'face-faded)
-  (set-face 'org-warning                                'face-popout)
-;;   )
-
-;; ;; Mu4e
-;; (with-eval-after-load 'mu4e
-;;   (set-face 'mu4e-attach-number-face                     'face-strong)
-;;   (set-face 'mu4e-cited-1-face                            'face-faded)
-;;   (set-face 'mu4e-cited-2-face                            'face-faded)
-;;   (set-face 'mu4e-cited-3-face                            'face-faded)
-;;   (set-face 'mu4e-cited-4-face                            'face-faded)
-;;   (set-face 'mu4e-cited-5-face                            'face-faded)
-;;   (set-face 'mu4e-cited-6-face                            'face-faded)
-;;   (set-face 'mu4e-cited-7-face                            'face-faded)
-;;   (set-face 'mu4e-compose-header-face                     'face-faded)
-;;   (set-face 'mu4e-compose-separator-face                  'face-faded)
-;;   (set-face 'mu4e-contact-face                          'face-salient)
-;;   (set-face 'mu4e-context-face                            'face-faded)
-;;   (set-face 'mu4e-draft-face                              'face-faded)
-;;   (set-face 'mu4e-flagged-face                            'face-faded)
-;;   (set-face 'mu4e-footer-face                             'face-faded)
-;;   (set-face 'mu4e-forwarded-face                          'face-faded)
-;;   (set-face 'mu4e-header-face                                'default)
-;;   (set-face 'mu4e-header-highlight-face                  'face-subtle)
-;;   (set-face 'mu4e-header-key-face                        'face-strong)
-;;   (set-face 'mu4e-header-marks-face                       'face-faded)
-;;   (set-face 'mu4e-header-title-face                      'face-strong)
-;;   (set-face 'mu4e-header-value-face                          'default)
-;;   (set-face 'mu4e-highlight-face                         'face-popout)
-;;   (set-face 'mu4e-link-face                             'face-salient)
-;;   (set-face 'mu4e-modeline-face                           'face-faded)
-;;   (set-face 'mu4e-moved-face                              'face-faded)
-;;   (set-face 'mu4e-ok-face                                 'face-faded)
-;;   (set-face 'mu4e-region-code                             'face-faded)
-;;   (set-face 'mu4e-replied-face                          'face-salient)
-;;   (set-face 'mu4e-special-header-value-face                  'default)
-;;   (set-face 'mu4e-system-face                             'face-faded)
-;;   (set-face 'mu4e-title-face                             'face-strong)
-;;   (set-face 'mu4e-trashed-face                            'face-faded)
-;;   (set-face 'mu4e-unread-face                            'face-strong)
-;;   (set-face 'mu4e-url-number-face                         'face-faded)
-;;   (set-face 'mu4e-view-body-face                             'default)
-;;   (set-face 'mu4e-warning-face                            'face-faded))

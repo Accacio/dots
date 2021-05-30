@@ -29,3 +29,11 @@ port           587
 from           rafael-accacio.nogueira@centralesupelec.fr
 user           nogueirar
 passwordeval   "pass Email/centralesupelec"
+
+# CentraleSupelec office 265
+account        supelec-office
+host           smtp.office365.com
+port           587
+from           rafael-accacio.nogueira@centralesupelec.fr
+user           rafael-accacio.nogueira@centralesupelec.fr
+passwordeval   "pass Email/centralesupelec"

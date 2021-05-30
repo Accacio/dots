@@ -12,8 +12,8 @@ then
         # echo $i
         mkdir -p "$(echo $i | cut -d" " -f 2- | sed "s/\"\~\(.*\)\"/\1/")"
         cd "$(echo $i | cut -d" " -f 2- | sed "s/\"\~\(.*\)\"/\1/")"
-        curl -s $(echo $i | cut -d" " -f 1) | grep "<media:thumbnail" | sed "s|.*url=\"\(.*\)\"\ w.*|\1|" | sed 6q | tee figsUrls | sed "s|.*vi/\(.*\)/.*|\1|" > figsFilenames
-        curl -s $(echo $i | cut -d" " -f 1) | grep media:title | sed "s| <media:title>\(.*\)</media:title>|\1|" | sed 6q > figsTitles
+        curl -s $(echo $i | cut -d" " -f 1) | grep "<media:thumbnail" | sed "s|.*url=\"\(.*\)\"\ w.*|\1|" | tee figsUrls | sed "s|.*vi/\(.*\)/.*|\1|" > figsFilenames
+        curl -s $(echo $i | cut -d" " -f 1) | grep media:title | sed "s| <media:title>\(.*\)</media:title>|\1|"  > figsTitles
         files=(`cat figsFilenames`)
         urls=(`cat figsUrls`)
         titles=()
@@ -68,7 +68,7 @@ curl -s $1 | grep "<media:thumbnail" | sed "s|.*url=\"\(.*\)\"\ w.*|\1|" | tee f
 curl -s $1 | grep media:title | sed "s| <media:title>\(.*\)</media:title>|\1|" > figsTitles
 
 
-curl -s https://www.youtube.com/feeds/videos.xml\?channel_id\=UCtrjFP7i92_30uv6IehwE5Q | grep -e media:title -e media:thumbnail 
+# curl -s https://www.youtube.com/feeds/videos.xml\?channel_id\=UCtrjFP7i92_30uv6IehwE5Q | grep -e media:title -e media:thumbnail
 
 
 

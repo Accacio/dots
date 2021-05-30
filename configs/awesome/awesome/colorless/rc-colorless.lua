@@ -282,6 +282,8 @@ signals:init({ env = env })
 
 awful.spawn("compton")
 awful.spawn("nm-applet")
+awful.util.spawn_with_shell("$HOME/Downloads/davmail/davmail $HOME/Downloads/davmail/davmail.properties")
+
 awful.util.spawn_with_shell('test "$(pgrep pasystray)" = "" &&  pasystray')
 -- Keyboard settings
 -- awful.spawn("setxkbmap -option caps:escape")
@@ -296,7 +298,9 @@ awful.spawn("xinput set-prop 'DELL0820:00 044E:121F Touchpad' 'libinput Tapping 
 
 -- wacom
 awful.spawn("xinput set-prop 'ELAN Touchscreen' 'Device Enabled' 0")
-awful.spawn("xinput set-prop 'Wacom Intuos PT S 2 Finger touch' 'Wacom Touch Gesture Parameters' 1, 10, 10")
+awful.spawn("xinput set-prop 'Wacom Intuos PT S 2 Finger touch' 'Wacom Touch Gesture Parameters' 66, 29, 250")
+awful.spawn("xsetwacom set 'Wacom Intuos PT S 2 Finger touch' ScrollDistance 5")
+awful.spawn("xsetwacom set 'Wacom Intuos PT S 2 Finger touch' ZoomDistance 5")
 awful.spawn("xsetwacom set 'Wacom Intuos PT S 2 Pad pad' Button 3 22")
 awful.spawn("xsetwacom set 'Wacom Intuos PT S 2 Pad pad' Button 1 23")
 awful.spawn("xsetwacom set 'Wacom Intuos PT S 2 Pad pad' Button 9 4")

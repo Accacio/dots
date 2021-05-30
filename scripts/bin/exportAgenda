@@ -1,5 +1,6 @@
 #!/bin/bash
 export DISPLAY=$(who | grep $(whoami) | sed "s,.*(\(.*\)).*,\1,g" | cut -d" " -f 2)
+export XDG_RUNTIME_DIR='/run/user/1000'
 # emacs -Q \
 #     --eval="(add-to-list 'load-path \"~/.emacs.d/.local/straight/repos/emacs-doom-themes/\")" \
 #     --eval="(load-file \"~/.emacs.d/.local/straight/repos/emacs-doom-themes/themes/doom-one-theme.el\")" \
@@ -14,4 +15,11 @@ export DISPLAY=$(who | grep $(whoami) | sed "s,.*(\(.*\)).*,\1,g" | cut -d" " -f
 #     --eval="(setq org-agenda-custom-commands '((\"n\" \"Agenda and all TODOs\" ((agenda \"\") (alltodo "")) nil (\"~/org/private/agenda.html\"))))" \
 #     --eval="(org-agenda nil \"n\")" \
 #     --eval="(org-agenda nil \"e\")" --kill
-emacsclient -e '(org-agenda nil "e")' -s $HOME/.emacs.d/server/server
+# emacsclient -e '(org-agenda nil "e")' -s $HOME/.emacs.d/server/server
+# emacsclient -e '(org-agenda nil "e")'
+emacsclient -e '(org-agenda nil "e")'
+emacsclient -e ' (let ((new-buffer-name (find-buffer-visiting  "~/org/private/gcal-orgmode.org") ))
+  (set-buffer new-buffer-name )
+  (set-visited-file-name "~/org/private/gcal-orgmode.org")
+  (org-icalendar-export-to-ics )
+  )'

@@ -40,7 +40,7 @@ password.fetch = ["command", "pass", "Email/centralesupelec"]
 [pair gmail]
 a = "gmail_local"
 b = "gmail_remote"
-collections = ["from a","from b"]
+collections = ["from a","eveliseantunes@gmail.com", "raccacio2@gmail.com", "c5i68sj5edpm4rrfdchm6rreehgm6t3j81jn4rrle0n7cbj3c5m6arj4c5p2sprfdtjmop9ecdnmq@virtual", "tvetli47mccf9m0ueq11prc2bo@group.calendar.google.com"]
 conflict_resolution = "b wins"
 metadata = ["color"]
 
@@ -50,6 +50,24 @@ path = "~/.calendar/gmail/"
 fileext= ".ics"
 
 [storage gmail_remote]
+type = "google_calendar"
+token_file = "~/.config/vdirsyncer/google_token"
+client_id = "998718790900-83pekdvg3h198chhn46n7dsdqdb44cgv.apps.googleusercontent.com"
+client_secret = "CLIENT_SECRET"
+
+[pair gmail_org]
+a = "gmail_org_local"
+b = "gmail_org_remote"
+# collections = ["from a","from b"]
+collections = ["from a","74p183fjkrull2h8kl52q1ltq4@group.calendar.google.com"]
+conflict_resolution = "a wins"
+metadata = ["color"]
+
+[storage gmail_org_local]
+type = "singlefile"
+path = "~/.calendar/gmail/%s.ics"
+
+[storage gmail_org_remote]
 type = "google_calendar"
 token_file = "~/.config/vdirsyncer/google_token"
 client_id = "998718790900-83pekdvg3h198chhn46n7dsdqdb44cgv.apps.googleusercontent.com"
@@ -72,3 +90,23 @@ type = "google_calendar"
 token_file = "~/.config/vdirsyncer/poli_token"
 client_id = "998718790900-83pekdvg3h198chhn46n7dsdqdb44cgv.apps.googleusercontent.com"
 client_secret = "CLIENT_SECRET"
+
+
+[pair supelecOffice]
+a = "supelecOffice_local"
+b = "supelecOffice_remote"
+collections = ["from a","from b"]
+conflict_resolution = "b wins"
+metadata = ["color"]
+
+[storage supelecOffice_local]
+type = "filesystem"
+path = "~/.calendar/supelec-office"
+fileext= ".ics"
+
+[storage supelecOffice_remote]
+type = "caldav"
+url = "http://localhost:1080/users/rafael-accacio.nogueira@centralesupelec.fr/calendar/"
+username = "rafael-accacio.nogueira@centralesupelec.fr"
+password.fetch = ["command", "pass", "Email/centralesupelec"]
+# install davmail from  https://sourceforge.net/projects/davmail/

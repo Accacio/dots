@@ -23,8 +23,10 @@ set include			# include message in replies
 set mail_check=60 # to avoid lags using IMAP with some email providers (yahoo for example)
 auto_view text/html		# automatically show html (mailcap uses w3m)
 auto_view application/pdf		# automatically show html (mailcap uses w3m)
+auto_view text/calendar     # automatically show html (mailcap uses w3m)
 auto_view application/pgp-encrypted
-alternative_order text/plain text/enriched text/html
+auto_view application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+alternative_order text/plain text/enriched text/html text/*
 bind index,pager i noop
 bind index,pager g noop
 bind index \Cf noop
@@ -33,6 +35,7 @@ bind index \Cf noop
 bind index j next-entry
 bind index k previous-entry
 bind attach <return> view-mailcap
+macro attach c "|$HOME/.local/bin/khal import<enter>"
 bind attach l view-mailcap
 bind editor <space> noop
 bind index G last-entry
@@ -164,3 +167,5 @@ source ~/.config/mutt/account.supelec
 macro index <f2> '<enter-command>unmailboxes *<enter><enter-command>source ~/.config/mutt/account.poli<enter><change-folder>!<enter>'
 macro index <f3> '<enter-command>unmailboxes *<enter><enter-command>source ~/.config/mutt/account.gmail<enter><change-folder>!<enter>'
 macro index <f4> '<enter-command>unmailboxes *<enter><enter-command>source ~/.config/mutt/account.supelec<enter><change-folder>!<enter>'
+
+# macro index <f5> '<enter-command>unmailboxes *<enter><enter-command>source ~/.config/mutt/account.supelec-office<enter><change-folder>!<enter>'

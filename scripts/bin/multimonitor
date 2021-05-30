@@ -89,7 +89,12 @@ case $mode in
     esac
     ;;
     wacom)
+    monitors=(${monitors[@]} "All")
     Monitor=$( printf '%s\n' "${monitors[@]}"|sed 's/^ //'|dmenu -i  -p "Monitor" |sed "s|[0-9]-||" )
+    if [ $Monitor == "All" ]; then
+        xsetwacom set "Wacom Intuos PT S 2 Pen stylus" MapToOutput $(xrandr | sed 1q | sed "s, x ,x,g;s/,//g" | cut -d" " -f 6)+0+0
+        exit
+    fi
     res=$(xrandr | grep ^$Monitor | sed "s,.* \([0-9]*x[0-9]*+[0-9]*+[0-9]*\).*,\1,")
     modes=('right' '➲right' 'left' '➲left' 'total' 'calibrate')
     mode=$( printf '%s\n' "${modes[@]}"|sed 's/^ //'|dmenu -i  -p "Monitor" |sed "s|[0-9]-||" )

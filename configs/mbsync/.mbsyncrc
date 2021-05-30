@@ -74,3 +74,29 @@ Patterns "INBOX" "Junk" "INBOX/Sent" "INBOX/Drafts" "INBOX/Trash"
 Create Both
 SyncState *
 Sync All
+
+# Supelec Office
+IMAPAccount supelec-office
+Host outlook.office365.com
+User rafael-accacio.nogueira@centralesupelec.fr
+PassCmd "pass Email/centralesupelec"
+SSLType IMAPS
+# openssl s_client -connect some.imap.server:port -showcerts 2>&1 < /dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sed -ne '1,/-END CERTIFICATE-/p' > ~/.cert/some.imap.server.pem
+# CertificateFile /etc/ssl/certs/ca-certificates.crt
+# CertificateFile ~/.cert/imap.outlook.fr.pem
+
+IMAPStore supelec-office-remote
+Account supelec-office
+
+MaildirStore supelec-office-local
+Path ~/.local/mail/messages/supelec-office/
+Inbox ~/.local/mail/messages/supelec-office/Inbox
+SubFolders Legacy
+
+Channel supelec-office
+Master :supelec-office-remote:
+Slave :supelec-office-local:
+Patterns "INBOX" "INBOX/Sent" "INBOX/Drafts" "INBOX/Trash"
+Create Both
+SyncState *
+Sync All

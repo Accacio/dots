@@ -19,9 +19,11 @@ then
 fi
 echo "\documentclass[border=0.05cm,convert={density=1200}]{standalone}\
 \usepackage{xcolor}\
+\usepackage{amssymb}\
+\usepackage{amsmath}\
 \begin{document}\
 \color{${color}}
-$ ${Text} $\
+ ${Text} \
 \end{document}" > $temp.tex
 cat /tmp/$temp.tex
 pdflatex -shell-escape -output-directory /tmp $temp.tex >> /dev/null
