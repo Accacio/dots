@@ -612,11 +612,44 @@ inlinetask within the section."
                        ("https://xkcd.com/rss.xml" comics)
                        ))
 
+
+
+(defun elfeed-search-tag-all (&rest tags)
+  "Apply TAG to all selected entries."
+  (interactive (list (intern (read-from-minibuffer "Tag: "))))
+  (let ((entries (elfeed-search-selected)))
+    (cl-loop for tag in tags do (elfeed-tag entries tag))
+    (mapc #'elfeed-search-update-entry entries)
+    (unless (or elfeed-search-remain-on-entry (use-region-p))
+      (forward-line))))
+
+(defun elfeed-search-untag-all (&rest tags)
+  "Remove TAG from all selected entries."
+  (interactive (list (intern (read-from-minibuffer "Tag: "))))
+  (let ((entries (elfeed-search-selected)))
+    (cl-loop for value in tags do (elfeed-untag entries value))
+    (mapc #'elfeed-search-update-entry entries)
+    (unless (or elfeed-search-remain-on-entry (use-region-p))
+      (forward-line))))
+
+(defun elfeed-search-toggle-all ( &rest tags)
+  "Toggle TAG on all selected entries."
+  (interactive (list (intern (read-from-minibuffer "Tag: "))))
+  (let ((entries (elfeed-search-selected)) entries-tag entries-untag)
+    (cl-loop for tag in tags do
+      (cl-loop for entry in entries
+             when (elfeed-tagged-p tag entry)
+             do (elfeed-untag-1 entry tag)
+             else do (elfeed-tag-1 entry tag)))
+    (mapc #'elfeed-search-update-entry entries)
+    (unless (or elfeed-search-remain-on-entry (use-region-p))
+      (forward-line))))
+
 (evil-define-key 'normal elfeed-search-mode-map "i" (lambda () (interactive)(elfeed-search-toggle-all 'important 'readlater)))
 (evil-define-key 'visual elfeed-search-mode-map "i" (lambda () (interactive)(elfeed-search-toggle-all 'important 'readlater)))
-(evil-define-key 'normal elfeed-search-mode-map "t" (elfeed-tag-selection-as 'readlater))
-(evil-define-key 'visual elfeed-search-mode-map "t" (elfeed-tag-selection-as 'readlater))
-(evil-define-key 'visual elfeed-search-mode-map "i" (elfeed-tag-selection-as 'important))
+(evil-define-key 'normal elfeed-search-mode-map "t" (lambda () (interactive)(elfeed-search-toggle-all 'readlater)))
+(evil-define-key 'visual elfeed-search-mode-map "t" (lambda () (interactive)(elfeed-search-toggle-all 'readlater)))
+(evil-define-key 'visual elfeed-search-mode-map "i" (lambda () (interactive)(elfeed-search-toggle-all 'important )))
 
 (evil-define-key 'normal elfeed-show-mode-map "U" 'elfeed-show-tag--unread)
 (evil-define-key 'normal elfeed-show-mode-map "t" (elfeed-expose #'elfeed-show-tag 'readlater))
