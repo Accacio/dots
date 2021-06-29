@@ -2,7 +2,8 @@
 
 set mailcap_path = ~/.config/mutt/mailcap
 set date_format="%y/%m/%d %I:%M%p"
-set index_format="%2C %Z %?X?A& ? %D %-15.15F %s (%-4.4c)"
+#set index_format="%4C (%1c) %Z %?X?A& ? %D %-15.15F %s (%-4.4c)"
+set index_format="%4C (%4c) %Z %?GI?%GI& ? %D  %-20.19F %?K?%15.14K&               ? %?M?(%3M)&     ? %?X?¤& ? %s %> %?g?%g?"
 set sort = threads
 set sort_aux = reverse-last-date-received
 set smtp_authenticators = 'gssapi:login'
