@@ -599,7 +599,8 @@ inlinetask within the section."
                        ("https://ieeexplore.ieee.org/rss/TOC9.XML" TOAC control) ;; IEEE Transaction on Automatic Control
                        ("https://onlinelibrary.wiley.com/feed/19346093/most-recent" AJC control) ;; Wiley Asian Journal of Control
                        ("https://ietresearch.onlinelibrary.wiley.com/feed/17518652/most-recent" IETCT&A control) ;; The Institution of Engineering and Techonology Control Theory & Applications
-                       ("https://www.tandfonline.com/feed/rss/tcon20" T&FJOC control) ;; Taylor and Francis International Journal of Control
+                       ("https://www.tandfonline.com/feed/rss/tcon20" T&FIJOC control) ;; Taylor and Francis International Journal of Control
+                       ("https://www.tandfonline.com/feed/rss/tjcd20" T&FJOCD control) ;; Taylor and Francis Journal of Control and Decision
                        ("http://rss.sciencedirect.com/publication/science/09473580" EJC control) ;; ScienceDirect Publication: European Journal of Control
                        ("http://rss.sciencedirect.com/publication/science/00051098" Automatica control) ;; ScienceDirect Publication: Automatica
                        ("http://rss.sciencedirect.com/publication/science/09670661" CEP control) ;; ScienceDirect Publication: Control Engineering Practice
