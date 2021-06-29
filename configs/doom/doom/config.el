@@ -758,7 +758,7 @@ inlinetask within the section."
   '(("r" "ref" plain #'org-roam-capture--get-point
      "%?"
      :file-name "${slug}"
-     :head "#+title: ${title}\n#+roam_key: ${ref}\n\n${ref}\n\n"
+     :head "#+title: ${title}\n#+roam_key: ${ref}\n\n${ref}\n\n${body}"
      :unnarrowed t)))
 
     (setq org-roam-dailies-capture-templates
