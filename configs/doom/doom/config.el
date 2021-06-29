@@ -672,7 +672,7 @@ inlinetask within the section."
                (elfeed-search-untag-all 'readlater 'unread)
   (cl-loop for entry in entries
            when (elfeed-entry-link entry)
-           do (progn (setq links (concat links (concat "- [ ] " (if (elfeed-tagged-p 'important entry) " * " "") (org-make-link-string  (concat "https://ezproxy.universite-paris-saclay.fr/login?url=" (elfeed-entry-link entry)) (elfeed-entry-title entry)) "\n" )))
+           do (progn (setq links (concat links (concat "- [ ] " (if (elfeed-tagged-p 'important entry) "* " "") (org-make-link-string  (concat "https://ezproxy.universite-paris-saclay.fr/login?url=" (elfeed-entry-link entry)) (elfeed-entry-title entry)) "\n" )))
                )
            )
   (kill-new links)
