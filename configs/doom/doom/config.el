@@ -744,12 +744,15 @@ inlinetask within the section."
 
 ** CATALOG
 
-*** Motivation :springGreen:
-*** Model :lightSkyblue:
+*** Motivation
+ # springGreen
+*** Model
+ # lightSkyblue
 *** Remarks
 *** Applications
 *** Expressions
-*** References :violet:
+*** References
+ # violet
 
 ** NOTES
 "
