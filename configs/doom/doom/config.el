@@ -709,6 +709,37 @@ inlinetask within the section."
 (push '(important important-elfeed-entry) elfeed-search-face-alist)
 
 )
+(after! bibtex
+  (setq bibtex-autokey-year-length 4)
+  (setq bibtex-autokey-names 1)
+  (setq bibtex-autokey-names-stretch 1)
+  (setq bibtex-autokey-additional-names "EtAl")
+  (setq bibtex-autokey-name-case-convert-function 'capitalize)
+  (setq bibtex-maintain-sorted-entries 'entry-class)
+  (setq bibtex-autokey-before-presentation-function 'my-bibtex-autokey-unique)
+  (defun bibtex-generate-autokey ()
+    (let* ((names (bibtex-autokey-get-names))
+           (year (bibtex-autokey-get-year))
+           (title (bibtex-autokey-get-title))
+           (autokey (concat
+                     names
+                     ;; (unless (or (equal names "")
+                     ;;             (equal title ""))
+                     ;;   "_") ;; string to separate names from title
+                     ;; title
+                     ;; (unless (or (and (equal names "")
+                     ;;                  (equal title ""))
+                     ;;             (equal year ""))
+                     ;;   bibtex-autokey-year-title-separator)
+                     year
+                     bibtex-autokey-prefix-string ;; optional prefix string
+                     )))
+      (if bibtex-autokey-before-presentation-function
+          (funcall bibtex-autokey-before-presentation-function autokey)
+        autokey)))
+  )
+
+
 ;; Roam
 (after! org-roam
 
