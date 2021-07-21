@@ -1,3 +1,9 @@
 #!/bin/bash
+trap ctrl_c INT
+
+function ctrl_c(){
+    exit
+}
+
 [ "$1" != "" ] && cd $1
-while true; do nc -l -p 8080 -e "./httpbash"; done
+while true; do nc -l -p 8080 -e "httpbash"; done
