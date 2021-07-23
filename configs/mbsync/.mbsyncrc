@@ -2,7 +2,7 @@
 IMAPAccount gmail
 Host imap.gmail.com
 User raccacio2@gmail.com
-PassCmd "pass Email/gmail"
+PassCmd "pass Email/gmail-mbsync"
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
