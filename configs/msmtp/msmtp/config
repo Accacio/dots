@@ -11,7 +11,7 @@ host           smtp.gmail.com
 port           587
 from           raccacio2@gmail.com
 user           raccacio2@gmail.com
-passwordeval   "pass Email/gmail"
+passwordeval   "pass Email/gmail-mbsync"
 
 # Poli
 account        poli
