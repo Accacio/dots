@@ -3,7 +3,7 @@ pclip=$(xclip -o)
 notify-send "$pclip to qr"
 echo "$pclip"
 temp=$(mktemp)
-qrencode $pclip -o $temp
+qrencode "$pclip" -o $temp
 sxiv -f $temp
 
 rm $temp
