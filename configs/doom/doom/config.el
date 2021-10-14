@@ -713,6 +713,20 @@ inlinetask within the section."
 
 )
 (after! bibtex
+
+(defun my-bibtex-autokey-unique (key)
+  "Make a unique version of KEY."
+  (save-excursion
+    (let ((org-ref-bibliography-files (org-ref-find-bibliography))
+          (trykey key)
+	  (next ?a))
+      (while (and
+              (org-ref-key-in-file-p trykey (car org-ref-bibliography-files))
+		  (<= next ?z))
+	(setq trykey (concat key (char-to-string next)))
+	(setq next (1+ next)))
+      trykey)))
+
   (setq bibtex-autokey-year-length 4)
   (setq bibtex-autokey-names 1)
   (setq bibtex-autokey-names-stretch 1)
