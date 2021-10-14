@@ -584,35 +584,37 @@ inlinetask within the section."
   (map! :map doom-leader-map "n R" 'elfeed)
 (after! elfeed
 
-  (setq elfeed-feeds '(
-                       ;;reddit HN etc
-                       ("https://www.reddit.com/r/controlengineering.rss" control)
-                       ("https://news.ycombinator.com/rss" hacker)
-                       ;; blogs
-                       ("https://www.sthu.org/blog/atom.xml" blogs)
-                       ("https://ciechanow.ski/atom.xml" blogs)
-                       ("https://lepisma.xyz/journal/atom.xml" blogs)
-                       ("https://blog.demofox.org/feed/" blogs)
-                       ;; control journals
-                       ("http://rss.sciencedirect.com/publication/science/01676911" S&CL control) ;; ScienceDirect Publication: Systems & Control Letters
-                       ("https://www.aimsciences.org/rss/A0000-0000_current.xml" EE&CT control) ;; Evolution Equations & Control Theory
-                       ("https://ieeexplore.ieee.org/rss/TOC6509490.XML" TOCNS control) ;; IEEE Transaction on Control of Network Systems
-                       ("https://ieeexplore.ieee.org/rss/TOC9.XML" TOAC control) ;; IEEE Transaction on Automatic Control
-                       ("https://onlinelibrary.wiley.com/feed/19346093/most-recent" AJC control) ;; Wiley Asian Journal of Control
-                       ("https://ietresearch.onlinelibrary.wiley.com/feed/17518652/most-recent" IETCT&A control) ;; The Institution of Engineering and Techonology Control Theory & Applications
-                       ("https://www.tandfonline.com/feed/rss/tcon20" T&FIJOC control) ;; Taylor and Francis International Journal of Control
-                       ("https://www.tandfonline.com/feed/rss/tjcd20" T&FJOCD control) ;; Taylor and Francis Journal of Control and Decision
-                       ("http://rss.sciencedirect.com/publication/science/09473580" EJC control) ;; ScienceDirect Publication: European Journal of Control
-                       ("http://rss.sciencedirect.com/publication/science/00051098" Automatica control) ;; ScienceDirect Publication: Automatica
-                       ("http://rss.sciencedirect.com/publication/science/09670661" CEP control) ;; ScienceDirect Publication: Control Engineering Practice
-                       ("http://rss.sciencedirect.com/publication/science/09591524" JPC control) ;; ScienceDirect Publication: Journal of Process Control
-                       ("http://rss.sciencedirect.com/publication/science/00190578" ISATran control) ;; ScienceDirect Publication: ISA Transactions
-                       ("http://rss.sciencedirect.com/publication/science/1751570X" NAHS control) ;; ScienceDirect Publication: Nonlinear Analysis: Hybrid Systems
-                       ("http://rss.sciencedirect.com/publication/science/00160032" JFI control) ;; ScienceDirect Publication: Journal of the Franklin Institute
-                       ("https://onlinelibrary.wiley.com/feed/10991239/most-recent" IJRNC control ) ;; Wiley Internation Journal of Robust and Nonlinear Control
-                       ;; comics
-                       ("https://xkcd.com/rss.xml" comics)
-                       ))
+  ;; (setq elfeed-feeds '(
+  ;;                      ;;reddit HN etc
+  ;;                      ("https://www.reddit.com/r/controlengineering.rss" control)
+  ;;                      ("https://news.ycombinator.com/rss" hacker)
+  ;;                      ;; blogs
+  ;;                      ("https://www.sthu.org/blog/atom.xml" blogs)
+  ;;                      ("https://ciechanow.ski/atom.xml" blogs)
+  ;;                      ("https://lepisma.xyz/journal/atom.xml" blogs)
+  ;;                      ("https://blog.demofox.org/feed/" blogs)
+  ;;                      ;; control Jobs
+  ;;                      ("https://accacio.gitlab.io/feeds/statespacejobs.xml" control jobs)
+  ;;                      ;; control journals
+  ;;                      ("http://rss.sciencedirect.com/publication/science/01676911" S&CL control) ;; ScienceDirect Publication: Systems & Control Letters
+  ;;                      ("https://www.aimsciences.org/rss/A0000-0000_current.xml" EE&CT control) ;; Evolution Equations & Control Theory
+  ;;                      ("https://ieeexplore.ieee.org/rss/TOC6509490.XML" TOCNS control) ;; IEEE Transaction on Control of Network Systems
+  ;;                      ("https://ieeexplore.ieee.org/rss/TOC9.XML" TOAC control) ;; IEEE Transaction on Automatic Control
+  ;;                      ("https://onlinelibrary.wiley.com/feed/19346093/most-recent" AJC control) ;; Wiley Asian Journal of Control
+  ;;                      ("https://ietresearch.onlinelibrary.wiley.com/feed/17518652/most-recent" IETCT&A control) ;; The Institution of Engineering and Techonology Control Theory & Applications
+  ;;                      ("https://www.tandfonline.com/feed/rss/tcon20" T&FIJOC control) ;; Taylor and Francis International Journal of Control
+  ;;                      ("https://www.tandfonline.com/feed/rss/tjcd20" T&FJOCD control) ;; Taylor and Francis Journal of Control and Decision
+  ;;                      ("http://rss.sciencedirect.com/publication/science/09473580" EJC control) ;; ScienceDirect Publication: European Journal of Control
+  ;;                      ("http://rss.sciencedirect.com/publication/science/00051098" Automatica control) ;; ScienceDirect Publication: Automatica
+  ;;                      ("http://rss.sciencedirect.com/publication/science/09670661" CEP control) ;; ScienceDirect Publication: Control Engineering Practice
+  ;;                      ("http://rss.sciencedirect.com/publication/science/09591524" JPC control) ;; ScienceDirect Publication: Journal of Process Control
+  ;;                      ("http://rss.sciencedirect.com/publication/science/00190578" ISATran control) ;; ScienceDirect Publication: ISA Transactions
+  ;;                      ("http://rss.sciencedirect.com/publication/science/1751570X" NAHS control) ;; ScienceDirect Publication: Nonlinear Analysis: Hybrid Systems
+  ;;                      ("http://rss.sciencedirect.com/publication/science/00160032" JFI control) ;; ScienceDirect Publication: Journal of the Franklin Institute
+  ;;                      ("https://onlinelibrary.wiley.com/feed/10991239/most-recent" IJRNC control ) ;; Wiley Internation Journal of Robust and Nonlinear Control
+  ;;                      ;; comics
+  ;;                      ("https://xkcd.com/rss.xml" comics)
+  ;;                      ))
 
 
 
