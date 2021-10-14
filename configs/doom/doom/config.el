@@ -721,7 +721,7 @@ inlinetask within the section."
     ;; (unless elfeed-search-remain-on-entry (forward-line))
     (elfeed-show-entry entry)))
 
-(defun accacio/elfeed-show-copy-article ()
+(defun accacio/elfeed-search-copy-article ()
   (interactive)
   (let ( (entries (elfeed-search-selected)) (links ""))
                (elfeed-search-untag-all 'readlater 'unread)
