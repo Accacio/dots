@@ -9,11 +9,12 @@
       user-mail-address "raccacio@poli.ufrj.br")
 ;; (setq server-socket-dir "~/.emacs.d/server")
 
+(setq search-whitespace-regexp ".*?")
+(setq enable-local-variables t)
 (blink-cursor-mode -1)
 (show-smartparens-global-mode 1)
 (setq blink-cursor-interval .1)
 (setq blink-cursor-blinks 2)
-(tooltip-mode 1)
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
 ;;
