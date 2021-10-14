@@ -582,6 +582,7 @@ inlinetask within the section."
   )
 
   (map! :map doom-leader-map "n R" 'elfeed)
+(map! :map doom-leader-map "n R" 'elfeed)
 (after! elfeed
 
   ;; (setq elfeed-feeds '(
