@@ -741,7 +741,7 @@ inlinetask within the section."
 
 (setq-default elfeed-search-filter "@1-month-ago +unread -readlater")
 
-(elfeed-update)
+(add-hook! 'elfeed-search-mode-hook 'elfeed-update)
 (defface important-elfeed-entry
   '((t :foreground "#a00"))
   "Marks an control Elfeed entry.")
