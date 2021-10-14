@@ -618,17 +618,23 @@ inlinetask within the section."
   ;;                      ("https://xkcd.com/rss.xml" comics)
   ;;                      ))
 
+    (require 'org-ref-url-utils)
   (defun accacio/get-bibtex-from-rss ()
     (interactive)
     (let*
-        ((entries (elfeed-search-selected))
-        (links (mapcar #'elfeed-entry-link entries))
-        (links-str (mapconcat #'identity links " "))
-        (dois (org-ref-url-scrape-dois links-str))
+        ((entries (elfeed-search-selected)) link links-str dois
         )
-        (doi-utils-add-bibtex-entry-from-doi (car dois))
+      (cl-loop for entry in entries
+               when (elfeed-entry-link entry)
+               do (progn
+                    (setq link (elfeed-entry-link entry))
+                    (setq dois (org-ref-url-scrape-dois link))
+                    (message (car dois))
+                    (doi-utils-add-bibtex-entry-from-doi (car dois))
+                    )
+               )
       )
-    )
+  )
 
 (defun accacio/elfeed-search-print-entry (entry)
   "Print ENTRY to the buffer."
