@@ -148,7 +148,7 @@
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
        (org              ; organize your plain life in plain text
-        +roam
+        ;; +roam
         +present
         +pomodoro
         +pretty
@@ -181,7 +181,7 @@
        :app
        ;;calendar
        ;;irc               ; how neckbeards socialize
-       (rss )        ; emacs as an RSS reader
+       (rss +org)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
 
        :config
