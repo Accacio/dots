@@ -616,6 +616,17 @@ inlinetask within the section."
   ;;                      ("https://xkcd.com/rss.xml" comics)
   ;;                      ))
 
+  (defun accacio/get-bibtex-from-rss ()
+    (interactive)
+    (let*
+        ((entries (elfeed-search-selected))
+        (links (mapcar #'elfeed-entry-link entries))
+        (links-str (mapconcat #'identity links " "))
+        (dois (org-ref-url-scrape-dois links-str))
+        )
+        (doi-utils-add-bibtex-entry-from-doi (car dois))
+      )
+    )
 
 
 (defun elfeed-search-tag-all (&rest tags)
