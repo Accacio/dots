@@ -27,4 +27,4 @@ export LD_LIBRARY_PATH=/usr/local/cuda-9.2/lib64:$LD_LIBRARY_PATH
 
 # [ -f /home/fady/catkin_ws/devel/setup.bash ] && . /home/fady/catkin_ws/devel/setup.bash
 
-export LEDGER_FILE=~/org/ledger/main.ledger
+export LEDGER_FILE=~/Dropbox/org/ledger/main.ledger
