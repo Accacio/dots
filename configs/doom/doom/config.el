@@ -92,6 +92,16 @@
       (delete-region beg (point)))
     (buffer-string)))
 
+(defun org-babel-execute:glsl (body params)
+  "Execute a block of glsl fragment shader with org-babel."
+  (let ((in-file (org-babel-temp-file "shadertoy-")))
+    (with-temp-file in-file
+      (insert body))
+    (org-babel-eval
+     (concat "shadertoy"
+         " " (org-babel-process-file-name in-file)
+             ) "")
+    nil))
 
 ;; Org
 (setq org-directory "~/org/")
