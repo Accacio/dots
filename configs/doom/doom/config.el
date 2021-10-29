@@ -782,11 +782,12 @@ inlinetask within the section."
     (let ((org-ref-bibliography-files (org-ref-find-bibliography))
           (trykey key)
 	  (next ?a))
+      (if (org-ref-key-in-file-p trykey (car org-ref-bibliography-files))
       (while (and
               (org-ref-key-in-file-p trykey (car org-ref-bibliography-files))
 		  (<= next ?z))
 	(setq trykey (concat key (char-to-string next)))
-	(setq next (1+ next)))
+	(setq next (1+ next))))
       trykey)))
 
   (setq bibtex-autokey-year-length 4)
