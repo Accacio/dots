@@ -203,7 +203,7 @@
 
 ;; todos and others
 (after! hl-todo
-  (setq hl-todo-highlight-punctuation ":"
+  (setq hl-todo-highlight-punctuation "(?[A-z]*)?:*"
         hl-todo-keyword-faces
         `(;; For things that need to be done, just not today.
           ("TODO" warning bold)
