@@ -383,7 +383,7 @@ function hotkeys:init(args)
 			{ description = "ScreenShot Window save", group = "Screenshot" }
 		},
 		{
-			{ }, "XF86AudioMute", function() awful.spawn("amixer -D pulse sset Master toggle") end,
+			{ }, "XF86AudioMute", function() awful.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle") end,
 			{ description = "Mute", group = "Audio" }
 		},
 		{
@@ -449,11 +449,11 @@ function hotkeys:init(args)
 			{ description = "Monitors", group = "Audio" }
 		},
 		{
-			{ }, "XF86AudioLowerVolume", function() awful.spawn("amixer -D pulse sset Master 5%-") end,
+			{ }, "XF86AudioLowerVolume", function() awful.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%") end,
 			{ description = "Lower Volume", group = "Audio" }
 		},
 		{
-			{ }, "XF86AudioRaiseVolume", function() awful.spawn("amixer -D pulse sset Master 5%+") end,
+			{ }, "XF86AudioRaiseVolume", function() awful.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%") end,
 			{ description = "Raise Volume", group = "Audio" }
 		},
 		{
