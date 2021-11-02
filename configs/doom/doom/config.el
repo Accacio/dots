@@ -107,6 +107,7 @@
   "Search for a file in `~/dots'."
   (interactive)
   (doom-project-find-file "~/dots"))
+(map! :leader :prefix "f" "a" #'accacio/find-cfg-file)
 
 ;; Org
 (setq org-directory "~/org/")
