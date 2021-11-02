@@ -103,6 +103,11 @@
              ) "")
     nil))
 
+(defun accacio/find-cfg-file ()
+  "Search for a file in `~/dots'."
+  (interactive)
+  (doom-project-find-file "~/dots"))
+
 ;; Org
 (setq org-directory "~/org/")
 (after! org
