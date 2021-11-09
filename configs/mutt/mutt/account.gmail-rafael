@@ -1,0 +1,12 @@
+
+set from      = 'Rafael Accácio <rafael.accacio.nogueira@gmail.com>'
+set folder = "~/.local/mail/messages/rafael.accacio.nogueira"
+set spoolfile = "+Inbox"
+set record = "=[Gmail]/.Sent\ Mail"
+set postponed = "=[Gmail]/.Drafts"
+mailboxes "===== accacio ====="
+mailboxes =Inbox =[Gmail]/.Sent\ Mail =[Gmail]/.Spam =[Gmail]/.Drafts
+set sendmail="msmtp -a gmail-rafael"
+set sig_dashes=no
+set sig_on_top=yes
+set signature="~/.config/mutt/signature.gmail"
