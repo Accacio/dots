@@ -4,7 +4,7 @@ set folder = "~/.local/mail/messages/gmail"
 set spoolfile = "+Inbox"
 set record = "=[Gmail]/.Sent\ Mail"
 set postponed = "=[Gmail]/.Drafts"
-mailboxes "+====== gmail ====="
+mailboxes "+==== raccacio2 ====="
 mailboxes =Inbox =[Gmail]/.Sent\ Mail =[Gmail]/.Spam =[Gmail]/.Drafts
 set sendmail="msmtp -a gmail"
 set sig_dashes=no

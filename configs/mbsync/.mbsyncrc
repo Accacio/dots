@@ -100,3 +100,28 @@ Patterns "INBOX" "INBOX/Sent" "INBOX/Drafts" "INBOX/Trash"
 Create Both
 SyncState *
 Sync All
+
+#rafael.accacio.nogueira
+IMAPAccount gmail-rafael
+Host imap.gmail.com
+User rafael.accacio.nogueira@gmail.com
+PassCmd "pass Email/rafael.accacio.nogueira-mbsync"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore gmail-rafael-remote
+Account gmail-rafael
+
+MaildirStore gmail-rafael-local
+Path ~/.local/mail/messages/rafael.accacio.nogueira/
+Inbox ~/.local/mail/messages/rafael.accacio.nogueira/Inbox
+SubFolders Legacy
+
+Channel gmail-rafael
+Master :gmail-rafael-remote:
+Slave :gmail-rafael-local:
+Patterns "[Gmail]/Sent Mail" "INBOX" "[Gmail]/Spam" "[Gmail]/Drafts"
+Create Both
+SyncState *
+Sync All
+Expunge Both
