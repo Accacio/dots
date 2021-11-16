@@ -105,6 +105,11 @@
              ) "")
     nil))
 
+(defun accacio/find-these-file ()
+  "Search for a file in `~/docsThese."
+  (interactive)
+  (doom-project-find-file "~/docsThese"))
+(map! :leader :prefix "f" "t" #'accacio/find-these-file)
 (defun accacio/find-cfg-file ()
   "Search for a file in `~/dots'."
   (interactive)
