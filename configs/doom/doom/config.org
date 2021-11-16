@@ -788,6 +788,9 @@ characters of CONTENTS."
     (setq deft-parse-title-functions (push '("org" . my-deft-org-title) deft-parse-title-functions))
 
 )
+#+end_src
+* Kanban
+#+begin_src emacs-lisp
 ;; kanban
 (after! org-kanban
   :config
@@ -798,6 +801,9 @@ characters of CONTENTS."
     (error "Illegal state")))
   )
 
+#+end_src
+* org-sketch
+#+begin_src emacs-lisp
 (use-package! org-sketch
   :hook (org-mode . org-sketch-mode)
   :init
@@ -820,7 +826,9 @@ characters of CONTENTS."
   (setq org-media-note-screenshot-image-dir (concat org-roam-directory "img/"))  ;; Folder to save screenshot
   (setq org-media-note-use-refcite-first t)  ;; use videocite link instead of video link if possible
   )
-
+#+end_src
+* elfeed
+#+begin_src emacs-lisp
 (map! :map doom-leader-map "n R" 'elfeed)
 (after! elfeed
 
