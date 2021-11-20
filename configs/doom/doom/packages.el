@@ -47,12 +47,21 @@
 ;(package! builtin-package :recipe (:branch "develop"))
 
 (package! emojify)
+(package! bison-mode)
+
 (package! matlab-mode)
 
 (package! org-krita
   :recipe (:host github
            :repo "lepisma/org-krita"
            :files ("resources" "resources" "*.el" "*.el")))
+
+(package! gitconfig-mode
+	  :recipe (:host github :repo "magit/git-modes"
+			 :files ("gitconfig-mode.el")))
+(package! gitignore-mode
+	  :recipe (:host github :repo "magit/git-modes"
+			 :files ("gitignore-mode.el")))
 
 (package! org-roam-server
   :recipe (:host github :repo "org-roam/org-roam-server"))
