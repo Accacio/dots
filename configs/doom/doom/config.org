@@ -1080,6 +1080,12 @@ characters of CONTENTS."
 
 (after! latex
 
+  (setq LaTeX-clean-intermediate-suffixes
+  (append LaTeX-clean-intermediate-suffixes
+          ;; These are extensions of files created by makeglossaries.
+          '("\\.mtc[0-9]*" "\\.maf" "\\.glsdefs" "\\.synctex")))
+
+
 (setcar (assoc "⋆" LaTeX-fold-math-spec-list) "★"))
 
 (setq TeX-fold-math-spec-list
