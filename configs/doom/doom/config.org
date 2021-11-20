@@ -1803,3 +1803,16 @@ preview-default-preamble "\\fi}\"%' \"\\detokenize{\" %t \"}\""))
 (global-prettify-symbols-mode t)
 
 #+end_src
+* Bison
+#+begin_src emacs-lisp
+(use-package! bison-mode
+  :config
+  (defun bison-setup-imenu ()
+    (setq imenu-generic-expression '(
+                                     ("Rules" "^\\([a-z].*\\):" 1)
+                                     ("Token" "^%token\s\\([A-z].*\\)" 1)
+                                     )
+          ))
+  (add-hook 'bison-mode-hook 'bison-setup-imenu)
+  )
+#+end_src
