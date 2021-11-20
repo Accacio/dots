@@ -815,28 +815,28 @@ characters of CONTENTS."
 #+end_src
 * org-sketch
 #+begin_src emacs-lisp
-(use-package! org-sketch
-  :hook (org-mode . org-sketch-mode)
-  :init
-  (defun accacio/org-sketch-process-picture-function (png-path)
-  "Process the image png-path after conversion."
-  (call-process-shell-command (format "convert %s -trim +repage %s" png-path png-path)))
+;; (use-package! org-sketch
+;;   :hook (org-mode . org-sketch-mode)
+;;   :init
+;;   (defun accacio/org-sketch-process-picture-function (png-path)
+;;   "Process the image png-path after conversion."
+;;   (call-process-shell-command (format "convert %s -trim +repage %s" png-path png-path)))
 
-  (setq org-sketch-note-dir "~/hippokamp/brain/img" ;; xopp， drawio 文件存储目录
-        org-sketch-xournal-template-dir "~/.config/doom/resources/"  ;; xournal 模板存储目录
-        org-sketch-xournal-default-template-name "template.xopp" ;; 默认笔记模版名称，应该位于 org-sketch-xournal-template-dir
-        org-sketch-apps '("xournal")
-        )
-  (custom-set-variables '(org-sketch-process-picture-functon 'accacio/org-sketch-process-picture-function))
-  )
-(use-package! org-media-note
-  :hook (org-mode .  org-media-note-setup-org-ref)
-  :bind (
-   (:map doom-leader-notes-map ("p" . org-media-note-hydra/body)))
-  :config
-  (setq org-media-note-screenshot-image-dir (concat org-roam-directory "img/"))  ;; Folder to save screenshot
-  (setq org-media-note-use-refcite-first t)  ;; use videocite link instead of video link if possible
-  )
+;;   (setq org-sketch-note-dir "~/hippokamp/brain/img" ;; xopp， drawio 文件存储目录
+;;         org-sketch-xournal-template-dir "~/.config/doom/resources/"  ;; xournal 模板存储目录
+;;         org-sketch-xournal-default-template-name "template.xopp" ;; 默认笔记模版名称，应该位于 org-sketch-xournal-template-dir
+;;         org-sketch-apps '("xournal")
+;;         )
+;;   (custom-set-variables '(org-sketch-process-picture-functon 'accacio/org-sketch-process-picture-function))
+;;   )
+;; (use-package! org-media-note
+;;   :hook (org-mode .  org-media-note-setup-org-ref)
+;;   :bind (
+;;    (:map doom-leader-notes-map ("p" . org-media-note-hydra/body)))
+;;   :config
+;;   (setq org-media-note-screenshot-image-dir (concat org-roam-directory "img/"))  ;; Folder to save screenshot
+;;   (setq org-media-note-use-refcite-first t)  ;; use videocite link instead of video link if possible
+;;   )
 #+end_src
 * elfeed
 #+begin_src emacs-lisp
