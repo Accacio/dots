@@ -115,6 +115,7 @@
   (interactive)
   (doom-project-find-file "~/docsThese"))
 (map! :leader :prefix "f" "t" #'accacio/find-these-file)
+
 (defun accacio/find-cfg-file ()
   "Search for a file in `~/dots'."
   (interactive)
@@ -225,7 +226,7 @@
 ;; todos and others
 (after! hl-todo
   (global-hl-todo-mode t)
-  (setq hl-todo-highlight-punctuation ":"
+  (setq hl-todo-highlight-punctuation "(?[A-z]*)?:*"
         hl-todo-keyword-faces
         `(;; For things that need to be done, just not today.
           ("TODO" warning bold)
