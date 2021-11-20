@@ -169,5 +169,4 @@ source ~/.config/mutt/account.supelec
 macro index <f2> '<enter-command>unmailboxes *<enter><enter-command>source ~/.config/mutt/account.poli<enter><change-folder>!<enter>'
 macro index <f3> '<enter-command>unmailboxes *<enter><enter-command>source ~/.config/mutt/account.gmail<enter><change-folder>!<enter>'
 macro index <f4> '<enter-command>unmailboxes *<enter><enter-command>source ~/.config/mutt/account.supelec<enter><change-folder>!<enter>'
-
-# macro index <f5> '<enter-command>unmailboxes *<enter><enter-command>source ~/.config/mutt/account.supelec-office<enter><change-folder>!<enter>'
+macro index <f5> '<enter-command>unmailboxes *<enter><enter-command>source ~/.config/mutt/account.gmail-rafael<enter><change-folder>!<enter>'

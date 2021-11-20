@@ -37,3 +37,11 @@ port           587
 from           rafael-accacio.nogueira@centralesupelec.fr
 user           rafael-accacio.nogueira@centralesupelec.fr
 passwordeval   "pass Email/centralesupelec"
+
+# Gmail
+account        gmail-rafael
+host           smtp.gmail.com
+port           587
+from           rafael.accacio.nogueira@gmail.com
+user           rafael.accacio.nogueira@gmail.com
+passwordeval   "pass Email/rafael.accacio.nogueira-mbsync"
