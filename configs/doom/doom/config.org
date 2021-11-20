@@ -105,6 +105,11 @@
              ) "")
     nil))
 
+(defun accacio/find-straight-repos-file ()
+  "Search for a file in `~/docsThese."
+  (interactive)
+  (dired "~/.emacs.d/.local/straight/repos/"))
+
 (defun accacio/find-these-file ()
   "Search for a file in `~/docsThese."
   (interactive)
