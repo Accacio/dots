@@ -91,8 +91,11 @@
 (package! org-habit-plus
   :recipe (:host github :repo "oddious/org-habit-plus"))
 
+(package! ob-http
+  :recipe (:host github :repo "zweifisch/ob-http"))
+
 (package! org-ref
-  :recipe (:host github :repo "jkitchin/org-ref"))
+  :recipe (:host github :repo "jkitchin/org-ref" :branch "org-ref-2"))
 (package! org-noter
   :recipe (:host github :repo "Accacio/org-noter"))
 (package! org-noter-pdftools
