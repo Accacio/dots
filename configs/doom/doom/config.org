@@ -427,53 +427,53 @@ showstringspaces=false}
 
 (customize-set-value 'org-latex-with-hyperref nil)
   (setq org-indirect-buffer-display 'other-window)
-  (setq matlab-shell-command "matlab")
-
-  (defun matlab-setup-imenu ()
-    (setq imenu-generic-expression '(
-                                     ("Cell" "^%% \\([A-z].*\\)" 1)
-                                     ("Comment" "% \\([A-z].*\\)" 1)
-                                     )
-          )
-    (make-local-variable 'vimish-fold-marks)
-    (setq vimish-fold-marks '("%%" . "%%%"))
-    )
-  (add-hook 'matlab-mode-hook 'matlab-setup-imenu)
-
-  (defadvice! inhibit-real-only-a (oldfun &rest r)
- "Temporary remove read-only lines in shell buffer"
- :around#'matlab-shell-collect-command-output
-  (let ((inhibit-read-only t)) (apply oldfun r)))
-  (add-hook! 'matlab-mode-hook 'display-line-numbers-mode)
-
-  (setq matlab-shell-command-switches `("-nosplash" "-nodesktop"))
-  (setq org-babel-octave-shell-command "octave -q ")
-  ;; (setq org-babel-octave-shell-command "octave -q -W")
-  (setq org-babel-matlab-shell-command "matlab -nosplash -nodesktop ")
-
-
-
-  ;; (defun org-babel-octave-evaluate-external-process (body result-type matlabp)
-  ;;   "Evaluate BODY in an external octave process."
-  ;;   (let ((cmd (if matlabp
-  ;;                  org-babel-matlab-shell-command
-  ;;                org-babel-octave-shell-command)))
-  ;;     (pcase result-type
-  ;;       (`output
-  ;;        (if matlabp
-  ;;            (org-babel-eval "sed -E '1,11d;s,(>> )+$,,'" (org-babel-eval cmd body))
-  ;;          (org-babel-eval cmd body))
-  ;;        )
-  ;;       (`value (let ((tmp-file (org-babel-temp-file "octave-")))
-  ;;                 (org-babel-eval
-  ;;                  cmd
-  ;;                  (format org-babel-octave-wrapper-method body
-  ;;                          (org-babel-process-file-name tmp-file 'noquote)
-  ;;                          (org-babel-process-file-name tmp-file 'noquote)))
-  ;;                 (org-babel-octave-import-elisp-from-file tmp-file))))))
   #+end_src
 * Matlab
   #+begin_src emacs-lisp
+(setq matlab-shell-command "matlab")
+
+ (defun matlab-setup-imenu ()
+   (setq imenu-generic-expression '(
+                                    ("Cell" "^%% \\([A-z].*\\)" 1)
+                                    ("Comment" "% \\([A-z].*\\)" 1)
+                                    )
+         )
+   (make-local-variable 'vimish-fold-marks)
+   (setq vimish-fold-marks '("%%" . "%%%"))
+   )
+ (add-hook 'matlab-mode-hook 'matlab-setup-imenu)
+
+ (defadvice! inhibit-real-only-a (oldfun &rest r)
+"Temporary remove read-only lines in shell buffer"
+:around#'matlab-shell-collect-command-output
+ (let ((inhibit-read-only t)) (apply oldfun r)))
+ (add-hook! 'matlab-mode-hook 'display-line-numbers-mode)
+
+ (setq matlab-shell-command-switches `("-nosplash" "-nodesktop"))
+ (setq org-babel-octave-shell-command "octave -q ")
+ ;; (setq org-babel-octave-shell-command "octave -q -W")
+ (setq org-babel-matlab-shell-command "matlab -nosplash -nodesktop ")
+
+
+
+ ;; (defun org-babel-octave-evaluate-external-process (body result-type matlabp)
+ ;;   "Evaluate BODY in an external octave process."
+ ;;   (let ((cmd (if matlabp
+ ;;                  org-babel-matlab-shell-command
+ ;;                org-babel-octave-shell-command)))
+ ;;     (pcase result-type
+ ;;       (`output
+ ;;        (if matlabp
+ ;;            (org-babel-eval "sed -E '1,11d;s,(>> )+$,,'" (org-babel-eval cmd body))
+ ;;          (org-babel-eval cmd body))
+ ;;        )
+ ;;       (`value (let ((tmp-file (org-babel-temp-file "octave-")))
+ ;;                 (org-babel-eval
+ ;;                  cmd
+ ;;                  (format org-babel-octave-wrapper-method body
+ ;;                          (org-babel-process-file-name tmp-file 'noquote)
+ ;;                          (org-babel-process-file-name tmp-file 'noquote)))
+ ;;                 (org-babel-octave-import-elisp-from-file tmp-file))))))
 #+end_src
 * Hugo
 #+begin_src emacs-lisp
