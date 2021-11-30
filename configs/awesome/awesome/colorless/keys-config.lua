@@ -605,7 +605,7 @@ function hotkeys:init(args)
 			{ description = "Application launcher", group = "Widgets" }
 		},
 		{
-			{ env.mod  }, "e", function() awful.util.spawn("emacs") end,
+			{ env.mod  }, "e", function() awful.util.spawn("emacsclient -c -a emacs") end,
 			{ description = "Emacs", group = "Programs" }
 		},
 		{
