@@ -423,6 +423,16 @@ showstringspaces=false}
   (setq org-indirect-buffer-display 'other-window)
   (setq matlab-shell-command "matlab")
 
+  (defun matlab-setup-imenu ()
+    (setq imenu-generic-expression '(
+                                     ("Cell" "^%% \\([A-z].*\\)" 1)
+                                     ("Comment" "% \\([A-z].*\\)" 1)
+                                     )
+          )
+    (make-local-variable 'vimish-fold-marks)
+    (setq vimish-fold-marks '("%%" . "%%%"))
+    )
+  (add-hook 'matlab-mode-hook 'matlab-setup-imenu)
   (add-hook! 'matlab-mode-hook 'display-line-numbers-mode)
 
   (setq matlab-shell-command-switches `("-nosplash" "-nodesktop"))
