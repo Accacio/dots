@@ -41,10 +41,10 @@
 
 
 ;;Visual
-;;
-(after! ivy-posframe
-  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
-  )
+;; only if childframe is used
+;; (after! ivy-posframe
+;;   (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
+;;   )
 
 (setq global-hl-line-modes nil)
 (after! core
