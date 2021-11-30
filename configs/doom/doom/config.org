@@ -1,3 +1,4 @@
+* General settings
 #+begin_src emacs-lisp
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
@@ -82,6 +83,9 @@
   `(font-lock-comment-face :foreground "#8080a7")
   )
 
+#+end_src
+* my functions
+#+begin_src emacs-lisp
 (defun org-babel-execute:matlab (body params)
   "Execute a block of matlab code with Babel."
   (with-temp-buffer
@@ -465,6 +469,12 @@ showstringspaces=false}
   ;;                          (org-babel-process-file-name tmp-file 'noquote)
   ;;                          (org-babel-process-file-name tmp-file 'noquote)))
   ;;                 (org-babel-octave-import-elisp-from-file tmp-file))))))
+  #+end_src
+* Matlab
+  #+begin_src emacs-lisp
+#+end_src
+* Hugo
+#+begin_src emacs-lisp
 (use-package! ox-hugo
   :after org)
 
@@ -563,6 +573,9 @@ and value is its relative level, as an integer."
 
 
 )
+#+end_src
+* icalendar export
+#+begin_src emacs-lisp
 (after! ox-icalendar
 
 (setq org-icalendar-with-timestamps nil)
@@ -767,6 +780,9 @@ inlinetask within the section."
 
 
   )
+#+end_src
+* Deft
+#+begin_src emacs-lisp
 (after! deft
     (setq deft-directory "~/Dropbox/org/")
     (setq deft-use-filter-string-for-filename t)
@@ -1050,7 +1066,8 @@ characters of CONTENTS."
 
 )
 #+end_src
-* bibtex
+* latex
+** bibtex
 #+begin_src emacs-lisp
 (after! bibtex
 (setq bibtex-dialect 'BibTeX)
@@ -1096,7 +1113,9 @@ characters of CONTENTS."
           (funcall bibtex-autokey-before-presentation-function autokey)
         autokey)))
   )
+#+end_src
 
+#+begin_src emacs-lisp
 (after! latex
 
   (setq LaTeX-clean-intermediate-suffixes
@@ -1276,7 +1295,9 @@ preview-default-preamble "\\fi}\"%' \"\\detokenize{\" %t \"}\""))
 
 (add-hook 'LaTeX-mode-hook (lambda ()
                              (TeX-fold-mode 1)))
-
+#+end_src
+* org-roam
+#+begin_src emacs-lisp
 ;; Roam
 (setq org-roam-v2-ack t)
 ;; (after! org-roam
