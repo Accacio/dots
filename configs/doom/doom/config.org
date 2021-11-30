@@ -1069,54 +1069,6 @@ characters of CONTENTS."
 )
 #+end_src
 * latex
-** bibtex
-#+begin_src emacs-lisp
-(after! bibtex
-(setq bibtex-dialect 'BibTeX)
-(defun my-bibtex-autokey-unique (key)
-  "Make a unique version of KEY."
-  (save-excursion
-    (let ((org-ref-bibliography-files (org-ref-find-bibliography))
-          (trykey key)
-	  (next ?a))
-      (if (org-ref-key-in-file-p trykey (car org-ref-bibliography-files))
-      (while (and
-              (org-ref-key-in-file-p trykey (car org-ref-bibliography-files))
-		  (<= next ?z))
-	(setq trykey (concat key (char-to-string next)))
-	(setq next (1+ next))))
-      trykey)))
-
-  (setq bibtex-autokey-year-length 4)
-  (setq bibtex-autokey-names 1)
-  (setq bibtex-autokey-names-stretch 1)
-  (setq bibtex-autokey-additional-names "EtAl")
-  (setq bibtex-autokey-name-case-convert-function 'capitalize)
-  (setq bibtex-maintain-sorted-entries 'entry-class)
-  (setq bibtex-autokey-before-presentation-function 'my-bibtex-autokey-unique)
-  (defun bibtex-generate-autokey ()
-    (let* ((names (bibtex-autokey-get-names))
-           (year (bibtex-autokey-get-year))
-           (title (bibtex-autokey-get-title))
-           (autokey (concat
-                     names
-                     ;; (unless (or (equal names "")
-                     ;;             (equal title ""))
-                     ;;   "_") ;; string to separate names from title
-                     ;; title
-                     ;; (unless (or (and (equal names "")
-                     ;;                  (equal title ""))
-                     ;;             (equal year ""))
-                     ;;   bibtex-autokey-year-title-separator)
-                     year
-                     bibtex-autokey-prefix-string ;; optional prefix string
-                     )))
-      (if bibtex-autokey-before-presentation-function
-          (funcall bibtex-autokey-before-presentation-function autokey)
-        autokey)))
-  )
-#+end_src
-
 #+begin_src emacs-lisp
 (after! latex
 
@@ -1125,7 +1077,7 @@ characters of CONTENTS."
           ;; These are extensions of files created by makeglossaries.
           '("\\.mtc[0-9]*" "\\.maf" "\\.glsdefs" "\\.synctex")))
 
-
+(setq prettify-symbols-unprettify-at-point 'right-edge)
 (setcar (assoc "⋆" LaTeX-fold-math-spec-list) "★"))
 
 (setq TeX-fold-math-spec-list
@@ -1298,6 +1250,55 @@ preview-default-preamble "\\fi}\"%' \"\\detokenize{\" %t \"}\""))
 (add-hook 'LaTeX-mode-hook (lambda ()
                              (TeX-fold-mode 1)))
 #+end_src
+** bibtex
+#+begin_src emacs-lisp
+(after! bibtex
+(setq bibtex-dialect 'BibTeX)
+(defun my-bibtex-autokey-unique (key)
+  "Make a unique version of KEY."
+  (save-excursion
+    (let ((org-ref-bibliography-files (org-ref-find-bibliography))
+          (trykey key)
+	  (next ?a))
+      (if (org-ref-key-in-file-p trykey (car org-ref-bibliography-files))
+      (while (and
+              (org-ref-key-in-file-p trykey (car org-ref-bibliography-files))
+		  (<= next ?z))
+	(setq trykey (concat key (char-to-string next)))
+	(setq next (1+ next))))
+      trykey)))
+
+  (setq bibtex-autokey-year-length 4)
+  (setq bibtex-autokey-names 1)
+  (setq bibtex-autokey-names-stretch 1)
+  (setq bibtex-autokey-additional-names "EtAl")
+  (setq bibtex-autokey-name-case-convert-function 'capitalize)
+  (setq bibtex-maintain-sorted-entries 'entry-class)
+  ;; (setq bibtex-autokey-before-presentation-function 'my-bibtex-autokey-unique)
+  (setq bibtex-autokey-before-presentation-function nil)
+  (defun bibtex-generate-autokey ()
+    (let* ((names (bibtex-autokey-get-names))
+           (year (bibtex-autokey-get-year))
+           (title (bibtex-autokey-get-title))
+           (autokey (concat
+                     names
+                     ;; (unless (or (equal names "")
+                     ;;             (equal title ""))
+                     ;;   "_") ;; string to separate names from title
+                     ;; title
+                     ;; (unless (or (and (equal names "")
+                     ;;                  (equal title ""))
+                     ;;             (equal year ""))
+                     ;;   bibtex-autokey-year-title-separator)
+                     year
+                     bibtex-autokey-prefix-string ;; optional prefix string
+                     )))
+      (if bibtex-autokey-before-presentation-function
+          (funcall bibtex-autokey-before-presentation-function autokey)
+        autokey)))
+  )
+#+end_src
+
 * org-roam
 #+begin_src emacs-lisp
 ;; Roam
