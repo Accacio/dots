@@ -433,6 +433,11 @@ showstringspaces=false}
     (setq vimish-fold-marks '("%%" . "%%%"))
     )
   (add-hook 'matlab-mode-hook 'matlab-setup-imenu)
+
+  (defadvice! inhibit-real-only-a (oldfun &rest r)
+ "Temporary remove read-only lines in shell buffer"
+ :around#'matlab-shell-collect-command-output
+  (let ((inhibit-read-only t)) (apply oldfun r)))
   (add-hook! 'matlab-mode-hook 'display-line-numbers-mode)
 
   (setq matlab-shell-command-switches `("-nosplash" "-nodesktop"))
