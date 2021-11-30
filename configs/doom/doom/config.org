@@ -1049,8 +1049,11 @@ characters of CONTENTS."
 (push '(important important-elfeed-entry) elfeed-search-face-alist)
 
 )
+#+end_src
+* bibtex
+#+begin_src emacs-lisp
 (after! bibtex
-
+(setq bibtex-dialect 'BibTeX)
 (defun my-bibtex-autokey-unique (key)
   "Make a unique version of KEY."
   (save-excursion
