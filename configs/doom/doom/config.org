@@ -87,6 +87,28 @@
 #+end_src
 * my functions
 #+begin_src emacs-lisp
+(defun accacio/find-straight-repos-file ()
+  "Search for a file in `~/docsThese."
+  (interactive)
+  (dired "~/.emacs.d/.local/straight/repos/"))
+
+(defun accacio/find-these-file ()
+  "Search for a file in `~/docsThese."
+  (interactive)
+  (doom-project-find-file "~/docsThese"))
+(map! :leader :prefix "f" "t" #'accacio/find-these-file)
+
+(defun accacio/find-cfg-file ()
+  "Search for a file in `~/dots'."
+  (interactive)
+  (doom-project-find-file "~/dots"))
+(map! :leader :prefix "f" "a" #'accacio/find-cfg-file)
+#+end_src
+* Org
+#+begin_src emacs-lisp
+;; Org
+(setq org-directory "~/Dropbox/org/")
+
 (defun org-babel-execute:matlab (body params)
   "Execute a block of matlab code with Babel."
   (with-temp-buffer
@@ -109,27 +131,6 @@
          " " (org-babel-process-file-name in-file)
              ) "")
     nil))
-
-(defun accacio/find-straight-repos-file ()
-  "Search for a file in `~/docsThese."
-  (interactive)
-  (dired "~/.emacs.d/.local/straight/repos/"))
-
-(defun accacio/find-these-file ()
-  "Search for a file in `~/docsThese."
-  (interactive)
-  (doom-project-find-file "~/docsThese"))
-(map! :leader :prefix "f" "t" #'accacio/find-these-file)
-
-(defun accacio/find-cfg-file ()
-  "Search for a file in `~/dots'."
-  (interactive)
-  (doom-project-find-file "~/dots"))
-(map! :leader :prefix "f" "a" #'accacio/find-cfg-file)
-
-;; Org
-(setq org-directory "~/Dropbox/org/")
-
 (after! org
 
 (defalias '+org--restart-mode-h #'ignore) ;;https://github.com/hlissner/doom-emacs/issues/4832#issuecomment-822845907
