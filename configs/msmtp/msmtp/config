@@ -24,10 +24,10 @@ passwordeval   "pass Email/polimail"
 
 # CentraleSupelec
 account        supelec
-host           smtp.ecp.fr
+host           smtp.centralesupelec.fr
 port           587
 from           rafael-accacio.nogueira@centralesupelec.fr
-user           nogueirar
+user           rafael-accacio.nogueira@centralesupelec.fr
 passwordeval   "pass Email/centralesupelec"
 
 # CentraleSupelec office 265
