@@ -75,7 +75,7 @@ map.keys.layout = {
 		{ description = "Hilight active group", group = "Layout" }
 	},
 	{
-		{ "Mod4" }, ".", function() map.switch_active(1) end,
+		{ "Mod4" }, ";", function() map.switch_active(1) end,
 		{ description = "Activate next group", group = "Layout" }
 	},
 	{
@@ -83,11 +83,11 @@ map.keys.layout = {
 		{ description = "Activate previous group", group = "Layout" }
 	},
 	{
-		{ "Mod4" }, "]", function() map.move_group(1) end,
+		{ "Mod4" }, ")", function() map.move_group(1) end,
 		{ description = "Move active group to the top", group = "Layout" }
 	},
 	{
-		{ "Mod4" }, "[", function() map.move_group(-1) end,
+		{ "Mod4" }, "(", function() map.move_group(-1) end,
 		{ description = "Move active group to the bottom", group = "Layout" }
 	},
 	{
