@@ -89,7 +89,7 @@ case $mode in
     esac
     ;;
     wacom)
-    styluses=("$(xsetwacom --list | grep stylus | sed "s;\(.*\)Pen stylus.*id:.*;\1;" | awk '{printf "%s\n",$0}')")
+    styluses=("$(xsetwacom --list | grep stylus | sed "s;\(.*\) Pen stylus.*id:.*;\1;" | awk '{printf "%s\n",$0}')")
     stylus=$( printf '%s\n' "${styluses[@]}"|sed 's/^ //'|dmenu -i  -p "$1 Stylus")
 
     monitors=(${monitors[@]} "All")
