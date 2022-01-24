@@ -83,8 +83,20 @@
 (custom-theme-set-faces! 'doom-one
   `(font-lock-comment-face :foreground "#8080a7")
   )
-
 #+end_src
+
+** Rotate text
+#+begin_src emacs-lisp
+(after! rotate-text
+  :config
+  (pushnew! rotate-text-words '("before" "after"))
+  (pushnew! rotate-text-words '("horizontal" "vertical"))
+  (set-rotate-patterns! 'c-mode
+    :words '(("float" "double")))
+
+  )
+#+end_src
+
 * my functions
 #+begin_src emacs-lisp
 (defun accacio/find-straight-repos-file ()
