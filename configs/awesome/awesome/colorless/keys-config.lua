@@ -610,7 +610,7 @@ function hotkeys:init(args)
 		},
 		{
 			-- { env.mod  }, "b", function() awful.util.spawn_with_shell("tabbed -c vimb -e") end,
-			{ env.mod  }, "b", function() awful.util.spawn_with_shell("vimb ~/org/private/agenda.html") end,
+			{ env.mod  }, "b", function() awful.util.spawn_with_shell("vimb ~/Dropbox/org/agenda.html") end,
 			{ description = "Browser", group = "Programs" }
 		},
 		-- {
