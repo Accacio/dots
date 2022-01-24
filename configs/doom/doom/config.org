@@ -1406,7 +1406,7 @@ preview-default-preamble "\\fi}\"%' \"\\detokenize{\" %t \"}\""))
                        (org-roam-node-id node)))))
     (format "[%d]" count)))
 
-  (setq org-roam-node-display-template "📁 ${directories:10} | ${title:50} | ⚡ ${tags}")
+  (setq org-roam-node-display-template "${title:50} | ⚡ ${tags}")
 
   (setq org-attach-directory (concat org-roam-directory ".attach/"))
   (add-to-list 'display-buffer-alist
