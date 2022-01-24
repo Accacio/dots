@@ -444,16 +444,18 @@ showstringspaces=false}
   #+begin_src emacs-lisp
 (setq matlab-shell-command "matlab")
 
- (defun matlab-setup-imenu ()
+ (defun matlab-setup ()
    (setq imenu-generic-expression '(
-                                    ("Cell" "^%% \\([A-z].*\\)" 1)
-                                    ("Comment" "% \\([A-z].*\\)" 1)
+                                    ("Cell" "^%% \\(.*[A-z].*\\)" 1)
+                                    ("Comment" "%= \\([A-z].*\\)" 1)
                                     )
+
          )
+   (rainbow-delimiters-mode)
    (make-local-variable 'vimish-fold-marks)
    (setq vimish-fold-marks '("%%" . "%%%"))
    )
- (add-hook 'matlab-mode-hook 'matlab-setup-imenu)
+ (add-hook 'matlab-mode-hook 'matlab-setup)
 
  (defadvice! inhibit-real-only-a (oldfun &rest r)
 "Temporary remove read-only lines in shell buffer"
