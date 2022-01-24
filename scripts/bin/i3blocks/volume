@@ -7,7 +7,7 @@ esac
 
 output=$(pactl list short sink-inputs|head -n 1|cut -f2)
 outputName=$(pactl list short sinks|grep "^$output"|cut -f2)
-outputName=${outputName:29}
+outputName=$(echo ${outputName:-19} | sed 's/.//30g')
 
 status=$(pactl list sinks | grep "Sink #$output" -A 8|tail -n 1|awk '{print $2}')
 case $status  in
