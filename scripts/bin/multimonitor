@@ -89,10 +89,16 @@ case $mode in
     esac
     ;;
     wacom)
+    styluses=("$(xsetwacom --list | grep stylus | sed "s;\(.*\)Pen stylus.*id:.*;\1;" | awk '{printf "%s\n",$0}')")
+    stylus=$( printf '%s\n' "${styluses[@]}"|sed 's/^ //'|dmenu -i  -p "$1 Stylus")
+
     monitors=(${monitors[@]} "All")
     Monitor=$( printf '%s\n' "${monitors[@]}"|sed 's/^ //'|dmenu -i  -p "Monitor" |sed "s|[0-9]-||" )
     if [ $Monitor == "All" ]; then
-        xsetwacom set "Wacom Intuos PT S 2 Pen stylus" MapToOutput $(xrandr | sed 1q | sed "s, x ,x,g;s/,//g" | cut -d" " -f 6)+0+0
+        xsetwacom set "$stylus Pen stylus" MapToOutput $(xrandr | sed 1q | sed "s, x ,x,g;s/,//g" | cut -d" " -f 6)+0+0
+        exit
+    fi
+    if [ "$Monitor" == "" ]; then
         exit
     fi
     res=$(xrandr | grep ^$Monitor | sed "s,.* \([0-9]*x[0-9]*+[0-9]*+[0-9]*\).*,\1,")
@@ -102,8 +108,8 @@ case $mode in
     # xsetwacom set "Wacom Intuos PT S 2 Pen stylus" Rotate ccw;
     # xsetwacom set "Wacom Intuos PT S 2 Finger touch" Rotate ccw;
 
-    xsetwacom set "Wacom Intuos PT S 2 Pen stylus" Rotate cw;
-    xsetwacom set "Wacom Intuos PT S 2 Finger touch" Rotate cw;
+    xsetwacom set "$stylus Pen stylus" Rotate cw;
+    xsetwacom set "$stylus Finger touch" Rotate cw;
     xres=$(echo $res | sed -e "s,\([0-9]*\)x.*,\1,")
     yres=$(echo $res | sed -e "s,[0-9]*x\([0-9]*\)+.*,\1,")
     xpos=$(echo $res | sed -e "s,[0-9]*x[0-9]*+\([0-9]*\)+.*,\1,")
@@ -113,8 +119,8 @@ case $mode in
         newres=$(echo $(echo "scale=0;$yres/1.5" | bc -l)x$yres+$xpos+$ypos)
         ;;
         left)
-        xsetwacom set "Wacom Intuos PT S 2 Pen stylus" Rotate none;
-        xsetwacom set "Wacom Intuos PT S 2 Finger touch" Rotate none;
+        xsetwacom set "$stylus Pen stylus" Rotate none;
+        xsetwacom set "$stylus Finger touch" Rotate none;
         notify-send "${xres}x${yres}+${xpos}+$ypos"
         newres=$(echo $(echo "scale=0;$yres*3/2" | bc -l)x$yres+$( echo "scale=0;$xpos" |bc -l)+$ypos)
         notify-send $newres
@@ -124,20 +130,21 @@ case $mode in
         notify-send $newres
         ;;
         right)
-        xsetwacom set "Wacom Intuos PT S 2 Pen stylus" Rotate none;
-        xsetwacom set "Wacom Intuos PT S 2 Finger touch" Rotate none;
+        xsetwacom set "$stylus Pen stylus" Rotate none;
+        xsetwacom set "$stylus Finger touch" Rotate none;
         notify-send "${xres}x${yres}+${xpos}+$ypos"
         newres=$(echo $(echo "scale=0;$yres*3/2" | bc -l)x$yres+$( echo "scale=0;$xpos+$xres-$yres*3/2" |bc -l)+$ypos)
         notify-send $newres
         ;;
         total)
-        xsetwacom set "Wacom Intuos PT S 2 Pen stylus" Rotate none;
-        xsetwacom set "Wacom Intuos PT S 2 Finger touch" Rotate none;
+        xsetwacom set "$stylus Pen stylus" Rotate none;
+        xsetwacom set "$stylus Finger touch" Rotate none;
         newres=$res
         ;;
         calibrate)
-        xsetwacom set "Wacom Intuos PT S 2 Pen stylus" Rotate none;
-        xsetwacom set "Wacom Intuos PT S 2 Finger touch" Rotate none;
+        xsetwacom set "$stylus Pen stylus" Rotate none;
+        xsetwacom set "$stylus Finger touch" Rotate none;
+
 
         mode=$(echo "" | dmenu -i  -p "topLeft")
         topLeft=$(xdotool getmouselocation | cut -d" " -f 1-2 | sed "s,[xy]:,,g")
@@ -165,7 +172,7 @@ case $mode in
         newres=$(echo  ${width}x${height}+${topLeftX}+${topLeftY})
         ;;
     esac
-    xsetwacom set "Wacom Intuos PT S 2 Pen stylus" MapToOutput $newres
+    xsetwacom set "$stylus Pen stylus" MapToOutput $newres
     ;;
 esac
 
