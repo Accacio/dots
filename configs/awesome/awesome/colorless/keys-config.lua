@@ -497,10 +497,6 @@ function hotkeys:init(args)
 			{ env.mod, "Shift" }, "r", awesome.restart,
 			{ description = "Reload awesome", group = "Main" }
 		},
-		{
-			{ env.mod }, "c", function() awful.spawn("org-capture '' '' ") end,
-			{ description = "Org Capture idea", group = "Main" }
-		},
 		-- {
 		-- 	{ env.mod }, "c", function() redflat.float.keychain:activate(keyseq, "User") end,
 		-- 	{ description = "User key sequence", group = "Main" }
@@ -607,6 +603,10 @@ function hotkeys:init(args)
 		{
 			{ env.mod  }, "e", function() awful.util.spawn("emacsclient -c -a emacs") end,
 			{ description = "Emacs", group = "Programs" }
+		},
+				{
+			{ env.mod }, "c", function() awful.spawn("org-capture '' '' ") end,
+			{ description = "Org Capture idea", group = "Main" }
 		},
 		{
 			-- { env.mod  }, "b", function() awful.util.spawn_with_shell("tabbed -c vimb -e") end,
