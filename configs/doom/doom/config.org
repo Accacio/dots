@@ -1406,10 +1406,14 @@ preview-default-preamble "\\fi}\"%' \"\\detokenize{\" %t \"}\""))
         org-roam-db-update-on-save t
         org-id-link-to-org-use-id t)
 
-  (cl-defmethod org-roam-node-directories ((node org-roam-node))
-  (if-let ((dirs (file-name-directory (file-relative-name (org-roam-node-file node) org-roam-directory))))
-      (format "%s" (car (f-split dirs)))
-    ""))
+  (cl-defmethod org-roam-node-type ((node org-roam-node))
+  "Return the TYPE of NODE."
+  (condition-case nil
+      (file-name-nondirectory
+       (directory-file-name
+        (file-name-directory
+         (file-relative-name (org-roam-node-file node) org-roam-directory))))
+    (error "")))
 
   (cl-defmethod org-roam-node-backlinkscount ((node org-roam-node))
   (let* ((count (caar (org-roam-db-query
@@ -1420,7 +1424,13 @@ preview-default-preamble "\\fi}\"%' \"\\detokenize{\" %t \"}\""))
                        (org-roam-node-id node)))))
     (format "[%d]" count)))
 
-  (setq org-roam-node-display-template "${title:50} | ⚡ ${tags}")
+(setq org-roam-node-display-template
+      (concat "${type:15} ${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+
+
+(setq org-roam-db-node-include-function
+      (lambda ()
+        (not (string-match-p "annot" (org-id-get)))))
 
   (setq org-attach-directory (concat org-roam-directory ".attach/"))
   (add-to-list 'display-buffer-alist
@@ -1581,10 +1591,12 @@ preview-default-preamble "\\fi}\"%' \"\\detokenize{\" %t \"}\""))
           bibtex-completion-library-path '("~/docsThese/bibliography/")
           bibtex-completion-find-note-functions '(orb-find-note-file)
           )
-
     (setq org-ref-default-bibliography '("~/docsThese/bibliography.bib")
           org-ref-pdf-directory "~/docsThese/bibliography/"
-          org-ref-notes-directory "~/hippokamp/brain/"
+          org-ref-notes-directory "~/hippokamp/brain/reference")
+    (setq bibtex-completion-bibliography '("~/docsThese/bibliography.bib")
+          bibtex-completion-library-path "~/docsThese/bibliography/"
+          bibtex-completion-notes-path "~/hippokamp/brain/reference"
           org-ref-notes-function 'orb-edit-notes)
 
 (setq org-ref-bibliography-entry-format
@@ -1624,7 +1636,7 @@ preview-default-preamble "\\fi}\"%' \"\\detokenize{\" %t \"}\""))
           ("r" "bibliography reference" plain
            (file "~/.config/doom/ref.org")
            :if-new
-           (file+head "${citekey}.org" "#+title: ${citekey}\n"))
+           (file+head "reference/${citekey}.org" "#+title: ${citekey}\n"))
           ))
 
 ;;   (setq orb-templates
@@ -1693,7 +1705,7 @@ preview-default-preamble "\\fi}\"%' \"\\detokenize{\" %t \"}\""))
   (setq
    org-noter-pdftools-markup-pointer-color "yellow"
    org-pdftools-use-isearch-link t
-   org-noter-notes-search-path '("~/hippokamp/brain/")
+   org-noter-notes-search-path '("~/hippokamp/brain/reference")
    ;; org-noter-insert-note-no-questions t
    ;; org-noter-default-heading-title "Note on page $p$"
    org-noter-doc-split-fraction '(0.7 . 03)
