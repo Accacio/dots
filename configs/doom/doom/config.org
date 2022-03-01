@@ -1021,8 +1021,8 @@ characters of CONTENTS."
 (evil-define-key 'visual elfeed-search-mode-map "t" (lambda () (interactive)(elfeed-search-toggle-all 'readlater)))
 (evil-define-key 'visual elfeed-search-mode-map "i" (lambda () (interactive)(elfeed-search-toggle-all 'important )))
 
-(evil-define-key 'normal elfeed-search-mode-map "I" (lambda () (interactive)(elfeed-search-set-filter "@1-week-ago +important ")))
-(evil-define-key 'normal elfeed-search-mode-map "R" (lambda () (interactive)(elfeed-search-set-filter "@1-week-ago +readlater ")))
+(evil-define-key 'normal elfeed-search-mode-map "I" (lambda () (interactive)(elfeed-search-set-filter "+unread +important ")))
+(evil-define-key 'normal elfeed-search-mode-map "R" (lambda () (interactive)(elfeed-search-set-filter "+unread +readlater ")))
 
 (evil-define-key 'normal elfeed-show-mode-map "U" 'elfeed-show-tag--unread)
 (evil-define-key 'normal elfeed-show-mode-map "t" (elfeed-expose #'elfeed-show-tag 'readlater))
