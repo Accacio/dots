@@ -1060,14 +1060,14 @@ characters of CONTENTS."
 
 (add-hook! 'elfeed-search-mode-hook 'elfeed-update)
 (defface important-elfeed-entry
-  '((t :foreground "#a00"))
+  '((t :foreground "#BF616A"))
   "Marks an control Elfeed entry.")
 (defface control-elfeed-entry
-  '((t :foreground "#2ba"))
+  '((t :foreground "#A3BE8C"))
   "Marks an control Elfeed entry.")
 
 (defface readlater-elfeed-entry
-  '((t :foreground "#Eec900"))
+  '((t :foreground "#EBCB8B"))
   "Marks a readlater Elfeed entry.")
 
 (set-face-attribute 'elfeed-search-unread-title-face nil
