@@ -1,0 +1,9 @@
+#!/bin/bash
+# dot
+dot <(echo "digraph G {
+	rankdir=\"LR\";
+	bgcolor=\"transparent\";
+	node[width=0.15, height=0.15, shape=circle, color=white, fontcolor=white];
+	edge[weight=2, arrowhead=none, color=white];
+    " $(git rev-list --topo-order --parents HEAD | sed "s,\([0-9a-f]*\) \([0-9a-f]*\),\1 -> \2;,")  "
+}") -T png
