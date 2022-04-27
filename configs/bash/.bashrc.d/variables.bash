@@ -3,6 +3,7 @@ export PATH=$HOME/gems/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
 export PATH=/snap/bin/:$PATH
+export PATH=$PATH:$HOME/julia-1.6.2/bin
 
 # Install Ruby Gems to $HOME/gems
 export GEM_HOME=$HOME/gems
