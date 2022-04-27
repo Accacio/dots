@@ -23,6 +23,29 @@ add() {
     --compressed
 }
 
+recently() {
+  # Add to purchase list
+  curl "https://api.getbring.com/rest/v2/bringlists/$listuuid" \
+    -X 'PUT' \
+    -H "X-BRING-USER-UUID: $useruuid" \
+    -H "Authorization: Bearer $accesstoken" \
+    -H "Cookie: refresh_token=$refreshtoken" \
+    --data-raw "recently=$1" \
+    --compressed
+}
+
+remove() {
+  # Add to purchase list
+  curl "https://api.getbring.com/rest/v2/bringlists/$listuuid" \
+    -X 'PUT' \
+    -H "X-BRING-USER-UUID: $useruuid" \
+    -H "Authorization: Bearer $accesstoken" \
+    -H "Cookie: refresh_token=$refreshtoken" \
+    --data-raw "remove=$1" \
+    --compressed
+}
+
+
 get_lists()
 {
   # Get lists names
@@ -53,10 +76,10 @@ get_products()
   echo $products
 }
 
-while getopts ":a:lp" o; do
+while getopts ":a:lpr:u:" o; do
   case "${o}" in
     a)
-      add ${OPTARG}
+      add "${OPTARG}"
       echo "Adding to list"
       ;;
     l)
@@ -64,6 +87,12 @@ while getopts ":a:lp" o; do
       ;;
     p)
       get_products
+      ;;
+    u)
+      recently "${OPTARG}"
+      ;;
+    r)
+      remove "${OPTARG}"
       ;;
     *)
       # usage
