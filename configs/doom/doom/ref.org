@@ -1,0 +1,21 @@
+- tags ::
+- keywords :: %^{keywords}
+
+* %^{title}
+:PROPERTIES:
+:Custom_ID: %^{citekey}
+:URL: %^{url}
+:AUTHOR: %^{author-or-editor}
+:NOTER_DOCUMENT: %^{file}
+:END:
+
+** CATALOG
+
+*** Motivation
+*** Model
+*** Remarks
+*** Applications
+*** Expressions
+*** References
+
+** NOTES
