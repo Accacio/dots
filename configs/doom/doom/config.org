@@ -1847,10 +1847,8 @@ preview-default-preamble "\\fi}\"%' \"\\detokenize{\" %t \"}\""))
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type 'relative)
 (custom-set-faces!
-  (set-face-foreground 'line-number "#308030")
-  (set-face-foreground 'line-number-current-line "#e0e000")
-  ;; (set-face-foreground 'line-number "#308030")
-  ;; (set-face-foreground 'line-number-current-line "#735A7E")
+  '(line-number :foreground "#A3BE8C")
+  '(line-number-current-line :foreground "#EBCB8B")
 )
 
 ;; Spell-check and grammar
