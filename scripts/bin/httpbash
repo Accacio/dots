@@ -1,5 +1,6 @@
 #!/bin/bash
 x=0;
+function send() { ((${VERBOSE})) && echo "> $@" >&2; echo "$*"; }
 while read I[$x] && [ ${#I[$x]} -gt 1 ];do
       let "x = $x + 1";
 done ;
@@ -30,7 +31,7 @@ if [ "$METHOD" = "GET" ]; then
                echo -en "HTTP/1.0 200 OK\nContent-Type: text/html\nContent-Length: ${#Message_Body}\n\n$Message_Body"
                ;;
 
-        "/kill") Message_Body="<html>HTML formatted results of ps</html>"
+        "/kill") Message_Body="<html>HTML formatted results of hello</html>"
                  echo -en "HTTP/1.0 200 OK\nContent-Type: text/html\nContent-Length: ${#Message_Body}\n\n$Message_Body"
                  ;;
         *html)
@@ -44,12 +45,18 @@ if [ "$METHOD" = "GET" ]; then
                echo -en "HTTP/1.0 200 OK\nContent-Type: text/html\nContent-Length: ${#Message_Body}\n\n$Message_Body"
             fi
             ;;
-        *mobi)
-            echo "trying to get mobi $REQUEST" >> .bash_httpd
+        *pdf)
+            echo "trying to get pdf $REQUEST" >> .bash_httpd
             if [ -f "./$(basename $REQUEST)" ]
             then
-                Message_Body=$(cat "$REQUEST")
-                echo -en "HTTP/1.0 200 OK\nContent-Type:application/octet-stream\nContent-Length: ${#Message_Body}\n\n$Message_Body"
+                local tmp_stat_file="/tmp/_send_response_$$_"
+                Message_Body=$(<.$REQUEST)
+                # dd 2>"${tmp_stat_file}" < "${file}"
+                # transfer_stats=$(<"${tmp_stat_file}")
+                Message_Body=$(cat ."$REQUEST")
+                echo -en "HTTP/1.0 200 OK\nContent-Type:application/octet-stream\nContent-Length: ${#Message_Body}\n\n"
+                # send
+                # dd 2>"/dev/random" < ".${REQUEST}"
             else
                Message_Body="<html>File not found :/</html>"
                echo -en "HTTP/1.0 200 OK\nContent-Type: text/html\nContent-Length: ${#Message_Body}\n\n$Message_Body"
