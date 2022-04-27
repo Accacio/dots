@@ -295,7 +295,7 @@ awful.spawn("xinput set-prop 'DLL0675:00 06CB:75DB Touchpad' 'Synaptics Edge Scr
 awful.spawn("xinput set-prop 'SynPS/2 Synaptics TouchPad' 'Synaptics Scrolling Distance' -200 -20")
 awful.spawn("xinput set-prop 'DELL0820:00 044E:121F Touchpad' 'libinput Natural Scrolling Enabled' 1")
 awful.spawn("xinput set-prop 'DELL0820:00 044E:121F Touchpad' 'libinput Tapping Enabled' 1")
-awful.spawn("xrandr --output DP-1-2-1 --primary")
+awful.spawn("xrandr --output DP-1-1 --primary")
 
 
 -- wacom
