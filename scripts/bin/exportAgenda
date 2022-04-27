@@ -18,6 +18,9 @@ export XDG_RUNTIME_DIR='/run/user/1000'
 # emacsclient -e '(org-agenda nil "e")' -s $HOME/.emacs.d/server/server
 # emacsclient -e '(org-agenda nil "e")'
 emacsclient -e '(org-agenda nil "e")'
+# sed -i 's|<pre>| <iframe src=\"https://calendar.google.com/calendar/embed?height=600\&amp;wkst=1\&amp;bgcolor=%23ffffff\&amp;ctz=Europe%2FParis\&amp;src=cmFjY2FjaW8yQGdtYWlsLmNvbQ\&amp;src=dHZldGxpNDdtY2NmOW0wdWVxMTFwcmMyYm9AZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ\&amp;src=NzRwMTgzZmprcnVsbDJoOGtsNTJxMWx0cTRAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ\&amp;src=ajVhZzU2YTZnbDc1OXBsZnUydHFpM2VkNmZqNmVyN2JAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20\&amp;src=ZXZlbGlzZWFudHVuZXNAZ21haWwuY29t\&amp;color=%230B8043\&amp;color=%23F09300\&amp;color=%23009688\&amp;color=%238E24AA\&amp;color=%23D81B60\" style=\"border:solid 1px #777\" width=\"800\" height=\"600\" frameborder=\"0\" scrolling=\"no\"></iframe> <pre>|'  ~/org/private/agenda.html
+# TODO add iframe?
+#
 emacsclient -e ' (let ((new-buffer-name (find-buffer-visiting  "~/org/private/gcal-orgmode.org") ))
   (set-buffer new-buffer-name )
   (set-visited-file-name "~/org/private/gcal-orgmode.org")
