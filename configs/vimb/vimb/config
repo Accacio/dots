@@ -59,3 +59,6 @@ set minimum-font-size=16
 set strict-ssl=false
 set cookie-accept=origin
 set caret=true
+# set sans-serif-font=CMU Classical Serif
+set default-font=CMU Classical Serif
+set monospace-font=Roboto Mono
