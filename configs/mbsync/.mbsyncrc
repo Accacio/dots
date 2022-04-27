@@ -29,7 +29,7 @@ Host imap.gmail.com
 User raccacio@poli.ufrj.br
 PassCmd "pass Email/polimail"
 SSLType IMAPS
-CertificateFile /etc/ssl/certs/ca-certificates.crt
+# CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 IMAPStore poli-remote
 Account poli

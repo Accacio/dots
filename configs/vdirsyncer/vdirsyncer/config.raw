@@ -18,6 +18,7 @@ type = "carddav"
 url = "https://sogo.supelec.fr/SOGo/dav/nogueirar/Contacts/personal/"
 username = "nogueirar"
 password.fetch = ["command", "pass", "Email/centralesupelec"]
+auth_cert = "~/.cert/imap.ecp.fr.pem"
 
 [pair calendar]
 a = "calendar_local"
@@ -36,6 +37,7 @@ type = "caldav"
 url = "https://sogo.supelec.fr/SOGo/dav/nogueirar/Calendar/personal/"
 username = "nogueirar"
 password.fetch = ["command", "pass", "Email/centralesupelec"]
+verify = "~/.cert/imap.ecp.fr.pem"
 
 [pair gmail]
 a = "gmail_local"
