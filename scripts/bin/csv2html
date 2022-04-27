@@ -1,12 +1,26 @@
 #!/bin/bash
 
 (echo "<html><body><table>" ;
-print_header=false
-while read INPUT ; do
-  if $print_header;then
-    echo "<tr><th>$INPUT" | sed -e 's/:[^,]*\(,\|$\)/<\/th><th>/g'
-    print_header=false
-  fi
-  echo "<tr><td>${INPUT//,/</td><td>}</td></tr>" ;
-done < "$1" ;
-echo "</table></body></html>")
+ echo "<style type="text/css">
+tr.d0 td {
+  background-color: #CCA9A9; color: black;
+}
+tr.d1 td {
+  background-color: #99B9EC; color: black;
+}
+</style>"
+ print_header=false
+ row=0
+ while read INPUT ; do
+   if $print_header;then
+   echo "<tr><th>$INPUT" | sed -e 's/:[^,]*\(,\|$\)/<\/th><th>/g'
+   print_header=false
+   fi
+   if [ "$row" == 0 ]; then
+   row=1;
+   else
+     row=0;
+   fi
+   echo "<tr class="d$row"><td>${INPUT//,/</td><td>}</td></tr>" ;
+ done < "$1" ;
+ echo "</table></body></html>")
