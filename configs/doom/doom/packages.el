@@ -103,7 +103,6 @@
 
 
 (package! org-caldav)
-(package! Oauth2)
 (package! solaire-mode :disable t)
 ;; (package! org-sketch
 ;;   :recipe (:host github :repo "yuchen-lea/org-sketch"))
