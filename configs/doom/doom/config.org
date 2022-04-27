@@ -54,7 +54,7 @@
 (use-package! idle-highlight-mode
   :config
   (progn
-    (set-face-background 'idle-highlight "#252")
+    (set-face-background 'idle-highlight "#A3BE8C")
     (set-face-foreground 'idle-highlight "#fafafa")
     ))
 
