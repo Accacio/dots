@@ -1,0 +1,62 @@
+#!/bin/bash
+
+# Get information
+info=$(curl -s 'https://api.getbring.com/rest/v2/bringauth' \
+  --data-raw 'email=raccacio2%40gmail.com&password='$(pass show Email/gmail) \
+  --compressed)
+useruuid=$(echo $info|sed -r "s,.*\"uuid\":\"([a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}).*,\1,")
+accesstoken=$(echo $info | sed -r "s/.*\"access_token\":\"([a-z0-9].*)\",\"refresh_token.*/\1/")
+refreshtoken=$(echo $info | sed -r "s/.*\"refresh_token\":\"([a-z0-9].*)\",\"token.*/\1/")
+listuuid=$(echo $info | sed -r "s,.*\"bringListUUID\":\"([a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12})\".\"access_token\".*,\1,")
+
+# pass insert
+# Get lists
+# lists=$(curl -s 'https://api.getbring.com/rest/v2/bringusers/'$useruuid'/lists' \
+#   -H 'Authorization: Bearer $accesstoken' \
+#   -H 'X-BRING-API-KEY: cof4Nc6D8saplXjE3h3HXqHH8m7VU2i1Gs0g85Sp' \
+#   --compressed)
+# echo $info
+# echo $lists
+# listuuid=$(echo $lists | sed -r "s,\{\"lists\":\[\{\"listUuid\":\"([a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12})\".*,\1,")
+
+# List all producst in list
+# products=$(curl -s 'https://api.getbring.com/rest/v2/bringlists/'$listuuid \
+#   -H "Authorization: Bearer $accesstoken" \
+#   -H "Cookie: refresh_token=$refreshtoken" \
+#   --compressed)
+# echo $products
+
+# Add to purchase list
+curl "https://api.getbring.com/rest/v2/bringlists/$listuuid" \
+  -X 'PUT' \
+  -H "X-BRING-USER-UUID: $useruuid" \
+  -H "Authorization: Bearer $accesstoken" \
+  -H "Cookie: refresh_token=$refreshtoken" \
+  --data-raw "purchase=$1" \
+  --compressed
+
+# # Add to recently list
+# curl 'https://api.getbring.com/rest/v2/bringlists/$listuuid' \
+#   -X 'PUT' \
+#   -H 'X-BRING-USER-UUID: $useruuid' \
+#   -H 'Authorization: Bearer $accesstoken' \
+#   -H 'Cookie: refresh_token=$refreshtoken' \
+#   --data-raw 'recently=Bala de coco' \
+#   --compressed
+
+# # Remove item
+# curl 'https://api.getbring.com/rest/v2/bringlists/$listuuid' \
+#   -X 'PUT' \
+#   -H 'X-BRING-USER-UUID: $useruuid' \
+#   -H 'Authorization: Bearer $accesstoken' \
+#   -H 'Cookie: refresh_token=$refreshtoken' \
+#   --data-raw 'remove=Bala de coco' \
+#   --compressed
+
+# curl 'https://api.getbring.com/rest/v2/bringlists/$listuuid' \
+#   -X 'PUT' \
+#   -H 'X-BRING-USER-UUID: $useruuid' \
+#   -H 'Authorization: Bearer $accesstoken' \
+#   -H 'Cookie: refresh_token=$refreshtoken' \
+#   --data-raw 'purchase=Abacate' \
+#   --compressed
