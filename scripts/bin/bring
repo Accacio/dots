@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# Get information
+usage() { echo "Usage: $0 [-s <45|90>] [-p <string>]" 1>&2; exit 1; }
+
 info=$(curl -s 'https://api.getbring.com/rest/v2/bringauth' \
   --data-raw 'email=raccacio2%40gmail.com&password='$(pass show Email/gmail) \
   --compressed)
@@ -8,6 +9,72 @@ useruuid=$(echo $info|sed -r "s,.*\"uuid\":\"([a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4
 accesstoken=$(echo $info | sed -r "s/.*\"access_token\":\"([a-z0-9].*)\",\"refresh_token.*/\1/")
 refreshtoken=$(echo $info | sed -r "s/.*\"refresh_token\":\"([a-z0-9].*)\",\"token.*/\1/")
 listuuid=$(echo $info | sed -r "s,.*\"bringListUUID\":\"([a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12})\".\"access_token\".*,\1,")
+
+
+
+add() {
+  # Add to purchase list
+  curl "https://api.getbring.com/rest/v2/bringlists/$listuuid" \
+    -X 'PUT' \
+    -H "X-BRING-USER-UUID: $useruuid" \
+    -H "Authorization: Bearer $accesstoken" \
+    -H "Cookie: refresh_token=$refreshtoken" \
+    --data-raw "purchase=$1" \
+    --compressed
+}
+
+get_lists()
+{
+  # Get lists names
+  lists=$(curl -s 'https://api.getbring.com/rest/v2/bringusers/'$useruuid'/lists' \
+    -H "Authorization: Bearer $accesstoken" \
+    -H 'X-BRING-API-KEY: cof4Nc6D8saplXjE3h3HXqHH8m7VU2i1Gs0g85Sp' \
+    --compressed | jq ".lists[] | .name ")
+  # echo $info
+  echo $lists
+}
+
+get_lists_uids()
+{
+  # Get lists
+  lists=$(curl -s 'https://api.getbring.com/rest/v2/bringusers/'$useruuid'/lists' \
+    -H "Authorization: Bearer $accesstoken" \
+    -H "Cookie: refresh_token=$refreshtoken" \
+    --compressed | jq ".lists[] | .listUuid ")
+  echo $lists
+}
+
+get_products()
+{
+  products=$(curl -s 'https://api.getbring.com/rest/v2/bringlists/'$listuuid \
+    -H "Authorization: Bearer $accesstoken" \
+    -H "Cookie: refresh_token=$refreshtoken" \
+    --compressed | jq ".purchase[] | .name")
+  echo $products
+}
+
+while getopts ":a:lp" o; do
+  case "${o}" in
+    a)
+      add ${OPTARG}
+      echo "Adding to list"
+      ;;
+    l)
+      get_lists
+      ;;
+    p)
+      get_products
+      ;;
+    *)
+      # usage
+      echo "error"
+      ;;
+  esac
+done
+exit
+# echo $1
+# exit
+# Get information
 
 # pass insert
 # Get lists
@@ -21,19 +88,11 @@ listuuid=$(echo $info | sed -r "s,.*\"bringListUUID\":\"([a-z0-9]{8}-[a-z0-9]{4}
 
 # List all producst in list
 # products=$(curl -s 'https://api.getbring.com/rest/v2/bringlists/'$listuuid \
-#   -H "Authorization: Bearer $accesstoken" \
-#   -H "Cookie: refresh_token=$refreshtoken" \
-#   --compressed)
+  #   -H "Authorization: Bearer $accesstoken" \
+  #   -H "Cookie: refresh_token=$refreshtoken" \
+  #   --compressed)
 # echo $products
 
-# Add to purchase list
-curl "https://api.getbring.com/rest/v2/bringlists/$listuuid" \
-  -X 'PUT' \
-  -H "X-BRING-USER-UUID: $useruuid" \
-  -H "Authorization: Bearer $accesstoken" \
-  -H "Cookie: refresh_token=$refreshtoken" \
-  --data-raw "purchase=$1" \
-  --compressed
 
 # # Add to recently list
 # curl 'https://api.getbring.com/rest/v2/bringlists/$listuuid' \
