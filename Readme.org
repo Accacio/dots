@@ -1,6 +1,7 @@
 * dots
 Repository for my "." files (.bash, .config and etc)
 ** dependencies
+- davmail (for microsoft teams calendar)
 *** Optional
     - xdotool (mouse position and others)
     - feh (wallpaper)
