@@ -1,0 +1,10 @@
+#!/bin/bash
+width=$(pdfinfo poster.pdf | grep -Ei "page size" | sed "s;\s\+; ;g" | cut -d" " -f 3)
+height=$(pdfinfo poster.pdf | grep -Ei "page size" | sed "s;\s\+; ;g" | cut -d" " -f 5)
+
+convert $1 -crop $(echo "$width/2" | bc )x$(echo "$height/2" | bc )+0+0 -repage 595.276x841.89 ${1}.1
+convert $1 -crop $(echo "$width/2" | bc )x$(echo "$height/2" | bc )+$(echo "$width/2" | bc )+0 -repage 595.276x841.89+0+0  ${1}.2
+convert $1 -crop $(echo "$width/2" | bc )x$(echo "$height/2" | bc )+0+$(echo "$height/2" | bc ) -repage 595.276x841.89+0+0 ${1}.3
+convert $1 -crop $(echo "$width/2" | bc )x$(echo "$height/2" | bc )+$(echo "$width/2" | bc )+$(echo "$height/2" | bc ) -repage 595.276x841.89+0+0 ${1}.4
+pdfunite ${1}.[0-9]* ${1}.a4poster
+rm ${1}.[0-9]*
