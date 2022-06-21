@@ -24,7 +24,7 @@ add() {
 }
 
 recently() {
-  # Add to purchase list
+  # remove from purchase list
   curl "https://api.getbring.com/rest/v2/bringlists/$listuuid" \
     -X 'PUT' \
     -H "X-BRING-USER-UUID: $useruuid" \
@@ -35,7 +35,7 @@ recently() {
 }
 
 remove() {
-  # Add to purchase list
+  # Remove item
   curl "https://api.getbring.com/rest/v2/bringlists/$listuuid" \
     -X 'PUT' \
     -H "X-BRING-USER-UUID: $useruuid" \
@@ -79,8 +79,8 @@ get_products()
 while getopts ":a:lpr:u:" o; do
   case "${o}" in
     a)
+      echo "Adding ${OPTARG} to list"
       add "${OPTARG}"
-      echo "Adding to list"
       ;;
     l)
       get_lists
@@ -89,9 +89,11 @@ while getopts ":a:lpr:u:" o; do
       get_products
       ;;
     u)
+      echo "Removing ${OPTARG} from list"
       recently "${OPTARG}"
       ;;
     r)
+      echo "Removing ${OPTARG} item"
       remove "${OPTARG}"
       ;;
     *)
