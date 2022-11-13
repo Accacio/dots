@@ -199,10 +199,12 @@ alias addmon="xrandr --setmonitor DP-0-1 1920/594x1080/334+0+0 DP-0"
 
 function envRec {
   addmon; # use 16/9 monitor ratio
+  pkill compton
   export ENVREC=1;
   crontab ~/dots/crontabRecording;
 
-  screenkey --ignore "Super" --mods-mode emacs --key-mode translated -t 1 --opacity .3&
+  /usr/bin/sxiv ~/git/youtube/images/mask.png -g 340x304+1524+716 -b&
+  screenkey --ignore "Super" --mods-mode emacs --key-mode translated -t 1 --opacity 1 -g 342x400+1522+660&
   mv -nT ~/.config/gtk-3.0/settings.ini ~/.config/gtk-3.0/settings.ini.bkp
   mv -nT ~/.config/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml.bkp
   mv -nT ~/.config/doom ~/.config/doom.bkp
@@ -217,6 +219,7 @@ function envRec {
 function envNorm {
   delmon # reset monitor
   crontab ~/dots/crontab;
+  compton
 
   killall screenkey
   mv -nT ~/.config/gtk-3.0/settings.ini ~/.config/gtk-3.0/settings.ini.youtube
@@ -228,4 +231,5 @@ function envNorm {
   mv -nT ~/.config/alacritty/alacritty.yml.bkp ~/.config/alacritty/alacritty.yml
   mv -nT ~/.config/doom.bkp ~/.config/doom
   mv -nT ~/.emacs.d.bkp ~/.emacs.d
+  killall sxiv
 }
