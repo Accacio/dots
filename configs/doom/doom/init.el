@@ -62,6 +62,7 @@
        (lookup             ; navigate your code and its documentation
         +dictionary
         +docsets
+        +offline         ;; better than to use powerthesaurus now (20230127)
         )
        magit             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
