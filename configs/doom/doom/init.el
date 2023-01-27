@@ -30,7 +30,6 @@
        neotree           ; a project drawer, like NERDTree for vim
        ophints           ; highlight the region an operation acts on
        (popup +defaults)   ; tame sudden yet inevitable temporary windows
-       unicode           ; extended unicode support for various languages
        vc-gutter         ; vcs diff in the fringe
        window-select     ; visually switch windows
        workspaces        ; tab emulation, persistence & separate workspaces
