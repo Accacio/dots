@@ -15,10 +15,10 @@
 ;;      directory (for easy access to its source code).
 
 (doom! :input
+
        :completion
        (company +childframe)           ; the ultimate code completion backend
        (ivy)               ; a search engine for love and life
-
 
        :ui
        ;; minimap
@@ -77,7 +77,7 @@
        lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
        (org              ; organize your plain life in plain text
-        ;; +roam
+        ;; +roam2
         +pomodoro
         +pretty
         )
