@@ -249,6 +249,19 @@ zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 zstyle ':completion:*' menu select
 zmodload zsh/complist
+bindkey -M menuselect '^[[Z' reverse-menu-complete
+
+HISTFILE=~/.zhistory
+HISTSIZE=10000
+SAVEHIST=10000
+
+alias cp="cp -i"                                                # Confirm before overwriting something
+alias df='df -h'                                                # Human-readable sizes
+alias free='free -m'                                            # Show sizes in MB
+
+autoload -U compinit colors zcalc
+compinit -d
+
 setopt prompt_subst
 promptHost=🏠
 
@@ -281,6 +294,10 @@ zstyle ':vcs_info:*' check-for-changes true
 PS1='[%F{green}%n%F{white}%f/$promptHost %F{blue}%~%f] $vcs_info_msg_0_ 
 '
 setopt autocd                                                   # if only directory path is entered, cd there.
+WORDCHARS=${WORDCHARS//\/[&.;-]}
+WORDCHARS="[]~;!(){}<>"
+setopt inc_append_history                                       # save commands are added to the history immediately, otherwise only when shell exits.
+
 
 export LESS_TERMCAP_mb=$'\E[01;32m'
 export LESS_TERMCAP_md=$'\E[01;32m'
