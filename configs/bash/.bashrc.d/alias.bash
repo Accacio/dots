@@ -93,17 +93,9 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 "$SCRIPTSFOLDER/createShortcuts" && . $HOME/.shortcuts
 
-function addBook {
-    # while read data; do
-	cp $1 $HOME/books/TCC/
-    # done
-}
-
 function gcd {
 	cd "$HOME/git/$(ls -a ~/git/|xargs -n1|fzy)"
 }
-
-# alias wpp="surf web.whatsapp.com "
 
 function ddbrowser {
     appFirefox $2
