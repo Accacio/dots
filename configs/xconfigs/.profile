@@ -1,6 +1,8 @@
 
 export PATH="$PATH:$(du "$HOME/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//;s|/$||')"
 export PATH="$PATH:/usr/local/texlive/2022/bin/x86_64-linux/"
+export MANPATH="$MANPATH:/usr/local/texlive/2022/texmf-dist/doc/man/"
+export INFOPATH="$MANPATH:/usr/local/texlive/2022/texmf-dist/doc/info/"
 export PATH="$PATH:/usr/local/MATLAB/R2019b/bin/"
 export PATH="$PATH:/usr/local/MATLAB/R2019b/bin/glnxa64"
 export PRINTER=HP-LaserJet-Pro-MFP-M127fn
