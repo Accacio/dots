@@ -5,5 +5,48 @@
 (setq user-full-name "Rafael Accácio Nogueira"
       user-mail-address "rafael.accacio.nogueira@gmail.com")
 #+end_src
+
+#+begin_src emacs-lisp
+(setq search-whitespace-regexp ".*?")
+
+(show-smartparens-global-mode 1)
+* UI
+** Theme/Visuals
+#+begin_src emacs-lisp
+;; There are two ways to load a theme. Both assume the theme is installed and
+;; available. You can either set `doom-theme' or manually load a theme with the
+;; `load-theme' function.
+(setq doom-theme 'doom-nord)
+;; (setq doom-font (font-spec :family "monospace" :size 14))
+;; (setq doom-font (font-spec :family "Glass TTY VT220" :size 20))
+;; (setq doom-font (font-spec :family "Source Code Pro" :size 16))
+(setq doom-font (font-spec :family "Roboto Mono" :size 16))
+;; (setq doom-font (font-spec :family "Fira Code" :size 16))
+
+
+(defun toggle-transparency ()
+   (interactive)
+   (let ((alpha (frame-parameter nil 'alpha)))
+     (set-frame-parameter
+      nil 'alpha
+      (if (eql (cond ((numberp alpha) alpha)
+                     ((numberp (cdr alpha)) (cdr alpha))
+                     ;; Also handle undocumented (<active> <inactive>) form.
+                     ((numberp (cadr alpha)) (cadr alpha)))
+               100)
+          '(95 . 80) '(100 . 100)))))
+
+(map! :leader
+      (:prefix-map ("t" . "toggle")
+        :desc "Transparency"                 "T" 'toggle-transparency))
+
+(setq global-hl-line-modes nil)
+
+(setq display-line-numbers-type 'relative)
+(custom-set-faces!
+  '(line-number :foreground "#A3BE8C")
+  '(line-number-current-line :foreground "#EBCB8B")
+)
+#+end_src
 #+begin_src emacs-lisp
 #+end_src
