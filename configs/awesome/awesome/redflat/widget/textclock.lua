@@ -60,7 +60,8 @@ function textclock.new(args, style)
 	local timer = gears.timer({ timeout = timeout })
 	timer:connect_signal("timeout",
 		function()
-			local handle = io.popen('export TERM=alacritty ; cal -y --color=always | sed "s,\x1b\\[[0-9].*m,++,g" ')
+			-- local handle = io.popen('export TERM=alacritty ; cal -y --color=always | sed "s,\x1b\\[[0-9].*m,++,g" ')
+			local handle = io.popen('cal -y | tr "_\b" "|" |sed "s,||.,+,g" | sed 1d')
 			local result = handle:read("*a")
 			widg:set_markup('<span color="' .. style.color.text .. '">' .. os.date(timeformat) .. "</span>")
 			if args.dateformat then tp:set_text(os.date(args.dateformat) .. "\n\n" .. result) end
