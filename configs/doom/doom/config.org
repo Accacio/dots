@@ -1,2 +1,9 @@
+#+PROPERTY: header-args :comments yes
+
+* General settings
+#+begin_src emacs-lisp
+(setq user-full-name "Rafael Accácio Nogueira"
+      user-mail-address "rafael.accacio.nogueira@gmail.com")
+#+end_src
 #+begin_src emacs-lisp
 #+end_src
