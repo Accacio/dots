@@ -94,6 +94,149 @@
 
   )
 #+end_src
+* app
+** rss
+#+begin_src emacs-lisp
+(map! :map doom-leader-map "n R" 'elfeed)
+(setq rmh-elfeed-org-files (list "~/Dropbox/org/elfeed.org"))
+(after! elfeed
+
+(defun accacio/elfeed-search-print-entry (entry)
+  "Print ENTRY to the buffer."
+  (let* ((date (elfeed-search-format-date (elfeed-entry-date entry)))
+         (title (or (elfeed-meta entry :title) (elfeed-entry-title entry) ""))
+         (title-faces (elfeed-search--faces (elfeed-entry-tags entry)))
+         (feed (elfeed-entry-feed entry))
+         (feed-title
+          (when feed
+            (or (elfeed-meta feed :title) (elfeed-feed-title feed))))
+         (tags (mapcar #'symbol-name (elfeed-entry-tags entry)))
+         (tags-str (mapconcat
+                    (lambda (s) (propertize s 'face 'elfeed-search-tag-face))
+                    tags ","))
+         (title-width (- (window-width) 10 elfeed-search-trailing-width))
+         (title-column (elfeed-format-column
+                        title (elfeed-clamp
+                               elfeed-search-title-min-width
+                               title-width
+                               elfeed-search-title-max-width)
+                        :left))
+         (feed-column (elfeed-format-column
+                       feed-title (elfeed-clamp elfeed-goodies/feed-source-column-width
+                                                elfeed-goodies/feed-source-column-width
+                                                elfeed-goodies/feed-source-column-width)
+                       :left)))
+
+
+    (insert (propertize date 'face 'elfeed-search-date-face) " ")
+    (insert (propertize title-column 'face title-faces 'kbd-help title) " ")
+    (when feed-title
+      (insert (propertize feed-column 'face 'elfeed-search-feed-face) " "))
+    (when tags
+      (insert "(" tags-str ")"))))
+
+
+(setq elfeed-search-header-function #'elfeed-search--header
+ ;; elfeed-search-print-entry-function #'elfeed-goodies/entry-line-draw
+ elfeed-search-print-entry-function #'accacio/elfeed-search-print-entry
+ elfeed-goodies/entry-pane-position 'bottom
+ elfeed-goodies/entry-pane-size .4
+ )
+
+
+
+(defun elfeed-search-tag-all (&rest tags)
+  "Apply TAG to all selected entries."
+  (interactive (list (intern (read-from-minibuffer "Tag: "))))
+  (let ((entries (elfeed-search-selected)))
+    (cl-loop for tag in tags do (elfeed-tag entries tag))
+    (mapc #'elfeed-search-update-entry entries)
+    (unless (or elfeed-search-remain-on-entry (use-region-p))
+      (forward-line))))
+
+(defun elfeed-search-untag-all (&rest tags)
+  "Remove TAG from all selected entries."
+  (interactive (list (intern (read-from-minibuffer "Tag: "))))
+  (let ((entries (elfeed-search-selected)))
+    (cl-loop for value in tags do (elfeed-untag entries value))
+    (mapc #'elfeed-search-update-entry entries)
+    (unless (or elfeed-search-remain-on-entry (use-region-p))
+      (forward-line))))
+
+(defun elfeed-search-toggle-all ( &rest tags)
+  "Toggle TAG on all selected entries."
+  (interactive (list (intern (read-from-minibuffer "Tag: "))))
+  (let ((entries (elfeed-search-selected)) entries-tag entries-untag)
+    (cl-loop for tag in tags do
+      (cl-loop for entry in entries
+             when (elfeed-tagged-p tag entry)
+             do (elfeed-untag-1 entry tag)
+             else do (elfeed-tag-1 entry tag)))
+    (mapc #'elfeed-search-update-entry entries)
+    (unless (or elfeed-search-remain-on-entry (use-region-p))
+      (forward-line))))
+
+(evil-define-key 'normal elfeed-search-mode-map "i" (lambda () (interactive)(elfeed-search-toggle-all 'important 'readlater)))
+(evil-define-key 'visual elfeed-search-mode-map "i" (lambda () (interactive)(elfeed-search-toggle-all 'important 'readlater)))
+(evil-define-key 'normal elfeed-search-mode-map "t" (lambda () (interactive)(elfeed-search-toggle-all 'readlater)))
+(evil-define-key 'visual elfeed-search-mode-map "t" (lambda () (interactive)(elfeed-search-toggle-all 'readlater)))
+(evil-define-key 'visual elfeed-search-mode-map "i" (lambda () (interactive)(elfeed-search-toggle-all 'important )))
+
+(evil-define-key 'normal elfeed-search-mode-map "I" (lambda () (interactive)(elfeed-search-set-filter "@1-week-ago +important ")))
+(evil-define-key 'normal elfeed-search-mode-map "R" (lambda () (interactive)(elfeed-search-set-filter "@1-week-ago +readlater ")))
+
+(evil-define-key 'normal elfeed-show-mode-map "U" 'elfeed-show-tag--unread)
+(evil-define-key 'normal elfeed-show-mode-map "t" (elfeed-expose #'elfeed-show-tag 'readlater))
+(evil-define-key 'normal elfeed-show-mode-map "i" (elfeed-expose #'elfeed-show-tag 'important))
+
+(defun elfeed-search-show-entry (entry)
+  "Display the currently selected item in a buffer."
+  (interactive (list (elfeed-search-selected :ignore-region)))
+  (require 'elfeed-show)
+  (when (elfeed-entry-p entry)
+    ;; (elfeed-untag entry 'unread)
+    (elfeed-search-update-entry entry)
+    ;; (unless elfeed-search-remain-on-entry (forward-line))
+    (elfeed-show-entry entry)))
+
+(defun accacio/elfeed-search-copy-article ()
+  (interactive)
+  (let ( (entries (elfeed-search-selected)) (links ""))
+               (elfeed-search-untag-all 'readlater 'unread)
+  (cl-loop for entry in entries
+           when (elfeed-entry-link entry)
+           do (progn (setq links (concat links (concat "- [ ] " (if (elfeed-tagged-p 'important entry) "* " "") (org-make-link-string  (concat "https://ezproxy.universite-paris-saclay.fr/login?url=" (elfeed-entry-link entry)) (elfeed-entry-title entry)) "\n" )))
+               )
+           )
+  (kill-new links)
+  )
+  )
+(setq-default elfeed-search-filter "@1-week-ago +unread")
+
+(add-hook! 'elfeed-search-mode-hook 'elfeed-update)
+(defface important-elfeed-entry
+  '((t :foreground "#a00"))
+  "Marks an control Elfeed entry.")
+(defface control-elfeed-entry
+  '((t :foreground "#2ba"))
+  "Marks an control Elfeed entry.")
+
+(defface readlater-elfeed-entry
+  '((t :foreground "#Eec900"))
+  "Marks a readlater Elfeed entry.")
+
+(set-face-attribute 'elfeed-search-unread-title-face nil
+                    :bold t :strike-through nil :underline nil :foreground "#bbb")
+
+(set-face-attribute 'elfeed-search-title-face nil
+                    :bold nil :strike-through t)
+
+(push '(control control-elfeed-entry) elfeed-search-face-alist)
+(push '(readlater readlater-elfeed-entry) elfeed-search-face-alist)
+(push '(important important-elfeed-entry) elfeed-search-face-alist)
+
+)
+
 #+end_src
 * Other functions
 #+begin_src emacs-lisp
