@@ -71,3 +71,16 @@
 #+end_src
 #+begin_src emacs-lisp
 #+end_src
+* Other functions
+#+begin_src emacs-lisp
+(defun accacio/find-straight-repos-file ()
+  "Search for a file in `~/docsThese."
+  (interactive)
+  (dired "~/.emacs.d/.local/straight/repos/"))
+
+(defun accacio/find-cfg-file ()
+  "Search for a file in `~/dots'."
+  (interactive)
+  (doom-project-find-file "~/dots"))
+(map! :leader :prefix "f" "a" #'accacio/find-cfg-file)
+#+end_src
