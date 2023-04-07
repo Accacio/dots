@@ -109,6 +109,21 @@
 (setq org-babel-python-command "python3")
 #+end_src
   #+end_src
+** python
+#+begin_src emacs-lisp
+(add-hook 'python-mode-hook
+          (lambda ()
+            (setq
+             imenu-generic-expression
+             '(
+               ("Cell" "^## \\(.*[A-z].*\\)" 1)
+               ("Comment" "#= \\([A-z].*\\)" 1)
+               )
+             )
+            (setq imenu-create-index-function '(lambda () (imenu--generic-function imenu-generic-expression)))
+            )
+          )
+#+end_src
 * app
 ** rss
 #+begin_src emacs-lisp
