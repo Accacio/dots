@@ -1,4 +1,5 @@
 
+export DATE=$(date +%Y%m%d)
 export PATH="$PATH:$(du "$HOME/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//;s|/$||')"
 export PATH="$PATH:/usr/local/texlive/2022/bin/x86_64-linux/"
 export MANPATH="$MANPATH:/usr/local/texlive/2022/texmf-dist/doc/man/"
