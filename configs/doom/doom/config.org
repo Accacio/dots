@@ -105,8 +105,9 @@
 (setq org-ellipsis " ▼") ;;▼ ⤵
 #+end_src
 - use python3
-  #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 (setq org-babel-python-command "python3")
+#+end_src
   #+end_src
 * app
 ** rss
