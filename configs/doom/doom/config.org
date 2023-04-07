@@ -46,20 +46,20 @@
 
 
 (defun toggle-transparency ()
-   (interactive)
-   (let ((alpha (frame-parameter nil 'alpha)))
-     (set-frame-parameter
-      nil 'alpha
-      (if (eql (cond ((numberp alpha) alpha)
-                     ((numberp (cdr alpha)) (cdr alpha))
-                     ;; Also handle undocumented (<active> <inactive>) form.
-                     ((numberp (cadr alpha)) (cadr alpha)))
-               100)
-          '(95 . 80) '(100 . 100)))))
+  (interactive)
+  (let ((alpha (frame-parameter nil 'alpha)))
+    (set-frame-parameter
+     nil 'alpha
+     (if (eql (cond ((numberp alpha) alpha)
+                    ((numberp (cdr alpha)) (cdr alpha))
+                    ;; Also handle undocumented (<active> <inactive>) form.
+                    ((numberp (cadr alpha)) (cadr alpha)))
+              100)
+         '(95 . 80) '(100 . 100)))))
 
 (map! :leader
       (:prefix-map ("t" . "toggle")
-        :desc "Transparency"                 "T" 'toggle-transparency))
+       :desc "Transparency"                 "T" 'toggle-transparency))
 
 (setq global-hl-line-modes nil)
 
