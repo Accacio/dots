@@ -94,6 +94,20 @@
 
   )
 #+end_src
+* Lang
+** org
+- use greek letters on org-mode sections
+#+begin_src emacs-lisp
+(setq org-superstar-headline-bullets-list '("α" "β" "γ" "δ" "ε" "ζ" "η" "θ" "ι" "κ" "λ" "μ" "ν" "ξ" "ο" "π" "ρ" "σ" "τ" "υ" "φ" "χ" "ψ" "ω"))
+#+end_src
+- change ellipsis symbol
+#+begin_src emacs-lisp
+(setq org-ellipsis " ▼") ;;▼ ⤵
+#+end_src
+- use python3
+  #+begin_src emacs-lisp
+(setq org-babel-python-command "python3")
+  #+end_src
 * app
 ** rss
 #+begin_src emacs-lisp
