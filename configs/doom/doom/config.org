@@ -69,6 +69,13 @@
   '(line-number-current-line :foreground "#EBCB8B")
   )
 #+end_src
+* Editor
+** emails
+- use mail-mode with neomutt buffers
+#+begin_src emacs-lisp
+(after! core
+(setq auto-mode-alist (delete '("mutt" . mail-mode) auto-mode-alist))
+(add-to-list 'auto-mode-alist '("/tmp/neomutt" . mail-mode))
 )
 #+end_src
 ** Rotate text
