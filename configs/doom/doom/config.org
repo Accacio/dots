@@ -67,9 +67,26 @@
 (custom-set-faces!
   '(line-number :foreground "#A3BE8C")
   '(line-number-current-line :foreground "#EBCB8B")
+  )
+#+end_src
 )
 #+end_src
+** Rotate text
 #+begin_src emacs-lisp
+(after! rotate-text
+  :config
+  (pushnew! rotate-text-words '("before" "after"))
+  (pushnew! rotate-text-words '("horizontal" "vertical"))
+  (pushnew! rotate-text-words '("increase" "decrease"))
+  (pushnew! rotate-text-words '("top" "bottom"))
+  (pushnew! rotate-text-words '("left" "right"))
+  (pushnew! rotate-text-words '("up" "down"))
+  (pushnew! rotate-text-words '("on" "off"))
+  (set-rotate-patterns! 'c-mode
+    :words '(("float" "double")))
+
+  )
+#+end_src
 #+end_src
 * Other functions
 #+begin_src emacs-lisp
