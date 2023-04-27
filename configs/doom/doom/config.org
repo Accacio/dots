@@ -123,6 +123,7 @@
             (setq imenu-create-index-function '(lambda () (imenu--generic-function imenu-generic-expression)))
             )
           )
+#+end_src
 * Agenda
 #+begin_src emacs-lisp
 (after! org
