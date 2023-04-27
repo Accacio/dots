@@ -123,6 +123,217 @@
             (setq imenu-create-index-function '(lambda () (imenu--generic-function imenu-generic-expression)))
             )
           )
+* Agenda
+#+begin_src emacs-lisp
+(after! org
+  (setq org-agenda-files (list "inbox.org" ".inbox.org_done" "tickler.org" "personal.org"  ".personal.org_done" "areas.org" "books_series_films.org")
+        org-directory "~/Dropbox/org")
+
+  ;; use org-protocol to capture ideas
+  ;; javascript:location.href='org-protocol://capture?template=i'+
+  ;;       '&url='+encodeURIComponent(window.location.href)+
+  ;; '&title='+encodeURIComponent(document.title)+
+  ;; '&body='+encodeURIComponent(window.getSelection());
+  (setq org-capture-templates
+        `(("i" "Inbox" entry  (file "inbox.org")
+           ,(concat "* TODO %?%a\n"
+                    ;; ":PROPERTIES:\n"
+                    "CREATED: %U\n\n"
+                    ;; ":END:\n\n"
+                    "%i"))
+          ))
+
+  (setq org-agenda-hide-tags-regexp "inbox")
+  (setq org-agenda-prefix-format
+        '((agenda . " %i %-12:c%?-12t% s")
+          (todo   . " ")
+          (tags   . " %i %-12:c")
+          (search . " %i %-12:c")))
+
+  (setq org-agenda-custom-commands
+        '(
+          ("n" . "Next Actions List")
+          ("nn" tags "+TODO=\"NEXT\"|+TODO=\"STARTED\"")
+          ("nh" tags "+@home+TODO=\"NEXT\"|+@home+TODO=\"STARTED\"")
+          ("g" "Get Things Done (GTD)"
+           ((agenda ""
+                    ((org-agenda-skip-function
+                      '(org-agenda-skip-entry-if 'deadline))
+                     (org-deadline-warning-days 0)))
+            (tags-todo "inbox"
+                       ((org-agenda-prefix-format "  %?-12t% s")
+                        (org-agenda-overriding-header "\nInbox\n")))
+            (todo "NEXT"
+                  (
+                   ;; (org-agenda-skip-function
+                   ;;  ;; '(org-agenda-skip-entry-if 'deadline)
+                   ;;  ;; #'my-org-agenda-skip-all-siblings-but-first
+                   ;;    #'my-org-agenda-skip-all-siblings-but-first
+                   ;;  )
+                   (org-agenda-prefix-format "  %i %-12:c [%e] ")
+                   (org-agenda-overriding-header "\nTasks\n")
+                   )
+                  )
+            ;; (agenda nil
+            ;;         ((org-agenda-entry-types '(:deadline))
+            ;;          (org-agenda-format-date "")
+            ;;          (org-deadline-warning-days 7)
+            ;;          (org-agenda-skip-function
+            ;;           '(org-agenda-skip-entry-if 'notregexp "\\* NEXT"))
+            ;;          (org-agenda-overriding-header "\nDeadlines")))
+            (tags "CLOSED>=\"<today>\""
+                  ((org-agenda-overriding-header "\nCompleted today\n")))))
+          ("o" "At the office" tags-todo "@work"
+           ((org-agenda-overriding-header "Office")
+            (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
+          ("h" "At home" tags-todo "@home"
+           ((org-agenda-overriding-header "Home")
+            (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
+          ("p" "Personal" tags "personal"
+           ((org-agenda-overriding-header "Personal")
+            (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
+          ;; ("D" "Daily Action List"
+          ;;  ((agenda ""
+          ;;           ((org-agenda-span 1)
+          ;;            (org-agenda-sorting-strategy
+          ;;             (quote
+          ;;              ((agenda time-up category-up tag-up))))
+          ;;            (org-deadline-warning-days 7))))
+          ;;  nil)
+          ))
+  ;; from https://dindi.garjola.net/org-agenda-weekly.html
+  (setq org-todo-keywords
+        (quote ((sequence "TODO(t!)" "NEXT(n)"
+                 "STARTED(s!)" "|" "DONE(d)")
+                (type "PROJECT(p!)" "|" "DONE_PROJECT(D!)")
+                (sequence "WAITING(w@!)" "SOMEDAY(S!)"  "|"
+                          "CANCELLED(c@/!)"))))
+  (setq hl-todo-keyword-faces
+        '(("HOLD" . "#d0bf8f")
+          ("TODO" . "#cc9393")
+          ("NEXT" . "#dca3a3")
+          ;; ("THEM" . "#dc8cc3")
+          ;; ("PROG" . "#7cb8bb")
+          ;; ("OKAY" . "#7cb8bb")
+          ;; ("DONT" . "#5f7f5f")
+          ;; ("FAIL" . "#8c5353")
+          ("DONE" . "#afd8af")
+          ("NOTE"   . "#d0bf8f")
+          ;; ("KLUDGE" . "#d0bf8f")
+          ;; ("HACK"   . "#d0bf8f")
+          ;; ("TEMP"   . "#d0bf8f")
+          ;; ("FIXME"  . "#cc9393")
+          ;; ("XXX+"   . "#cc9393")
+          )
+        )
+  (setq org-todo-keyword-faces '(
+                                 ("[-]" . +org-todo-active)
+                                 ("STRT" . +org-todo-active)
+                                 ("STARTED" . +org-todo-active)
+                                 ("[?]" . +org-todo-onhold)
+                                 ("WAITING" . +org-todo-onhold)
+                                 ("PROJECT" . +org-todo-project)
+                                 ;; ("NO" . +org-todo-cancel)
+                                 ;; ("KILL" . +org-todo-cancel)
+                                 )
+        )
+
+  (defun accacio/generate-agenda-weekly-review ()
+    "Generate the agenda for the weekly review"
+    (interactive)
+    (let ((span-days 24)
+          (offset-past-days 10))
+      (message "Generating agenda for %s days starting %s days ago"
+               span-days offset-past-days)
+      (org-agenda-list nil (- (time-to-days (date-to-time
+                                             (current-time-string)))
+                              offset-past-days)
+                       span-days)
+      (org-agenda-log-mode)
+      (goto-char (point-min))))
+
+  (defun accacio/search-random-someday ()
+    "Search all agenda files for SOMEDAY and jump to a random item"
+    (interactive)
+    (let* ((todos '("SOMEDAY"))
+           (searches (mapcar (lambda (x) (format "+someday")) todos))
+           (joint-search (string-join searches "|") )
+           ;; (org-directory "~/Dropbox/org/")
+           ;; (org-agenda-files  "~/Dropbox/org/someday.org")
+           ;; (org-agenda-custom-commands '(("g" "oi" (                   (org-agenda-overriding-header "\nTasks\n")
+;; ) )))
+           )
+      (setq org-agenda-files "~/Dropbox/org/someday.org")
+      (org-agenda nil "g")
+      ;; (let ((nlines (count-lines (point-min) (point-max))))
+      ;;   (goto-line (random nlines)))
+      )
+    )
+
+  (setq org-refile-targets
+        '(
+          ("projects.org" :regexp . "\\(?:\\(?:Note\\|Task\\)s\\)")
+          ("Eve.org" :regexp . "\\(?:\\(?:Note\\|Task\\)s\\)")
+          ("personal.org" :maxlevel . 1)
+          ("work.org" :maxlevel . 1)
+          ("these.org" :maxlevel . 1)
+          ("tickler.org" :maxlevel . 1)
+          ("someday.org" :level . 1)
+          ("books_series_films.org" :maxlevel . 9)
+          )
+        )
+
+  ;; from https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html
+  (defun my-org-agenda-skip-all-siblings-but-first ()
+    "Skip all but the first non-done entry."
+    (let (should-skip-entry)
+      (unless (org-current-is-todo)
+        (setq should-skip-entry t))
+      (save-excursion
+        (while (and (not should-skip-entry) (org-goto-sibling t))
+          (when (org-current-is-todo)
+            (setq should-skip-entry t))))
+      (when should-skip-entry
+        (or (outline-next-heading)
+            (goto-char (point-max))))))
+
+  (defun org-current-is-todo ()
+    (string= "TODO" (org-get-todo-state)))
+  ;; (setq org-capture-templates
+  ;;       '(
+  ;;         ("i" "Inbox" entry (file "inbox.org") (concat "* TODO %?\n" " Entered on %U"))
+  ;;         ("t" "TODOS" )
+  ;;        ("tp" "Personal todo" entry
+  ;;         (file+headline "~/org/todo.org" "Inbox")
+  ;;         "** TODO %?\n%i\n%a" :prepend t)
+  ;;        ("tt" "These todo" entry
+  ;;         (file+headline "~/org/todo_these.org" "Inbox")
+  ;;         "** TODO %?\n%i\n%a" :prepend t)
+  ;;        ("e" "Evelise" entry
+  ;;         (file+headline "~/org/Eve.org" "Inbox")
+  ;;         "** TODO %?\n%i\n%a" :prepend t)
+  ;;        ("p" "Templates for projects")
+  ;;        ("pt" "Project-local todo" entry
+  ;;         (file+headline +org-capture-project-todo-file "Inbox")
+  ;;         "* TODO %?\n%i\n%a" :prepend t)
+  ;;        ("pn" "Project-local notes" entry
+  ;;         (file+headline +org-capture-project-notes-file "Inbox")
+  ;;         "* %U %?\n%i\n%a" :prepend t)
+  ;;        ("pc" "Project-local changelog" entry
+  ;;         (file+headline +org-capture-project-changelog-file "Unreleased")
+  ;;         "* %U %?\n%i\n%a" :prepend t)
+  ;;        ("o" "Centralized templates for projects")
+  ;;        ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
+  ;;        ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
+  ;;        ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t)
+  ;;        ))
+  ;;               '(
+  ;;                 ("e" "Evelise" entry (file+headline "~/Dropbox/org/private/Eve.org" "Inbox")
+  ;;                  "** TODO %?\n%i%a "
+  ;;                  :kill-buffer t)
+  ;;                 )
+  ;;               ;; org-capture-templates)
+  )
 #+end_src
 * app
 ** rss
