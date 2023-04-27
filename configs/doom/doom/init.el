@@ -71,19 +71,24 @@
        :lang
        cc                ; C/C++/Obj-C madness
        data              ; config/data formats
+       (dart
+        +lsp
+        +flutter)
        emacs-lisp        ; drown in parentheses
        julia             ; a better, faster MATLAB
        latex             ; writing papers in Emacs has never been so fun
        lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
        (org              ; organize your plain life in plain text
-        ;; +roam2
+        +roam2
         +pomodoro
         +pretty
+        +noter
         )
        python            ; beautiful is better than ugly
        rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        sh                ; she sells {ba,z,fi}sh shells on the C xor
+       yaml
 
        :app
        (rss +org)        ; emacs as an RSS reader
