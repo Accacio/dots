@@ -453,6 +453,43 @@
   ;; org-id-link-to-org-use-id t)
   )
 #+end_src
+* org-noter
+#+begin_src emacs-lisp
+(use-package! org-noter
+  :config
+  (setq
+   org-noter-pdftools-markup-pointer-color "yellow"
+   org-pdftools-use-isearch-link t
+   org-noter-notes-search-path '("~/research/notes/")
+   ;; org-noter-insert-note-no-questions t
+   ;; org-noter-default-heading-title "Note on page $p$"
+   org-noter-doc-split-fraction '(0.7 . 03)
+   org-noter-always-create-frame nil
+   org-noter-hide-other nil
+   org-noter-pdftools-free-pointer-icon "Note"
+   org-noter-pdftools-free-pointer-color "red"
+   org-noter-kill-frame-at-session-end nil
+   )
+    ;; (map! :map (pdf-view-mode)
+    ;;     :leader
+    ;;     (:prefix-map ("n" . "notes")
+    ;;       :desc "Write notes"                    "w" #'org-noter)
+    ;;     ;; add orb-note
+    ;;     )
+
+  )
+(use-package! org-pdftools
+  :hook (org-load . org-pdftools-setup-link))
+
+(use-package! org-noter-pdftools
+  :after org-noter
+  :config
+  (with-eval-after-load 'pdf-annot
+    (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)
+    )
+  )
+
+#+end_src
 * app
 ** rss
 #+begin_src emacs-lisp
