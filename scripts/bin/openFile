@@ -3,5 +3,7 @@
 
 regexp=$(rofi  -dmenu -theme arthur -i -p "Regexp ")
 if [ $regexp != "" ]; then
-    xdg-open $(locate -ie --regex ^$HOME.*$regexp | grep -i "\(\.md$\|\.tex$\|\.org$\|.pdf$\|.png$\)" | rofi  -dmenu -theme arthur -i -p "Open File ") &
+    file=$(locate -ie --regex ^$HOME.*$regexp | grep -i "\(\.md$\|\.tex$\|\.org$\|.pdf$\|.png$\)" | rofi  -dmenu -theme nord -i -p "Open File ")
+    notify-send "Opening $file"
+    xdg-open "$file" &
 fi
