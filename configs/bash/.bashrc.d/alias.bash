@@ -182,8 +182,8 @@ function lfcd {
   cd `cat ~/.config/lf/lastdir`
 }
 alias lf=lfcd
-alias passBKP="tar cfz  pass.tgz .password-store;rclone copy -u pass.tgz dbox:AccDoc/;rm pass.tgz"
-alias passRestore="rclone copy -u dbox:AccDoc/pass.tgz .;tar xfz pass.tgz;rm pass.tgz"
+alias passBKP="tar cfz  pass.tgz .password-store;rclone copy -u pass.tgz dbox:Documentos_Gerais/;rm pass.tgz"
+alias passRestore="rclone copy -u dbox:Documentos_Gerais/pass.tgz .;tar xfz pass.tgz;rm pass.tgz"
 alias rcloneRestore="rclone copy -u dbox:AccDoc/rclone.conf ~/.config/rclone/ -P"
 alias rcloneBKP="rclone copy -u ~/.config/rclone/rclone.conf dbox:AccDoc/ -P"
 alias delmon="xrandr --delmonitor DP-0-1"
