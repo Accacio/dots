@@ -586,10 +586,10 @@ function hotkeys:init(args)
 			{ env.mod }, "u", awful.client.urgent.jumpto,
 			{ description = "Go to urgent client", group = "Client focus" }
 		},
-		{
-			{ env.mod }, "Tab", focus_to_previous,
-			{ description = "Go to previous client", group = "Client focus" }
-		},
+		-- {
+		-- 	{ env.mod }, "Tab", focus_to_previous,
+		-- 	{ description = "Go to previous client", group = "Client focus" }
+		-- },
 
 		{
 			{ env.mod }, "w", function() mainmenu:show() end,
@@ -623,6 +623,11 @@ function hotkeys:init(args)
 		},
 		{
 			{ env.mod }, "o", function() awful.spawn("run") end,
+			-- { env.mod  }, "o", function() redflat.float.prompt:run() end,
+			{ description = "Show the prompt box", group = "Widgets" }
+		},
+		{
+			{ env.mod }, "Tab", function() awful.spawn("rofi -show window -show-icons -theme nord") end,
 			-- { env.mod  }, "o", function() redflat.float.prompt:run() end,
 			{ description = "Show the prompt box", group = "Widgets" }
 		},
