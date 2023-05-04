@@ -401,6 +401,58 @@
   ;;               ;; org-capture-templates)
   )
 #+end_src
+* org-roam
+#+begin_src emacs-lisp
+(require 'org-roam-protocol)
+(after! org-roam
+  (setq org-roam-directory (file-truename "~/hippokamp/brain/"))
+  (setq org-roam-capture-templates
+        '(
+          ("d" "default" plain "%?" :if-new
+           (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+           :unnarrowed t)
+          ("r" "bibliography reference" plain
+           (file "~/.config/doom/ref.org")
+           :if-new
+           (file+head "reference/${citekey}.org" "#+title: ${citekey}\n"))
+          ))
+
+  (cl-defmethod org-roam-node-directories ((node org-roam-node))
+    (if-let ((dirs (file-name-directory (file-relative-name (org-roam-node-file node) org-roam-directory))))
+        (format "%s" (car (f-split dirs)))
+      ""))
+
+  (cl-defmethod org-roam-node-type ((node org-roam-node))
+  "Return the TYPE of NODE."
+  (condition-case nil
+      (file-name-nondirectory
+       (directory-file-name
+        (file-name-directory
+         (file-relative-name (org-roam-node-file node) org-roam-directory))))
+    (error "")))
+
+  (cl-defmethod org-roam-node-backlinkscount ((node org-roam-node))
+  (let* ((count (caar (org-roam-db-query
+                       [:select (funcall count source)
+                                :from links
+                                :where (= dest $s1)
+                                :and (= type "id")]
+                       (org-roam-node-id node)))))
+    (format "[%d]" count)))
+
+(setq org-roam-node-display-template "📁 ${directories:10} | ${title:50} | ⚡ ${tags}")
+
+(setq org-roam-mode-sections
+      '((org-roam-backlinks-section :unique t)
+        org-roam-reflinks-section))
+(require 'org-roam-export)
+;; (setq org-roam-node-display-template
+;;       (concat "${type:15} ${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  ;; org-roam-db-gc-threshold most-positive-fixnum
+  ;; org-roam-db-update-on-save t
+  ;; org-id-link-to-org-use-id t)
+  )
+#+end_src
 * app
 ** rss
 #+begin_src emacs-lisp
