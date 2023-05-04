@@ -1,2 +1,2 @@
 #!/bin/bash
-rofi -show run -show-icons -theme sidebar
+rofi -show run -show-icons -theme nord

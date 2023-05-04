@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-dmenu="rofi -dmenu -theme menu -p Account:"
+dmenu="rofi -dmenu -theme nord -p Account:"
 
 shopt -s nullglob globstar
 
