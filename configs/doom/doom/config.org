@@ -419,7 +419,7 @@
 
   (cl-defmethod org-roam-node-directories ((node org-roam-node))
     (if-let ((dirs (file-name-directory (file-relative-name (org-roam-node-file node) org-roam-directory))))
-        (format "%s" (car (f-split dirs)))
+        (format "%s" (car (reverse (f-split dirs))))
       ""))
 
   (cl-defmethod org-roam-node-type ((node org-roam-node))
