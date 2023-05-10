@@ -307,4 +307,4 @@ awful.spawn("xsetwacom set 'Wacom Intuos PT S 2 Pad pad' Button 9 'key +alt i -a
 awful.spawn("xsetwacom set 'Wacom Intuos PT S 2 Pad pad' Button 8 23")
 awful.spawn("xsetwacom set 'Wacom Intuos PT S 2 Pad pad' Button 3 4")
 awful.spawn("xsetwacom set 'Wacom Intuos PT S 2 Pad pad' Button 1 5")
-awful.spawn("dropbox start")
+awful.spawn('test "$(pgrep com.dropbox.Client)" = "" && com.dropbox.Client')
