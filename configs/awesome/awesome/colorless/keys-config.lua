@@ -627,7 +627,7 @@ function hotkeys:init(args)
 			{ description = "Show the prompt box", group = "Widgets" }
 		},
 		{
-			{ env.mod }, "Tab", function() awful.spawn("rofi -show window -show-icons -theme nord") end,
+			{ env.mod }, "Tab", function() awful.spawn("chooseWindow") end,
 			-- { env.mod  }, "o", function() redflat.float.prompt:run() end,
 			{ description = "Show the prompt box", group = "Widgets" }
 		},

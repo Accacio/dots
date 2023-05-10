@@ -1,0 +1,2 @@
+#!/bin/bash
+rofi -show windowcd -mode windowcd -window-thumbnail -show-icons -theme nord 
