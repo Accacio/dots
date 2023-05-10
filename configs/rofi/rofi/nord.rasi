@@ -87,7 +87,7 @@ element selected urgent {
 }
 
 element-icon {
-    size:   0.8em;
+    size:   2em;
 }
 
 element-text {
