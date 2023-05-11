@@ -72,6 +72,10 @@ function rules:init(args)
 			rule_any   = { class = {"mpv"}},
 			properties = { floating = true, ontop=true , sticky=true}
 		},
+		{
+			rule_any   = { class = {"Xsane"}},
+			properties = { floating = false}
+		},
 	}
 
 
