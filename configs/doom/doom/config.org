@@ -128,6 +128,66 @@
             (setq imenu-create-index-function '(lambda () (imenu--generic-function imenu-generic-expression)))
             )
           )
+** Bibtex
+#+begin_src emacs-lisp
+(after! bibtex
+  (setq bibtex-completion-bibliography '("~/research/bibliography.bib")
+        bibtex-completion-library-path '("~/research/bibliography/")
+        bibtex-completion-find-note-functions '(orb-find-note-file)
+        ;; bibtex-completion-find-note-functions (list #'bibtex-completion-find-note-multiple-files #'bibtex-completion-find-note-one-file)
+        bibtex-completion-pdf-symbol "!"
+        bibtex-completion-notes-symbol "n"
+        )
+  (setq bibtex-completion-display-formats
+        '((t             . "${year:4} ${author:36} ${title:50} ${=type=:13} ${=has-pdf=:1}${=has-note=:1} ${readstatus:7} ${ranking:5} ${keywords}")))
+  (setq bibtex-completion-additional-search-fields '(tags ranking readstatus keywords))
+
+  (setq bibtex-dialect 'BibTeX)
+  ;; (setq bibtex-dialect 'biblatex)
+  ;; (defun my-bibtex-autokey-unique (key)
+  ;;   "Make a unique version of KEY."
+  ;;   (save-excursion
+  ;;     (let ((org-ref-bibliography-files (org-ref-find-bibliography))
+  ;;           (trykey key)
+  ;; 	  (next ?a))
+  ;;       (if (org-ref-key-in-file-p trykey (car org-ref-bibliography-files))
+  ;;       (while (and
+  ;;               (org-ref-key-in-file-p trykey (car org-ref-bibliography-files))
+  ;; 		  (<= next ?z))
+  ;; 	(setq trykey (concat key (char-to-string next)))
+  ;; 	(setq next (1+ next))))
+  ;;       trykey))
+
+  (setq bibtex-autokey-year-length 4)
+  (setq bibtex-autokey-names 1)
+  (setq bibtex-autokey-names-stretch 1)
+  (setq bibtex-autokey-additional-names "EtAl")
+  (setq bibtex-autokey-name-case-convert-function 'capitalize)
+  (setq bibtex-maintain-sorted-entries 'entry-class)
+  ;; (setq bibtex-autokey-before-presentation-function 'my-bibtex-autokey-unique)
+  (setq bibtex-autokey-before-presentation-function nil)
+
+  (defun bibtex-generate-autokey ()
+    (let* ((names (bibtex-autokey-get-names))
+           (year (bibtex-autokey-get-year))
+           (title (bibtex-autokey-get-title))
+           (autokey (concat
+                     names
+                     ;; (unless (or (equal names "")
+                     ;;             (equal title ""))
+                     ;;   "_") ;; string to separate names from title
+                     ;; title
+                     ;; (unless (or (and (equal names "")
+                     ;;                  (equal title ""))
+                     ;;             (equal year ""))
+                     ;;   bibtex-autokey-year-title-separator)
+                     year
+                     bibtex-autokey-prefix-string ;; optional prefix string
+                     )))
+      (if bibtex-autokey-before-presentation-function
+          (funcall bibtex-autokey-before-presentation-function autokey)
+        autokey)))
+  )
 #+end_src
 * Agenda
 #+begin_src emacs-lisp
