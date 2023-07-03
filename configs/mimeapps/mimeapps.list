@@ -4,6 +4,7 @@ application/ppdf=FoxitReader.desktop
 application/octet-stream=FoxitReader.desktop
 application/lrf=calibre-lrfviewer.desktop
 
+image/gif=imageViewer.desktop
 image/png=imageViewer.desktop
 image/jpg=imageViewer.desktop
 
