@@ -8,14 +8,8 @@
 :AUTHOR: %^{author-or-editor}
 :NOTER_DOCUMENT: %^{file}
 :END:
-
-** CATALOG
-
-*** Motivation
-*** Model
-*** Remarks
-*** Applications
-*** Expressions
-*** References
+** TL;DR -
 
 ** NOTES
+
+** REFERENCES
