@@ -310,6 +310,7 @@ export LESS=-R
 
 [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 [ -f /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh ] && source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+[ -f /opt/ros/noetic/setup.zsh ] && source /opt/ros/noetic/setup.zsh
 
 bindkey -e
 export LS_OPTIONS='--color=auto'
