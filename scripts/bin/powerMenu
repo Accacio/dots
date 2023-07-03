@@ -2,7 +2,7 @@
 wallpaper=~/wallpapers/20170216_171846.jpg
 # wallpaper=$(cat ~/wallpapers/currentWallpaper) #Current wallpaperjj
 # menu_fun='dmenu'
-menu_fun='rofi -dmenu -theme menu'
+menu_fun='rofi -dmenu -theme nord'
 exec 3>&1;
 
 menu=('Shutdown' 'Restart' 'Lock' 'prettyLock' 'Loki' 'Quick Logoff' 'Logoff')
