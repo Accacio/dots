@@ -6,7 +6,7 @@ application/lrf=calibre-lrfviewer.desktop
 
 image/gif=imageViewer.desktop
 image/png=imageViewer.desktop
-image/jpg=imageViewer.desktop
+image/jpeg=imageViewer.desktop
 
 text/plain=editor.desktop
 text/html=qutebrowser.desktop
