@@ -76,6 +76,15 @@ function rules:init(args)
 			rule_any   = { class = {"Xsane"}},
 			properties = { floating = false}
 		},
+		{
+			rule_any   = { name = {"rviz", "gazebo", "Gazebo"}, class = {"rviz", "gazebo"}},
+			properties = { floating = false,
+						   maximized = false,
+						   maximized_horizontal = false,
+						   maximized_vertical = false,
+						   fullscreen = false,
+			}
+		},
 	}
 
 
