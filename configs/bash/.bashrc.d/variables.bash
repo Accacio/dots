@@ -25,7 +25,7 @@ export LD_LIBRARY_PATH=/usr/local/cuda-9.2/lib64:$LD_LIBRARY_PATH
 [ "$(command -v /home/linuxbrew/.linuxbrew/bin/brew)" = "" ] || eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 # ROS
-[ -f /opt/ros/indigo/setup.bash ] &&  . /opt/ros/indigo/setup.bash
+[ -f /opt/ros/noetic/setup.sh ] && source /opt/ros/noetic/setup.sh
 
 [ -f ~/.emacs.d/bin/doom ] &&  export PATH=$HOME/.emacs.d/bin/:$PATH
 
