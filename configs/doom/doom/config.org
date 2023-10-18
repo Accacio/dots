@@ -113,7 +113,91 @@
 #+begin_src emacs-lisp
 (setq org-babel-python-command "python3")
 #+end_src
-  #+end_src
+
+#+begin_src emacs-lisp
+(after! org
+(setq org-latex-default-packages-alist
+  '(("AUTO" "inputenc"  t ("pdflatex"))
+    ("T1"   "fontenc"   t ("pdflatex"))
+    (""     "graphicx"  t)
+    (""     "longtable" nil)
+    (""     "wrapfig"   nil)
+    (""     "rotating"  nil)
+    ("normalem" "ulem"  t)
+    (""     "amsmath"   t)
+    (""     "tikz"   t)
+    (""     "amssymb"   t)
+    (""     "capt-of"   nil)
+    (""     "hyperref"  nil))
+)
+(setq org-format-latex-header "\\documentclass{article}
+\\usepackage[usenames]{color}
+\[DEFAULT-PACKAGES]
+\[PACKAGES]
+\\pagestyle{empty}             % do not remove
+% The settings below are copied from fullpage.sty
+\\DeclareSymbolFontAlphabet{\\mathnormal}{letters}
+\\setlength{\\textwidth}{\\paperwidth}
+\\addtolength{\\textwidth}{-3cm}
+\\setlength{\\oddsidemargin}{1.5cm}
+\\addtolength{\\oddsidemargin}{-2.54cm}
+\\setlength{\\evensidemargin}{\\oddsidemargin}
+\\setlength{\\textheight}{\\paperheight}
+\\addtolength{\\textheight}{-\\headheight}
+\\addtolength{\\textheight}{-\\headsep}
+\\addtolength{\\textheight}{-\\footskip}
+\\addtolength{\\textheight}{-3cm}
+\\setlength{\\topmargin}{1.5cm}
+\\addtolength{\\topmargin}{-2.54cm}
+\\newcommand{\\N}{\\mathbb{N}}
+\\newcommand{\\Z}{\\mathbb{Z}}
+\\newcommand{\\Q}{\\mathbb{Q}}
+\\newcommand{\\R}{\\mathbb{R}}
+\\newcommand{\\C}{\\mathbb{C}}
+\\newcommand{\\T}{^{\\mathrm{T}}}
+\\newcommand{\\1}{\\mathbf{1}}
+\\newcommand{\\0}{\\mathbf{0}}
+\\newcommand{\\set}{\\mathcal}
+\\newcommand{\\abs}[1]{\\left\\lvert#1\\right\\rvert}
+\\newcommand{\\norm}[1]{\\left\\lVert#1\\right\\rVert}
+\\renewcommand{\\vec}[1]{\\boldsymbol{#1}}
+\\newcommand{\\setbuild}[2]{\\{#1\\mid#2\\}}
+\\newcommand{\\seq}[2][n]{\\lbrace #2_{0},\\ldots,\\,#2_{#1} \\rbrace}
+\\newcommand{\\hadamard}[2]{#1\\circ #2}
+\\newcommand{\\kron}[2]{#1\\otimes#2}
+\\newcommand{\\symmetric}{\\mathbb{S}}
+\\newcommand{\\semidefpos}{\\mathbb{S}_{+}}
+\\newcommand{\\defpos}{\\mathbb{S}_{++}}
+\\newcommand{\\elem}[2][1]{{#2}_{(#1)}}
+\\renewcommand{\\implies}{\\Rightarrow}
+\\renewcommand{\\iff}{\\Leftrightarrow}
+\\newcommand{\\argmax}{\\mathop{\\arg\\!\\max}}
+\\newcommand{\\argmin}{\\mathop{\\arg\\!\\min}}
+\\newcommand{\\maximize}{\\mathop{\\textrm{maximize}}}
+\\newcommand{\\interior}{\\mathop{\\textrm{int}}}
+\\newcommand{\\minimize}{\\mathop{\\textrm{minimize}}}
+\\newcommand{\\minimiser}{\\mathop{\\textrm{minimiser}}}
+\\newcommand{\\collection}[1]{\\set{#1}\\!\\!\\raisebox{-2pt}{$\\set{#1}$}\\!\\!\\set{#1}}
+\\newcommand{\\maximiser}{\\mathop{\\textrm{maximiser}}}
+\\renewcommand{\\epsilon}{\\varepsilon}
+\\renewcommand{\\phi}{\\varphi}
+")
+(add-to-list 'org-preview-latex-process-alist '(graphicsmagick :programs ("latex" "gm")
+                                                               :description "pdf > png"
+                                                               :message "you need to install the programs: latex and graphicsmagick"
+                                                               :use-xcolor t
+                                                               :image-input-type "pdf"
+                                                               :image-output-type "png"
+                                                               :image-size-adjust (1.0 . 1.0)
+                                                               :latex-compiler ("pdflatex -interaction nonstopmode -output-directory %o %f")
+                                                               :image-converter ("gm convert -density %D -trim -antialias -quality 100 %f %O")))
+
+;; This command sets 'graphicsmagick' process for LaTeX previews in org-mode.
+(setq org-preview-latex-default-process 'graphicsmagick)
+)
+#+end_src
+
+
 ** python
 #+begin_src emacs-lisp
 (add-hook 'python-mode-hook
