@@ -1,4 +1,4 @@
-
+export SHELL="/bin/zsh"
 export DATE=$(date +%Y%m%d)
 export PATH="$PATH:$(du "$HOME/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//;s|/$||')"
 export PATH="$PATH:/usr/local/texlive/2022/bin/x86_64-linux/"
