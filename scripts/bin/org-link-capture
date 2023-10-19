@@ -30,6 +30,6 @@ title=$(htmlDecode $(echo "$1" | sed 's|.*title=\([^&]*\)&.*|\1|'))
 body=$( htmlDecode $(echo "$1" | sed 's|.*body=\(.*\)|\1|'))
 
 notify-send "capturing $title" "$ref\n$body"
-$HOME/.emacs.d/bin/org-capture "[[$ref][$title]]\n\n$body"
+$HOME/.config/emacs/bin/org-capture "[[$ref][$title]]\n\n$body"
 # javascript:void(location.href='org-protocol://capture?template=tt'+     '&url='+encodeURIComponent(window.location.href)+       '&title='+encodeURIComponent(document.title)+'&body='+encodeURIComponent(window.getSelection()))
 # javascript:void(location.href ='org-protocol://roam-ref?template=r&ref='+ encodeURIComponent(location.href)     + '&title='     + encodeURIComponent(document.title)     + '&body='     + encodeURIComponent(window.getSelection()))
