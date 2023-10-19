@@ -497,10 +497,10 @@ function hotkeys:init(args)
 			{ env.mod, "Shift" }, "r", awesome.restart,
 			{ description = "Reload awesome", group = "Main" }
 		},
-		-- {
-		-- 	{ env.mod }, "c", function() redflat.float.keychain:activate(keyseq, "User") end,
-		-- 	{ description = "User key sequence", group = "Main" }
-		-- },
+		{
+			{ env.mod }, "c", function() awful.spawn("capture") end,
+			{ description = "Capture", group = "GTD" }
+		},
 		{
 			{ env.mod, "Shift" }, "Return", function() awful.spawn("samedir") end,
 			{ description = "Open a terminal in same directory", group = "Main" }
