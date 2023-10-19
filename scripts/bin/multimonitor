@@ -16,10 +16,10 @@ function printnl {
 }
 
 function TwoMonitors {
-        monitor1=$( printf '%s\n' "${monitors[@]}"|sed 's/^ //'|dmenu -i  -p "$1 Monitor")
+        monitor1=$( printf '%s\n' "${monitors[@]}"|sed 's/^ //'|rofi -dmenu -theme nord -i  -p "$1 Monitor")
         [ "$monitor1" = "" ] && notify-send exit && exit 0
         monitors=( ${monitors[@]/$monitor1} )
-        monitor2=$(printf '%s\n' "${monitors[@]}"|sed 's/^ //'|dmenu -i -p "$2 Monitor")
+        monitor2=$(printf '%s\n' "${monitors[@]}"|sed 's/^ //'|rofi -dmenu -theme nord -i -p "$2 Monitor")
         [ "$monitor2" = "" ] && notify-send exit && exit 0
         monitors=( ${monitors[@]/$monitor2} )
         monitor1="$( echo $monitor1 | sed "s|^[^-]*-||")"
@@ -29,13 +29,13 @@ function TwoMonitors {
 }
 
 function ThreeMonitors {
-        monitor1=$( printf '%s\n' "${monitors[@]}"|sed 's/^ //'|dmenu -i  -p "Left Monitor")
+        monitor1=$( printf '%s\n' "${monitors[@]}"|sed 's/^ //'|rofi -dmenu -theme nord -i  -p "Left Monitor")
         [ "$monitor1" = "" ] && notify-send exit && exit 0
         monitors=( ${monitors[@]/$monitor1} )
-        monitor2=$( printf '%s\n' "${monitors[@]}"|sed 's/^ //'|dmenu -i  -p "Center Monitor")
+        monitor2=$( printf '%s\n' "${monitors[@]}"|sed 's/^ //'|rofi -dmenu -theme nord -i  -p "Center Monitor")
         [ "$monitor1" = "" ] && notify-send exit && exit 0
         monitors=( ${monitors[@]/$monitor2} )
-        monitor3=$(printf '%s\n' "${monitors[@]}"|sed 's/^ //'|dmenu -i -p "Right Monitor")
+        monitor3=$(printf '%s\n' "${monitors[@]}"|sed 's/^ //'|rofi -dmenu -theme nord -i -p "Right Monitor")
         [ "$monitor1" = "" ] && notify-send exit && exit 0
         monitor1="$( echo $monitor1 | sed "s|^[^-]*-||")"
         monitor2="$( echo $monitor2 | sed "s|^[^-]*-||")"
@@ -44,11 +44,11 @@ function ThreeMonitors {
 }
 
 
-mode=$(printf '%s\n' "${modes[@]}"|sed 's/^ //'|dmenu -i -p "# Monitors")
+mode=$(printf '%s\n' "${modes[@]}"|sed 's/^ //'|rofi -dmenu -theme nord -i -p "# Monitors")
 
 case $mode in
     one)
-    monitor=$(printf '%s\n' "${monitors[@]}"|sed 's/^ //'|dmenu -i  -p "Monitor")
+    monitor=$(printf '%s\n' "${monitors[@]}"|sed 's/^ //'|rofi -dmenu -theme nord -i  -p "Monitor")
     [ "$monitor" = "" ] && notify-send exit && exit 0
     monitors=( ${monitors[@]/$monitor} )
     other=`printf ' --output %s --off ' "${monitors[@]}" |sed "s| [0-9]-| |g"`
@@ -57,7 +57,7 @@ case $mode in
     xrandr --output $monitor $monitorres $other
     ;;
     two)
-    layout=$(printf '%s\n' "${twoLayouts[@]}"|sed 's/^ //'|dmenu -i -p "Layout")
+    layout=$(printf '%s\n' "${twoLayouts[@]}"|sed 's/^ //'|rofi -dmenu -theme nord -i -p "Layout")
     case $layout in
         sideBySide)
         TwoMonitors "Left" "Right"
@@ -76,7 +76,7 @@ case $mode in
     esac
     ;;
     three)
-    layout=$(printf '%s\n' "${threeLayouts[@]}"|sed 's/^ //'|dmenu -i -p "Layout")
+    layout=$(printf '%s\n' "${threeLayouts[@]}"|sed 's/^ //'|rofi -dmenu -theme nord -i -p "Layout")
     case $layout in
         sideBySide)
         ThreeMonitors "Left" "Center" "Right"
@@ -90,10 +90,10 @@ case $mode in
     ;;
     wacom)
     styluses=("$(xsetwacom --list | grep stylus | sed "s;\(.*\) Pen stylus.*id:.*;\1;" | awk '{printf "%s\n",$0}')")
-    stylus=$( printf '%s\n' "${styluses[@]}"|sed 's/^ //'|dmenu -i  -p "$1 Stylus")
+    stylus=$( printf '%s\n' "${styluses[@]}"|sed 's/^ //'|rofi -dmenu -theme nord -i  -p "$1 Stylus")
 
     monitors=(${monitors[@]} "All")
-    Monitor=$( printf '%s\n' "${monitors[@]}"|sed 's/^ //'|dmenu -i  -p "Monitor" |sed "s|[0-9]-||" )
+    Monitor=$( printf '%s\n' "${monitors[@]}"|sed 's/^ //'|rofi -dmenu -theme nord -i  -p "Monitor" |sed "s|[0-9]-||" )
     if [ $Monitor == "All" ]; then
         xsetwacom set "$stylus Pen stylus" MapToOutput $(xrandr | sed 1q | sed "s, x ,x,g;s/,//g" | cut -d" " -f 6)+0+0
         exit
@@ -103,7 +103,7 @@ case $mode in
     fi
     res=$(xrandr | grep ^$Monitor | sed "s,.* \([0-9]*x[0-9]*+[0-9]*+[0-9]*\).*,\1,")
     modes=('right' '➲right' 'left' '➲left' 'total' 'calibrate')
-    mode=$( printf '%s\n' "${modes[@]}"|sed 's/^ //'|dmenu -i  -p "Monitor" |sed "s|[0-9]-||" )
+    mode=$( printf '%s\n' "${modes[@]}"|sed 's/^ //'|rofi -dmenu -theme nord -i  -p "Monitor" |sed "s|[0-9]-||" )
     # if right or left
     # xsetwacom set "Wacom Intuos PT S 2 Pen stylus" Rotate ccw;
     # xsetwacom set "Wacom Intuos PT S 2 Finger touch" Rotate ccw;
@@ -146,23 +146,23 @@ case $mode in
         xsetwacom set "$stylus Finger touch" Rotate none;
 
 
-        mode=$(echo "" | dmenu -i  -p "topLeft")
+        mode=$(echo "" | rofi -dmenu -theme nord -i  -p "topLeft")
         topLeft=$(xdotool getmouselocation | cut -d" " -f 1-2 | sed "s,[xy]:,,g")
         topLeftX=$(echo "$topLeft" | cut -d" " -f 1)
         topLeftY=$(echo "$topLeft" | cut -d" " -f 2)
 
 
-        mode=$(echo "" | dmenu -i  -p "bottomLeft")
+        mode=$(echo "" | rofi -dmenu -theme nord -i  -p "bottomLeft")
         bottomLeft=$(xdotool getmouselocation | cut -d" " -f 1-2 | sed "s,[xy]:,,g")
         bottomLeftX=$(echo "$bottomLeft" | cut -d" " -f 1)
         bottomLeftY=$(echo "$bottomLeft" | cut -d" " -f 2)
 
-        mode=$(echo "" | dmenu -i  -p "bottomRight")
+        mode=$(echo "" | rofi -dmenu -theme nord -i  -p "bottomRight")
         bottomRight=$(xdotool getmouselocation | cut -d" " -f 1-2 | sed "s,[xy]:,,g")
         bottomRightX=$(echo "$bottomRight" | cut -d" " -f 1)
         bottomRightY=$(echo "$bottomRight" | cut -d" " -f 2)
 
-        mode=$(echo "" | dmenu -i  -p "topRight")
+        mode=$(echo "" | rofi -dmenu -theme nord -i  -p "topRight")
         topRight=$(xdotool getmouselocation | cut -d" " -f 1-2 | sed "s,[xy]:,,g")
         topRightX=$(echo "$topRight" | cut -d" " -f 1)
         topRightY=$(echo "$topRight" | cut -d" " -f 2)
