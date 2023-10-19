@@ -9,7 +9,6 @@
 ** compton
 ** dia
 ** dialog
-** dmenu
 ** dspdfviewer
 ** dunst
 ** emacs
