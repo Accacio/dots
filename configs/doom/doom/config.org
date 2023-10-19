@@ -765,5 +765,10 @@
   "Search for a file in `~/dots'."
   (interactive)
   (doom-project-find-file "~/dots"))
+(defun accacio/find-blog-post ()
+  "Search for a file in `~/dots'."
+  (interactive)
+  (doom-project-find-file "~/prive/site/content/blog"))
 (map! :leader :prefix "f" "a" #'accacio/find-cfg-file)
+(map! :leader :prefix "f" "b" #'accacio/find-blog-post)
 #+end_src
