@@ -215,6 +215,16 @@
 #+end_src
 ** Bibtex
 #+begin_src emacs-lisp
+
+(defun bibtex-completion-format-citation-cite-org (keys)
+  "Format ebib references for keys in KEYS."
+  (s-join ", "
+          (--map (format "cite:%s" it) keys)))
+
+(after! bibtex-completion
+  (setcdr (assq 'org-mode bibtex-completion-format-citation-functions) 'bibtex-completion-format-citation-cite-org)
+)
+
 (after! bibtex
   (setq bibtex-completion-bibliography '("~/research/bibliography.bib")
         bibtex-completion-library-path '("~/research/bibliography/")
@@ -274,11 +284,77 @@
         autokey)))
   )
 #+end_src
+
+* org-roam
+#+begin_src emacs-lisp
+(require 'org-roam-protocol)
+(after! org-roam
+  (setq org-roam-directory (file-truename "~/research/notes/"))
+  (setq org-roam-capture-templates
+        '(
+          ("d" "default" plain "%?" :if-new
+           (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+           :unnarrowed t)
+          ("r" "bibliography reference" plain
+           (file "~/.config/doom/ref.org")
+           :if-new
+           (file+head "references/${citekey}.org" "#+title: ${citekey}\n"))
+          ))
+
+  (cl-defmethod org-roam-node-directories ((node org-roam-node))
+    (if-let ((dirs (file-name-directory (file-relative-name (org-roam-node-file node) org-roam-directory))))
+        (format "%s" (car (reverse (f-split dirs))))
+      ""))
+
+  (cl-defmethod org-roam-node-type ((node org-roam-node))
+  "Return the TYPE of NODE."
+  (condition-case nil
+      (file-name-nondirectory
+       (directory-file-name
+        (file-name-directory
+         (file-relative-name (org-roam-node-file node) org-roam-directory))))
+    (error "")))
+
+  (cl-defmethod org-roam-node-backlinkscount ((node org-roam-node))
+  (let* ((count (caar (org-roam-db-query
+                       [:select (funcall count source)
+                                :from links
+                                :where (= dest $s1)
+                                :and (= type "id")]
+                       (org-roam-node-id node)))))
+    (format "[%d]" count)))
+
+(setq org-roam-node-display-template "📁 ${directories:10} | ${title:50} | ⚡ ${tags}")
+
+(setq org-roam-mode-sections
+      '((org-roam-backlinks-section :unique t)
+        org-roam-reflinks-section))
+(require 'org-roam-export)
+;; (setq org-roam-node-display-template
+;;       (concat "${type:15} ${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  ;; org-roam-db-gc-threshold most-positive-fixnum
+  ;; org-roam-db-update-on-save t
+  ;; org-id-link-to-org-use-id t)
+  )
+#+end_src
+
+* Research
+#+begin_src emacs-lisp
+(use-package! org-roam-bibtex
+  :after (org-roam)
+  :init
+  (org-roam-bibtex-mode)
+  :config
+   (setq orb-preformat-keywords
+   '("citekey" "title" "url" "file" "author-or-editor" "keywords"))
+  )
+#+end_src
+
 * Agenda
 #+begin_src emacs-lisp
 (after! org
-  (setq org-agenda-files (list "inbox.org" ".inbox.org_done" "tickler.org" "personal.org"  ".personal.org_done" "areas.org" "books_series_films.org")
-        org-directory "~/Dropbox/org")
+  (setq org-agenda-files (list "inbox.org" ".inbox.org_done" "tickler.org" "personal.org"  ".personal.org_done" "areas.org" "books_series_films.org" "work.org")
+        org-directory "~/prive/Dropbox/org")
 
   ;; use org-protocol to capture ideas
   ;; javascript:location.href='org-protocol://capture?template=i'+
@@ -286,7 +362,7 @@
   ;; '&title='+encodeURIComponent(document.title)+
   ;; '&body='+encodeURIComponent(window.getSelection());
   (setq org-capture-templates
-        `(("i" "Inbox" entry  (file "inbox.org")
+        `(("i" "Inbox" entry  (file "~/prive/Dropbox/org/inbox.org")
            ,(concat "* TODO %?%a\n"
                     ;; ":PROPERTIES:\n"
                     "CREATED: %U\n\n"
@@ -304,8 +380,6 @@
   (setq org-agenda-custom-commands
         '(
           ("n" . "Next Actions List")
-          ("nn" tags "+TODO=\"NEXT\"|+TODO=\"STARTED\"")
-          ("nh" tags "+@home+TODO=\"NEXT\"|+@home+TODO=\"STARTED\"")
           ("g" "Get Things Done (GTD)"
            ((agenda ""
                     ((org-agenda-skip-function
@@ -334,28 +408,38 @@
             ;;          (org-agenda-overriding-header "\nDeadlines")))
             (tags "CLOSED>=\"<today>\""
                   ((org-agenda-overriding-header "\nCompleted today\n")))))
-          ("o" "At the office" tags-todo "@work"
-           ((org-agenda-overriding-header "Office")
-            (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
+          ("w" "Work"
+           (
+            (tags-todo "+@work+postdoc"
+                      ((org-agenda-prefix-format "  %?-12t% s")
+                       (org-agenda-overriding-header "Post-doc\n"))
+                      )
+            (tags-todo "+@work+autocampus"
+                      ((org-agenda-prefix-format "  %?-12t% s")
+                       (org-agenda-overriding-header "\nautOCampus\n"))
+                      )
+            (tags-todo "+@work+these"
+                      ((org-agenda-prefix-format "  %?-12t% s")
+                       (org-agenda-overriding-header "\nThese\n"))
+                      )
+            )
+           )
+          ("r" "Reading List"
+            (
+             (tags-todo "+@work+reading_list"
+                      ((org-agenda-prefix-format "  %?-12t% s")
+                       (org-agenda-overriding-header "Reading List\n"))
+                      )
+            )
+                )
           ("h" "At home" tags-todo "@home"
-           ((org-agenda-overriding-header "Home")
-            (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
-          ("p" "Personal" tags "personal"
-           ((org-agenda-overriding-header "Personal")
-            (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))
-          ;; ("D" "Daily Action List"
-          ;;  ((agenda ""
-          ;;           ((org-agenda-span 1)
-          ;;            (org-agenda-sorting-strategy
-          ;;             (quote
-          ;;              ((agenda time-up category-up tag-up))))
-          ;;            (org-deadline-warning-days 7))))
-          ;;  nil)
+           ((org-agenda-overriding-header "Home"))
+           )
           ))
   ;; from https://dindi.garjola.net/org-agenda-weekly.html
   (setq org-todo-keywords
-        (quote ((sequence "TODO(t!)" "NEXT(n)"
-                 "STARTED(s!)" "|" "DONE(d)")
+        (quote ((sequence "TODO(t)" "NEXT(n)"
+                 "STARTED(s!)" "|" "DONE(d!)")
                 (type "PROJECT(p!)" "|" "DONE_PROJECT(D!)")
                 (sequence "WAITING(w@!)" "SOMEDAY(S!)"  "|"
                           "CANCELLED(c@/!)"))))
@@ -403,30 +487,12 @@
       (org-agenda-log-mode)
       (goto-char (point-min))))
 
-  (defun accacio/search-random-someday ()
-    "Search all agenda files for SOMEDAY and jump to a random item"
-    (interactive)
-    (let* ((todos '("SOMEDAY"))
-           (searches (mapcar (lambda (x) (format "+someday")) todos))
-           (joint-search (string-join searches "|") )
-           ;; (org-directory "~/Dropbox/org/")
-           ;; (org-agenda-files  "~/Dropbox/org/someday.org")
-           ;; (org-agenda-custom-commands '(("g" "oi" (                   (org-agenda-overriding-header "\nTasks\n")
-;; ) )))
-           )
-      (setq org-agenda-files "~/Dropbox/org/someday.org")
-      (org-agenda nil "g")
-      ;; (let ((nlines (count-lines (point-min) (point-max))))
-      ;;   (goto-line (random nlines)))
-      )
-    )
-
   (setq org-refile-targets
         '(
           ("projects.org" :regexp . "\\(?:\\(?:Note\\|Task\\)s\\)")
           ("Eve.org" :regexp . "\\(?:\\(?:Note\\|Task\\)s\\)")
           ("personal.org" :maxlevel . 1)
-          ("work.org" :maxlevel . 1)
+          ("work.org" :maxlevel . 2)
           ("these.org" :maxlevel . 1)
           ("tickler.org" :maxlevel . 1)
           ("someday.org" :level . 1)
@@ -486,58 +552,6 @@
   ;;               ;; org-capture-templates)
   )
 #+end_src
-* org-roam
-#+begin_src emacs-lisp
-(require 'org-roam-protocol)
-(after! org-roam
-  (setq org-roam-directory (file-truename "~/hippokamp/brain/"))
-  (setq org-roam-capture-templates
-        '(
-          ("d" "default" plain "%?" :if-new
-           (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
-           :unnarrowed t)
-          ("r" "bibliography reference" plain
-           (file "~/.config/doom/ref.org")
-           :if-new
-           (file+head "reference/${citekey}.org" "#+title: ${citekey}\n"))
-          ))
-
-  (cl-defmethod org-roam-node-directories ((node org-roam-node))
-    (if-let ((dirs (file-name-directory (file-relative-name (org-roam-node-file node) org-roam-directory))))
-        (format "%s" (car (reverse (f-split dirs))))
-      ""))
-
-  (cl-defmethod org-roam-node-type ((node org-roam-node))
-  "Return the TYPE of NODE."
-  (condition-case nil
-      (file-name-nondirectory
-       (directory-file-name
-        (file-name-directory
-         (file-relative-name (org-roam-node-file node) org-roam-directory))))
-    (error "")))
-
-  (cl-defmethod org-roam-node-backlinkscount ((node org-roam-node))
-  (let* ((count (caar (org-roam-db-query
-                       [:select (funcall count source)
-                                :from links
-                                :where (= dest $s1)
-                                :and (= type "id")]
-                       (org-roam-node-id node)))))
-    (format "[%d]" count)))
-
-(setq org-roam-node-display-template "📁 ${directories:10} | ${title:50} | ⚡ ${tags}")
-
-(setq org-roam-mode-sections
-      '((org-roam-backlinks-section :unique t)
-        org-roam-reflinks-section))
-(require 'org-roam-export)
-;; (setq org-roam-node-display-template
-;;       (concat "${type:15} ${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
-  ;; org-roam-db-gc-threshold most-positive-fixnum
-  ;; org-roam-db-update-on-save t
-  ;; org-id-link-to-org-use-id t)
-  )
-#+end_src
 * org-noter
 #+begin_src emacs-lisp
 (use-package! org-noter
@@ -583,17 +597,17 @@
     (setq bibtex-completion-notes-path "~/research/notes/"
           org-ref-notes-function 'orb-edit-notes)
 
-;; (setq org-ref-bibliography-entry-format
-;;       '(
-;;         ("article" . "%a, %t, <i>%j</i>, <b>%v(%n)</b>, %p (%y). <a href=\"%U\">link</a>. <a href=\"http://dx.doi.org/%D\">doi</a>.")
-;;         ("book" . "%a, %t, %u (%y).")
-;;         ("thesis" . "%a, %t, %s (%y).  <a href=\"%U\">link</a>. <a href=\"http://dx.doi.org/%D\">doi</a>.")
-;;         ("misc" . "%a, %t (%y).  <a href=\"%U\">link</a>. <a href=\"http://dx.doi.org/%D\">doi</a>.")
-;;         ("inbook" . "%a, %t, %b (pp. %p), %u (%y), <a href=\"%U\">link</a>. <a href=\"http://dx.doi.org/%D\">doi</a>.")
-;;         ("techreport" . "%a, %t, %i, %u (%y).")
-;;         ("proceedings" . "%e, %t in %S, %u (%y).")
-;;         ("inproceedings" . "%a, %t, %p, in %b, edited by %e, %u (%y)"))
-;;       )
+(setq org-ref-bibliography-entry-format
+      '(
+        ("article" . "%a, %t, <i>%j</i>, <b>%v(%n)</b>, %p (%y). <a href=\"%U\">link</a>. <a href=\"http://dx.doi.org/%D\">doi</a>.")
+        ("book" . "%a, %t, %u (%y).")
+        ("thesis" . "%a, %t, %s (%y).  <a href=\"%U\">link</a>. <a href=\"http://dx.doi.org/%D\">doi</a>.")
+        ("misc" . "%a, %t (%y).  <a href=\"%U\">link</a>. <a href=\"http://dx.doi.org/%D\">doi</a>.")
+        ("inbook" . "%a, %t, %b (pp. %p), %u (%y), <a href=\"%U\">link</a>. <a href=\"http://dx.doi.org/%D\">doi</a>.")
+        ("techreport" . "%a, %t, %i, %u (%y).")
+        ("proceedings" . "%e, %t in %S, %u (%y).")
+        ("inproceedings" . "%a, %t, %p, in %b, edited by %e, %u (%y)"))
+      )
 )
 #+end_src
 * app
