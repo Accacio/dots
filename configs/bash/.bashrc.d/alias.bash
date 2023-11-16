@@ -91,7 +91,7 @@ function - {
 
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-"$SCRIPTSFOLDER/createShortcuts" && . $HOME/.shortcuts
+[ -f "$HOME/bin/createShortcuts" ] && "$HOME/bin/createShortcuts" && . $HOME/.shortcuts
 
 function gcd {
 	cd "$HOME/git/$(ls -a ~/git/|xargs -n1|fzy)"
