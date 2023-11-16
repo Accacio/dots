@@ -4,6 +4,7 @@ application/pdf=org.pwmt.zathura-pdf-poppler.desktop
 application/ppdf=org.pwmt.zathura-pdf-poppler.desktop
 application/octet-stream=FoxitReader.desktop
 application/lrf=calibre-lrfviewer.desktop
+video/mp4=mpv.desktop;
 
 image/gif=imageViewer.desktop
 image/png=imageViewer.desktop
