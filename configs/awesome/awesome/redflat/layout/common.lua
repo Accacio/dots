@@ -29,6 +29,14 @@ common.keys.base = {
 		{ description = "Kill application", group = "Action" }
 	},
 	{
+		{ "Mod4" }, "+", function() awful.screen.focused().selected_tag.gap = awful.screen.focused().selected_tag.gap + 2  end,
+		{ description = "Increase gaps", group = "Layout" }
+	},
+	{
+		{ "Mod4" }, "-", function() awful.screen.focused().selected_tag.gap = awful.screen.focused().selected_tag.gap - 2  end,
+		{ description = "Decrease gaps", group = "Layout" }
+	},
+	{
 		{}, "Escape", function() common.action.exit() end,
 		{ description = "Exit navigation mode", group = "Action" }
 	},
