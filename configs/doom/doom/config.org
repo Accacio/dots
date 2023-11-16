@@ -390,7 +390,6 @@ So we can use completion with matlab
 
   (setq org-agenda-custom-commands
         '(
-          ("n" . "Next Actions List")
           ("g" "Get Things Done (GTD)"
            ((agenda ""
                     ((org-agenda-skip-function
@@ -419,30 +418,40 @@ So we can use completion with matlab
             ;;          (org-agenda-overriding-header "\nDeadlines")))
             (tags "CLOSED>=\"<today>\""
                   ((org-agenda-overriding-header "\nCompleted today\n")))))
-          ("w" "Work"
+          ("w" . "Work")
+          ("ww" "Work general"
            (
             (tags-todo "+@work+postdoc"
-                      ((org-agenda-prefix-format "  %?-12t% s")
-                       (org-agenda-overriding-header "Post-doc\n"))
-                      )
+                       ((org-agenda-prefix-format "  %?-12t% s")
+                        (org-agenda-overriding-header "Post-doc\n"))
+                       )
             (tags-todo "+@work+autocampus"
-                      ((org-agenda-prefix-format "  %?-12t% s")
-                       (org-agenda-overriding-header "\nautOCampus\n"))
-                      )
+                       ((org-agenda-prefix-format "  %?-12t% s")
+                        (org-agenda-overriding-header "\nautOCampus\n"))
+                       )
             (tags-todo "+@work+these"
-                      ((org-agenda-prefix-format "  %?-12t% s")
-                       (org-agenda-overriding-header "\nThese\n"))
-                      )
+                       ((org-agenda-prefix-format "  %?-12t% s")
+                        (org-agenda-overriding-header "\nThese\n"))
+                       )
+            )
+           )
+          ("ws" "Soheib"
+           (
+            (tags "+@work+soheib"
+                       ((org-agenda-prefix-format "  %?-12t% s")
+                        (org-agenda-overriding-header "Soheib\n")
+                        )
+                       )
             )
            )
           ("r" "Reading List"
-            (
-             (tags-todo "+@work+reading_list"
-                      ((org-agenda-prefix-format "  %?-12t% s")
-                       (org-agenda-overriding-header "Reading List\n"))
-                      )
+           (
+            (tags-todo "+@work+reading_list"
+                       ((org-agenda-prefix-format "  %?-12t% s")
+                        (org-agenda-overriding-header "Reading List\n"))
+                       )
             )
-                )
+           )
           ("h" "At home" tags-todo "@home"
            ((org-agenda-overriding-header "Home"))
            )
