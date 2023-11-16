@@ -213,6 +213,17 @@
             )
           )
 #+end_src
+** Matlab
+So we can use completion with matlab
+#+begin_src emacs-lisp
+(defadvice! inhibit-real-only-a (oldfun &rest r)
+ "Temporary remove read-only lines in shell buffer"
+ :around#'matlab-shell-collect-command-output
+  (let ((inhibit-read-only t)) (apply oldfun r)))
+(after! org
+  )
+#+end_src
+
 ** Bibtex
 #+begin_src emacs-lisp
 
