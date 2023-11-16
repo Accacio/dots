@@ -634,7 +634,7 @@ So we can use completion with matlab
 ** rss
 #+begin_src emacs-lisp
 (map! :map doom-leader-map "n R" 'elfeed)
-(setq rmh-elfeed-org-files (list "~/Dropbox/org/elfeed.org"))
+(setq rmh-elfeed-org-files (list "~/prive/Dropbox/org/elfeed.org"))
 (after! elfeed
 
 (defun accacio/elfeed-search-print-entry (entry)
