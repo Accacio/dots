@@ -364,7 +364,7 @@ So we can use completion with matlab
 * Agenda
 #+begin_src emacs-lisp
 (after! org
-  (setq org-agenda-files (list "inbox.org" ".inbox.org_done" "tickler.org" "personal.org"  ".personal.org_done" "areas.org" "books_series_films.org" "work.org")
+  (setq org-agenda-files (list "inbox.org" ".inbox.org_done" "tickler.org" "personal.org"  ".personal.org_done" "areas.org" "books_series_films.org" "work.org" "Soheib.org")
         org-directory "~/prive/Dropbox/org")
 
   ;; use org-protocol to capture ideas
