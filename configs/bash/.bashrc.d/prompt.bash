@@ -34,24 +34,26 @@ function get_divider {
 function color_my_prompt {
     local __time_and_date='[\d - \t]'
     local __user_color='\[\033[01;32m\]'
-    local __user=' \u'
+    local __user='\u'
     # local __divider=$(
     # 	if [ "$(echo $(hostname))" == "going-mobile" ]
     # 	then echo 'is'
     # 	else echo 'is at'
     # 	fi)
-    if [[ "$TERM" = *-256color ]]
+    if [[ "$TERM" = *-256color || "$TERM" = xterm ]]
     then
-	if [ "$(hostname)" = "home" ]
-	then
-	    promptHost=🏠
-	else
-	    promptHost=$(hostname)
-	fi
+    case "$(hostname)" in
+        "home")
+	    promptHost=🏠;;
+        "zono")
+	    promptHost=⭓;;
+        *)
+	    promptHost=te;;
+    esac
 	arrow=➜
     else
 	promptHost=$(hostname)
-	arrow="~"
+	arrow=">> "
     fi
 
     local __host='\h'
@@ -63,7 +65,7 @@ function color_my_prompt {
 
     local __last_color="\[\033[00m\]"
 
-    PS1="\n$__user_color[$__user/$__host$__last_color $__cur_location ]$__last_color$__git_branch_color$__git\n$__prompt_tail $__last_color"
+    PS1="\n$__user_color[$__user@$__host$__last_color] $__cur_location $__last_color$__git_branch_color$__git\n$__prompt_tail $__last_color"
 
 }
 
