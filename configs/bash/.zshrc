@@ -263,7 +263,14 @@ autoload -U compinit colors zcalc
 compinit -d
 
 setopt prompt_subst
-promptHost=🏠
+case "$(hostname)" in
+  "home")
+    promptHost=🏠;;
+  "zono")
+    promptHost=⭓;;
+  *)
+    promptHost=te;;
+esac
 
 autoload -Uz vcs_info
 precmd () { vcs_info }
@@ -291,8 +298,8 @@ zstyle ':vcs_info:*' check-for-changes true
 
 
 
-PS1='[%F{green}%n%F{white}%f/$promptHost %F{blue}%~%f] $vcs_info_msg_0_ 
-'
+PS1='[%F{green}%n%F{white}%f@$promptHost] %F{blue}%~%f $vcs_info_msg_0_
+>> '
 setopt autocd                                                   # if only directory path is entered, cd there.
 WORDCHARS=${WORDCHARS//\/[&.;-]}
 WORDCHARS="[]~;!(){}<>"
