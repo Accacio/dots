@@ -61,3 +61,5 @@
 
 (package! org-ref
   :recipe (:host github :repo "jkitchin/org-ref"))
+
+(package! matlab-mode)
