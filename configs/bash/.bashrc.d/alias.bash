@@ -97,30 +97,6 @@ function gcd {
 	cd "$HOME/git/$(ls -a ~/git/|xargs -n1|fzy)"
 }
 
-function ddbrowser {
-    appFirefox $2
-    pid=$(ps a | sed "s/^\ //" | grep -v grep | grep "$1" | cut -d " " -f1)
-    if [ "$pid" != "" ]
-    then
-      return
-    fi
-    firefox -no-remote -P $2 -new-window $1 & 
-    disown
-    xdotool search --sync --class Firefox
-    pid=$(ps a | sed "s/^\ //" | grep -v grep | grep "$1" | cut -d " " -f1)
-    sleep 0.5s
-    widhex=$(wmctrl -lip | grep $pid | cut -d ' ' -f1 | tr '[:lower:]' '[:upper:]')
-    echo my widhex is $widhex
-    echo my pid is $pid
-    wid=$(echo "ibase=16; ${widhex:2}"|bc)
-    echo my wid is $wid
-    xdotool set_window --class "$2" $wid
-}
-alias telegram="ddbrowser web.telegram.org telegram"
-alias wpp="ddbrowser web.whatsapp.com wpp"
-alias netflix="ddbrowser netflix.com netflix"
-alias reloadAudio="pulseaudio -k && sudo alsa force-reload"
-alias primeVideo="ddbrowser primevideo.com primeVideo"
 function loadZ {
     if [ -f $1 ]
        then
