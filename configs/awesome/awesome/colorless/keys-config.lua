@@ -6,6 +6,7 @@
 local awful = require("awful")
 local naughty = require("naughty")
 local redflat = require("redflat")
+local beautiful = require("beautiful")
 
 -- Initialize tables and vars for module
 -----------------------------------------------------------------------------------------------------------------------
@@ -490,6 +491,10 @@ function hotkeys:init(args)
 			{ description = "Window control mode", group = "Main" }
 		},
 		{
+			{ env.mod }, "F2", function () redflat.service.navigator:run() end,
+			{ description = "Window control mode", group = "Main" }
+		},
+		{
 			{ env.mod ,"Shift"}, "e", function () awful.spawn("powerMenu") end,
 			{ description = "Power Menu", group = "Main" }
 		},
@@ -502,54 +507,58 @@ function hotkeys:init(args)
 			{ description = "Capture", group = "GTD" }
 		},
 		{
-			{ env.mod, "Shift" }, "Return", function() awful.spawn("samedir") end,
-			{ description = "Open a terminal in same directory", group = "Main" }
+			{ env.mod }, "i", function() awful.spawn("capture -k i ''") end,
+			{ description = "Capture to inbox", group = "GTD" }
+		},
+		{
+			{ env.mod }, "space", function() awful.spawn("emacsclient -c -e '(progn (add-hook (quote calc-end-hook) (lambda () (delete-frame))) (calc nil t))'") end,
+			{ description = "Calculator", group = "GTD" }
 		},
 		{
 			{ env.mod }, "Return", function() awful.spawn(env.terminal) end,
 			{ description = "Open a terminal", group = "Main" }
 		},
-		{
-			{ env.mod }, "z",
-			function()
-				local tag=awful.tag.selected()
-				local screen = awful.screen.focused()
-				local current = client.focus or nil
-				
-				local matcher = function (c)
-					-- return awful.rules.match(c, {instance= 'wpp'})
-					return awful.rules.match(c, {class= 'Telegram'})
-				end
+		-- {
+		-- 	{ env.mod }, "z",
+		-- 	function()
+		-- 		local tag=awful.tag.selected()
+		-- 		local screen = awful.screen.focused()
+		-- 		local current = client.focus or nil
+
+		-- 		local matcher = function (c)
+		-- 			-- return awful.rules.match(c, {instance= 'wpp'})
+		-- 			return awful.rules.match(c, {class= 'Telegram'})
+		-- 		end
 
 
-				if current then
-					if current.instance == 'Telegram' then
-						current.minimized = true
-					else
+		-- 		if current then
+		-- 			if current.instance == 'Telegram' then
+		-- 				current.minimized = true
+		-- 			else
 
-					awful.client.run_or_raise('Telegram', matcher)
-					-- awful.client.run_or_raise('bash -c "vimb web.whatsapp.com& export APP_PID=$!;sleep 2;xprop -id `xdotool search --pid $APP_PID|tail -n 1` -f WM_CLASS 8s -set WM_CLASS "wpp""', matcher)
-					-- awful.client.run_or_raise('bash -c "surf web.whatsapp.com& export APP_PID=$!;sleep 2;xprop -id `xdotool search --pid $APP_PID|tail -n 1` -f WM_CLASS 8s -set WM_CLASS "wpp""', matcher)
-					client.focus:move_to_screen(screen)
-					client.focus:move_to_tag(tag)
-					awful.screen.focus(screen)
+		-- 			awful.client.run_or_raise('Telegram', matcher)
+		-- 			-- awful.client.run_or_raise('bash -c "vimb web.whatsapp.com& export APP_PID=$!;sleep 2;xprop -id `xdotool search --pid $APP_PID|tail -n 1` -f WM_CLASS 8s -set WM_CLASS "wpp""', matcher)
+		-- 			-- awful.client.run_or_raise('bash -c "surf web.whatsapp.com& export APP_PID=$!;sleep 2;xprop -id `xdotool search --pid $APP_PID|tail -n 1` -f WM_CLASS 8s -set WM_CLASS "wpp""', matcher)
+		-- 			client.focus:move_to_screen(screen)
+		-- 			client.focus:move_to_tag(tag)
+		-- 			awful.screen.focus(screen)
 
-					tag:view_only()
-					end
-				end
-				if current == nil then
-					awful.client.run_or_raise('Telegram',matcher)
-					-- awful.client.run_or_raise('bash -c "vimb web.whatsapp.com& export APP_PID=$!;sleep 2;xprop -id `xdotool search --pid $APP_PID|tail -n 1` -f WM_CLASS 8s -set WM_CLASS "wpp""', matcher)
-					-- awful.client.run_or_raise('bash -c "surf web.whatsapp.com& export APP_PID=$!;sleep 2;xprop -id `xdotool search --pid $APP_PID|tail -n 1` -f WM_CLASS 8s -set WM_CLASS "wpp""', matcher)
-					client.focus:move_to_screen(screen)
-					client.focus:move_to_tag(tag)
-					awful.screen.focus(screen)
-					tag:view_only()
-				end
+		-- 			tag:view_only()
+		-- 			end
+		-- 		end
+		-- 		if current == nil then
+		-- 			awful.client.run_or_raise('Telegram',matcher)
+		-- 			-- awful.client.run_or_raise('bash -c "vimb web.whatsapp.com& export APP_PID=$!;sleep 2;xprop -id `xdotool search --pid $APP_PID|tail -n 1` -f WM_CLASS 8s -set WM_CLASS "wpp""', matcher)
+		-- 			-- awful.client.run_or_raise('bash -c "surf web.whatsapp.com& export APP_PID=$!;sleep 2;xprop -id `xdotool search --pid $APP_PID|tail -n 1` -f WM_CLASS 8s -set WM_CLASS "wpp""', matcher)
+		-- 			client.focus:move_to_screen(screen)
+		-- 			client.focus:move_to_tag(tag)
+		-- 			awful.screen.focus(screen)
+		-- 			tag:view_only()
+		-- 		end
 
-			end,
-			{ description = "Telegram", group = "IM" }
-		},
+		-- 	end,
+		-- 	{ description = "Telegram", group = "IM" }
+		-- },
 		{
 			{ env.mod, "Shift" }, "l", swap_switch_byd("right"),
 			{ description = "Go to right client", group = "Client focus" }
@@ -604,15 +613,11 @@ function hotkeys:init(args)
 			{ env.mod  }, "e", function() awful.util.spawn("emacsclient -c -a emacs") end,
 			{ description = "Emacs", group = "Programs" }
 		},
-				{
-			{ env.mod }, "c", function() awful.spawn("org-capture '' '' ") end,
-			{ description = "Org Capture idea", group = "Main" }
-		},
-		{
-			-- { env.mod  }, "b", function() awful.util.spawn_with_shell("tabbed -c vimb -e") end,
-			{ env.mod  }, "b", function() awful.util.spawn_with_shell("vimb ~/Dropbox/org/agenda.html") end,
-			{ description = "Browser", group = "Programs" }
-		},
+		-- {
+		-- 	-- { env.mod  }, "b", function() awful.util.spawn_with_shell("tabbed -c vimb -e") end,
+		-- 	{ env.mod  }, "b", function() awful.util.spawn_with_shell("vimb ~/Dropbox/org/agenda.html") end,
+		-- 	{ description = "Browser", group = "Programs" }
+		-- },
 		-- {
 		-- 	{ env.mod  }, "b", function() awful.util.spawn_with_shell("tabbed -c surf -e") end,
 		-- 	{ description = "Browser", group = "Programs" }
@@ -715,7 +720,7 @@ function hotkeys:init(args)
 					c:move_to_screen(c.screen.index-1)
 				end
 			end,
-			{description = "move to screen on left", group = "screen"}
+			{description = "move to screen on left", group = "Screen"}
 		},
 		{
 			{ env.mod, "Shift"   }, "semicolon",
@@ -726,7 +731,7 @@ function hotkeys:init(args)
 					c:move_to_screen()
 				end
 			end,
-			{description = "move to screen on right", group = "screen"}
+			{description = "move to screen on right", group = "Screen"}
 		},
 		{
 			{ env.mod }, "f", function(c) c.fullscreen = not c.fullscreen; c:raise() end,
