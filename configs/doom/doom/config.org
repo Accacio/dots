@@ -95,8 +95,11 @@
   (pushnew! rotate-text-words '("up" "down"))
   (pushnew! rotate-text-words '("on" "off"))
   (set-rotate-patterns! 'c-mode
-    :words '(("float" "double")))
-
+    :words '(("float" "double")
+             ))
+  (set-rotate-patterns! 'c++-mode
+    :words '(("float" "double")
+             ("vector" "matrix")))
   )
 #+end_src
 * Lang
