@@ -198,6 +198,8 @@
 ;; This command sets 'graphicsmagick' process for LaTeX previews in org-mode.
 (setq org-preview-latex-default-process 'graphicsmagick)
 )
+;; suppress org-mode bug
+(setq warning-suppress-types (append warning-suppress-types '((org-element-cache))))
 #+end_src
 
 
