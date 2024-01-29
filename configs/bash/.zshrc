@@ -267,7 +267,7 @@ case "$(hostname)" in
   "home")
     promptHost=🏠;;
   "zono")
-    promptHost=⭓;;
+    promptHost=⬢;;
   *)
     promptHost=te;;
 esac

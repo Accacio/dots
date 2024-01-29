@@ -46,7 +46,7 @@ function color_my_prompt {
         "home")
 	    promptHost=🏠;;
         "zono")
-	    promptHost=⭓;;
+	    promptHost=⬢;;
         *)
 	    promptHost=te;;
     esac
