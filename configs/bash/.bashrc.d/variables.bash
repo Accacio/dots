@@ -13,7 +13,7 @@ export PATH=$PATH:$HOME/julia-1.6.2/bin
 export GEM_HOME=$HOME/gems
 
 # git configs
-git config --global user.email "raccacio@poli.ufrj.br"
+git config --global user.email "rafael.accacio.nogueira@gmail.com"
 git config --global user.name "Accacio"
 
 # Install Cuda
