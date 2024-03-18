@@ -26,10 +26,12 @@ stow -v -d configs/ -t ~/.config/ \
      compton/     \
      doom/        \
      dunst/       \
+     gdb/         \
      htop/        \
      khal/        \
      khard/       \
      lf/          \
+     mimeapps/     \
      mpd/         \
      mpv/         \
      msmtp/       \
@@ -39,7 +41,6 @@ stow -v -d configs/ -t ~/.config/ \
      nvim/        \
      pdfpc/       \
      polybar/     \
-     mimeapps/     \
      qutebrowser/ \
      ranger/      \
      rofi/        \
@@ -47,7 +48,7 @@ stow -v -d configs/ -t ~/.config/ \
      vdirsyncer/  \
      vimb/        \
      xournalpp/   \
-     zathura/ 
+     zathura/
 
 # install custom .desktop files
 stow -v -d configs/ -t ~/.local/share/applications/ applications/
