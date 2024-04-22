@@ -491,10 +491,6 @@ function hotkeys:init(args)
 			{ description = "Window control mode", group = "Main" }
 		},
 		{
-			{ env.mod }, "F2", function () redflat.service.navigator:run() end,
-			{ description = "Window control mode", group = "Main" }
-		},
-		{
 			{ env.mod ,"Shift"}, "e", function () awful.spawn("powerMenu") end,
 			{ description = "Power Menu", group = "Main" }
 		},
