@@ -3,7 +3,7 @@ alphabet="dfjk"
 [[hints.enabled]]
 regex="([0-9a-f]{12,128})|([[:digit:]]{1,3}\\.[[:digit:]]{1,3}\\.[[:digit:]]{1,3}\\.[[:digit:]]{1,3})"
 action="Copy"
-binding={key="I",mods="Control|Shift"}
+binding={key="i",mods="Control|Shift"}
 
 [[hints.enabled]]
 regex = "(magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`()]+"
@@ -11,11 +11,11 @@ command = "xdg-open"
 post_processing = false
 persist = false
 mouse = { enabled = true }
-binding = { key = "U", mods = "Control | Shift" }
+binding = { key = "f", mods = "Control | Shift" }
 
 [font]
 normal = { family= "Roboto Mono", style="Regular"}
-size = 12.0
+size = 11.0
 
 #
     #    # Default:
