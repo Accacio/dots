@@ -780,7 +780,9 @@ Debug commands are:
 (after! org-ref
     (setq bibtex-completion-notes-path "~/research/notes/references"
           org-ref-notes-function 'orb-edit-notes
-          bibtex-completion-edit-notes-function #'bibtex-completion-edit-notes-default)
+          bibtex-completion-edit-notes-function #'orb-bibtex-completion-edit-note)
+(define-key bibtex-mode-map (kbd "C-c C-c") 'org-ref-bibtex-hydra/body)
+(define-key org-mode-map (kbd "C-c ]") 'org-ref-insert-link)
 
 (setq org-ref-bibliography-entry-format
       '(
