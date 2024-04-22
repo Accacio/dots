@@ -264,18 +264,20 @@
 \\renewcommand{\\epsilon}{\\varepsilon}
 \\renewcommand{\\phi}{\\varphi}
 ")
-(add-to-list 'org-preview-latex-process-alist '(graphicsmagick :programs ("latex" "gm")
-                                                               :description "pdf > png"
-                                                               :message "you need to install the programs: latex and graphicsmagick"
-                                                               :use-xcolor t
-                                                               :image-input-type "pdf"
-                                                               :image-output-type "png"
-                                                               :image-size-adjust (1.0 . 1.0)
-                                                               :latex-compiler ("pdflatex -interaction nonstopmode -output-directory %o %f")
-                                                               :image-converter ("gm convert -density %D -trim -antialias -quality 100 %f %O")))
+
+
+;; (add-to-list 'org-preview-latex-process-alist '(graphicsmagick :programs ("latex" "gm")
+;;                                                                :description "pdf > png"
+;;                                                                :message "you need to install the programs: latex and graphicsmagick"
+;;                                                                :use-xcolor t
+;;                                                                :image-input-type "pdf"
+;;                                                                :image-output-type "png"
+;;                                                                :image-size-adjust (1.0 . 1.0)
+;;                                                                :latex-compiler ("pdflatex -interaction nonstopmode -output-directory %o %f")
+;;                                                                :image-converter ("gm convert -density %D -trim -antialias -quality 100 %f %O")))
 
 ;; This command sets 'graphicsmagick' process for LaTeX previews in org-mode.
-(setq org-preview-latex-default-process 'graphicsmagick)
+;; (setq org-preview-latex-default-process 'graphicsmagick)
 )
 ;; suppress org-mode bug
 (setq warning-suppress-types (append warning-suppress-types '((org-element-cache))))
