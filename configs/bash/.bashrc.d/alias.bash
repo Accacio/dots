@@ -111,6 +111,7 @@ function loadash {
     read -s pass
     sudo mount -t cifs -o username=nogueirar,workgroup=supelec-rennes,password=$pass,uid=1000,gid=1000 //idefix/ash/Rafael_Nogueira $HOME/these_ash/
 }
+
 alias unloadZ="cd; sudo umount ~/Z"
 
 function encrypt {
@@ -197,3 +198,15 @@ function envNorm {
   mv -nT ~/.emacs.d.bkp ~/.emacs.d
   killall sxiv
 }
+
+getent passwd $(id -un) > /tmp/passwd.docker
+getent group  $(id -gn) > /tmp/group.docker
+
+alias rosdocker="docker run -it --rm -v /dev/bus/usb:/dev/bus/usb -w /root/ros_ws -u 0 --env="DISPLAY" --net host -v $HOME:/root ros-noetic-container-dev"
+alias locafleetdocker="docker run -it --rm --name "locafleet_docker" -v /dev/bus/usb:/dev/bus/usb -w /root/ros_ws -u 0 --env="DISPLAY" --net host -v $HOME:/root ros-noetic-container-dev"
+alias rosdockernormal="docker run -it --rm -w $(pwd) --user=$(id -u $USER):$(id -g $USER) --env="DISPLAY" --volume="/tmp/group.docker:/etc/group:ro" --volume="/tmp/passwd.docker:/etc/passwd:ro" --volume="/etc/shadow:/etc/shadow:ro" --volume="/etc/sudoers.d:/etc/sudoers.d:ro" --net host -v /home:/home ros-noetic-container-dev"
+alias rosdockertest="docker run -it --rm -w $(pwd) --user=$(id -u $USER):$(id -g $USER) --env="DISPLAY" --volume="/tmp/group.docker:/etc/group:ro" --volume="/tmp/passwd.docker:/etc/passwd:ro" --volume="/etc/shadow:/etc/shadow:ro" --volume="/etc/sudoers.d:/etc/sudoers.d:ro" --net host -v /home:/home ros-noetic-container-test"
+# alias roscore="docker run -it ros-noetic-container roscore"
+alias qbot="ssh -X qbot"
+alias pc_main="export ROS_MASTER_URI=http://192.168.2.12:11311;export ROS_IP=192.168.2.12;"
+alias qbot_main="export ROS_MASTER_URI=http://192.168.2.11:11311;export ROS_IP=192.168.2.12;"
