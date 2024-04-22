@@ -149,6 +149,7 @@
 #+begin_src emacs-lisp
 (after! org
   (require 'ox-beamer)
+  (setq org-link-context-for-files t)
 (setq org-latex-default-packages-alist
   '(("AUTO" "inputenc"  t ("pdflatex"))
     ("T1"   "fontenc"   t ("pdflatex"))
