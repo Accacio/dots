@@ -12,6 +12,8 @@ export PATH=$PATH:$HOME/julia-1.6.2/bin
 # Install Ruby Gems to $HOME/gems
 export GEM_HOME=$HOME/gems
 
+export TERM=xterm
+
 # git configs
 git config --global user.email "rafael.accacio.nogueira@gmail.com"
 git config --global user.name "Accacio"
