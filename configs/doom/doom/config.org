@@ -960,3 +960,12 @@ Debug commands are:
 (map! :leader :prefix "f" "a" #'accacio/find-cfg-file)
 (map! :leader :prefix "f" "b" #'accacio/find-blog-post)
 #+end_src
+* Trier
+#+begin_src emacs-lisp
+(add-hook 'LaTeX-mode-hook 'add-my-latex-environments)
+(defun add-my-latex-environments ()
+  (LaTeX-add-environments
+   '("tikzpicture" LaTeX-env-label)
+   '("frame" LaTeX-env-label)
+   ))
+#+end_src
