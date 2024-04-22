@@ -1,11 +1,13 @@
 export SHELL="/bin/zsh"
 export DATE=$(date +%Y%m%d)
 export PATH="$PATH:$(du "$HOME/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//;s|/$||')"
+export PATH="$PATH:$HOME/.local/bin/"
 export PATH="$PATH:/usr/local/texlive/2022/bin/x86_64-linux/"
 export MANPATH="$MANPATH:/usr/local/texlive/2022/texmf-dist/doc/man/"
 export INFOPATH="$MANPATH:/usr/local/texlive/2022/texmf-dist/doc/info/"
 export PATH="$PATH:/usr/local/MATLAB/R2019b/bin/"
 export PATH="$PATH:/usr/local/MATLAB/R2019b/bin/glnxa64"
+export PATH="$PATH:$HOME/.cargo/bin/"
 export PRINTER=HP-LaserJet-Pro-MFP-M127fn
 export MPD_HOST="$HOME/.config/mpd/socket"
 export SCRIPTSFOLDER="$HOME/bin"
