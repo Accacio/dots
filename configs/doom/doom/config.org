@@ -510,6 +510,7 @@ Debug commands are:
 (setq org-roam-mode-sections
       '((org-roam-backlinks-section :unique t)
         org-roam-reflinks-section))
+(setq org-roam-graph-viewer (executable-find "vivaldi"))
 (require 'org-roam-export)
 ;; (setq org-roam-node-display-template
 ;;       (concat "${type:15} ${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
