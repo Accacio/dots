@@ -132,6 +132,22 @@
   )
 #+end_src
 * Lang
+** Remote lsp-mode
+#+begin_src emacs-lisp
+(after! lsp-mode
+  (progn
+    (lsp-register-client
+     (make-lsp-client :new-connection (lsp-tramp-connection "clangd")
+                      :major-modes '(c-mode c++-mode)
+                      :remote? t
+                      :server-id 'clangd-remote)))
+  )
+(after! projectile
+(setq projectile-generic-command "fd . -0 --type f --color=never")
+(setq projectile-git-fd-args "-H -0 -E .git -tf --color=never")
+)
+#+end_src
+
 ** org
 - use greek letters on org-mode sections
 #+begin_src emacs-lisp
