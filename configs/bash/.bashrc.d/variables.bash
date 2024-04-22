@@ -1,5 +1,5 @@
 export PATH=/usr/local/cuda-9.2/bin:$PATH
-export PATH=$HOME/bin:$PATH
+export PATH=$HOME/.local/bin:$HOME/bin:$PATH
 export PATH=$HOME/gems/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
