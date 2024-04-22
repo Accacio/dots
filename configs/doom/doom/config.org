@@ -219,6 +219,7 @@
 \\newcommand{\\1}{\\mathbf{1}}
 \\newcommand{\\0}{\\mathbf{0}}
 \\newcommand{\\set}{\\mathcal}
+\\newcommand{\\card}[1]{n_{#1}}
 \\newcommand{\\abs}[1]{\\left\\lvert#1\\right\\rvert}
 \\newcommand{\\norm}[1]{\\left\\lVert#1\\right\\rVert}
 \\renewcommand{\\vec}[1]{\\boldsymbol{#1}}
@@ -230,6 +231,9 @@
 \\newcommand{\\semidefpos}{\\mathbb{S}_{+}}
 \\newcommand{\\defpos}{\\mathbb{S}_{++}}
 \\newcommand{\\elem}[2][1]{{#2}_{(#1)}}
+\\newcommand{\\zonotope}{\\meddiamond}
+\\newcommand{\\czonotope}{\\diamondvert}
+\\newcommand{\\interval}{\\medsquare}
 \\renewcommand{\\implies}{\\Rightarrow}
 \\renewcommand{\\iff}{\\Leftrightarrow}
 \\newcommand{\\argmax}{\\mathop{\\arg\\!\\max}}
