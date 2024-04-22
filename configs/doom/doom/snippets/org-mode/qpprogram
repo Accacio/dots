@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: qp
+# uuid:
+# key: qp
+# condition: t
+# --
+\begin{equation}
+\begin{matrix}
+\underset{${1:\vec\{U\}_i(k)}}{\text{${2:minimize}}}& ${3:J_i=\frac\{1\}\{2\} \norm\{$1\}^2_\{H_i\}+\{\vec\{f\}_i(k)\}^T$1}\\\\
+\text{s.t.}&${4:A}$1=${5:\vec\{\theta\}_i}}\\\\
+\end{matrix}
+\label{eq:$6}
+\end{equation}
+$0
