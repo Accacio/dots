@@ -278,9 +278,14 @@
 
 ;; This command sets 'graphicsmagick' process for LaTeX previews in org-mode.
 ;; (setq org-preview-latex-default-process 'graphicsmagick)
+;; (setq org-preview-latex-default-process 'dvipng)
+(add-hook 'org-mode-hook
+          (lambda () (evil-tex-mode))
 )
+
 ;; suppress org-mode bug
 (setq warning-suppress-types (append warning-suppress-types '((org-element-cache))))
+)
 #+end_src
 
 
