@@ -178,6 +178,7 @@ end
 function common.action.kill()
 	client.focus:kill()
 	navigator:restart()
+	navigator:close()
 	common.last.key = nil
 end
 
