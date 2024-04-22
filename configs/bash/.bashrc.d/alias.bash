@@ -68,9 +68,7 @@ alias cls="printf '\ec'" \
       emacsd="emacs -daemon" \
       e="emacsclient -nw -a emacs" \
       sc="sc-im" \
-      accSite="surf 192.168.1.140:4000 &" \
-      # jsl="cd $HOME/blog/;jekyll serve --livereload" \
-      deploySite="pushd ~/Blog;zola build;cp -r public/* ~/git/site/;pushd ~/git/site/;git add *;git commit -m `date +%F`;git push -u origin master"
+      # deploySite="pushd ~/Blog;zola build;cp -r public/* ~/git/site/;pushd ~/git/site/;git add *;git commit -m `date +%F`;git push -u origin master"
 # alias u='xrandr -o normal'
 # alias d='xrandr -o inverted'
 
