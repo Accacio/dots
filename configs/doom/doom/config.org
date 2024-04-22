@@ -290,6 +290,75 @@ So we can use completion with matlab
   (let ((inhibit-read-only t)) (apply oldfun r)))
 (after! org
   )
+(add-hook 'matlab-mode-hook
+          (lambda ()
+            (setq
+             imenu-generic-expression
+             '(
+               ("Cell" "^%% \\(.*[A-z].*\\)" 1)
+               ("Comment" "%= \\([A-z].*\\)" 1)
+               )
+             )
+            (setq imenu-create-index-function '(lambda () (imenu--generic-function imenu-generic-expression)))
+            )
+          )
+
+(defvar matlab-shell-gud-minor-mode-map
+  (let ((km (make-sparse-keymap)))
+    (evil-define-key 'normal km "h" 'matlab-shell-gud-mode-help)
+
+    ;; mlgud bindings.
+    (evil-define-key 'normal km "\C-cb" 'mlgud-break)
+    (evil-define-key 'normal km "\C-cx" 'mlgud-remove)
+    (evil-define-key 'normal km "\C-cc" 'mlgud-cont)
+    (evil-define-key 'normal km "\C-cs" 'mlgud-step)
+    (evil-define-key 'normal km "\C-cn" 'mlgud-next)
+    (evil-define-key 'normal km "\C-cf" 'mlgud-finish)
+    (evil-define-key 'normal km "\C-cq" 'mlgud-stop-subjob)
+    (evil-define-key 'normal km "\C-c<" 'mlgud-up)
+    (evil-define-key 'normal km "\C-c>" 'mlgud-down)
+    (evil-define-key 'normal km "\C-cw" 'mlg-show-stack)
+    (evil-define-key 'normal km "\C-cv" 'mlgud-list-breakpoints)
+    (evil-define-key 'normal km "\C-ce" 'matlab-shell-gud-show-symbol-value)
+
+    (evil-define-key 'normal km "\C-x\C-q" 'matlab-shell-gud-mode-edit) ; like toggle-read-only
+
+    km)
+  "Keymap used by matlab mode maintainers.")
+
+(define-minor-mode matlab-shell-gud-minor-mode
+  "Minor mode activated when `matlab-shell' K>> prompt is active.
+This minor mode makes MATLAB buffers read only so simple keystrokes
+activate debug commands.  It also enables tooltips to appear when the
+mouse hovers over a symbol when debugging.
+\\<matlab-shell-gud-minor-mode-map>
+Debug commands are:
+ \\[matlab-shell-gud-mode-edit]  - Edit file (toggle read-only)
+            Allows editing file without causing MATLAB to exit debug mode.
+ \\[mlgud-break]        - Add breakpoint (ebstop in FILE at point)
+ \\[mlgud-remove]        - Remove breakpoint (ebclear in FILE at point)
+ \\[mlgud-list-breakpoints]        - List breakpoints (ebstatus)
+ \\[mlgud-step]        - Step (dbstep in)
+ \\[mlgud-next]        - Next (dbstep)
+ \\[mlgud-finish]        - Finish function (dbstep out)
+ \\[mlgud-cont]        - Continue (dbcont)
+ \\[matlab-shell-gud-show-symbol-value]        - Evaluate expression
+ \\[mlg-show-stack]        - Where am I (ebstack)
+ \\[mlgud-stop-subjob]        - Quit (dbquit)"
+  nil " MGUD" matlab-shell-gud-minor-mode-map)
+
+(defvar mlg-stack-mode-map
+  (let ((km (make-sparse-keymap)))
+    (evil-define-key 'normal km [return] 'mlg-stack-choose)
+    (evil-define-key 'normal km "q" 'mlg-stack-quit)
+    (evil-define-key 'normal km "n" 'mlg-stack-next)
+    (evil-define-key 'normal km "p" 'mlg-stack-prev)
+    (evil-define-key 'normal km [mouse-2] 'mlg-stack-click)
+    (evil-define-key 'normal km [mouse-1] 'mlg-stack-click)
+    km)
+  "Keymap used in MATLAB stack mode.")
+
+
 #+end_src
 
 ** Bibtex
