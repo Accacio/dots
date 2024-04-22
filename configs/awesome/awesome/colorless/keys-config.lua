@@ -514,6 +514,17 @@ function hotkeys:init(args)
 			{ env.mod }, "Return", function() awful.spawn(env.terminal) end,
 			{ description = "Open a terminal", group = "Main" }
 		},
+		{
+			{ env.mod }, "b", function()
+				awful.screen.connect_for_each_screen(
+					function(screen)
+						-- local screen = awful.screen.focused()
+						screen.panel.visible = not screen.panel.visible
+					end
+				)
+			end,
+			{ description = "Toggle bar", group = "Main" }
+		},
 		-- {
 		-- 	{ env.mod }, "z",
 		-- 	function()
