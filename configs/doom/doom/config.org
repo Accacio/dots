@@ -687,6 +687,7 @@ Debug commands are:
           ("these.org" :maxlevel . 1)
           ("tickler.org" :maxlevel . 1)
           ("someday.org" :level . 1)
+          ("Soheib.org" :level . 1)
           ("books_series_films.org" :maxlevel . 9)
           )
         )
