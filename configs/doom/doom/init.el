@@ -63,13 +63,15 @@
         +docsets
         +offline         ;; better than to use powerthesaurus now (20230127)
         )
+       (lsp +peek)
+       docker
        magit             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
        pdf               ; pdf enhancements
        rgb               ; creating color strings
 
        :lang
-       cc                ; C/C++/Obj-C madness
+       (cc +lsp)                ; C/C++/Obj-C madness
        data              ; config/data formats
        (dart
         +lsp
