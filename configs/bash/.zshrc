@@ -336,3 +336,5 @@ bindkey '^[Od' backward-word                                    #
 bindkey '^[[1;5D' backward-word                                 #
 bindkey '^[[1;5C' forward-word                                  #
 bindkey '^H' backward-kill-word                                 # delete previous word with ctrl+backspace
+
+[ -f /opt/ros/rolling/setup.zsh ] && source /opt/ros/rolling/setup.zsh && complete -o nospace -o default -F _python_argcomplete "ros2"
