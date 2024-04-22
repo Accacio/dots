@@ -11,14 +11,13 @@ image/png=imageViewer.desktop
 image/jpeg=imageViewer.desktop
 
 text/plain=editor.desktop
-text/html=vivaldi-stable.desktop
 text/x-lua=editor.desktop
 application/x-shellscript=editor.desktop
 text/x-bibtex=editor.desktop
 
-text/html=vimb.desktop
-x-scheme-handler/http=vivaldi-stable.desktop
-x-scheme-handler/https=vivaldi-stable.desktop
+text/html=browser.desktop
+x-scheme-handler/http=browser.desktop
+x-scheme-handler/https=browser.desktop
 x-scheme-handler/about=browser.desktop
 x-scheme-handler/unknown=browser.desktop
 x-scheme-handler/msteams=teams.desktop
