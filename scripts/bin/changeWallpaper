@@ -1,4 +1,5 @@
 #!/bin/bash
+wallpapers_folder="$HOME/prive/Dropbox/wallpapers"
 export DISPLAY=$(who | grep $(whoami) | sed "s,.*(\(.*\)).*,\1,g" | cut -d" " -f 2)
 int_handler()
 {
@@ -11,49 +12,49 @@ trap 'int_handler' INT
 
 if [ $# -eq 0 ]
   then
-      [ -f "~/wallpapers/listWallpaper" ] || touch ~/wallpapers/listWallpaper
-      if [ "$(wc -l < ~/wallpapers/listWallpaper)" -eq 0 ]
+      [ -f "$wallpapers_folder/listWallpaper" ] || touch "$wallpapers_folder/listWallpaper"
+      if [ "$(wc -l < $wallpapers_folder/listWallpaper)" -eq 0 ]
       then
-	  ls -d  ~/wallpapers/*.* > ~/wallpapers/listWallpaper
+        ls -d  $wallpapers_folder/*.* | grep -v "prive_.*" > $wallpapers_folder/listWallpaper
       fi
-      currentWallpaper=$(head -n 1 ~/wallpapers/listWallpaper)
+      currentWallpaper=$(head -n 1 $wallpapers_folder/listWallpaper)
       if [[ $currentWallpaper  == *.gif ]]
       then
-	        feh --bg-max $currentWallpaper
+          feh --bg-max $currentWallpaper
           if [ "$(which xwinwrap)" != "" ]
           then
               (xwinwrap -g "1920x1080+2560" -ni -ov -- mpv -wid WID $currentWallpaper  --loop & sleep 10; kill -s 9 $!) & ( xwinwrap -g "2560x1080" -ni -ov -- mpv -wid WID $currentWallpaper  --loop & sleep 10; kill -s 9 $! )
           fi
       else
-      feh --bg-fill "$(head -n 1 ~/wallpapers/listWallpaper)"
+      feh --bg-fill "$(head -n 1 $wallpapers_folder/listWallpaper)"
       fi
-      echo $currentWallpaper>~/wallpapers/currentWallpaper
-      sed -i '1d' ~/wallpapers/listWallpaper
+      echo $currentWallpaper>$wallpapers_folder/currentWallpaper
+      sed -i '1d' $wallpapers_folder/listWallpaper
 else
     if [ "$1" == "-1"  ]
     then
-	echo $(head -n 1 ~/wallpapers/currentWallpaper)
-	changeWallpaper $(head -n 1 ~/wallpapers/currentWallpaper)
-	exit 0
+  echo $(head -n 1 $wallpapers_folder/currentWallpaper)
+  changeWallpaper $(head -n 1 $wallpapers_folder/currentWallpaper)
+  exit 0
     fi
 
     if [ -f "$1" ]
     then
 
 
-	      if [[ $1  == *.gif ]] || [[ $1  == *.mp4 ]]
-	      then
+        if [[ $1  == *.gif ]] || [[ $1  == *.mp4 ]]
+        then
             feh --bg-max $1
             if [ "$(which xwinwrap)" != "" ]
             then
                 (xwinwrap -g "1920x1080+2560" -ni -ov -- mpv -wid WID $1  --loop & sleep 10; kill -s 9 $!) & ( xwinwrap -g "2560x1080" -ni -ov -- mpv -wid WID $1  --loop & sleep 10; kill -s 9 $! )
             fi
-	else
-	    feh --bg-fill $1
-	fi
+  else
+      feh --bg-fill $1
+  fi
     else
-	echo "Error: File Not Found"
-	exit 1
+  echo "Error: File Not Found"
+  exit 1
     fi
 fi
 
