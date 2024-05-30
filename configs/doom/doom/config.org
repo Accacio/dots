@@ -973,11 +973,11 @@ Debug commands are:
   (dired "~/.emacs.d/.local/straight/repos/"))
 
 (defun accacio/find-cfg-file ()
-  "Search for a file in `~/dots'."
+  "Search for a file in `~/.dots'."
   (interactive)
-  (doom-project-find-file "~/dots"))
+  (doom-project-find-file "~/.dots"))
 (defun accacio/find-blog-post ()
-  "Search for a file in `~/dots'."
+  "Search for a file in `~/.dots'."
   (interactive)
   (doom-project-find-file "~/prive/site/content/blog"))
 (map! :leader :prefix "f" "a" #'accacio/find-cfg-file)
