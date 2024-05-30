@@ -50,10 +50,10 @@
 ;(unpin! t)
 
 (package! org-pdftools
- :recipe (:host github :repo "fuxialexandre/org-pdftools"))
+ :recipe (:host github :repo "fuxialexander/org-pdftools"))
 
 (package! org-noter-pdftools
- :recipe (:host github :repo "fuxialexandre/org-pdftools"))
+ :recipe (:host github :repo "fuxialexander/org-pdftools"))
 
 (package! org-roam-bibtex
   :recipe (:host github :repo "org-roam/org-roam-bibtex"))
