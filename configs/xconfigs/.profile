@@ -39,4 +39,4 @@ mpd
 # [ "$(tty)" = "/dev/tty1" ] && ! pgrep -x i3 >/dev/null && exec startx
 
 # sudo -n loadkeys ~/.scripts/ttymaps.kmap 2>/dev/null
-. "$HOME/.cargo/env"
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
