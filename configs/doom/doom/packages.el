@@ -62,4 +62,7 @@
 (package! org-ref
   :recipe (:host github :repo "jkitchin/org-ref"))
 
+(package! atomic-chrome
+  :recipe (:host github :repo "alpha22jp/atomic-chrome"))
+
 (package! matlab-mode)

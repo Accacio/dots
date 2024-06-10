@@ -554,6 +554,35 @@ Debug commands are:
    '("citekey" "title" "url" "file" "author-or-editor" "keywords"))
   )
 #+end_src
+** overleaf
+#+begin_src emacs-lisp
+(use-package! atomic-chrome
+  :defer 3
+  :when (display-graphic-p)
+  :preface
+  (defun +my/atomic-chrome-server-running-p ()
+    (cond ((executable-find "lsof")
+           (zerop (call-process "lsof" nil nil nil "-i" ":64292")))
+          ((executable-find "netstat")  ; Windows
+           (zerop (call-process-shell-command "netstat -aon | grep 64292")))))
+  ;; (atomic-chrome-edit-mode . +my/atomic-chrome-mode-setup)
+  :config
+  (progn
+    (setq atomic-chrome-buffer-open-style 'full) ;; or frame, split
+    (setq atomic-chrome-url-major-mode-alist
+          '(("overleaf\\.com"        . tex-mode)
+            ))
+
+;;     (defun +my/atomic-chrome-mode-setup ()
+;;       (setq header-line-format
+;;             (substitute-command-keys
+;;              "Edit Chrome text area.  Finish \
+;; `\\[atomic-chrome-close-current-buffer]'.")))
+
+    (if (+my/atomic-chrome-server-running-p)
+        (message "Can't start atomic-chrome server, because port 64292 is already used")
+      (atomic-chrome-start-server))))
+#+end_src
 
 * Agenda
 #+begin_src emacs-lisp
