@@ -17,10 +17,9 @@
 #
 # Copyright (C) 2010 Ilya Paramonov <ivparamonov@gmail.com>
 
-if [ ! -f ~/Downloads/plantuml.jar ];
+if [ ! -f ~/bin/plantuml.jar ];
 then
-   cd ~/Downloads/
-   wget http://sourceforge.net/projects/plantuml/files/plantuml.jar/download -O plantuml.jar
+   wget http://sourceforge.net/projects/plantuml/files/plantuml.jar/download -O ~/bin/plantuml.jar
    cd -
 fi
 
@@ -34,4 +33,4 @@ else
     exit 1
 fi
 
-$JAVA -jar ~/Downloads/plantuml.jar -tpdf ${@}
+$JAVA -jar ~/bin/plantuml.jar -tpdf ${@}
