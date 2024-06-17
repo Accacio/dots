@@ -283,6 +283,8 @@
           (lambda () (evil-tex-mode))
 )
 
+(setq org-plantuml-jar-path "~/bin/plantuml.jar")
+
 ;; suppress org-mode bug
 (setq warning-suppress-types (append warning-suppress-types '((org-element-cache))))
 )
