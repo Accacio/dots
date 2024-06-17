@@ -683,7 +683,7 @@ Debug commands are:
   ;; from https://dindi.garjola.net/org-agenda-weekly.html
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "NEXT(n)"
-                 "STARTED(s!)" "|" "DONE(d!)")
+                 "STARTED(s!)" "|" "DONE(d!)" "Kill(k)")
                 (type "PROJECT(p!)" "|" "DONE_PROJECT(D!)")
                 (sequence "WAITING(w@!)" "SOMEDAY(S!)"  "|"
                           "CANCELLED(c@/!)"))))
