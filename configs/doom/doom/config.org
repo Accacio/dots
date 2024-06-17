@@ -647,6 +647,10 @@ Debug commands are:
           ("w" . "Work")
           ("ww" "Work general"
            (
+            (tags-todo "+@work+discuter"
+                       ((org-agenda-prefix-format "  %?-12t% s")
+                        (org-agenda-overriding-header "\nDiscuter\n"))
+                       )
             (tags-todo "+@work+postdoc"
                        ((org-agenda-prefix-format "  %?-12t% s")
                         (org-agenda-overriding-header "Post-doc\n"))
@@ -664,10 +668,10 @@ Debug commands are:
           ("ws" "Soheib"
            (
             (tags "+@work+soheib+LEVEL=1"
-                       ((org-agenda-prefix-format "  %?-12t% s")
-                        (org-agenda-overriding-header "Soheib\n")
-                        )
-                       )
+                  ((org-agenda-prefix-format "  %?-12t% s")
+                   (org-agenda-overriding-header "Soheib\n")
+                   )
+                  )
             )
            )
           ("r" "Reading List"
