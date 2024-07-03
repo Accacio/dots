@@ -4,7 +4,6 @@
 * %^{title}
 :PROPERTIES:
 :Custom_ID: %^{citekey}
-:URL: %^{url}
 :AUTHOR: %^{author-or-editor}
 :NOTER_DOCUMENT: %^{file}
 :END:
