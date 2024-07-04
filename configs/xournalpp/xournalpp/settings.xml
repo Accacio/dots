@@ -88,7 +88,7 @@
   <property name="latexSettings.autoCheckDependencies" value="true"/>
   <property name="latexSettings.globalTemplatePath" value="/home/ranogueira/.config/xournalpp/template.tex"/>
   <property name="latexSettings.genCmd" value="pdflatex -interaction=nonstopmode '{}'"/>
-  <property name="font" font="Sans" size="12.00000000"/>
+  <property name="font" font="Virgil 3 YOFF" size="12.00000000"/>
   <data name="buttonConfig">
     <data name="default">
       <attribute name="color" type="hex" value="ff000000"/>
