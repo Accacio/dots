@@ -36,8 +36,17 @@
 #+begin_src emacs-lisp
 (setq ivy-use-selectable-prompt t)
 
-(after! ivy-bibtex
+;; Solves not a directory for ivy
+(defun ivy-rich--switch-buffer-directory! (orig-fun &rest args)
+    (cl-letf (((symbol-function 'directory-file-name) #'file-name-directory))
+      (apply orig-fun args)))
+  (advice-add 'ivy-rich--switch-buffer-directory :around #'ivy-rich--switch-buffer-directory!)
 
+(after! ivy-bibtex
+(advice-add #'helpful--buffer :filter-return
+  (lambda (buf)
+    (with-current-buffer buf (setq-local list-buffers-directory nil))
+    buf))
 (defun bibtex-completion-insert-doi (keys)
   "Open the URL or DOI associated with entries in KEYS in a browser."
   (dolist (key keys)
