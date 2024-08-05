@@ -19,7 +19,7 @@
 
 if [ ! -f ~/bin/plantuml.jar ];
 then
-   wget http://sourceforge.net/projects/plantuml/files/plantuml.jar/download -O ~/bin/plantuml.jar
+   wget https://github.com/plantuml/plantuml/releases/download/v1.2024.5/plantuml.jar -O ~/bin/plantuml.jar
    cd -
 fi
 
