@@ -269,7 +269,7 @@ case "$(hostname)" in
   "zono")
     promptHost=⬢;;
   *)
-    promptHost=te;;
+    promptHost="$(hostname)";;
 esac
 
 autoload -Uz vcs_info

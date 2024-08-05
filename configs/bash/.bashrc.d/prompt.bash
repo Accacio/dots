@@ -48,7 +48,7 @@ function color_my_prompt {
         "zono")
 	    promptHost=⬢;;
         *)
-	    promptHost=te;;
+	    promptHost="$(hostname)";;
     esac
 	arrow=➜
     else
