@@ -701,7 +701,7 @@ function hotkeys:init(args)
 			{ env.mod }, "semicolon",
 			function()
 				awful.screen.focus_relative(1);
-				-- awful.spawn('bash -c "sleep 0.1;xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"')
+				awful.spawn('bash -c "sleep 0.1;if [ $(xdotool getwindowfocus) != "" ]; then xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0 fi"')
 			end,
 			{ description = "focus the next screen", group = "Screen" }
 		},
@@ -709,7 +709,7 @@ function hotkeys:init(args)
 			{ env.mod }, "comma",
 			function()
 				awful.screen.focus_relative(-1);
-				-- awful.spawn('bash -c "sleep 0.1;xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0"')
+				awful.spawn('bash -c "sleep 0.1;if [ $(xdotool getwindowfocus) != "" ]; then xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0 fi"')
 			end,
 			{ description = "focus the previous screen", group = "Screen" }
 		}
