@@ -66,3 +66,5 @@
   :recipe (:host github :repo "alpha22jp/atomic-chrome"))
 
 (package! matlab-mode)
+
+(package! rainbow-mode)
