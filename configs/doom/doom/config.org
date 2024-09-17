@@ -598,8 +598,8 @@ Debug commands are:
 * Agenda
 #+begin_src emacs-lisp
 (after! org
-  (setq org-agenda-files (list "inbox.org" ".inbox.org_done" "tickler.org" "personal.org"  ".personal.org_done" "areas.org" "books_series_films.org" "work.org" "Soheib.org")
-        org-directory "~/prive/Dropbox/org"
+  (setq org-agenda-files (list "inbox.org" "tickler.org" "personal.org" "areas.org" "books_series_films.org" "work.org" "Soheib.org")
+        org-directory "~/prive/Dropbox/org/"
         org-id-locations-file  "~/prive/Dropbox/org/.orgids")
 
   ;; use org-protocol to capture ideas
@@ -651,8 +651,7 @@ Debug commands are:
             ;;          (org-agenda-skip-function
             ;;           '(org-agenda-skip-entry-if 'notregexp "\\* NEXT"))
             ;;          (org-agenda-overriding-header "\nDeadlines")))
-            (tags "CLOSED>=\"<today>\""
-                  ((org-agenda-overriding-header "\nCompleted today\n")))))
+            ))
           ("w" . "Work")
           ("ww" "Work general"
            (
@@ -674,15 +673,15 @@ Debug commands are:
                        )
             )
            )
-          ("ws" "Soheib"
-           (
-            (tags "+@work+soheib+LEVEL=1"
-                  ((org-agenda-prefix-format "  %?-12t% s")
-                   (org-agenda-overriding-header "Soheib\n")
-                   )
-                  )
-            )
-           )
+          ;; ("ws" "Soheib"
+          ;;  (
+          ;;   (tags "+@work+soheib+LEVEL=1"
+          ;;         ((org-agenda-prefix-format "  %?-12t% s")
+          ;;          (org-agenda-overriding-header "Soheib\n")
+          ;;          )
+          ;;         )
+          ;;   )
+          ;;  )
           ("r" "Reading List"
            (
             (tags-todo "+@work+reading_list"
