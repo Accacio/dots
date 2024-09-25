@@ -176,6 +176,7 @@
 
 #+begin_src emacs-lisp
 (after! org
+  (setq +latex-viewers '(skim zathura evince sumatrapdf okular pdf-tools))
   (require 'ox-beamer)
   (setq org-link-context-for-files t)
 (setq org-latex-default-packages-alist
