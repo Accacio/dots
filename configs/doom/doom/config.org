@@ -30,6 +30,9 @@
         (setq ispell-complete-word-dict (concat "/usr/share/dict/" dic))
         ))
 (global-set-key [f6] 'cycle-ispell-languages)
+
+(add-hook 'after-save-hook
+          'executable-make-buffer-file-executable-if-script-p)
 #+end_src
 * Completion
 ** ivy
