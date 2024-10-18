@@ -493,6 +493,20 @@ Debug commands are:
         autokey)))
   )
 #+end_src
+** LaTeX
+To use with overleaf
+#+begin_src emacs-lisp
+(require 'atomic-chrome)
+(after! atomic-chrome
+  (atomic-chrome-start-server)
+  (setq atomic-chrome-url-major-mode-alist
+      '(
+        ("overleaf\\.com" . TeX-mode)
+        )
+      )
+  )
+#+end_src
+
 
 * org-roam
 #+begin_src emacs-lisp

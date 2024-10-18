@@ -68,4 +68,5 @@
 (package! matlab-mode)
 
 (package! rainbow-mode)
+
 (package! magit-todos :pin "501c8db90ab59f8b619618b9d10db2a32a113727")
