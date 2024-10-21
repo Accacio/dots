@@ -34,6 +34,29 @@
 (add-hook 'after-save-hook
           'executable-make-buffer-file-executable-if-script-p)
 #+end_src
+** git
+#+begin_src emacs-lisp
+(use-package! magit-todos
+  :after magit
+  :config
+  (setq magit-todos-keyword-suffix "\\(?:([^)]+)\\)?:?") ; make colon optional
+  (define-key magit-todos-section-map "j" nil)
+  (map! :leader
+        (:prefix-map ("p" . "project")
+         :desc "List project todos"           "t" #'magit-todos-list
+         )
+        )
+  (when (modulep! :editor evil +everywhere)
+    (map! :leader
+          (:prefix-map ("p" . "project")
+           :desc "List project todos"           "t" #'magit-todos-list
+           )
+          )
+
+    )
+  )
+#+end_src
+
 * Completion
 ** ivy
 #+begin_src emacs-lisp
