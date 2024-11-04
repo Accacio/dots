@@ -496,7 +496,7 @@ Debug commands are:
                 (reverse (cl-remove-if
                           (lambda (line) (member line body-lines))
                           result-lines)) "\n"))
-           results)))))
+           results))))))
 #+end_src
 
 ** Bibtex
