@@ -450,6 +450,14 @@ function hotkeys:init(args)
 			{ description = "Monitors", group = "Audio" }
 		},
 		{
+			{ }, "XF86MonBrightnessUp", function() awful.spawn("setbrightness +") end,
+			{ description = "Increase Brightness", group = "Screen" }
+		},
+		{
+			{ }, "XF86MonBrightnessDown", function() awful.spawn("setbrightness -") end,
+			{ description = "Decrease Brightness", group = "Screen" }
+		},
+		{
 			{ }, "XF86AudioLowerVolume", function() awful.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%") end,
 			{ description = "Lower Volume", group = "Audio" }
 		},
