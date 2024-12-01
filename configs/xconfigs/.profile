@@ -1,4 +1,5 @@
 export SHELL="/bin/zsh"
+export XDG_DATA_DIRS="$XDG_DATA_DIRS:/var/lib/flatpak/exports/share"
 export DATE=$(date +%Y%m%d)
 export PATH="$PATH:$(du "$HOME/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//;s|/$||')"
 export PATH="$PATH:$HOME/.local/bin/"
@@ -40,3 +41,18 @@ mpd
 
 # sudo -n loadkeys ~/.scripts/ttymaps.kmap 2>/dev/null
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
+# >>> juliaup initialize >>>
+
+# !! Contents within this block are managed by juliaup !!
+
+case ":$PATH:" in
+    *:/home/accacio/.juliaup/bin:*)
+        ;;
+
+    *)
+        export PATH=/home/accacio/.juliaup/bin${PATH:+:${PATH}}
+        ;;
+esac
+
+# <<< juliaup initialize <<<

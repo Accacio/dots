@@ -338,3 +338,12 @@ bindkey '^[[1;5C' forward-word                                  #
 bindkey '^H' backward-kill-word                                 # delete previous word with ctrl+backspace
 
 [ -f /opt/ros/rolling/setup.zsh ] && source /opt/ros/rolling/setup.zsh && complete -o nospace -o default -F _python_argcomplete "ros2"
+
+# >>> juliaup initialize >>>
+
+# !! Contents within this block are managed by juliaup !!
+
+path=('/home/accacio/.juliaup/bin' $path)
+export PATH
+
+# <<< juliaup initialize <<<

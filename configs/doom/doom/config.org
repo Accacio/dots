@@ -327,6 +327,10 @@
 #+end_src
 
 
+** julia
+#+begin_src emacs-lisp
+#+end_src
+
 ** python
 #+begin_src emacs-lisp
 (add-hook 'python-mode-hook
@@ -346,8 +350,8 @@
 So we can use completion with matlab
 #+begin_src emacs-lisp
 (defadvice! inhibit-real-only-a (oldfun &rest r)
- "Temporary remove read-only lines in shell buffer"
- :around#'matlab-shell-collect-command-output
+  "Temporary remove read-only lines in shell buffer"
+  :around#'matlab-shell-collect-command-output
   (let ((inhibit-read-only t)) (apply oldfun r)))
 (after! org
   )
@@ -945,6 +949,157 @@ To use with overleaf
    org-noter-pdftools-free-pointer-color "red"
    org-noter-kill-frame-at-session-end nil
    )
+
+
+;; from https://github.com/fuxialexander/org-pdftools/issues/96#issuecomment-1917553385
+;; Added patch function
+(defun org-noter--check-and-convert-location (location)
+  "If the location is an org-noter-pdftools-location, it transforms
+it into a (page . height) cons, otherwise it keeps the cons
+unaltered"
+  (if (org-noter-pdftools--location-p location)
+      (cons (org-noter-pdftools--location-page location)
+            (org-noter-pdftools--location-height location))
+    location))
+
+(defun org-noter-insert-note (&optional toggle-highlight precise-info)
+  (interactive "P")
+  (org-noter--with-valid-session
+   (let* ((ast (org-noter--parse-root)) (contents (org-element-contents ast))
+          (window (org-noter--get-notes-window 'force))
+          (selected-text (run-hook-with-args-until-success
+                          'org-noter-get-selected-text-hook
+                          (org-noter--session-doc-mode session)))
+          (selected-text-p (> (length selected-text) 0))
+          force-new
+          (location (org-noter--doc-approx-location (or precise-info 'interactive) (gv-ref force-new)))
+          (current-view (org-noter--get-current-view)))
+
+     (let* ((inhibit-quit t)
+            (short-selected-text (if (and selected-text-p
+                                          (<= (length selected-text) org-noter-max-short-selected-text-length))
+                                     selected-text))
+            (org-noter-highlight-selected-text (if toggle-highlight (not org-noter-highlight-selected-text)
+                                                 org-noter-highlight-selected-text))
+            (highlight-location (if org-noter-highlight-selected-text (org-noter--get-highlight-location))))
+
+       (with-local-quit
+         (select-frame-set-input-focus (window-frame window))
+         (select-window window)
+
+         ;; IMPORTANT(nox): Need to be careful changing the next part, it is a bit
+         ;; complicated to get it right...
+
+         (let ((view-info (org-noter--get-view-info current-view location))
+               (minibuffer-local-completion-map org-noter--completing-read-keymap)
+               collection title note-body existing-note
+               (default-title (or short-selected-text
+                                  (replace-regexp-in-string (regexp-quote "$p$")
+                                                            ;; (org-noter--pretty-print-location-for-title location)
+                                                            (org-noter--pretty-print-location-for-title (org-noter--check-and-convert-location location))
+                                                            org-noter-default-heading-title)))
+               (empty-lines-number (if org-noter-separate-notes-from-heading 2 1)))
+
+           ;; NOTE(phm): prompt for title unless this is a precise note
+           (unless precise-info
+             ;; construct collection for matching existing notes
+             (dolist (note-cons (org-noter--view-info-notes view-info))
+               (let ((display (org-element-property :raw-value (car note-cons))))
+                 (push (cons display note-cons) collection))))
+
+           (setq collection (nreverse collection)
+                 ;; prompt for title (unless no-Q's)
+                 title (if org-noter-insert-note-no-questions default-title
+                         (completing-read "Note: " collection nil nil nil nil default-title))
+                 note-body (if (and selected-text-p
+                                    (not (equal title short-selected-text)))
+                               selected-text)
+                 ;; is this an existing note? skip for precise notes
+                 existing-note (unless precise-info (cdr (assoc title collection))))
+
+           (if existing-note
+               ;; NOTE(nox): Inserting on an existing note
+               (let* ((note (car existing-note))
+                      (insert-before-element (cdr existing-note))
+                      (has-content
+                       (eq (org-element-map (org-element-contents note) org-element-all-elements
+                             (lambda (element)
+                               (if (org-noter--check-location-property element)
+                                   'stop
+                                 (not (memq (org-element-type element) '(section property-drawer)))))
+                             nil t)
+                           t)))
+                 (when has-content (setq empty-lines-number 2))
+                 (if insert-before-element
+                     (goto-char (org-element-property :begin insert-before-element))
+                   (goto-char (org-element-property :end note)))
+
+                 (if (org-at-heading-p)
+                     (progn
+                       (org-N-empty-lines-before-current empty-lines-number)
+                       (forward-line -1))
+                   (unless (bolp) (insert "\n"))
+                   (org-N-empty-lines-before-current (1- empty-lines-number)))
+
+                 (when (and org-noter-insert-selected-text-inside-note note-body)
+                   (if short-selected-text
+                       (insert "``" note-body "''")
+                     (insert "#+BEGIN_QUOTE\n" note-body "\n#+END_QUOTE"))))
+
+             ;; NOTE(nox): Inserting a new note
+             (let ((reference-element-cons (org-noter--view-info-reference-for-insertion view-info))
+                   level)
+               (if reference-element-cons
+                   (progn
+                     (cond
+                      ((eq (car reference-element-cons) 'before)
+                       (goto-char (org-element-property :begin (cdr reference-element-cons))))
+                      ((eq (car reference-element-cons) 'after)
+                       (goto-char (org-element-property :end (cdr reference-element-cons)))))
+
+                     ;; NOTE(nox): This is here to make the automatic "should insert blank" work better.
+                     (when (org-at-heading-p) (backward-char))
+
+                     (setq level (org-element-property :level (cdr reference-element-cons))))
+
+                 (goto-char (or (org-element-map contents 'section
+                                  (lambda (section) (org-element-property :end section))
+                                  nil t org-element-all-elements)
+                                (point-max))))
+
+               (setq level (or level
+                               (1+ (or (org-element-property :level ast) 0))))
+
+               ;; NOTE(nox): This is needed to insert in the right place
+               (unless (org-noter--no-heading-p) (outline-show-entry))
+               (org-noter--insert-heading level title empty-lines-number location)
+               ;; store the highlight in org IF we have a highlight AND can serialize it.
+               (when-let ((highlight-location)
+                          (serialized-highlight (org-noter--get-serialized-highlight highlight-location)))
+                 (org-set-property "HIGHLIGHT" serialized-highlight))
+               (when note-body
+                 (save-excursion
+                   (if short-selected-text
+                       (insert "``" note-body "''")
+                     (insert "#+BEGIN_QUOTE\n" note-body "\n#+END_QUOTE"))))
+               (when (org-noter--session-hide-other session) (org-overview))
+
+               (setf (org-noter--session-num-notes-in-view session)
+                     (1+ (org-noter--session-num-notes-in-view session)))))
+
+           (org-show-set-visibility t)
+           (org-cycle-hide-drawers 'all)
+           (org-cycle-show-empty-lines t)
+           (when org-noter-highlight-selected-text ; return to DOC window and highlight text
+             (select-frame-set-input-focus (org-noter--session-frame session))
+             (select-window (get-buffer-window (org-noter--session-doc-buffer session)))
+             (run-hook-with-args-until-success 'org-noter--add-highlight-hook major-mode highlight-location))))
+       (when quit-flag
+         ;; NOTE(nox): If this runs, it means the user quitted while creating a note, so
+         ;; revert to the previous window.
+         (select-frame-set-input-focus (org-noter--session-frame session))
+         (select-window (get-buffer-window (org-noter--session-doc-buffer session))))))))
+
   )
 (use-package! org-pdftools
   :hook (org-load . org-pdftools-setup-link))
