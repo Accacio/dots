@@ -777,21 +777,21 @@ To use with overleaf
           ("w" . "Work")
           ("ww" "Work general"
            (
-            (tags-todo "+@work+discuter"
+            (tags-todo "+@work+teaching"
                        ((org-agenda-prefix-format "  %?-12t% s")
-                        (org-agenda-overriding-header "\nDiscuter\n"))
+                        (org-agenda-overriding-header "Teaching\n"))
                        )
-            (tags-todo "+@work+postdoc"
+            (tags-todo "+@work+building"
                        ((org-agenda-prefix-format "  %?-12t% s")
-                        (org-agenda-overriding-header "Post-doc\n"))
+                        (org-agenda-overriding-header "Building\n"))
                        )
-            (tags-todo "+@work+autocampus"
+            (tags-todo "+@work+setbased"
                        ((org-agenda-prefix-format "  %?-12t% s")
-                        (org-agenda-overriding-header "\nautOCampus\n"))
+                        (org-agenda-overriding-header "Set-based methods\n"))
                        )
-            (tags-todo "+@work+these"
+            (tags-todo "+@work+security"
                        ((org-agenda-prefix-format "  %?-12t% s")
-                        (org-agenda-overriding-header "\nThese\n"))
+                        (org-agenda-overriding-header "\nSecurity\n"))
                        )
             )
            )
