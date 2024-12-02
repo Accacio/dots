@@ -40,6 +40,7 @@
   :after magit
   :config
   (setq magit-todos-keyword-suffix "\\(?:([^)]+)\\)?:?") ; make colon optional
+  (setq magit-todos-keywords-list '("TODO" "WAITING" "FIXME" "REVIEW" "HACK" "DEPRECATED" "BUG" "XXX"))
   (define-key magit-todos-section-map "j" nil)
   (map! :leader
         (:prefix-map ("p" . "project")
