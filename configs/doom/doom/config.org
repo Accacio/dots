@@ -818,18 +818,21 @@ To use with overleaf
           ))
   ;; from https://dindi.garjola.net/org-agenda-weekly.html
   (setq org-todo-keywords
-        (quote ((sequence "TODO(t)" "NEXT(n)"
+        (quote (
+                (sequence "TODO(t)" "NEXT(n)"
                  "STARTED(s!)" "|" "DONE(d!)" "Kill(k)")
                 (type "PROJECT(p!)" "|" "DONE_PROJECT(D!)")
                 (sequence "WAITING(w@!)" "SOMEDAY(S!)"  "|"
-                          "CANCELLED(c@/!)"))))
+                          "CANCELLED(c@/!)")
+                (type "QUESTION(q)" "|" "ANSWERED(A)")
+                )))
   (setq hl-todo-keyword-faces
         '(("HOLD" . "#d0bf8f")
           ("TODO" . "#cc9393")
           ("NEXT" . "#dca3a3")
           ;; ("THEM" . "#dc8cc3")
           ;; ("PROG" . "#7cb8bb")
-          ;; ("OKAY" . "#7cb8bb")
+          ("QUESTION" . "#7cb8bb")
           ;; ("DONT" . "#5f7f5f")
           ;; ("FAIL" . "#8c5353")
           ("DONE" . "#afd8af")
@@ -849,6 +852,7 @@ To use with overleaf
                                  ("WAITING" . +org-todo-onhold)
                                  ("PROJECT" . +org-todo-project)
                                  ;; ("NO" . +org-todo-cancel)
+                                 ("QUESTION" . magit-signature-error)
                                  ;; ("KILL" . +org-todo-cancel)
                                  )
         )
