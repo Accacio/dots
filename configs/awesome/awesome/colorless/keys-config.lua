@@ -391,11 +391,11 @@ function hotkeys:init(args)
 			{"Control", "Shift" }, "Escape", function() awful.util.spawn_with_shell(env.terminal .. " -t htop --class htop -o window.dimensions.columns=160 -o window.dimensions.lines=30 -e htop") end,
 			{ description = "open Htop", group = "MGMT" }
 		},
-		{
+		-- {
 			-- {env.mod, "Shift" }, "c", function() awful.util.spawn_with_shell("VISUAL='emacsclient -s $HOME/.emacs.d/server/server -tc -a \"emacs -nw\" ';" .. env.terminal .. " -t calendar --class calendar -o window.dimensions.columns=160 -o window.dimensions.lines=30 -e ikhal") end,
-			{env.mod, "Shift" }, "c", function() awful.util.spawn_with_shell("VISUAL='emacsclient -tc -a \"emacs -nw\" ';" .. env.terminal .. " -t calendar --class calendar -o window.dimensions.columns=160 -o window.dimensions.lines=30 -e ~/.local/bin/ikhal") end,
-			{ description = "open calendar", group = "Calendar" }
-		},
+		-- 	{env.mod, "Shift" }, "c", function() awful.util.spawn_with_shell("VISUAL='emacsclient -tc -a \"emacs -nw\" ';" .. env.terminal .. " -t calendar --class calendar -o window.dimensions.columns=160 -o window.dimensions.lines=30 -e ~/.local/bin/ikhal") end,
+		-- 	{ description = "open calendar", group = "Calendar" }
+		-- },
 		{
 			-- {env.mod, "Shift" }, "m", function() awful.util.spawn_with_shell("VISUAL='emacsclient -s $HOME/.emacs.d/server/server -tc -a \"emacs -nw\" ';" .. env.terminal .. " -t mail --class mail -o window.dimensions.columns=160 -o window.dimensions.lines=30 -e neomutt") end,
 			{env.mod, "Shift" }, "m", function() awful.util.spawn_with_shell("VISUAL='emacsclient -tc -a \"emacs -nw\" ';" .. env.terminal .. " -t mail --class mail -o window.dimensions.columns=160 -o window.dimensions.lines=30 -e neomutt") end,
@@ -446,8 +446,12 @@ function hotkeys:init(args)
 			{ description = "Stop", group = "Audio" }
 		},
 		{
+			{ env.mod  }, "d", function() awful.util.spawn_with_shell("$SCRIPTSFOLDER/multimonitor") end,
+			{ description = "Monitors", group = "Display" }
+		},
+		{
 			{ }, "XF86Display", function() awful.util.spawn_with_shell("$SCRIPTSFOLDER/multimonitor") end,
-			{ description = "Monitors", group = "Audio" }
+			{ description = "Monitors", group = "Display" }
 		},
 		{
 			{ }, "XF86MonBrightnessUp", function() awful.spawn("setbrightness +") end,
@@ -638,10 +642,6 @@ function hotkeys:init(args)
 		-- 	{ description = "Browser", group = "Programs" }
 		-- },
 		{
-			{ env.mod  }, "p", function() awful.util.spawn_with_shell("$SCRIPTSFOLDER/multimonitor") end,
-			{ description = "Show the prompt box", group = "Widgets" }
-		},
-		{
 			{ env.mod }, "o", function() awful.spawn("run") end,
 			-- { env.mod  }, "o", function() redflat.float.prompt:run() end,
 			{ description = "Show the prompt box", group = "Widgets" }
@@ -744,6 +744,10 @@ function hotkeys:init(args)
 		{
 			{ env.mod }, "f", function(c) c.fullscreen = not c.fullscreen; c:raise() end,
 			{ description = "Toggle fullscreen", group = "Client keys" }
+		},
+		{
+			{ env.mod, "Shift" }, "c", function(c) c:kill() end,
+			{ description = "Close", group = "Client keys" }
 		},
 		{
 			{ env.mod }, "F4", function(c) c:kill() end,
