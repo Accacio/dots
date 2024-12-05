@@ -1105,6 +1105,85 @@ unaltered"
          (select-frame-set-input-focus (org-noter--session-frame session))
          (select-window (get-buffer-window (org-noter--session-doc-buffer session))))))))
 
+(defun org-copy-subtree-contents (&optional n cut force-store-markers nosubtrees)
+  "Copy the current subtree into the clipboard.
+With prefix arg N, copy this many sequential subtrees.
+This is a short-hand for marking the subtree and then copying it.
+If CUT is non-nil, actually cut the subtree.
+If FORCE-STORE-MARKERS is non-nil, store the relative locations
+of some markers in the region, even if CUT is non-nil.  This is
+useful if the caller implements cut-and-paste as copy-then-paste-then-cut."
+  (interactive "p")
+  (org-preserve-local-variables
+   (let (beg end folded (beg0 (point)))
+     (if (called-interactively-p 'any)
+	 (org-back-to-heading nil)    ; take what looks like a subtree
+       (org-back-to-heading t))	      ; take what is really there
+     ;; Do not consider inlinetasks as a subtree.
+     (when (org-element-type-p (org-element-at-point) 'inlinetask)
+       (org-up-element))
+     (forward-line 5)
+     (setq beg (point))
+     ;; (setq beg (org-element-property :end (org-element-at-point)))
+
+     (skip-chars-forward " \t\r\n")
+     (save-match-data
+       (if nosubtrees
+	   (outline-next-heading)
+	 (save-excursion (outline-end-of-heading)
+			 (setq folded (org-invisible-p)))
+	 (ignore-errors (org-forward-heading-same-level (1- n) t))
+	 (org-end-of-subtree t t)))
+     ;; Include the end of an inlinetask
+     (when (and (featurep 'org-inlinetask)
+		(looking-at-p (concat (org-inlinetask-outline-regexp)
+				      "END[ \t]*$")))
+       (end-of-line))
+     (setq end (point))
+     (goto-char beg0)
+     (when (> end beg)
+       (setq org-subtree-clip-folded folded)
+       (when (or cut force-store-markers)
+	 (org-save-markers-in-region beg end))
+       (if cut (kill-region beg end) (copy-region-as-kill beg end))
+       (setq org-subtree-clip (current-kill 0))
+       (message "%s: Subtree(s) with %d characters"
+		(if cut "Cut" "Copied")
+		(length org-subtree-clip))))))
+
+(defun org-noter-pdftools-embed-org-note-to-review ()
+  "Embed a org subtree to its corresponding PDF annotation."
+  (interactive)
+  (org-noter--with-valid-session
+   (unless (equal (selected-window) (org-noter--get-notes-window))
+     (error "You should use this command in an org-noter note buffer"))
+   (let* ((org-id (org-id-get)))
+     (unless (and (string-match ".*\\(annot-.*-.*\\)" org-id)
+                  org-noter-pdftools-use-org-id
+                  org-noter-pdftools-use-pdftools-link-location)
+       (error "This can only be run on an org heading with a valid org-pdftools annotation ID.
+Please also make sure `org-noter-pdftools-use-org-id' and `org-noter-pdftools-use-pdftools-link-location' are enabled"))
+     (let* ((annot-id (match-string 1 org-id))
+            note)
+       (setq kr kill-ring)
+       (org-copy-subtree-contents nil nil nil t)
+       (setq note (car kill-ring))
+       (setq kill-ring kr)
+       (with-selected-window
+           (org-noter--get-doc-window)
+         (let ((annot (pdf-annot-getannot (intern annot-id))))
+           (with-current-buffer (pdf-annot-edit-contents-noselect annot)
+             (insert note)
+             (pdf-annot-edit-contents-finalize t)))
+         ;; (save-buffer)
+         )))))
+(defun org-noter-pdftools-embed-all-org-notes-to-review ()
+  (interactive)
+  (org-noter--with-valid-session
+   (with-selected-window (org-noter--get-notes-window)
+     (save-excursion
+       (org-map-entries #'org-noter-pdftools-embed-org-note-to-review "ID={annot-}")))))
+
   )
 (use-package! org-pdftools
   :hook (org-load . org-pdftools-setup-link))
