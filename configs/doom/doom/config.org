@@ -167,6 +167,16 @@
              ("vector" "matrix")))
   )
 #+end_src
+** writegood
+#+begin_src emacs-lisp
+(after! writegood-mode
+  :config
+  (set 'writegood-duplicates-font-lock-keywords-regexp
+  "\\b\\([[:alpha:]]+\\)\\([[:space:]]\\|\\s<\\|\\s>\\)+\\1\\b"
+  )
+)
+#+end_src
+
 * Lang
 ** Remote lsp-mode
 #+begin_src emacs-lisp
