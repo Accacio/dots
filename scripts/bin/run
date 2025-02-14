@@ -1,2 +1,2 @@
 #!/bin/bash
-rofi -display-combi "Open" -show combi -combi-modes "window,run" -modes "combi" -window-thumbnail -show-icons -theme nord
+rofi -matching regex -display-combi "Open" -show combi -combi-modes "window,run" -modes "combi" -window-thumbnail -show-icons -theme nord
