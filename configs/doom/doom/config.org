@@ -385,6 +385,7 @@ So we can use completion with matlab
              '(
                ("Cell" "^%% \\(.*[A-z].*\\)" 1)
                ("Comment" "%= \\([A-z].*\\)" 1)
+               ("Block" "%== \\([A-z].*\\)" 1)
                )
              )
             (setq imenu-create-index-function '(lambda () (imenu--generic-function imenu-generic-expression)))
