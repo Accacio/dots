@@ -27,7 +27,7 @@ rules.floating_any = {
 		"Arandr", "Gpick", "Kruler", "MessageWin", "Sxiv", "wpp", "Wpa_gui", "pinentry", "mail", "veromix",
 		"xtightvncviewer", "calendar"
 	},
-	name = { "Event Tester" , "mail", "ncmpcpp", "htop", "calendar"},
+	name = { "Event Tester" , "mail", "ncmpcpp", "htop", "calendar","LaTeX OCR"},
 	role = { "AlarmWindow", "pop-up", }
 }
 
@@ -61,8 +61,12 @@ function rules:init(args)
 			properties = { maximized = false}
 		},
 		{
-			rule_any   = { class = {"wpp"}, name = {"Gnuplot"}, class = {"nvim-qt"}},
+			rule_any   = { class = {"wpp"}, name = {"Gnuplot"}, class = {"nvim-qt"}, name = {"Picture-in-Picture"}},
 			properties = { floating = true, ontop=true , sticky=true,maximized = false}
+		},
+		{
+			rule_any   = { name = {"latexocr"}},
+			properties = { floating = true ,maximized = false}
 		},
 		-- {
 		-- 	rule_any   = { class = {"vimb"},name={"WhatsApp","http://web.whatsapp.com/"}},
