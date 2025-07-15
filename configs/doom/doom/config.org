@@ -1020,8 +1020,12 @@ To use with overleaf
    org-noter-pdftools-markup-pointer-color "#B3CE9C"
    org-pdftools-use-isearch-link t
    org-noter-notes-search-path '("~/research/notes/reviews/" "~/research/notes/references/")
-   pdf-annot-color-history '("#B3CE9C" "#FBDB9B" "#CF717A" "#000000")
-   org-noter-doc-split-fraction '(0.7 . 03)
+   pdf-annot-color-history '("#B3CE9C"
+                             "#FBDB9B"
+                             "#d08770"
+                             "#CF717A"
+                             "#000000")
+   org-noter-doc-split-fraction '(0.6 . 0.4)
    org-noter-always-create-frame nil
    org-noter-hide-other nil
    org-noter-pdftools-free-pointer-icon "Note"
