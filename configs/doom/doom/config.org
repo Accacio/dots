@@ -541,7 +541,7 @@ Debug commands are:
 )
 
 (after! bibtex
-  (setq bibtex-completion-bibliography '("~/research/bibliography.bib")
+  (setq bibtex-completion-bibliography '(("~/research/bibliography.bib") ("~/research/MTBL/biblio/bibliography.bib"))
         bibtex-completion-library-path '("~/research/bibliography/")
         bibtex-completion-find-note-functions '(orb-find-note-file)
         ;; bibtex-completion-find-note-functions (list #'bibtex-completion-find-note-multiple-files #'bibtex-completion-find-note-one-file)
