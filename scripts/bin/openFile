@@ -1,9 +1,9 @@
 #!/bin/bash
-# xdg-open $(locate -e --regex ^$HOME | grep -iv "\(_minted\|pycache\|.Android\|.bundle\|.cache\|.gradle\|.mozilla\|\.emacs\.d\|trash\)" | rofi  -dmenu -theme arthur -i -p "Open File ") &
+# xdg-open $(locate -e --regex ^$HOME | grep -iv "\(_minted\|pycache\|.Android\|.bundle\|.cache\|.gradle\|.mozilla\|\.emacs\.d\|trash\|\.cargo\|\.config\|\.local\|\.cache\)" | rofi  -dmenu -theme arthur -i -p "Open File ") &
 
-regexp=$(rofi  -dmenu -theme nord -i -p "Regexp ")
+regexp=$(rofi  -dmenu -theme nord -i  -p "Regexp ")
 if [ $regexp != "" ]; then
-    file=$(locate -ie --regex ^$HOME.*$regexp | grep -i "\(\.md$\|\.tex$\|\.org$\|.pdf$\|.png$\)" | rofi  -dmenu -theme nord -i -p "Open File ")
+    file=$(locate -ie --regex ^$HOME.*$regexp | grep -i "\(\.md$\|\.tex$\|\.org$\|.pdf$\|.png$\)" | grep -iv "\(/\.\)" | rofi  -dmenu -theme nord -i -theme-str 'window {location:   center; width: 80%;}' -p "Open File ")
     notify-send "Opening $file"
     xdg-open "$file" &
 fi
