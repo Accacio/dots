@@ -353,6 +353,12 @@
 
 ** julia
 #+begin_src emacs-lisp
+(after! julia-mode
+  (add-hook! 'julia-mode-hook
+    (setq-local lsp-enable-folding t
+                lsp-folding-range-limit 100))
+  (add-hook! 'julia-mode-hook 'eglot-jl-init)
+  )
 #+end_src
 
 ** python

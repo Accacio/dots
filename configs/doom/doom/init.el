@@ -76,7 +76,7 @@
         +lsp
         +flutter)
        emacs-lisp        ; drown in parentheses
-       julia             ; a better, faster MATLAB
+       (julia +lsp)             ; a better, faster MATLAB
        latex             ; writing papers in Emacs has never been so fun
        lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
