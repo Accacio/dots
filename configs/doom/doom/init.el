@@ -63,7 +63,7 @@
         +docsets
         +offline         ;; better than to use powerthesaurus now (20230127)
         )
-       (lsp +peek)
+       (lsp +peek +eglot)
        docker
        magit             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
