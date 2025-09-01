@@ -1,3 +1,5 @@
+include "%L"
+
 <Multi_key> <G> <G> : "Γ"    U0393    # GREEK CAPITAL LETTER GAMMA
 <Multi_key> <G> <D> : "Δ"    U0394    # GREEK CAPITAL LETTER DELTA
 <Multi_key> <G> <L> : "Λ"    U039B    # GREEK CAPITAL LETTER LAMDA
