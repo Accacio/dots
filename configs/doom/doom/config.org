@@ -197,7 +197,10 @@
 ** org
 - use greek letters on org-mode sections
 #+begin_src emacs-lisp
-(setq org-superstar-headline-bullets-list '("α" "β" "γ" "δ" "ε" "ζ" "η" "θ" "ι" "κ" "λ" "μ" "ν" "ξ" "ο" "π" "ρ" "σ" "τ" "υ" "φ" "χ" "ψ" "ω"))
+(after! org-modern
+(setq org-modern-replace-stars "αβγδεζηθικλμνξοπρστυφχψω")
+(setq org-modern-star 'replace)
+)
 #+end_src
 - change ellipsis symbol
 #+begin_src emacs-lisp
