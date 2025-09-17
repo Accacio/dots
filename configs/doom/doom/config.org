@@ -199,6 +199,7 @@
 #+begin_src emacs-lisp
 (after! org-modern
 (setq org-modern-replace-stars "αβγδεζηθικλμνξοπρστυφχψω")
+(setq org-modern-hide-stars nil)
 (setq org-modern-star 'replace)
 )
 #+end_src
