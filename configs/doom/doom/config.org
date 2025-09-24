@@ -657,6 +657,11 @@ To use with overleaf
         )
       )
   )
+(after! auctex
+  (setq TeX-command-extra-options "-shell-escape")
+  (setq TeX-shell-command-option "-c")
+  )
+
 #+end_src
 
 
