@@ -2,7 +2,9 @@
 exec 3>&1;
 
 monitors=($(xrandr|awk '/ connected/ {printf "%s\n",$1}'| awk '{print NR"-"$1}'))
+
 modes=('one' 'two' 'three' 'wacom' 'LARIS' 'DPI' 'trem')
+mode=$(printf '%s\n' "${modes[@]}"|sed 's/^ //'|rofi -dmenu -theme nord -i -p "# Monitors")
 
 twoLayouts=('sideBySide' 'Stacked')
 
@@ -44,7 +46,6 @@ function ThreeMonitors {
 }
 
 
-mode=$(printf '%s\n' "${modes[@]}"|sed 's/^ //'|rofi -dmenu -theme nord -i -p "# Monitors")
 
 case $mode in
     one)
