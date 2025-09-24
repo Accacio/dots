@@ -187,5 +187,3 @@ case $mode in
 esac
 
 exit
-
-$SCRIPTSFOLDER/launchPolybar
