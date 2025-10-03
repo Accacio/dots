@@ -867,6 +867,10 @@ To use with overleaf
           ("w" . "Work")
           ("ww" "Work general"
            (
+            (tags-todo "+@work+admin"
+                       ((org-agenda-prefix-format "  %?-12t% s")
+                        (org-agenda-overriding-header "Admin\n"))
+                       )
             (tags-todo "+@work+review"
                        ((org-agenda-prefix-format "  %?-12t% s")
                         (org-agenda-overriding-header "Review\n"))
