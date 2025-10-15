@@ -9,7 +9,7 @@
 # │ │ │ │ │
 # * * * * *  command to execute
 */5 * * * * $HOME/bin/changeWallpaper >/dev/null 2>&1
-0 */4 */4 * * rm -rd $HOME/Downloads/lixo/* >/dev/null 2>&1
+0 */4 */4 * * rm -rd $HOME/Downloads/garbage/* >/dev/null 2>&1
 */15 8-18 * * * $HOME/bin/setColorTemperature -d >/dev/null 2>&1
 0 19-23 * * * $HOME/bin/setColorTemperature >/dev/null 2>&1
 */5 * * * * $HOME/bin/mailsync >/dev/null 2>&1
