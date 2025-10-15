@@ -33,6 +33,7 @@ case $mode in
     # rclone -l copy ~/these dbox:these -P && notify-send "Finished Copying Dbox ⬅ These"
     i3-msg exit
     bspc quit
+    qdbus org.kde.Shutdown /Shutdown logout
     echo "awesome.quit()" | awesome-client
     ;;
     Restart)
