@@ -176,6 +176,14 @@
   )
 )
 #+end_src
+** Projects
+#+begin_src emacs-lisp
+(map! :leader
+      :prefix "p"
+      "o" #'projectile-find-other-file
+)
+#+end_src
+
 
 * Lang
 ** Remote lsp-mode
