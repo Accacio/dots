@@ -5,15 +5,9 @@ wallpaper=~/wallpapers/20170216_171846.jpg
 menu_fun='rofi -dmenu -theme nord'
 exec 3>&1;
 
-menu=('Shutdown' 'Restart' 'Lock' 'prettyLock' 'Loki' 'Quick Logoff' 'Logoff')
+menu=('Shutdown' 'Restart' 'Lock' 'Loki' 'Logoff')
 mode=$(printf '%s\n' "${menu[@]}"|sed 's/^ //'|$menu_fun -b -sb seagreen -i -p "Power Menu")
 case $mode in
-    Lock)
-    convert $wallpaper -resize $(xrandr | grep primary -A 1|tail -n 1|awk '{print $1}') \
-        -size $(xrandr | grep primary -A 1|tail -n 1|awk '{print $1}') xc:black +swap  -gravity center -composite\
-        ~/wallpapers/lock.png;mv ~/wallpapers/lock.png ~/wallpapers/lock;xset dpms 2 0 0;i3lock -i $HOME/wallpapers/lock -n -c 2e2e2e;xset dpms 0 0 0
-    kill -SIGHUP $(ps aux | grep gpg-agent -m 1 | cut -d " " -f 3)
-    ;;
     Loki)
     TMPBG=/tmp/screen.png
     RES=$(xrandr | grep 'current' | sed -E 's/.*current\s([0-9]+)\sx\s([0-9]+).*/\1x\2/')
@@ -22,7 +16,7 @@ case $mode in
     i3lock -i $TMPBG -u
     rm $TMPBG
     ;;
-    prettyLock)
+    Lock)
     prettyLock
     ;;
     Shutdown)
@@ -31,11 +25,6 @@ case $mode in
     # notify-send "Saving These Folder to Dropbox"
     # rclone -l copy ~/these dbox:these -P && notify-send "Finished Copying Dbox ⬅ These"
     shutdown now
-    ;;
-    "Quick Logoff")
-    i3-msg exit
-    bspc quit
-    echo "awesome.quit()" | awesome-client
     ;;
     Logoff)
     # notify-send "Saving Org Folder to Dropbox"
