@@ -364,7 +364,7 @@ function hotkeys:init(args)
 			{ description = "ScreenShot Area clipboard", group = "Screenshot" }
 		},
 		{
-			{ "Shift" }, "Print", function() awful.util.spawn_with_shell("sleep 0.5;scrot -s '%Y%m%d_%H%M_$wx$h.png' -e 'xclip -selection c -t image/png $f && mv $f ~/Downloads/lixo/'") end,
+			{ "Shift" }, "Print", function() awful.util.spawn_with_shell("sleep 0.5;scrot -s '%Y%m%d_%H%M_$wx$h.png' -e 'xclip -selection c -t image/png $f && mv $f ~/Downloads/garbage/'") end,
 			{ description = "ScreenShot Area disk", group = "Screenshot" }
 		},
 		{
@@ -372,7 +372,7 @@ function hotkeys:init(args)
 			{ description = "ScreenShot Desktop clipboard", group = "Screenshot" }
 		},
 		{
-			{ env.mod , "Shift" }, "Print", function() awful.util.spawn_with_shell("sleep 0.5;scrot '%Y%m%d_%H%M_$wx$h.png' -e 'xclip -selection c -t image/png $f && mv $f ~/Downloads/lixo/'") end,
+			{ env.mod , "Shift" }, "Print", function() awful.util.spawn_with_shell("sleep 0.5;scrot '%Y%m%d_%H%M_$wx$h.png' -e 'xclip -selection c -t image/png $f && mv $f ~/Downloads/garbage/'") end,
 			{ description = "ScreenShot Desktop disk", group = "Screenshot" }
 		},
 		{
@@ -380,7 +380,7 @@ function hotkeys:init(args)
 			{ description = "ScreenShot Window clipboard", group = "Screenshot" }
 		},
 		{
-			{ "Control", "Shift" }, "Print", function() awful.util.spawn_with_shell("sleep 0.5;scrot -u '%Y%m%d_%H%M_$wx$h.png' -e 'xclip -selection c -t image/png $f && mv $f ~/Downloads/lixo/'") end,
+			{ "Control", "Shift" }, "Print", function() awful.util.spawn_with_shell("sleep 0.5;scrot -u '%Y%m%d_%H%M_$wx$h.png' -e 'xclip -selection c -t image/png $f && mv $f ~/Downloads/garbage/'") end,
 			{ description = "ScreenShot Window save", group = "Screenshot" }
 		},
 		{
