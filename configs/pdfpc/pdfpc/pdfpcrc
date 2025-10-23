@@ -4,7 +4,9 @@ bind K prev10
 bind k prev
 bind G gotoLast
 
-bind ampersand switchMode  
+bind ampersand switchMode normal
 bind eacute switchMode pointer
 bind quotedbl switchMode pen
-option black-on-end true
+bind apostrophe switchMode eraser
+bind parenleft switchMode spotlight
+option black-on-end false
