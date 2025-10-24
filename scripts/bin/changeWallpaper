@@ -1,6 +1,6 @@
 #!/bin/bash
 wallpapers_folder="$HOME/prive/Dropbox/wallpapers"
-# export DISPLAY=$(who | grep $(whoami) | sed "s,.*(\(.*\)).*,\1,g" | cut -d" " -f 2)
+export DISPLAY=$(who | grep -v login | grep $(whoami) | sed "s,.*(\(.*\)).*,\1,g" | cut -d" " -f 2)
 int_handler()
 {
     killall -s 5 gifWallpaper 
