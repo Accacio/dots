@@ -819,8 +819,8 @@ To use with overleaf
 #+begin_src emacs-lisp
 (after! org
   (setq org-agenda-files (list "inbox.org" "tickler.org" "personal.org" "areas.org" "books_series_films.org" "work.org" "Soheib.org")
-        org-directory "~/prive/Dropbox/org/"
-        org-id-locations-file  "~/prive/Dropbox/org/.orgids")
+        org-directory "~/org/"
+        org-id-locations-file  "~/org/.orgids")
 
   ;; use org-protocol to capture ideas
   ;; javascript:location.href='org-protocol://capture?template=i'+
@@ -828,7 +828,7 @@ To use with overleaf
   ;; '&title='+encodeURIComponent(document.title)+
   ;; '&body='+encodeURIComponent(window.getSelection());
   (setq org-capture-templates
-        `(("i" "Inbox" entry  (file "~/prive/Dropbox/org/inbox.org")
+        `(("i" "Inbox" entry  (file "~/org/inbox.org")
            ,(concat "* TODO %?%a\n"
                     ;; ":PROPERTIES:\n"
                     "CREATED: %U\n\n"
