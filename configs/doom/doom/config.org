@@ -688,6 +688,7 @@ To use with overleaf
           (deft-base-filename file))))
     (advice-add 'deft-parse-title :override #'cf/deft-parse-title)
   (setq deft-directory (file-truename "~/research/notes/")
+        deft-recursive t
         deft-strip-title-regexp (concat "\\(?:"
           "^%+" ; line beg with %
           "\\|^#\\+TITLE: *" ; org-mode title
