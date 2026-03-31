@@ -51,7 +51,7 @@
        :checkers
        (syntax              ; tasing you for every semicolon you forget
         +childframe)
-       spell             ; tasing you for misspelling mispelling
+       (spell +flyspell +aspell)              ; tasing you for misspelling mispelling
        grammar           ; tasing grammar mistake every you make
 
        :tools
