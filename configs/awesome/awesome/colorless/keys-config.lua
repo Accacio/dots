@@ -708,7 +708,7 @@ function hotkeys:init(args)
 		{
 			{ env.mod }, "semicolon",
 			function()
-				awful.screen.focus_relative(1);
+				awful.screen.focus_bydirection("right");
 				awful.spawn('bash -c "sleep 0.1;if [ $(xdotool getwindowfocus) != "" ]; then xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0 fi"')
 			end,
 			{ description = "focus the next screen", group = "Screen" }
@@ -716,7 +716,7 @@ function hotkeys:init(args)
 		{
 			{ env.mod }, "comma",
 			function()
-				awful.screen.focus_relative(-1);
+				awful.screen.focus_bydirection("left");
 				awful.spawn('bash -c "sleep 0.1;if [ $(xdotool getwindowfocus) != "" ]; then xdotool mousemove --window $(xdotool getwindowfocus) --polar 0 0 fi"')
 			end,
 			{ description = "focus the previous screen", group = "Screen" }
@@ -730,14 +730,14 @@ function hotkeys:init(args)
 		{
 			{ env.mod, "Shift"   }, "comma",
 			function (c)
-				c:move_to_screen(c.screen.index-1)
+				c:move_to_screen(c.screen:get_next_in_direction("left"))
 			end,
 			{description = "move to previous screen", group = "Screen"}
 		},
 		{
 			{ env.mod, "Shift"   }, "semicolon",
 			function (c)
-				c:move_to_screen(c.screen.index+1)
+				c:move_to_screen(c.screen:get_next_in_direction("right"))
 			end,
 			{description = "move to next screen", group = "Screen"}
 		},
