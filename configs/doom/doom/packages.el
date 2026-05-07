@@ -72,3 +72,6 @@
 (package! magit-todos :pin "501c8db90ab59f8b619618b9d10db2a32a113727")
 
 (package! org-pdftools :pin "2b3357828a4c2dfba8f87c906d64035d8bf221f2")
+
+(package! ol-thunderbird
+  :recipe (:host github :repo "lordnik22/ol-thunderbird"))

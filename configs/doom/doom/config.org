@@ -228,6 +228,7 @@
 
 #+begin_src emacs-lisp
 (after! org
+  (require 'ol-thunderbird)
   (setq +latex-viewers '(skim zathura evince sumatrapdf okular pdf-tools))
   (require 'ox-beamer)
   (setq org-latex-listings 'minted)
