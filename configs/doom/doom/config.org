@@ -888,8 +888,8 @@ To use with overleaf
             ;;           '(org-agenda-skip-entry-if 'notregexp "\\* NEXT"))
             ;;          (org-agenda-overriding-header "\nDeadlines")))
             ))
-          ("w" . "Work")
-          ("ww" "Work general"
+          ;; ("w" . "Work")
+          ("w" "Work general"
            (
             (tags-todo "+@work+admin"
                        ((org-agenda-prefix-format "  %?-12t% s")
