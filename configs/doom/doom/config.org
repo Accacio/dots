@@ -913,15 +913,6 @@ To use with overleaf
                        )
             )
            )
-          ;; ("ws" "Soheib"
-          ;;  (
-          ;;   (tags "+@work+soheib+LEVEL=1"
-          ;;         ((org-agenda-prefix-format "  %?-12t% s")
-          ;;          (org-agenda-overriding-header "Soheib\n")
-          ;;          )
-          ;;         )
-          ;;   )
-          ;;  )
           ("r" "Reading List"
            (
             (tags-todo "+@work+reading_list"
