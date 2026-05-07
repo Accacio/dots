@@ -75,3 +75,7 @@
 
 (package! ol-thunderbird
   :recipe (:host github :repo "lordnik22/ol-thunderbird"))
+(package! lean4-mode
+  :recipe (:host github
+           :repo "leanprover-community/lean4-mode"
+           :files ("*.el" "data")))
