@@ -705,7 +705,7 @@ To use with overleaf
         deft-recursive t
         deft-strip-title-regexp (concat "\\(?:"
           "^%+" ; line beg with %
-          "\\|^#\\+TITLE: *" ; org-mode title
+          "\\|^#\\+\\(TITLE\\|title\\): *" ; org-mode title
           "\\|^[#* ]+" ; line beg with #, * and/or space
           "\\|-\\*-[[:print:]]+-\\*-" ; -*- .. -*- lines
           "\\|^Title:[\t ]*" ; MultiMarkdown metadata
@@ -714,13 +714,14 @@ To use with overleaf
         deft-strip-summary-regexp (concat "\\(?:"
           "^%+" ; line beg with %
           "\\|^:PROPERTIES:\n\\(.+\n\\)+:END:\n" ; org-mode title
-          "\\|^#\\+TITLE: *" ; org-mode title
-          "\\|^[#* ]+" ; line beg with #, * and/or space
+          "\\|^#\\+\\(TITLE\\|title\\): .*" ; org-mode title
+          "\\|^#\\+\\(filetags\\): .*" ; org-mode filetags
+          "\\|^- \\(tags\\|keywords\\) .*" ; org-mode tags and keywords
           "\\|-\\*-[[:print:]]+-\\*-" ; -*- .. -*- lines
-          "\\|^Title:[\t ]*" ; MultiMarkdown metadata
+          "\\|^\\(Title\\|title\\):[\t ]*" ; MultiMarkdown metadata
           "\\|#+" ; line with just # chars
           "$\\)")
-          deft-separator " ⏹ "
+          deft-separator " \t| "
         )
   )
 
