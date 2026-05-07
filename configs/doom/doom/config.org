@@ -935,7 +935,7 @@ To use with overleaf
                 (type "PROJECT(p!)" "|" "DONE_PROJECT(D!)")
                 (sequence "WAITING(w@!)" "SOMEDAY(S!)"  "|"
                           "CANCELLED(c@/!)")
-                (type "QUESTION(q)" "|" "ANSWERED(A)")
+                (type "QUESTIONS" "QUESTION(q)" "|" "ANSWERED(A)")
                 )))
   (setq hl-todo-keyword-faces
         '(("HOLD" . "#d0bf8f")
@@ -944,6 +944,7 @@ To use with overleaf
           ;; ("THEM" . "#dc8cc3")
           ;; ("PROG" . "#7cb8bb")
           ("QUESTION" . "#7cb8bb")
+          ("QUESTIONS" . "#7cb8bb")
           ;; ("DONT" . "#5f7f5f")
           ;; ("FAIL" . "#8c5353")
           ("DONE" . "#afd8af")
@@ -964,6 +965,7 @@ To use with overleaf
                                  ("PROJECT" . +org-todo-project)
                                  ;; ("NO" . +org-todo-cancel)
                                  ("QUESTION" . magit-signature-error)
+                                 ("QUESTIONS" . magit-signature-error)
                                  ;; ("KILL" . +org-todo-cancel)
                                  )
         )
