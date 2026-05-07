@@ -29,6 +29,7 @@ include "%L"
 <Multi_key> <g> <u> : "υ"    U03C5    # GREEK SMALL LETTER UPSILON
 <Multi_key> <g> <f> : "φ"    U03C6    # GREEK SMALL LETTER PHI
 <Multi_key> <g> <o> : "ω"    U03C9    # GREEK SMALL LETTER OMEGA
+<Multi_key> <g> <x> : "χ"    U03C9    # GREEK SMALL LETTER CHI
 <Multi_key> <g> <q> <t> : "θ"    U03B8    # GREEK SMALL LETTER THETA
 <Multi_key> <g> <q> <p> : "ψ"    U03C8    # GREEK SMALL LETTER PSI
 <Multi_key> <g> <q> <x> : "ξ"    U03BE    # GREEK SMALL LETTER XI
