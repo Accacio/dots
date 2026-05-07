@@ -183,6 +183,12 @@
       "o" #'projectile-find-other-file
 )
 #+end_src
+** Undo tree
+#+begin_src emacs-lisp
+(defun clear-undo-tree ()
+  (interactive)
+  (setq buffer-undo-tree nil))
+#+end_src
 
 
 * Lang
@@ -234,6 +240,8 @@
   '(("AUTO" "inputenc"  t ("pdflatex"))
     ("T1"   "fontenc"   t ("pdflatex"))
     (""     "graphicx"  t)
+    (""     "minted"  t)
+    (""     "alphabeta"  t)
     (""     "longtable" nil)
     (""     "booktabs" t)
     (""     "wrapfig"   nil)
