@@ -903,10 +903,6 @@ To use with overleaf
                        ((org-agenda-prefix-format "  %?-12t% s")
                         (org-agenda-overriding-header "Teaching\n"))
                        )
-            (tags-todo "+@work+building"
-                       ((org-agenda-prefix-format "  %?-12t% s")
-                        (org-agenda-overriding-header "Building\n"))
-                       )
             (tags-todo "+@work+setbased"
                        ((org-agenda-prefix-format "  %?-12t% s")
                         (org-agenda-overriding-header "Set-based methods\n"))
