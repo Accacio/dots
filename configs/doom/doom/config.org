@@ -921,9 +921,11 @@ To use with overleaf
                        )
             )
            )
-          ("h" "At home" tags-todo "@home"
-           ((org-agenda-overriding-header "Home"))
-           )
+          ("c" . "Context")
+          ("ch" "home" tags-todo "@home"
+           ((org-agenda-overriding-header "Home")))
+           ("ct" "train" tags-todo "@train"
+           ((org-agenda-overriding-header "Train")))
           ))
   ;; from https://dindi.garjola.net/org-agenda-weekly.html
   (setq org-todo-keywords
