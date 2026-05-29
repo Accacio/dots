@@ -29,6 +29,17 @@ common.keys.base = {
 		{ description = "Kill application", group = "Action" }
 	},
 	{
+		{ "Mod4", "Shift" }, "g", function()
+			awful.screen.connect_for_each_screen(
+				function(screen)
+					-- local screen = awful.screen.focused()
+					screen.selected_tag.gap = screen.selected_tag.gap + 2
+				end
+			)
+		end,
+		{ description = "Increase gaps", group = "Layout" }
+	},
+	{
 		{ "Mod4" }, "+", function()
 			awful.screen.connect_for_each_screen(
 				function(screen)
@@ -38,6 +49,17 @@ common.keys.base = {
 			)
 		end,
 		{ description = "Increase gaps", group = "Layout" }
+	},
+	{
+		{ "Mod4" }, "g", function()
+			awful.screen.connect_for_each_screen(
+				function(screen)
+					-- local screen = awful.screen.focused()
+					screen.selected_tag.gap = screen.selected_tag.gap - 2
+				end
+			)
+		end,
+		{ description = "Decrease gaps", group = "Layout" }
 	},
 	{
 		{ "Mod4" }, "-", function()
