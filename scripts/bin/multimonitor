@@ -182,7 +182,7 @@ case $mode in
     monitor1="$( xrandr|awk '/^DP.* connected/ {printf "%s\n",$1}' | head -n 1)"
     monitor2="$( xrandr|awk '/^eDP.* connected/ {printf "%s\n",$1}')"
     monitor3="$( xrandr|awk '/^DP.* connected/ {printf "%s\n",$1}' | tail -n 1)"
-    xrandr --output $monitor1 --auto --left-of $monitor2 --output $monitor2 --auto --left-of $monitor3 --output $monitor3 --auto
+    xrandr --output $monitor2 --auto --left-of $monitor1 --output $monitor3 --auto --left-of $monitor2 --output $monitor2 --auto
     ;;
     DPI)
     monitor1="$( xrandr|awk '/^eDP.* connected/ {printf "%s\n",$1}')"
